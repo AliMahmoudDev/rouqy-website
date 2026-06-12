@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import IntroAnimation from '@/components/IntroAnimation';
 import HeroSection from '@/components/HeroSection';
 import PortfolioSection from '@/components/PortfolioSection';
@@ -61,14 +62,27 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
             {/* Logo */}
             <a href="#hero" className="flex items-center gap-3 group">
-              <div className="w-8 h-8 relative">
-                <div className="absolute inset-0 rounded-full border border-[#D4AF37]/30 group-hover:border-[#D4AF37]/60 transition-colors duration-300" />
-                <div className="absolute inset-1 rounded-full border border-[#25A2DC]/20 group-hover:border-[#25A2DC]/40 transition-colors duration-300" />
-                <div className="absolute inset-[6px] rounded-full bg-[#D4AF37]/20 group-hover:bg-[#D4AF37]/40 transition-colors duration-300" />
+              <div className="relative w-9 h-9 group-hover:scale-110 transition-transform duration-300">
+                <Image
+                  src="/harmens-logo-tran.png"
+                  alt="HARMENS"
+                  width={36}
+                  height={36}
+                  className="w-full h-full object-contain"
+                  style={{
+                    filter: 'drop-shadow(0 0 8px rgba(212,175,55,0.2))',
+                  }}
+                  priority
+                />
+                {/* Glow on hover */}
+                <div
+                  className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{
+                    background: 'radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%)',
+                    filter: 'blur(8px)',
+                  }}
+                />
               </div>
-              <span className="text-white text-sm tracking-[0.3em] font-bold uppercase group-hover:text-[#D4AF37] transition-colors duration-300">
-                Harmens
-              </span>
             </a>
 
             {/* Nav Links */}
