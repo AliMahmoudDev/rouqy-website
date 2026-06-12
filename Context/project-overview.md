@@ -92,18 +92,24 @@
 - **Parallax خفيف** على الصور عند التمرير
 
 ### 3. Contact / CTA Section
+- **Instagram فقط** كوسيلة تواصل (العميل قال خلي انستا فقط حالياً)
 - نموذج تواصل (اسم - ايميل - رسالة)
 - Budget range selector ($50K-$100K / $100K-$250K / $250K-$500K / $500K+) ← من الموقع الحالي
 - زر إرسال باللون الأزرق (#25A2DC)
-- بيانات التواصل:
-  - واتساب: wa.me/966570533358 (مع floating WhatsApp button)
-  - ايميل: info@harmensdesign.com
-  - Instagram: @harmens.design
-  - Location: Saudi Arabia
+- **زر Instagram بارز** يودي على https://www.instagram.com/harmens.design/
+  - @harmens.design
+  - أيقونة Instagram + النص
 - **3D particles/effects** في الخلفية (continuous من الهيرو)
 - **Scroll animation** على النموذج والعناصر
-- Footer بسيط: اللوجو + copyright + Instagram + WhatsApp
+- Footer بسيط: اللوجو + copyright + Instagram فقط
 - **مهم:** لازم نشيل الـ noindex tag! + نضيف proper SEO metadata
+
+### ⚠️ بيانات التواصل الكاملة (محفوظة بس مش هتظهر في الموقع حالياً):
+- التلفون: 00966570533358
+- واتساب: wa.me/966570533358
+- ايميل: info@harmensdesign.com
+- Location: Saudi Arabia
+- **لو العميل طلب إضافتها بعدين، هنضيفها بسهولة**
 
 ## Reference Websites Analysis
 
@@ -190,7 +196,7 @@
 - [ ] صور المشاريع الحقيقية (~10 صور) - العميل هيبعتهالها بعدين
   - ⚠️ الموقع الحالي فيه صور stock مش حقيقية - لازم العميل يبعت صور حقيقية
   - هنستخدم صور Unsplash placeholders (luxury interiors) لحد ما يبعتهالنا
-- [x] بيانات التواصل الكاملة (Phone, WhatsApp, Email, Instagram)
+- [x] بيانات التواصل الكاملة (Phone, WhatsApp, Email, Instagram) - **العميل اختار Instagram فقط في الموقع حالياً**
 - [x] Taglines من الموقع الحالي
 - [x] بيانات المشاريع (6 مشاريع بالأسماء والمواقع والمساحات)
 - [x] الخدمات (5 خدمات بالإحصائيات)

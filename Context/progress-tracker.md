@@ -50,11 +50,11 @@
 - [ ] إنشاء ContactSection.tsx
 - [ ] نموذج تواصل (اسم + ايميل + رسالة + budget range)
 - [ ] API route للإرسال (/api/contact)
-- [ ] بيانات التواصل (WhatsApp, Email, Instagram, Location)
-- [ ] Floating WhatsApp button
+- [ ] **Instagram فقط** كوسيلة تواصل - زر بارز يودي على @harmens.design
 - [ ] 3D background continuity
-- [ ] Footer بسيط (Logo + copyright + Instagram + WhatsApp)
+- [ ] Footer بسيط (Logo + copyright + Instagram فقط)
 - [ ] Proper SEO metadata (إزالة noindex!)
+- [ ] ⚠️ بيانات التواصل الكاملة (Phone, WhatsApp, Email) محفوظة في project-overview.md لو العميل طلبها بعدين
 
 ### Phase 5: Integration & Polish
 - [ ] Smooth scrolling بين الأقسام

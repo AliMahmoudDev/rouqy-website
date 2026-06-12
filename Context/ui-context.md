@@ -68,8 +68,9 @@ Use shadcn/ui on top of Tailwind. Keep it clean and luxury-focused.
 ### Contact Section
 - تصميم مركزي أو split
 - نموذج أنيق مع minimal inputs
+- **Instagram فقط** كوسيلة تواصل - زر بارز وأنيق يودي على @harmens.design
 - **3D background** مستمرة
-- Footer بسيط مع Instagram link
+- Footer بسيط مع Instagram link فقط
 
 ## 3D Effects Guidelines (مستوحى من steven + aircenter + pacome)
 
