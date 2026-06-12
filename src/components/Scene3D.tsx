@@ -1,53 +1,96 @@
 'use client';
 
+import { useState, useEffect, useMemo } from 'react';
+
 /* ============================================
-   HARMENS CSS Background Scene v3.0
+   HARMENS CSS Background Scene v4.0
    — ZERO WebGL, Pure CSS 3D transforms
+   — Fixed hydration (deterministic random)
    — Same visual impact, 10x better performance
-   — No Three.js, no Canvas, no GPU overhead
    ============================================ */
 
+// Deterministic pseudo-random for SSR consistency
+function seededRandom(seed: number): number {
+  const x = Math.sin(seed * 127.1 + 311.7) * 43758.5453;
+  return x - Math.floor(x);
+}
+
 export default function Scene3D() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Pre-calculate all random values deterministically
+  const stars = useMemo(() =>
+    Array.from({ length: 60 }).map((_, i) => ({
+      width: 1 + seededRandom(i * 7 + 1) * 2,
+      height: 1 + seededRandom(i * 7 + 1) * 2,
+      isGold: i % 3 === 0,
+      opacity: 0.15 + seededRandom(i * 11 + 2) * 0.35,
+      left: seededRandom(i * 13 + 3) * 100,
+      top: seededRandom(i * 17 + 4) * 100,
+      duration: 3 + seededRandom(i * 19 + 5) * 4,
+      delay: seededRandom(i * 23 + 6) * 3,
+    })),
+  []
+  );
+
+  const particles = useMemo(() =>
+    Array.from({ length: 25 }).map((_, i) => ({
+      width: 1.5 + seededRandom(i * 29 + 10) * 2.5,
+      height: 1.5 + seededRandom(i * 29 + 10) * 2.5,
+      isGold: i % 2 === 0,
+      left: 5 + seededRandom(i * 31 + 11) * 90,
+      duration: 8 + seededRandom(i * 37 + 12) * 14,
+      delay: seededRandom(i * 41 + 13) * 8,
+    })),
+  []
+  );
+
   return (
     <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden" style={{ perspective: '1200px' }}>
 
       {/* ====== STAR FIELD — CSS dots ====== */}
-      <div className="absolute inset-0 animate-spin-slow" style={{ animationDuration: '120s' }}>
-        {Array.from({ length: 60 }).map((_, i) => (
-          <div
-            key={`star-${i}`}
-            className="absolute rounded-full"
-            style={{
-              width: 1 + Math.random() * 2,
-              height: 1 + Math.random() * 2,
-              background: i % 3 === 0 ? '#D4AF37' : '#25A2DC',
-              opacity: 0.15 + Math.random() * 0.35,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              boxShadow: i % 3 === 0
-                ? '0 0 4px rgba(212,175,55,0.3)'
-                : '0 0 4px rgba(37,162,220,0.3)',
-              animation: `sparkle ${3 + Math.random() * 4}s ease-in-out infinite ${Math.random() * 3}s`,
-            }}
-          />
-        ))}
-      </div>
+      {mounted && (
+        <div className="absolute inset-0 animate-spin-slow" style={{ animationDuration: '120s' }}>
+          {stars.map((s, i) => (
+            <div
+              key={`star-${i}`}
+              className="absolute rounded-full"
+              style={{
+                width: s.width,
+                height: s.height,
+                background: s.isGold ? '#D4AF37' : '#25A2DC',
+                opacity: s.opacity,
+                left: `${s.left}%`,
+                top: `${s.top}%`,
+                boxShadow: s.isGold
+                  ? '0 0 4px rgba(212,175,55,0.3)'
+                  : '0 0 4px rgba(37,162,220,0.3)',
+                animation: `sparkle ${s.duration}s ease-in-out infinite ${s.delay}s`,
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       {/* ====== FLOATING PARTICLES — CSS only ====== */}
-      {Array.from({ length: 25 }).map((_, i) => (
+      {mounted && particles.map((p, i) => (
         <div
           key={`particle-${i}`}
           className="absolute rounded-full"
           style={{
-            width: 1.5 + Math.random() * 2.5,
-            height: 1.5 + Math.random() * 2.5,
-            background: i % 2 === 0 ? 'rgba(212,175,55,0.6)' : 'rgba(37,162,220,0.5)',
-            boxShadow: i % 2 === 0
+            width: p.width,
+            height: p.height,
+            background: p.isGold ? 'rgba(212,175,55,0.6)' : 'rgba(37,162,220,0.5)',
+            boxShadow: p.isGold
               ? '0 0 6px rgba(212,175,55,0.4)'
               : '0 0 5px rgba(37,162,220,0.3)',
-            left: `${5 + Math.random() * 90}%`,
+            left: `${p.left}%`,
             opacity: 0,
-            animation: `particle-rise ${8 + Math.random() * 14}s linear infinite ${Math.random() * 8}s`,
+            animation: `particle-rise ${p.duration}s linear infinite ${p.delay}s`,
           }}
         />
       ))}

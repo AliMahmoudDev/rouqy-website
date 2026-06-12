@@ -8,48 +8,75 @@ interface HeroSectionProps {
   introComplete: boolean;
 }
 
-/* CSS-only floating particles */
+// Deterministic pseudo-random for SSR consistency
+function seededRandom(seed: number): number {
+  const x = Math.sin(seed * 127.1 + 311.7) * 43758.5453;
+  return x - Math.floor(x);
+}
+
+/* CSS-only floating particles — deterministic values */
 function FloatingParticles() {
+  // Pre-calculate all particle data deterministically
+  const goldParticles = Array.from({ length: 15 }).map((_, i) => ({
+    width: 2 + seededRandom(i * 7 + 1) * 3,
+    height: 2 + seededRandom(i * 7 + 1) * 3,
+    left: seededRandom(i * 11 + 2) * 100,
+    top: seededRandom(i * 13 + 3) * 100,
+    duration: 8 + seededRandom(i * 17 + 4) * 12,
+    delay: seededRandom(i * 19 + 5) * 10,
+  }));
+  const blueParticles = Array.from({ length: 12 }).map((_, i) => ({
+    width: 1.5 + seededRandom(i * 23 + 6) * 2,
+    height: 1.5 + seededRandom(i * 23 + 6) * 2,
+    left: seededRandom(i * 29 + 7) * 100,
+    top: seededRandom(i * 31 + 8) * 100,
+    duration: 10 + seededRandom(i * 37 + 9) * 15,
+    delay: seededRandom(i * 41 + 10) * 10,
+  }));
+  const sparkleParticles = Array.from({ length: 8 }).map((_, i) => ({
+    left: 10 + seededRandom(i * 43 + 11) * 80,
+    top: 10 + seededRandom(i * 47 + 12) * 80,
+    duration: 2 + seededRandom(i * 53 + 13) * 3,
+    delay: seededRandom(i * 59 + 14) * 5,
+  }));
+
   return (
     <div className="hero-particles">
-      {/* Gold particles */}
-      {Array.from({ length: 15 }).map((_, i) => (
+      {goldParticles.map((p, i) => (
         <div
           key={`gold-${i}`}
           className="hero-particle"
           style={{
-            width: `${2 + Math.random() * 3}px`,
-            height: `${2 + Math.random() * 3}px`,
+            width: `${p.width}px`,
+            height: `${p.height}px`,
             background: '#D4AF37',
             boxShadow: '0 0 6px rgba(212,175,55,0.4)',
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
+            left: `${p.left}%`,
+            top: `${p.top}%`,
             opacity: 0,
-            animation: `particle-rise ${8 + Math.random() * 12}s linear infinite`,
-            animationDelay: `${Math.random() * 10}s`,
+            animation: `particle-rise ${p.duration}s linear infinite`,
+            animationDelay: `${p.delay}s`,
           }}
         />
       ))}
-      {/* Blue particles */}
-      {Array.from({ length: 12 }).map((_, i) => (
+      {blueParticles.map((p, i) => (
         <div
           key={`blue-${i}`}
           className="hero-particle"
           style={{
-            width: `${1.5 + Math.random() * 2}px`,
-            height: `${1.5 + Math.random() * 2}px`,
+            width: `${p.width}px`,
+            height: `${p.height}px`,
             background: '#25A2DC',
             boxShadow: '0 0 4px rgba(37,162,220,0.3)',
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
+            left: `${p.left}%`,
+            top: `${p.top}%`,
             opacity: 0,
-            animation: `particle-fall ${10 + Math.random() * 15}s linear infinite`,
-            animationDelay: `${Math.random() * 10}s`,
+            animation: `particle-fall ${p.duration}s linear infinite`,
+            animationDelay: `${p.delay}s`,
           }}
         />
       ))}
-      {/* Sparkle dots */}
-      {Array.from({ length: 8 }).map((_, i) => (
+      {sparkleParticles.map((p, i) => (
         <div
           key={`spark-${i}`}
           className="hero-particle"
@@ -58,11 +85,11 @@ function FloatingParticles() {
             height: '2px',
             background: '#FFFFFF',
             boxShadow: '0 0 8px rgba(255,255,255,0.5)',
-            left: `${10 + Math.random() * 80}%`,
-            top: `${10 + Math.random() * 80}%`,
+            left: `${p.left}%`,
+            top: `${p.top}%`,
             opacity: 0,
-            animation: `sparkle ${2 + Math.random() * 3}s ease-in-out infinite`,
-            animationDelay: `${Math.random() * 5}s`,
+            animation: `sparkle ${p.duration}s ease-in-out infinite`,
+            animationDelay: `${p.delay}s`,
           }}
         />
       ))}
