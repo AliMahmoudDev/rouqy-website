@@ -15,6 +15,12 @@
 - [x] تحليل المواقع المرجعية الخمسة واستخلاص الأنماط
 - [x] تحديد التقنيات المطلوبة من كل مرجع
 - [x] تحديث ملفات الكونتكست بالتحليل
+- [x] تحليل الموقع الحالي harmensdesign.com واستخلاص البيانات
+- [x] إضافة بيانات التواصل الكاملة (Phone, WhatsApp, Email, Instagram)
+- [x] إضافة Taglines من الموقع الحالي
+- [x] إضافة بيانات المشاريع الـ 6
+- [x] إضافة الخدمات الـ 5 بالإحصائيات
+- [x] تحديد مشاكل الموقع الحالي اللي لازم نتجنبها
 
 ## In Progress
 - [ ] تنفيذ Hero Section
@@ -42,19 +48,24 @@
 
 ### Phase 4: Contact Section
 - [ ] إنشاء ContactSection.tsx
-- [ ] نموذج تواصل (اسم + ايميل + رسالة)
-- [ ] API route للإرسال
+- [ ] نموذج تواصل (اسم + ايميل + رسالة + budget range)
+- [ ] API route للإرسال (/api/contact)
+- [ ] بيانات التواصل (WhatsApp, Email, Instagram, Location)
+- [ ] Floating WhatsApp button
 - [ ] 3D background continuity
-- [ ] Footer بسيط مع Instagram
+- [ ] Footer بسيط (Logo + copyright + Instagram + WhatsApp)
+- [ ] Proper SEO metadata (إزالة noindex!)
 
 ### Phase 5: Integration & Polish
 - [ ] Smooth scrolling بين الأقسام
 - [ ] تربيط الثلاث أقسام (3D continuity)
 - [ ] Performance optimization
 - [ ] Responsive testing (موبايل + تابلت + ديسكتوب)
-- [ ] Lighthouse audit
+- [ ] SEO: proper title, description, og:image, canonical URL
+- [ ] Lighthouse audit (Target: >90)
 
 ## Open Questions
-- [ ] صور المشاريع الحقيقية (العميل هيبعتهالها بعدين - placeholders حالياً)
-- [ ] بيانات التواصل التفصيلية (رقم تلفون؟ ايميل؟ عنوان؟)
+- [ ] صور المشاريع الحقيقية (العميل هيبعتهالها بعدين - Unsplash placeholders حالياً)
+- [x] ~~بيانات التواصل التفصيلية~~ → تم الحصول عليها من الموقع الحالي
 - [ ] الاستضافة النهائية
+- [ ] هل العميل عايز Arabic language toggle في الموقع الجديد؟ (الموقع الحالي عنده زر العربية)
