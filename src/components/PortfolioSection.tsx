@@ -56,7 +56,7 @@ const projects = [
     location: 'Jeddah, KSA',
     area: '310 sqm',
     year: '2022',
-    image: 'https://images.unsplash.com/photo-1616137466211-f73a09a65f30?w=1200&q=85',
+    image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=85',
     description: 'Intimate luxury where the warmth of fire meets the coolness of contemporary design.',
   },
 ];
