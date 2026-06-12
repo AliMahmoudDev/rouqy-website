@@ -1,0 +1,43 @@
+{
+  "success": true,
+  "query": "AIR business center website awwwards black white luxury real estate",
+  "count": 5,
+  "ranked": true,
+  "results": [
+    {
+      "original_url": "https://sfile.chatglm.cn/images-ppt/b966cafea4ef.png",
+      "caption": "The image contains a large amount of text information and you do not need to output the text completely.",
+      "source": "Awwwards",
+      "original_width": "1600px",
+      "original_height": "1200px"
+    },
+    {
+      "original_url": "https://sfile.chatglm.cn/images-ppt/090ef667264a.jpeg",
+      "caption": "The image contains a large amount of text information and you do not need to output the text completely.",
+      "source": "Awwwards",
+      "original_width": "1600px",
+      "original_height": "1200px"
+    },
+    {
+      "original_url": "https://sfile.chatglm.cn/images-ppt/2a9f6c3b2d24.jpg",
+      "caption": "The image contains a large amount of text information and you do not need to output the text completely.",
+      "source": "Awwwards",
+      "original_width": "1600px",
+      "original_height": "1200px"
+    },
+    {
+      "original_url": "https://sfile.chatglm.cn/images-ppt/e223ddfd20ec.jpg",
+      "caption": "A laptop screen displays a real estate website with the text \"PLACE OF ART\" and a city skyline. suitable for background image",
+      "source": "Vide Infra",
+      "original_width": "1200px",
+      "original_height": "900px"
+    },
+    {
+      "original_url": "https://sfile.chatglm.cn/images-ppt/eaf78b301ae2.jpg",
+      "caption": "The image contains a large amount of text information and you do not need to output the text completely.",
+      "source": "Reddit",
+      "original_width": "3150px",
+      "original_height": "12740px"
+    }
+  ]
+}

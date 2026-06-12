@@ -1,7 +1,11 @@
 # UI Context - HARMENS
 
 ## Theme & Vibe
-**Dark Luxury Minimal** - تصميم داكن فاخر مينيمال بيعكس هوية شركة تصميم داخلي وهندسة معمارية عالمية. الإحساس لازم يكون Premium، راقي، مش قالب جاهز. الأنيميشن والـ 3D لازم يكونوا خفيفين وراقيين مش مبالغ فيهم.
+**Dark Luxury Minimal** - تصميم داكن فاخر مينيمال بيعكس هوية شركة تصميم داخلي وهندسة معمارية عالمية.
+
+**الإحساس المطلوب:** لما الزائر يفتح الموقع يحس إنه دخل معرض فن أو showroom فاخر - مش موقع عادي. الإحساس لازم يكون زي مواقع المراجع: سينمائي، راقي، مبهور.
+
+**الكلمات المفتاحية:** Cinematic, Architectural, Premium, Restrained, Confident
 
 ## Colors (CSS Custom Properties)
 | Role            | CSS Variable       | Value       | ملاحظات                          |
@@ -15,38 +19,123 @@
 | Border          | `--border-default` | `#2D3A4D`   | حدود خفيفة                       |
 | Card BG         | `--bg-card`        | `#1A2535`   | خلفية الكروت                     |
 
-## Typography
-| Role      | Font              | Variable        | ملاحظات                     |
-| --------- | ----------------- | --------------- | --------------------------- |
-| Headings  | Inter / Geist     | `--font-heading` | Bold, Elegant, Clean        |
-| Body text | Inter / Geist     | `--font-body`    | Regular weight              |
+### قاعدة الألوان (مستوحاة من المراجع):
+- **2-3 ألوان بس** - كل المراجع بتستخدم ألوان محدودة جداً
+- Dark Navy هو البطل + Light Blue للأكسنت + White للنص
+- لا gradients معقدة - بس subtle gradients خفيفة
+- الـ 3D objects تستخدم نفس الألوان مع شفافية
 
-> **ملاحظة:** الخطوط المستخدمة في المشروع هي Geist Sans و Geist Mono (موجودة بالفعل في Next.js). لو العميل طلب خطوط تانية هنغيرها.
+## Typography
+| Role      | Font              | Variable        | Size (Desktop) | ملاحظات                     |
+| --------- | ----------------- | --------------- | -------------- | --------------------------- |
+| Hero Title| Geist Sans        | `--font-heading` | 80-120px       | Uppercase, bold, tight tracking |
+| Subtitle  | Geist Sans        | `--font-body`    | 18-24px        | Light weight, wide tracking |
+| Body text | Geist Sans        | `--font-body`    | 16px           | Regular weight              |
+
+### قواعد التيبوجرافي (مستوحاة من المراجع):
+- **Hero Title ضخم** - كل المراجع بتستخدم خطوط 80-150px
+- **مكونلبوز بعناية** - النص متظبط مع line breaks يدوية مش عشوائي
+- **Per-character animation** - النص بيظهر حرف حرف (زي steven.com)
+- **Uppercase** للعناوين الكبيرة
+- **Tight letter-spacing** للعناوين الكبيرة (negative tracking)
+- **Generous line-height** للمقروئية
 
 ## Component Library
 Use shadcn/ui on top of Tailwind. Keep it clean and luxury-focused.
+- Button component للـ CTA
+- Input/Textarea للنموذج تواصل
+- لا كروت كتير - التصميم مينيمال
 
 ## Layout Patterns
-- **Hero:** Full screen (100vh), عنوان كبير HARMENS في النص، 3D objects floating في الخلفية، CTA button
-- **Portfolio:** Grid layout مع صور كبيرة، hover effects احترافية، scroll animations
-- **Contact:** Split layout (معلومات التواصل يمين + نموذج شمال) أو مركزي، 3D particles في الخلفية
-- **General:** Smooth scrolling بين الأقسام، كل section بيبدأ بـ fade-in animation
 
-## 3D Effects Guidelines
-- **أشكال 3D:** مجردة ومعمارية (مكعبات، أشكال هندسية، خطوط)
-- **حركة:** بطيئة وراقية (مش سريعة ولا مبالغ فيها)
-- **ألوان الـ 3D:** نغمات من الـ Dark Navy والـ Light Blue مع شفافية
-- **التوزيع:** 3D objects في الـ background مش بتغطي على المحتوى
-- **Consistency:** نفس الـ vibe بتاع الـ 3D في الثلاث أقسام - continuous feel
+### Hero Section (مستوحى من aircenter + steven + ulysses)
+- **Full viewport** (100vh)
+- **3D canvas** في الخلفية (position: absolute, z-0)
+- **محتوى في النص** (position: relative, z-10)
+- عنوان HARMENS ضخم في المنتصف
+- Subtitle تحته
+- CTA button
+- Scroll indicator في الأسفل
+- **Gradient overlay** من الأسفل للسموث ترانزيشن
+
+### Portfolio Section (مستوحى من septiembre + ulysses)
+- **Grid غير متماثل** (مش 3 أعمدة متساوية)
+- صور كبيرة بأحجام مختلفة (span 2 columns لبعضها)
+- **Hover overlay** شفاف مع اسم المشروع
+- **Scroll reveal** لكل صورة
+- **3D particles** خفيفة في الخلفية
+
+### Contact Section
+- تصميم مركزي أو split
+- نموذج أنيق مع minimal inputs
+- **3D background** مستمرة
+- Footer بسيط مع Instagram link
+
+## 3D Effects Guidelines (مستوحى من steven + aircenter + pacome)
+
+### نوع الـ 3D:
+- **أشكال معمارية مجردة** (مكعبات، كرات، طورس، أوتاهيدرون)
+- **Floating effect** - أشكال عائمة بتتحرك ببطء
+- **Distort material** - أشكال متشوهة شوية (عضوية مش هندسية بحتة)
+- **Wireframe** خفيف على بعض الأشكال
+
+### ألوان الـ 3D:
+- نسخ من ألوان الموقع: Dark Navy شفاف + Light Blue متوهج
+- **Emissive glow** على الأشكال (خليها تلمع شوية)
+- **Transparent** عشان متغطيش على المحتوى
+
+### حركة الـ 3D:
+- **بطيئة وراقية** - سرعات منخفضة (0.2-0.6)
+- **Float** من Drei - حركة عائمة
+- **Rotate** ببطء
+- **لا حركات مفاجئة** - كل حاجة سلسة
+
+### التوزيع بين الأقسام:
+- **Hero:** أشكال كبيرة واضحة (main 3D scene)
+- **Portfolio:** particles خفيفة أو أشكال صغيرة في الخلفية
+- **Contact:** continuation من الـ particles + شكل أو اتنين
+
+### Performance:
+- Limit الـ meshes (10-15 كحد أقصى)
+- استخدم `Float` من Drei
+- استخدم `MeshDistortMaterial` للتشوه الراقي
+- Particle count: 100-200 كحد أقصى
+
+## Animation Guidelines (مستوحى من كل المراجع)
+
+### Scroll Animations:
+- **Fade-in + Slide-up** للعناصر عند التمرير
+- **Stagger** بين العناصر المتجاورة
+- **whileInView** من Framer Motion
+- **once: true** - الأنيميشن يتم مرة واحدة بس
+
+### 3D Animations:
+- **Float** - أشكال عائمة
+- **Rotate** - دوران بطيء
+- **Distort** - تشوه متدرج
+
+### Hover Effects:
+- **Scale 1.02-1.05** على الصور
+- **Overlay appear** شفاف
+- **Glow effect** على الأزرار
+
+### Text Animations:
+- **Per-character reveal** في الهيرو (زي steven.com)
+- **Fade-up stagger** في باقي الأقسام
+
+### Duration:
+- Scroll animations: 0.5-1s
+- 3D rotations: continuous بطيء
+- Hover: 0.3s
+- Text reveal: 0.5s per char + stagger 0.03s
 
 ## Icons & Graphics
 - Lucide React للأيقونات
-- صور placeholders من Unsplash (عمارة / تصميم داخلي) لحد ما العميل يبعث الصور الحقيقية
+- صور placeholders من Unsplash (عمارة / تصميم داخلي)
 - اللوجو: logo.png / tran-04.png
 
-## Animation Guidelines
-- **Scroll Animations:** Elements تظهر تدريجياً عند التمرير (fade-in, slide-up, scale)
-- **3D Animations:** أشكال تدور ببطء وتتحرك (floating effect)
-- **Smooth Scrolling:** CSS scroll-behavior: smooth
-- **Hover Effects:** Scale خفيف + glow على الصور والكروت
-- **Duration:** Animations بين 0.5-1.5 ثانية (مش أبطأ ولا أسرع)
+## Spacing (مستوحى من المراجع)
+- **Section padding:** py-24 to py-32 (96-128px)
+- **Between sections:** generous spacing
+- **Content max-width:** max-w-6xl to max-w-7xl
+- **Hero:** full viewport height
