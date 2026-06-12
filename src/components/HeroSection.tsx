@@ -210,22 +210,22 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
         rafId = requestAnimationFrame(() => {
           const scrollY = window.scrollY;
 
-          // Deep layer — moves slowest (0.15x scroll speed)
+          // Deep layer — moves slowest (0.25x scroll speed)
           const deepLayer = document.querySelector('.parallax-layer-deep');
           if (deepLayer) {
-            (deepLayer as HTMLElement).style.transform = `translate3d(0, ${scrollY * 0.15}px, 0)`;
+            (deepLayer as HTMLElement).style.transform = `translate3d(0, ${scrollY * 0.25}px, 0)`;
           }
 
-          // Mid layer — medium speed (0.3x scroll speed)
+          // Mid layer — medium speed (0.5x scroll speed)
           const midLayer = document.querySelector('.parallax-layer-mid');
           if (midLayer) {
-            (midLayer as HTMLElement).style.transform = `translate3d(0, ${scrollY * 0.3}px, 0)`;
+            (midLayer as HTMLElement).style.transform = `translate3d(0, ${scrollY * 0.5}px, 0)`;
           }
 
-          // Foreground layer — moves fastest (0.5x scroll speed)
+          // Foreground layer — moves fastest (0.8x scroll speed)
           const fgLayer = document.querySelector('.parallax-layer-fg');
           if (fgLayer) {
-            (fgLayer as HTMLElement).style.transform = `translate3d(0, ${scrollY * 0.5}px, 0)`;
+            (fgLayer as HTMLElement).style.transform = `translate3d(0, ${scrollY * 0.8}px, 0)`;
           }
 
           ticking = false;
@@ -377,8 +377,8 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
             <Image
               src="/harmens-logo-tran.png"
               alt="HARMENS"
-              width={120}
-              height={120}
+              width={160}
+              height={160}
               className="relative z-10"
               priority
             />

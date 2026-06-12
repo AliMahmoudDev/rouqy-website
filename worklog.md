@@ -47,3 +47,30 @@ Stage Summary:
 - All effects use CSS 3D transforms only (GPU-accelerated, no WebGL, no lag)
 - All new components use dynamic imports with ssr: false to avoid hydration issues
 - Parallax uses requestAnimationFrame with ticking pattern for smooth 60fps
+
+---
+Task ID: 3
+Agent: Main Agent
+Task: Make logos bigger + make 3D effects more visible and noticeable
+
+Work Log:
+- Increased navbar logo from w-9 h-9 (36px) to w-12 h-12 (48px) with stronger glow
+- Increased hero logo from 120px to 160px
+- Increased CardTilt3D defaults: maxTilt 8→15, glareOpacity 0.15→0.3, scale 1.02→1.05, perspective 1000→800
+- Increased all portfolio CardTilt3D instances: maxTilt 6→12, 8→14, 4→10; glareOpacity doubled
+- Added gold+blue tint to glare overlay gradient for more visible color
+- Increased edge glow boxShadow intensity (0.08→0.15, 0.04→0.08, added outer glow)
+- Increased parallax speeds: deep 0.15→0.25, mid 0.3→0.5, fg 0.5→0.8
+- Made TextSplit3D much more dramatic: entrance rotateX 80→120, rotateY ±30→±50, translateZ -200→-400
+- Added scrollRotateY to TextSplit3D for more visible 3D rotation on scroll
+- Increased scroll multipliers: scrollRotateX ×5→×12, scrollTranslateZ 20→40
+- Increased SectionReveal3D: rotateX 6→12/4→8, translateZ -40→-80/-30→-60, duration longer
+- Made Scene3D elements bigger and more visible: gold ring 350→450px, blue sphere 180→220px, icosahedron 250→300px
+- Increased Scene3D opacity/glow on all shapes (borders thicker, box-shadows stronger, gradients richer)
+- Increased text-split-letter text-shadow for more prominent glow
+- Build succeeded with zero errors
+
+Stage Summary:
+- Logos enlarged (navbar 36→48px, hero 120→160px)
+- All 3D effects dramatically more visible: stronger tilts, faster parallax, bigger shapes, brighter glows
+- The client will immediately notice the 3D effects now — not subtle anymore

@@ -1159,12 +1159,12 @@ html {
   transform-style: preserve-3d;
   will-change: transform, opacity;
   backface-visibility: hidden;
-  text-shadow: 0 0 40px rgba(212,175,55,0.1), 0 0 80px rgba(37,162,220,0.05);
+  text-shadow: 0 0 60px rgba(212,175,55,0.2), 0 0 120px rgba(37,162,220,0.1);
   transition: text-shadow 0.3s ease;
 }
 
 .text-split-letter:hover {
-  text-shadow: 0 0 30px rgba(212,175,55,0.4), 0 0 60px rgba(37,162,220,0.2);
+  text-shadow: 0 0 40px rgba(212,175,55,0.6), 0 0 80px rgba(37,162,220,0.3), 0 0 120px rgba(212,175,55,0.2);
 }
 
 /* ============================================

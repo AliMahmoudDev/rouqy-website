@@ -246,7 +246,7 @@ export default function PortfolioSection() {
           {/* First row: Large hero project + tall project */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 mb-4 md:mb-5">
             {/* Hero project - spans 8 cols */}
-            <CardTilt3D maxTilt={6} glareOpacity={0.12} className="md:col-span-8">
+            <CardTilt3D maxTilt={12} glareOpacity={0.25} className="md:col-span-8">
             <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '16/9' }}>
               <div className="relative w-full h-full overflow-hidden">
                 <Image
@@ -295,7 +295,7 @@ export default function PortfolioSection() {
             </CardTilt3D>
 
             {/* Tall project - spans 4 cols */}
-            <CardTilt3D maxTilt={6} glareOpacity={0.12} className="md:col-span-4">
+            <CardTilt3D maxTilt={12} glareOpacity={0.25} className="md:col-span-4">
             <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '3/4' }}>
               <div className="relative w-full h-full overflow-hidden">
                 <Image
@@ -337,7 +337,7 @@ export default function PortfolioSection() {
           {/* Second row: 3 equal cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-4 md:mb-5">
             {projects.slice(2, 5).map((project, index) => (
-              <CardTilt3D key={`tilt-${project.title}`} maxTilt={8} glareOpacity={0.1}>
+              <CardTilt3D key={`tilt-${project.title}`} maxTilt={14} glareOpacity={0.25}>
               <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '4/5' }}>
                 <div className="relative w-full h-full overflow-hidden">
                   <Image
@@ -383,7 +383,7 @@ export default function PortfolioSection() {
           </div>
 
           {/* Third row: Full-width cinematic project */}
-          <CardTilt3D maxTilt={4} glareOpacity={0.08}>
+          <CardTilt3D maxTilt={10} glareOpacity={0.2}>
           <div className="portfolio-card group relative cursor-pointer mb-4 md:mb-5" style={{ aspectRatio: '21/9' }}>
             <div className="relative w-full h-full overflow-hidden">
               <Image

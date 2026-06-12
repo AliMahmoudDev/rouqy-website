@@ -1,0 +1,37 @@
+{
+  "[project]/src/components/TextSplit3D.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/TextSplit3D.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/src_components_TextSplit3D_tsx_90f9dd65._.js",
+      "static/chunks/src_components_TextSplit3D_tsx_f7e56c03._.js"
+    ]
+  },
+  "[project]/src/components/Parallax3D.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/Parallax3D.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/src_components_Parallax3D_tsx_25fc7b2c._.js",
+      "static/chunks/src_components_Parallax3D_tsx_f7e56c03._.js"
+    ]
+  },
+  "[project]/src/components/CardTilt3D.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/CardTilt3D.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/src_components_CardTilt3D_tsx_753f7bcf._.js",
+      "static/chunks/src_components_CardTilt3D_tsx_f7e56c03._.js"
+    ]
+  },
+  "[project]/src/components/Scene3D.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/Scene3D.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/src_components_Scene3D_tsx_31215cc0._.js",
+      "static/chunks/src_components_Scene3D_tsx_f7e56c03._.js"
+    ]
+  },
+  "[project]/src/components/SectionReveal3D.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/SectionReveal3D.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/src_components_SectionReveal3D_tsx_d1980f32._.js",
+      "static/chunks/src_components_SectionReveal3D_tsx_f7e56c03._.js"
+    ]
+  }
+}

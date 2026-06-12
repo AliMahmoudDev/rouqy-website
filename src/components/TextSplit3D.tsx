@@ -82,18 +82,20 @@ export default function TextSplit3D({
       {letters.map((letter, i) => {
         const isSpace = letter === ' ';
 
-        // Entrance animation values
-        const entranceRotateX = mounted ? 0 : 80 + (i % 3) * 20;
-        const entranceRotateY = mounted ? 0 : (i % 2 === 0 ? -30 : 30);
-        const entranceTranslateZ = mounted ? 0 : -200;
+        // Entrance animation values — MORE dramatic
+        const entranceRotateX = mounted ? 0 : 120 + (i % 3) * 30;
+        const entranceRotateY = mounted ? 0 : (i % 2 === 0 ? -50 : 50);
+        const entranceTranslateZ = mounted ? 0 : -400;
         const entranceOpacity = mounted ? 1 : 0;
 
-        // Scroll animation values
-        const normalizedScroll = scrollY * scrollIntensity * 0.003;
-        const scrollRotateX = mode === 'scroll' ? normalizedScroll * (i % 2 === 0 ? 1 : -1) * 5 : 0;
-        const scrollTranslateZ = mode === 'scroll' ? Math.sin(normalizedScroll + i * 0.5) * 20 : 0;
+        // Scroll animation values — MORE visible
+        const normalizedScroll = scrollY * scrollIntensity * 0.005;
+        const scrollRotateX = mode === 'scroll' ? normalizedScroll * (i % 2 === 0 ? 1 : -1) * 12 : 0;
+        const scrollRotateY = mode === 'scroll' ? normalizedScroll * (i % 3 === 0 ? 1 : -0.5) * 6 : 0;
+        const scrollTranslateZ = mode === 'scroll' ? Math.sin(normalizedScroll + i * 0.5) * 40 : 0;
 
         const finalRotateX = entranceRotateX + scrollRotateX;
+        const finalRotateY = entranceRotateY + scrollRotateY;
         const finalTranslateZ = entranceTranslateZ + scrollTranslateZ;
 
         return (
@@ -102,7 +104,7 @@ export default function TextSplit3D({
             className={`text-split-letter ${letterClassName}`}
             style={{
               display: 'inline-block',
-              transform: `rotateX(${finalRotateX}deg) rotateY(${entranceRotateY}deg) translateZ(${finalTranslateZ}px)`,
+              transform: `rotateX(${finalRotateX}deg) rotateY(${finalRotateY}deg) translateZ(${finalTranslateZ}px)`,
               opacity: entranceOpacity,
               transition: mounted
                 ? `transform ${entranceDuration}ms cubic-bezier(0.16, 1, 0.3, 1) ${i * staggerDelay}ms, opacity ${entranceDuration * 0.6}ms ease ${i * staggerDelay}ms`

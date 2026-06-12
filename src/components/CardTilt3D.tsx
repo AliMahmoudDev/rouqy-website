@@ -23,10 +23,10 @@ interface CardTilt3DProps {
 export default function CardTilt3D({
   children,
   className = '',
-  maxTilt = 8,
-  glareOpacity = 0.15,
-  scale = 1.02,
-  perspective = 1000,
+  maxTilt = 15,
+  glareOpacity = 0.3,
+  scale = 1.05,
+  perspective = 800,
 }: CardTilt3DProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [transform, setTransform] = useState('');
@@ -58,7 +58,7 @@ export default function CardTilt3D({
         const glareAngle = Math.atan2(y - centerY, x - centerX) * (180 / Math.PI);
         setGlareStyle({
           opacity: glareOpacity,
-          background: `linear-gradient(${glareAngle + 180}deg, rgba(255,255,255,0.15) 0%, transparent 60%)`,
+          background: `linear-gradient(${glareAngle + 180}deg, rgba(255,255,255,0.25) 0%, rgba(212,175,55,0.1) 30%, rgba(37,162,220,0.05) 50%, transparent 70%)`,
         });
       });
     },
@@ -112,7 +112,7 @@ export default function CardTilt3D({
           zIndex: 4,
           borderRadius: 'inherit',
           boxShadow: transform
-            ? 'inset 0 0 30px rgba(37,162,220,0.08), inset 0 0 60px rgba(212,175,55,0.04)'
+            ? 'inset 0 0 40px rgba(37,162,220,0.15), inset 0 0 80px rgba(212,175,55,0.08), 0 0 30px rgba(37,162,220,0.1)'
             : 'none',
           opacity: transform ? 1 : 0,
           transition: transform ? 'none' : 'opacity 0.4s ease',

@@ -101,11 +101,11 @@ export default function Scene3D() {
       <div
         className="absolute"
         style={{
-          width: '350px',
-          height: '350px',
-          top: '15%',
+          width: '450px',
+          height: '450px',
+          top: '10%',
           left: '50%',
-          marginLeft: '-175px',
+          marginLeft: '-225px',
           animation: 'spin-3d 20s linear infinite, breathe 6s ease-in-out infinite',
           transformStyle: 'preserve-3d',
         }}
@@ -114,16 +114,16 @@ export default function Scene3D() {
         <div
           className="absolute inset-0 rounded-full animate-border-glow-gold"
           style={{
-            border: '2px solid rgba(212,175,55,0.3)',
-            boxShadow: '0 0 30px rgba(212,175,55,0.15), inset 0 0 30px rgba(212,175,55,0.05)',
+            border: '2.5px solid rgba(212,175,55,0.5)',
+            boxShadow: '0 0 50px rgba(212,175,55,0.25), inset 0 0 50px rgba(212,175,55,0.08)',
           }}
         />
         {/* Inner ring */}
         <div
           className="absolute rounded-full"
           style={{
-            inset: '20px',
-            border: '1.5px solid rgba(212,175,55,0.2)',
+            inset: '25px',
+            border: '2px solid rgba(212,175,55,0.35)',
             animation: 'spin-reverse-slow 15s linear infinite',
           }}
         />
@@ -131,8 +131,8 @@ export default function Scene3D() {
         <div
           className="absolute rounded-full"
           style={{
-            inset: '40px',
-            border: '1px solid rgba(37,162,220,0.15)',
+            inset: '50px',
+            border: '1.5px solid rgba(37,162,220,0.25)',
             animation: 'spin-slow 25s linear infinite',
             transform: 'rotateX(60deg)',
           }}
@@ -141,14 +141,14 @@ export default function Scene3D() {
         <div
           className="absolute rounded-full"
           style={{
-            width: 6,
-            height: 6,
+            width: 8,
+            height: 8,
             background: '#D4AF37',
-            boxShadow: '0 0 15px rgba(212,175,55,0.6), 0 0 30px rgba(212,175,55,0.3)',
+            boxShadow: '0 0 25px rgba(212,175,55,0.8), 0 0 50px rgba(212,175,55,0.4)',
             top: '50%',
             left: '50%',
-            marginTop: -3,
-            marginLeft: -3,
+            marginTop: -4,
+            marginLeft: -4,
           }}
         />
       </div>
@@ -157,13 +157,13 @@ export default function Scene3D() {
       <div
         className="absolute rounded-full"
         style={{
-          width: '180px',
-          height: '180px',
+          width: '220px',
+          height: '220px',
           top: '18%',
           left: '8%',
-          background: 'radial-gradient(circle at 35% 35%, rgba(37,162,220,0.25) 0%, rgba(37,162,220,0.08) 50%, transparent 70%)',
-          boxShadow: '0 0 60px rgba(37,162,220,0.12), inset 0 0 30px rgba(37,162,220,0.08)',
-          border: '1px solid rgba(37,162,220,0.1)',
+          background: 'radial-gradient(circle at 35% 35%, rgba(37,162,220,0.35) 0%, rgba(37,162,220,0.12) 50%, transparent 70%)',
+          boxShadow: '0 0 80px rgba(37,162,220,0.18), inset 0 0 40px rgba(37,162,220,0.1)',
+          border: '1.5px solid rgba(37,162,220,0.15)',
           animation: 'float-3d 10s ease-in-out infinite, breathe 5s ease-in-out infinite',
         }}
       />
@@ -172,10 +172,10 @@ export default function Scene3D() {
       <div
         className="absolute"
         style={{
-          width: '250px',
-          height: '250px',
-          top: '12%',
-          right: '5%',
+          width: '300px',
+          height: '300px',
+          top: '10%',
+          right: '3%',
           animation: 'spin-slow 30s linear infinite, float 8s ease-in-out infinite',
           transformStyle: 'preserve-3d',
         }}
@@ -184,31 +184,31 @@ export default function Scene3D() {
         <div
           className="absolute inset-0 rounded-full"
           style={{
-            border: '1px solid rgba(37,162,220,0.2)',
-            boxShadow: '0 0 20px rgba(37,162,220,0.08)',
+            border: '1.5px solid rgba(37,162,220,0.3)',
+            boxShadow: '0 0 30px rgba(37,162,220,0.12)',
           }}
         />
         {/* Inner wireframe */}
         <div
           className="absolute rounded-full"
           style={{
-            inset: '30px',
-            border: '1px solid rgba(37,162,220,0.15)',
+            inset: '35px',
+            border: '1.5px solid rgba(37,162,220,0.2)',
             animation: 'spin-reverse-slow 20s linear infinite',
           }}
         />
         {/* Cross lines */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div style={{ width: '1px', height: '100%', background: 'linear-gradient(180deg, transparent, rgba(37,162,220,0.15), transparent)' }} />
+          <div style={{ width: '1px', height: '100%', background: 'linear-gradient(180deg, transparent, rgba(37,162,220,0.25), transparent)' }} />
         </div>
         <div className="absolute inset-0 flex items-center justify-center">
-          <div style={{ height: '1px', width: '100%', background: 'linear-gradient(90deg, transparent, rgba(37,162,220,0.15), transparent)' }} />
+          <div style={{ height: '1px', width: '100%', background: 'linear-gradient(90deg, transparent, rgba(37,162,220,0.25), transparent)' }} />
         </div>
         {/* Diagonal lines */}
         <div
           className="absolute inset-0"
           style={{
-            border: '1px solid rgba(37,162,220,0.08)',
+            border: '1.5px solid rgba(37,162,220,0.12)',
             borderRadius: '50%',
             transform: 'rotate(45deg) scaleY(0.6)',
           }}
@@ -216,7 +216,7 @@ export default function Scene3D() {
         <div
           className="absolute inset-0"
           style={{
-            border: '1px solid rgba(37,162,220,0.08)',
+            border: '1.5px solid rgba(37,162,220,0.12)',
             borderRadius: '50%',
             transform: 'rotate(-45deg) scaleY(0.6)',
           }}
@@ -227,13 +227,13 @@ export default function Scene3D() {
       <div
         className="absolute rounded-full animate-morph"
         style={{
-          width: '100px',
-          height: '100px',
+          width: '140px',
+          height: '140px',
           top: '55%',
-          left: '15%',
-          background: 'radial-gradient(circle at 35% 35%, rgba(212,175,55,0.3) 0%, rgba(212,175,55,0.1) 50%, transparent 70%)',
-          boxShadow: '0 0 40px rgba(212,175,55,0.1), inset 0 0 20px rgba(212,175,55,0.05)',
-          border: '1px solid rgba(212,175,55,0.12)',
+          left: '12%',
+          background: 'radial-gradient(circle at 35% 35%, rgba(212,175,55,0.4) 0%, rgba(212,175,55,0.15) 50%, transparent 70%)',
+          boxShadow: '0 0 60px rgba(212,175,55,0.18), inset 0 0 30px rgba(212,175,55,0.08)',
+          border: '1.5px solid rgba(212,175,55,0.18)',
           animation: 'morph 8s ease-in-out infinite, float-3d 12s ease-in-out infinite 2s',
         }}
       />
@@ -242,10 +242,10 @@ export default function Scene3D() {
       <div
         className="absolute"
         style={{
-          width: '150px',
-          height: '150px',
-          top: '45%',
-          right: '12%',
+          width: '180px',
+          height: '180px',
+          top: '42%',
+          right: '10%',
           animation: 'spin-3d 12s linear infinite, float 7s ease-in-out infinite 1s',
           transformStyle: 'preserve-3d',
         }}
@@ -253,15 +253,15 @@ export default function Scene3D() {
         <div
           className="absolute inset-0 rounded-full"
           style={{
-            border: '2.5px solid rgba(212,175,55,0.25)',
-            boxShadow: '0 0 20px rgba(212,175,55,0.1)',
+            border: '3px solid rgba(212,175,55,0.35)',
+            boxShadow: '0 0 30px rgba(212,175,55,0.15)',
           }}
         />
         <div
           className="absolute rounded-full"
           style={{
-            inset: '10px',
-            border: '1px solid rgba(37,162,220,0.12)',
+            inset: '12px',
+            border: '1.5px solid rgba(37,162,220,0.2)',
             animation: 'spin-reverse-slow 8s linear infinite',
           }}
         />

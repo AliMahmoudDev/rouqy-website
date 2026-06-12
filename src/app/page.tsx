@@ -63,24 +63,24 @@ export default function Home() {
           <div className="max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
             {/* Logo */}
             <a href="#hero" className="flex items-center gap-3 group">
-              <div className="relative w-9 h-9 group-hover:scale-110 transition-transform duration-300">
+              <div className="relative w-12 h-12 group-hover:scale-110 transition-transform duration-300">
                 <Image
                   src="/harmens-logo-tran.png"
                   alt="HARMENS"
-                  width={36}
-                  height={36}
+                  width={48}
+                  height={48}
                   className="w-full h-full object-contain"
                   style={{
-                    filter: 'drop-shadow(0 0 8px rgba(212,175,55,0.2))',
+                    filter: 'drop-shadow(0 0 12px rgba(212,175,55,0.3))',
                   }}
                   priority
                 />
                 {/* Glow on hover */}
                 <div
-                  className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute inset-[-4px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   style={{
-                    background: 'radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%)',
-                    filter: 'blur(8px)',
+                    background: 'radial-gradient(circle, rgba(212,175,55,0.25) 0%, transparent 70%)',
+                    filter: 'blur(12px)',
                   }}
                 />
               </div>
@@ -126,11 +126,11 @@ export default function Home() {
           <>
             <HeroSection introComplete={introComplete} />
             <div className="section-divider relative z-10" />
-            <SectionReveal3D rotateX={6} translateZ={-40} duration={1400} delay={0}>
+            <SectionReveal3D rotateX={12} translateZ={-80} duration={1600} delay={0}>
               <PortfolioSection />
             </SectionReveal3D>
             <div className="section-divider relative z-10" />
-            <SectionReveal3D rotateX={4} translateZ={-30} duration={1200} delay={0}>
+            <SectionReveal3D rotateX={8} translateZ={-60} duration={1400} delay={0}>
               <ContactSection />
             </SectionReveal3D>
           </>
