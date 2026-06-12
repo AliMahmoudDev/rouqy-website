@@ -1,20 +1,10 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Instagram, Mail, Send, ArrowUpRight } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.65, 0.05, 0, 1] },
-  },
-};
 
 const budgetRanges = [
   '$50K - $100K',
@@ -26,6 +16,26 @@ const budgetRanges = [
 export default function ContactSection() {
   const [selectedBudget, setSelectedBudget] = useState<string>('');
   const [formState, setFormState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const sectionRef = useRef<HTMLElement>(null);
+
+  /* CSS scroll-triggered animations via IntersectionObserver */
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    const elements = sectionRef.current?.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .stagger-children');
+    elements?.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -59,38 +69,44 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative z-10 py-24 md:py-32 px-4 md:px-8">
-      <div className="max-w-7xl mx-auto">
+    <section ref={sectionRef} id="contact" className="relative z-10 py-24 md:py-32 px-4 md:px-8 overflow-hidden">
+      {/* Background gradient animation */}
+      <div className="absolute inset-0 pointer-events-none bg-mesh" />
+      
+      {/* Decorative orbs */}
+      <div
+        className="absolute w-[400px] h-[400px] rounded-full pointer-events-none animate-breathe"
+        style={{
+          background: 'radial-gradient(circle, rgba(37,162,220,0.05) 0%, transparent 70%)',
+          top: '20%',
+          left: '-10%',
+          filter: 'blur(50px)',
+        }}
+      />
+      <div
+        className="absolute w-[300px] h-[300px] rounded-full pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, rgba(212,175,55,0.04) 0%, transparent 70%)',
+          bottom: '30%',
+          right: '-5%',
+          filter: 'blur(40px)',
+          animation: 'breathe 5s ease-in-out infinite 1.5s',
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto relative">
         {/* Section Header */}
-        <motion.div
-          className="mb-16 md:mb-20"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          variants={fadeInUp}
-        >
+        <div id="contact-header" className="mb-16 md:mb-20 scroll-reveal">
           <p className="text-[#25A2DC] text-sm tracking-[0.4em] uppercase mb-4">Contact</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
-            Let&apos;s Create Together
+            Let&apos;s Create <span className="animate-text-gradient">Together</span>
           </h2>
-          <div className="mt-4 w-16 h-[2px] bg-[#25A2DC]" />
-        </motion.div>
+          <div className="mt-4 w-16 h-[2px] bg-[#25A2DC]" style={{ animation: 'line-draw 0.8s ease forwards' }} />
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
           {/* Contact Form */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
-            variants={{
-              hidden: { opacity: 0, y: 40 },
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: { duration: 0.8, ease: [0.65, 0.05, 0, 1] },
-              },
-            }}
-          >
+          <div id="contact-form" className="scroll-reveal-left">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <label htmlFor="name" className="text-[#A0AEC0] text-sm tracking-wider uppercase">
@@ -100,7 +116,7 @@ export default function ContactSection() {
                   id="name"
                   name="name"
                   required
-                  className="bg-transparent border-[#2D3A4D] text-white placeholder:text-[#A0AEC0]/40 focus:border-[#25A2DC] rounded-none h-12 text-base"
+                  className="bg-transparent border-[#2D3A4D] text-white placeholder:text-[#A0AEC0]/40 focus:border-[#25A2DC] rounded-none h-12 text-base transition-all duration-300 focus:shadow-[0_0_15px_rgba(37,162,220,0.15)]"
                   placeholder="Your full name"
                 />
               </div>
@@ -114,7 +130,7 @@ export default function ContactSection() {
                   name="email"
                   type="email"
                   required
-                  className="bg-transparent border-[#2D3A4D] text-white placeholder:text-[#A0AEC0]/40 focus:border-[#25A2DC] rounded-none h-12 text-base"
+                  className="bg-transparent border-[#2D3A4D] text-white placeholder:text-[#A0AEC0]/40 focus:border-[#25A2DC] rounded-none h-12 text-base transition-all duration-300 focus:shadow-[0_0_15px_rgba(37,162,220,0.15)]"
                   placeholder="your@email.com"
                 />
               </div>
@@ -131,7 +147,7 @@ export default function ContactSection() {
                       onClick={() => setSelectedBudget(range)}
                       className={`px-4 py-2 text-xs tracking-wider uppercase border transition-all duration-300 ${
                         selectedBudget === range
-                          ? 'border-[#25A2DC] bg-[#25A2DC]/10 text-[#25A2DC]'
+                          ? 'border-[#25A2DC] bg-[#25A2DC]/10 text-[#25A2DC] shadow-[0_0_15px_rgba(37,162,220,0.2)]'
                           : 'border-[#2D3A4D] text-[#A0AEC0] hover:border-[#25A2DC]/50 hover:text-[#25A2DC]'
                       }`}
                     >
@@ -150,7 +166,7 @@ export default function ContactSection() {
                   name="message"
                   required
                   rows={5}
-                  className="bg-transparent border-[#2D3A4D] text-white placeholder:text-[#A0AEC0]/40 focus:border-[#25A2DC] rounded-none text-base resize-none"
+                  className="bg-transparent border-[#2D3A4D] text-white placeholder:text-[#A0AEC0]/40 focus:border-[#25A2DC] rounded-none text-base resize-none transition-all duration-300 focus:shadow-[0_0_15px_rgba(37,162,220,0.15)]"
                   placeholder="Tell us about your project..."
                 />
               </div>
@@ -158,58 +174,47 @@ export default function ContactSection() {
               <Button
                 type="submit"
                 disabled={formState === 'sending'}
-                className="w-full md:w-auto bg-[#25A2DC] hover:bg-[#1B8BBE] text-white tracking-widest uppercase text-sm h-12 px-10 rounded-none border border-[#25A2DC] hover:border-[#1B8BBE] transition-all duration-300 hover:shadow-[0_0_30px_rgba(37,162,220,0.3)] flex items-center gap-3"
+                className="group w-full md:w-auto bg-[#25A2DC] hover:bg-[#1B8BBE] text-white tracking-widest uppercase text-sm h-12 px-10 rounded-none border border-[#25A2DC] hover:border-[#1B8BBE] transition-all duration-300 hover:shadow-[0_0_30px_rgba(37,162,220,0.3)] flex items-center gap-3"
               >
                 {formState === 'sending' ? 'Sending...' : formState === 'sent' ? 'Message Sent!' : 'Send Message'}
-                <Send className="w-4 h-4" />
+                <Send className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Button>
 
               {formState === 'sent' && (
-                <p className="text-[#25A2DC] text-sm mt-2">Thank you! We&apos;ll get back to you within 24 hours.</p>
+                <p className="text-[#25A2DC] text-sm mt-2" style={{ animation: 'fade-in-up 0.5s ease forwards' }}>
+                  Thank you! We&apos;ll get back to you within 24 hours.
+                </p>
               )}
               {formState === 'error' && (
-                <p className="text-red-400 text-sm mt-2">Something went wrong. Please try again.</p>
+                <p className="text-red-400 text-sm mt-2" style={{ animation: 'fade-in-up 0.5s ease forwards' }}>
+                  Something went wrong. Please try again.
+                </p>
               )}
             </form>
-          </motion.div>
+          </div>
 
           {/* Contact Info */}
-          <motion.div
-            className="space-y-10"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-100px' }}
-            variants={{
-              hidden: { opacity: 0, y: 40 },
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: { duration: 0.8, delay: 0.2, ease: [0.65, 0.05, 0, 1] },
-              },
-            }}
-          >
+          <div id="contact-info" className="space-y-10 scroll-reveal-right">
             {/* Stats */}
             <div className="grid grid-cols-2 gap-8">
-              <div>
-                <p className="text-3xl md:text-4xl font-bold text-white">200+</p>
-                <p className="text-[#A0AEC0] text-sm tracking-wider uppercase mt-1">Projects Completed</p>
-              </div>
-              <div>
-                <p className="text-3xl md:text-4xl font-bold text-white">25+</p>
-                <p className="text-[#A0AEC0] text-sm tracking-wider uppercase mt-1">Years Experience</p>
-              </div>
-              <div>
-                <p className="text-3xl md:text-4xl font-bold text-white">24h</p>
-                <p className="text-[#A0AEC0] text-sm tracking-wider uppercase mt-1">Response Time</p>
-              </div>
-              <div>
-                <p className="text-3xl md:text-4xl font-bold text-white">580+</p>
-                <p className="text-[#A0AEC0] text-sm tracking-wider uppercase mt-1">Sq Meters Largest Project</p>
-              </div>
+              {[
+                { value: '200+', label: 'Projects Completed' },
+                { value: '25+', label: 'Years Experience' },
+                { value: '24h', label: 'Response Time' },
+                { value: '580+', label: 'Sq Meters Largest Project' },
+              ].map((stat, i) => (
+                <div key={stat.label} className="group cursor-default">
+                  <p className="text-3xl md:text-4xl font-bold text-white tracking-tight transition-colors duration-300 group-hover:text-[#25A2DC]">
+                    {stat.value}
+                  </p>
+                  <p className="text-[#A0AEC0] text-sm tracking-wider uppercase mt-1">{stat.label}</p>
+                  <div className="mt-2 h-[1px] w-0 group-hover:w-full bg-gradient-to-r from-[#25A2DC] to-[#D4AF37] transition-all duration-500" />
+                </div>
+              ))}
             </div>
 
-            {/* Divider */}
-            <div className="w-full h-[1px] bg-[#2D3A4D]" />
+            {/* Divider with animation */}
+            <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#2D3A4D] to-transparent" style={{ animation: 'line-draw 1s ease forwards' }} />
 
             {/* Contact Links */}
             <div className="space-y-6">
@@ -219,31 +224,31 @@ export default function ContactSection() {
                 rel="noopener noreferrer"
                 className="group flex items-center gap-4 text-white hover:text-[#25A2DC] transition-colors duration-300"
               >
-                <div className="w-12 h-12 border border-[#2D3A4D] group-hover:border-[#25A2DC] flex items-center justify-center transition-colors duration-300">
+                <div className="w-12 h-12 border border-[#2D3A4D] group-hover:border-[#25A2DC] group-hover:shadow-[0_0_15px_rgba(37,162,220,0.2)] flex items-center justify-center transition-all duration-300">
                   <Instagram className="w-5 h-5" />
                 </div>
                 <div>
                   <p className="text-sm tracking-wider uppercase text-[#A0AEC0]">Instagram</p>
                   <p className="text-base font-medium">@harmens.design</p>
                 </div>
-                <ArrowUpRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[#25A2DC]" />
+                <ArrowUpRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0 text-[#25A2DC]" />
               </a>
 
               <a
                 href="mailto:info@harmensdesign.com"
                 className="group flex items-center gap-4 text-white hover:text-[#25A2DC] transition-colors duration-300"
               >
-                <div className="w-12 h-12 border border-[#2D3A4D] group-hover:border-[#25A2DC] flex items-center justify-center transition-colors duration-300">
+                <div className="w-12 h-12 border border-[#2D3A4D] group-hover:border-[#25A2DC] group-hover:shadow-[0_0_15px_rgba(37,162,220,0.2)] flex items-center justify-center transition-all duration-300">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
                   <p className="text-sm tracking-wider uppercase text-[#A0AEC0]">Email</p>
                   <p className="text-base font-medium">info@harmensdesign.com</p>
                 </div>
-                <ArrowUpRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[#25A2DC]" />
+                <ArrowUpRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0 text-[#25A2DC]" />
               </a>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 

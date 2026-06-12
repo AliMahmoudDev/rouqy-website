@@ -7,7 +7,7 @@ import HeroSection from '@/components/HeroSection';
 import PortfolioSection from '@/components/PortfolioSection';
 import ContactSection from '@/components/ContactSection';
 
-// Lazy load 3D scene to avoid SSR issues
+// Lazy load 3D scene to avoid SSR issues and reduce initial load
 const Scene3D = dynamic(() => import('@/components/Scene3D'), {
   ssr: false,
   loading: () => null,
@@ -16,6 +16,7 @@ const Scene3D = dynamic(() => import('@/components/Scene3D'), {
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
   const [showContent, setShowContent] = useState(false);
+  const [sceneLoaded, setSceneLoaded] = useState(false);
 
   useEffect(() => {
     // Check if user has already seen the intro (session storage)
@@ -23,6 +24,8 @@ export default function Home() {
     if (hasSeenIntro) {
       setIntroComplete(true);
       setShowContent(true);
+      // Delay 3D scene load slightly for better performance
+      setTimeout(() => setSceneLoaded(true), 500);
     }
   }, []);
 
@@ -30,13 +33,17 @@ export default function Home() {
     setIntroComplete(true);
     sessionStorage.setItem('harmens-intro-seen', 'true');
     // Small delay before showing content for smooth transition
-    setTimeout(() => setShowContent(true), 200);
+    setTimeout(() => {
+      setShowContent(true);
+      // Delay 3D scene load to avoid lag during hero animation
+      setTimeout(() => setSceneLoaded(true), 800);
+    }, 200);
   };
 
   return (
     <main className="relative min-h-screen bg-[#0B0F18]">
-      {/* 3D Background - covers entire page */}
-      <Scene3D />
+      {/* 3D Background — delayed load for performance */}
+      {sceneLoaded && <Scene3D />}
 
       {/* Cinematic Intro Animation */}
       {!introComplete && <IntroAnimation onComplete={handleIntroComplete} />}
