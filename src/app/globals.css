@@ -41,7 +41,6 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  /* HARMENS Brand Colors */
   --color-harmens-navy: #161E2D;
   --color-harmens-surface: #1C2738;
   --color-harmens-blue: #25A2DC;
@@ -53,8 +52,7 @@
 
 :root {
   --radius: 0.625rem;
-  /* HARMENS Dark Theme - Always Dark */
-  --background: #161E2D;
+  --background: #0B0F18;
   --foreground: #FFFFFF;
   --card: #1A2535;
   --card-foreground: #FFFFFF;
@@ -95,20 +93,20 @@ html {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #161E2D;
+  background: #0B0F18;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2D3A4D;
-  border-radius: 3px;
+  background: #25A2DC;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #25A2DC;
+  background: #1B8BBE;
 }
 
 /* Selection */
@@ -123,47 +121,248 @@ html {
   }
   body {
     @apply bg-background text-foreground;
-    background-color: #161E2D;
+    background-color: #0B0F18;
     color: #FFFFFF;
     overflow-x: hidden;
   }
 }
 
-/* Hero Glow Effect */
+/* ============================================
+   HARMENS CSS Animations Library
+   ============================================ */
+
+/* === Glow & Pulse Effects === */
 @keyframes glow-pulse {
-  0%, 100% {
-    opacity: 0.4;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.05);
-  }
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
 }
 
-/* Scroll indicator bounce */
+@keyframes glow-blue {
+  0%, 100% { box-shadow: 0 0 5px rgba(37,162,220,0.1); }
+  50% { box-shadow: 0 0 20px rgba(37,162,220,0.3), 0 0 40px rgba(37,162,220,0.1); }
+}
+
+@keyframes glow-gold {
+  0%, 100% { box-shadow: 0 0 5px rgba(212,175,55,0.1); }
+  50% { box-shadow: 0 0 20px rgba(212,175,55,0.3), 0 0 40px rgba(212,175,55,0.1); }
+}
+
+/* === Floating / Bouncing === */
 @keyframes bounce-slow {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
 }
 
-.animate-bounce-slow {
-  animation: bounce-slow 2s ease-in-out infinite;
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  33% { transform: translateY(-8px); }
+  66% { transform: translateY(4px); }
 }
 
-/* Light trail effect for intro */
+@keyframes float-rotate {
+  0% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-12px) rotate(2deg); }
+  66% { transform: translateY(6px) rotate(-1deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes float-horizontal {
+  0%, 100% { transform: translateX(0px); }
+  50% { transform: translateX(15px); }
+}
+
+/* === Light & Shimmer === */
 @keyframes light-trail {
-  0% {
-    text-shadow: 0 0 0px transparent;
-  }
-  50% {
-    text-shadow: 0 0 20px rgba(37, 162, 220, 0.8), 0 0 40px rgba(37, 162, 220, 0.4), 0 0 80px rgba(37, 162, 220, 0.2);
-  }
-  100% {
-    text-shadow: 0 0 4px rgba(37, 162, 220, 0.3);
-  }
+  0% { text-shadow: 0 0 0px transparent; }
+  50% { text-shadow: 0 0 20px rgba(37,162,220,0.8), 0 0 40px rgba(37,162,220,0.4), 0 0 80px rgba(37,162,220,0.2); }
+  100% { text-shadow: 0 0 4px rgba(37,162,220,0.3); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes border-glow {
+  0%, 100% { border-color: rgba(37,162,220,0.2); }
+  50% { border-color: rgba(37,162,220,0.6); }
+}
+
+@keyframes border-glow-gold {
+  0%, 100% { border-color: rgba(212,175,55,0.15); }
+  50% { border-color: rgba(212,175,55,0.5); }
+}
+
+/* === Line Drawing / Reveal === */
+@keyframes line-draw {
+  0% { width: 0; opacity: 0; }
+  50% { opacity: 1; }
+  100% { width: 100%; opacity: 1; }
+}
+
+@keyframes line-draw-vertical {
+  0% { height: 0; opacity: 0; }
+  50% { opacity: 1; }
+  100% { height: 100%; opacity: 1; }
+}
+
+/* === Rotation === */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse-slow {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+/* === Scale / Morph === */
+@keyframes morph {
+  0%, 100% { border-radius: 40% 60% 60% 40% / 60% 30% 70% 40%; }
+  25% { border-radius: 60% 40% 30% 70% / 40% 60% 40% 60%; }
+  50% { border-radius: 30% 70% 50% 50% / 70% 30% 60% 40%; }
+  75% { border-radius: 50% 50% 40% 60% / 30% 70% 40% 60%; }
+}
+
+@keyframes scale-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+/* === Gradient Animation === */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes gradient-rotate {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+/* === Fade Variations === */
+@keyframes fade-in-up {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-left {
+  0% { opacity: 0; transform: translateX(-30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fade-in-right {
+  0% { opacity: 0; transform: translateX(30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fade-in-scale {
+  0% { opacity: 0; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* === Utility Classes === */
+.animate-bounce-slow { animation: bounce-slow 2s ease-in-out infinite; }
+.animate-float { animation: float 4s ease-in-out infinite; }
+.animate-float-rotate { animation: float-rotate 6s ease-in-out infinite; }
+.animate-float-horizontal { animation: float-horizontal 5s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 20s linear infinite; }
+.animate-spin-reverse-slow { animation: spin-reverse-slow 25s linear infinite; }
+.animate-glow-blue { animation: glow-blue 3s ease-in-out infinite; }
+.animate-glow-gold { animation: glow-gold 3s ease-in-out infinite; }
+.animate-morph { animation: morph 8s ease-in-out infinite; }
+.animate-scale-pulse { animation: scale-pulse 3s ease-in-out infinite; }
+.animate-border-glow { animation: border-glow 3s ease-in-out infinite; }
+.animate-border-glow-gold { animation: border-glow-gold 3s ease-in-out infinite; }
+.animate-shimmer {
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.05) 45%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 55%, transparent 60%);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+/* === Decorative Elements === */
+.decorative-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.decorative-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #D4AF37, #25A2DC, transparent);
+}
+
+.decorative-line-vertical {
+  width: 1px;
+  background: linear-gradient(180deg, transparent, #D4AF37, #25A2DC, transparent);
+}
+
+/* === Project Card Premium Effects === */
+.project-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(37,162,220,0.03), transparent);
+  transition: left 0.6s ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.project-card:hover::before {
+  left: 100%;
+}
+
+.project-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid transparent;
+  transition: border-color 0.5s ease;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.project-card:hover::after {
+  border-color: rgba(37,162,220,0.3);
+}
+
+/* === Section Divider === */
+.section-divider {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #2D3A4D 20%, #25A2DC 50%, #2D3A4D 80%, transparent 100%);
+}
+
+.section-divider::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: #25A2DC;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(37,162,220,0.5);
+}
+
+/* === Number Counter Animation === */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
