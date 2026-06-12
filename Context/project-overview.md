@@ -73,14 +73,23 @@
 ## Landing Page Sections (3 أقسام فقط - لا تزد!)
 
 ### 1. Hero Section (الأهم - لازم يكون مبهر 🔥)
+
+#### 🎬 Intro Animation: Cinematic Logo Reveal (العميل اختار الخيار 1)
+1. شاشة سودة فاترة
+2. لوجو HARMENS بيظهر بـ **glow effect** من المنتصف (زي ما ضوء بيطلع من وراه)
+3. الخطوط بتتكون حرف حرف بـ **light trail** (زي ما حد بيكتب بنور)
+4. الـ 3D Objects بتدخل من حواف الشاشة بـ **slow fly-in**
+5. الـ tagline *"Designed To Be Felt Before It's Seen"* بيظهر حرف حرف
+6. الـ overlay بيفتح تدريجياً والهيرو الكامل بيظهر بـ fade-in سلس
+7. المدة: 3-4 ثواني
+
+#### Hero Content (بعد الـ Intro):
 - اسم الشركة **HARMENS** بخط ضخم أنيق (مؤلف بعناية زى المراجع)
 - **3D floating objects** في الخلفية (أشكال معمارية مجردة - مكعبات، كرات، طورس)
-- **Video أو صورة خلفية** مع overlay داكن (زي aircenter / ulysses)
 - Subtitle: "Designed To Be Felt Before It's Seen" (من الموقع الحالي - tagline ممتازة)
-- أو "Crafting Timeless Luxury Interiors" كـ sub-subtitle
 - CTA Button: "Explore Our Work" بالأزرق #25A2DC
 - **Scroll indicator** في الأسفل (سهم أو دائرة)
-- **Per-character text reveal** عند التحميل (زي steven.com)
+- **Per-character text reveal** على الـ tagline
 - **ده القسم اللي هيخلي العميل يكمل أو يطلع - لازم يكون Premium جداً**
 
 ### 2. Portfolio / Projects Gallery

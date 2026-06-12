@@ -30,12 +30,11 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files
 .env*
 
 # vercel
 .vercel
-
 
 # typescript
 *.tsbuildinfo
@@ -46,9 +45,31 @@ local-*
 *.log
 dev.log
 dev.out.log
+server.log
 test
 prompt
 
-server.log
+# Database
+db/
+prisma/
+
+# Tool results
+tool-results/
+
 # Skills directory
 /skills/
+
+# Download directory (reference images)
+download/
+
+# Upload directory
+upload/
+
+# Examples
+examples/
+
+# Context (development planning - not needed in repo)
+# Context/
+
+# Caddy
+Caddyfile
