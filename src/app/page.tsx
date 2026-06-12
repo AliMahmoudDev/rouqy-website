@@ -30,11 +30,11 @@ export default function Home() {
     setIntroComplete(true);
     sessionStorage.setItem('harmens-intro-seen', 'true');
     // Small delay before showing content for smooth transition
-    setTimeout(() => setShowContent(true), 100);
+    setTimeout(() => setShowContent(true), 200);
   };
 
   return (
-    <main className="relative min-h-screen bg-[#161E2D]">
+    <main className="relative min-h-screen bg-[#0B0F18]">
       {/* 3D Background - covers entire page */}
       <Scene3D />
 
