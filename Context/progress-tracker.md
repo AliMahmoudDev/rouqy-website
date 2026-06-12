@@ -50,11 +50,11 @@
 - [ ] إنشاء ContactSection.tsx
 - [ ] نموذج تواصل (اسم + ايميل + رسالة + budget range)
 - [ ] API route للإرسال (/api/contact)
-- [ ] **Instagram فقط** كوسيلة تواصل - زر بارز يودي على @harmens.design
+- [ ] وسائل التواصل: Instagram + Email + Location (العميل أكد)
 - [ ] 3D background continuity
-- [ ] Footer بسيط (Logo + copyright + Instagram فقط)
+- [ ] Footer بسيط (Logo + copyright + Instagram + Email + Location)
 - [ ] Proper SEO metadata (إزالة noindex!)
-- [ ] ⚠️ بيانات التواصل الكاملة (Phone, WhatsApp, Email) محفوظة في project-overview.md لو العميل طلبها بعدين
+- [ ] ⚠️ بيانات إضافية (Phone, WhatsApp) محفوظة في project-overview.md لو العميل طلبها بعدين
 
 ### Phase 5: Integration & Polish
 - [ ] Smooth scrolling بين الأقسام
@@ -65,7 +65,7 @@
 - [ ] Lighthouse audit (Target: >90)
 
 ## Open Questions
-- [ ] صور المشاريع الحقيقية (العميل هيبعتهالها بعدين - Unsplash placeholders حالياً)
-- [x] ~~بيانات التواصل التفصيلية~~ → تم الحصول عليها من الموقع الحالي
+- [x] ~~صور المشاريع~~ → هنستخدم صور الموقع الحالي ونظبط عليها، لو جه جديد نغير
+- [x] ~~بيانات التواصل التفصيلية~~ → Instagram + Email + Location (العميل أكد)
 - [ ] الاستضافة النهائية
 - [ ] هل العميل عايز Arabic language toggle في الموقع الجديد؟ (الموقع الحالي عنده زر العربية)
