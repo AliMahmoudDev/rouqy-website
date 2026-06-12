@@ -156,6 +156,15 @@ export default function PortfolioSection() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#161E2D] via-transparent to-[#0B0F18]" />
       </div>
 
+      {/* Architectural blueprint grid lines */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.015]" style={{
+        backgroundImage: `
+          linear-gradient(rgba(212,175,55,0.4) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(212,175,55,0.4) 1px, transparent 1px)
+        `,
+        backgroundSize: '100px 100px',
+      }} />
+
       {/* Animated gradient orbs */}
       <div
         className="absolute w-[500px] h-[500px] rounded-full pointer-events-none animate-breathe"

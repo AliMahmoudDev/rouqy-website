@@ -188,6 +188,15 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
         <div className="video-bg-overlay" />
       </div>
 
+      {/* Architectural blueprint grid overlay — very subtle */}
+      <div className="absolute inset-0 pointer-events-none z-[1] opacity-[0.012]" style={{
+        backgroundImage: `
+          linear-gradient(rgba(37,162,220,0.5) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(37,162,220,0.5) 1px, transparent 1px)
+        `,
+        backgroundSize: '120px 120px',
+      }} />
+
       {/* Animated gradient mesh background */}
       <div className="hero-gradient-bg" />
 

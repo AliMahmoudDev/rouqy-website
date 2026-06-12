@@ -72,7 +72,16 @@ export default function ContactSection() {
     <section ref={sectionRef} id="contact" className="relative z-10 py-24 md:py-32 px-4 md:px-8 overflow-hidden">
       {/* Background gradient animation */}
       <div className="absolute inset-0 pointer-events-none bg-mesh" />
-      
+
+      {/* Animated grid lines — architectural blueprint style */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.02]" style={{
+        backgroundImage: `
+          linear-gradient(rgba(37,162,220,0.3) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(37,162,220,0.3) 1px, transparent 1px)
+        `,
+        backgroundSize: '80px 80px',
+      }} />
+
       {/* Decorative orbs */}
       <div
         className="absolute w-[400px] h-[400px] rounded-full pointer-events-none animate-breathe"
@@ -91,6 +100,32 @@ export default function ContactSection() {
           right: '-5%',
           filter: 'blur(40px)',
           animation: 'breathe 5s ease-in-out infinite 1.5s',
+        }}
+      />
+
+      {/* Floating geometric accents */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          width: 60,
+          height: 60,
+          top: '10%',
+          right: '8%',
+          border: '1px solid rgba(212,175,55,0.08)',
+          transform: 'rotate(45deg)',
+          animation: 'float-rotate 8s ease-in-out infinite, breathe 5s ease-in-out infinite',
+        }}
+      />
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          width: 40,
+          height: 40,
+          bottom: '20%',
+          left: '5%',
+          border: '1px solid rgba(37,162,220,0.06)',
+          borderRadius: '50%',
+          animation: 'float 7s ease-in-out infinite 1s',
         }}
       />
 
