@@ -3,6 +3,11 @@
 import { useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import { useRef, useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
+
+// Dynamic import for 3D Text Split (client-only)
+const TextSplit3D = dynamic(() => import('@/components/TextSplit3D'), { ssr: false });
+const Parallax3D = dynamic(() => import('@/components/Parallax3D'), { ssr: false });
 
 interface HeroSectionProps {
   introComplete: boolean;
@@ -192,6 +197,49 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
     }
   }, [introComplete]);
 
+  // 3D Parallax scroll handler — different layers at different speeds
+  useEffect(() => {
+    if (!mounted) return;
+
+    let rafId = 0;
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        rafId = requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+
+          // Deep layer — moves slowest (0.15x scroll speed)
+          const deepLayer = document.querySelector('.parallax-layer-deep');
+          if (deepLayer) {
+            (deepLayer as HTMLElement).style.transform = `translate3d(0, ${scrollY * 0.15}px, 0)`;
+          }
+
+          // Mid layer — medium speed (0.3x scroll speed)
+          const midLayer = document.querySelector('.parallax-layer-mid');
+          if (midLayer) {
+            (midLayer as HTMLElement).style.transform = `translate3d(0, ${scrollY * 0.3}px, 0)`;
+          }
+
+          // Foreground layer — moves fastest (0.5x scroll speed)
+          const fgLayer = document.querySelector('.parallax-layer-fg');
+          if (fgLayer) {
+            (fgLayer as HTMLElement).style.transform = `translate3d(0, ${scrollY * 0.5}px, 0)`;
+          }
+
+          ticking = false;
+        });
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      cancelAnimationFrame(rafId);
+    };
+  }, [mounted]);
+
   if (!introComplete) return null;
 
   return (
@@ -239,29 +287,83 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
       {/* Floating Particles */}
       <FloatingParticles />
 
-      {/* Orbiting Rings */}
-      <OrbitingRings />
+      {/* 3D Parallax Depth Layers — elements move at different speeds */}
+      {mounted && (
+        <>
+          {/* Deep background layer — moves slowest */}
+          <div
+            className="absolute inset-0 pointer-events-none parallax-layer-deep"
+            style={{
+              willChange: 'transform',
+              transition: 'transform 0.1s linear',
+            }}
+          >
+            <OrbitingRings />
+          </div>
 
-      {/* Decorative gradient orbs */}
-      <div
-        className="absolute w-[600px] h-[600px] rounded-full opacity-20 animate-breathe pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%)',
-          top: '10%',
-          right: '-10%',
-          filter: 'blur(60px)',
-        }}
-      />
-      <div
-        className="absolute w-[400px] h-[400px] rounded-full opacity-15 pointer-events-none"
-        style={{
-          background: 'radial-gradient(circle, rgba(37,162,220,0.15) 0%, transparent 70%)',
-          bottom: '20%',
-          left: '-5%',
-          filter: 'blur(50px)',
-          animation: 'breathe 5s ease-in-out infinite 1s',
-        }}
-      />
+          {/* Mid-ground decorative orbs — medium speed */}
+          <div
+            className="absolute inset-0 pointer-events-none parallax-layer-mid"
+            style={{
+              willChange: 'transform',
+            }}
+          >
+            <div
+              className="absolute w-[600px] h-[600px] rounded-full opacity-20 animate-breathe"
+              style={{
+                background: 'radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%)',
+                top: '10%',
+                right: '-10%',
+                filter: 'blur(60px)',
+              }}
+            />
+            <div
+              className="absolute w-[400px] h-[400px] rounded-full opacity-15"
+              style={{
+                background: 'radial-gradient(circle, rgba(37,162,220,0.15) 0%, transparent 70%)',
+                bottom: '20%',
+                left: '-5%',
+                filter: 'blur(50px)',
+                animation: 'breathe 5s ease-in-out infinite 1s',
+              }}
+            />
+          </div>
+
+          {/* Foreground accent layer — moves fastest */}
+          <div
+            className="absolute inset-0 pointer-events-none parallax-layer-fg"
+            style={{
+              willChange: 'transform',
+            }}
+          >
+            {/* Floating geometric accent — close to camera */}
+            <div
+              className="absolute"
+              style={{
+                width: 60,
+                height: 60,
+                top: '15%',
+                right: '12%',
+                border: '1px solid rgba(212,175,55,0.12)',
+                transform: 'rotate(45deg)',
+                animation: 'float-rotate 6s ease-in-out infinite',
+              }}
+            />
+            <div
+              className="absolute"
+              style={{
+                width: 40,
+                height: 40,
+                bottom: '25%',
+                left: '8%',
+                border: '1px solid rgba(37,162,220,0.1)',
+                borderRadius: '50%',
+                animation: 'float 5s ease-in-out infinite 0.5s',
+              }}
+            />
+          </div>
+        </>
+      )}
 
       {/* Content - CSS animations, Framer only for scroll parallax */}
       <div
@@ -283,15 +385,27 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
           </div>
         </div>
 
-        {/* Brand Name */}
-        <h1
-          className={`text-6xl sm:text-7xl md:text-8xl lg:text-[140px] font-bold tracking-tight text-white uppercase leading-[0.9] ${
-            mounted ? 'hero-enter-title' : 'opacity-0'
-          }`}
-          style={{ letterSpacing: mounted ? '-0.02em' : '0.3em', transition: 'letter-spacing 1.5s cubic-bezier(0.65, 0.05, 0, 1) 0.3s' }}
-        >
-          HARMENS
-        </h1>
+        {/* Brand Name — 3D Text Split */}
+        {mounted ? (
+          <h1
+            className={`text-6xl sm:text-7xl md:text-8xl lg:text-[140px] font-bold tracking-tight text-white uppercase leading-[0.9] ${
+              mounted ? 'hero-enter-title' : 'opacity-0'
+            }`}
+          >
+            <TextSplit3D
+              text="HARMENS"
+              mode="scroll"
+              staggerDelay={80}
+              entranceDuration={1000}
+              scrollIntensity={0.4}
+              letterClassName="text-6xl sm:text-7xl md:text-8xl lg:text-[140px] font-bold tracking-tight text-white uppercase"
+            />
+          </h1>
+        ) : (
+          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-[140px] font-bold tracking-tight text-white uppercase leading-[0.9] opacity-0">
+            HARMENS
+          </h1>
+        )}
 
         {/* Decorative line */}
         <div className={`mx-auto mt-6 md:mt-8 ${mounted ? 'hero-enter-line' : 'opacity-0'}`}>

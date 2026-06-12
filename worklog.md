@@ -23,3 +23,27 @@ Stage Summary:
 - 3 sections: Hero (with intro animation), Portfolio, Contact
 - 3D scene covers entire page with brand-colored floating objects and particles
 - All code pushed to https://github.com/AliMahmoudDev/harmens-landing
+
+---
+Task ID: 2
+Agent: Main Agent
+Task: Add 4 premium 3D effects to HARMENS landing page
+
+Work Log:
+- Created CardTilt3D.tsx — 3D card tilt on hover with glare + edge glow overlays
+- Created TextSplit3D.tsx — 3D text split animation (entrance + scroll modes)
+- Created Parallax3D.tsx — Multi-layer 3D parallax depth system
+- Created SectionReveal3D.tsx — 3D section unfolding on scroll via IntersectionObserver
+- Integrated CardTilt3D into all 6 PortfolioSection cards with dynamic import (ssr: false)
+- Integrated TextSplit3D into HeroSection for "HARMENS" title (scroll mode with letter-by-letter 3D)
+- Added 3D parallax depth layers to HeroSection (deep/mid/foreground with different scroll speeds)
+- Integrated SectionReveal3D into page.tsx wrapping Portfolio and Contact sections
+- Added CSS classes for all new 3D effects in globals.css
+- Added parallax scroll handler with requestAnimationFrame in HeroSection
+- Build succeeded with zero errors
+
+Stage Summary:
+- 4 premium 3D effects added: Card Tilt, Text Split, Parallax Depth, Section Reveal
+- All effects use CSS 3D transforms only (GPU-accelerated, no WebGL, no lag)
+- All new components use dynamic imports with ssr: false to avoid hydration issues
+- Parallax uses requestAnimationFrame with ticking pattern for smooth 60fps

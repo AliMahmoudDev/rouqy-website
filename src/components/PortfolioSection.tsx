@@ -3,6 +3,10 @@
 import Image from 'next/image';
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { ArrowUpRight, MapPin, Maximize2 } from 'lucide-react';
+import dynamic from 'next/dynamic';
+
+// Dynamic import CardTilt3D to avoid SSR issues
+const CardTilt3D = dynamic(() => import('@/components/CardTilt3D'), { ssr: false });
 
 const projects = [
   {
@@ -242,7 +246,8 @@ export default function PortfolioSection() {
           {/* First row: Large hero project + tall project */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 mb-4 md:mb-5">
             {/* Hero project - spans 8 cols */}
-            <div className="md:col-span-8 portfolio-card group relative cursor-pointer" style={{ aspectRatio: '16/9' }}>
+            <CardTilt3D maxTilt={6} glareOpacity={0.12} className="md:col-span-8">
+            <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '16/9' }}>
               <div className="relative w-full h-full overflow-hidden">
                 <Image
                   src={projects[0].image}
@@ -287,9 +292,11 @@ export default function PortfolioSection() {
                 <div className="accent-line absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#25A2DC] to-[#D4AF37]" />
               </div>
             </div>
+            </CardTilt3D>
 
             {/* Tall project - spans 4 cols */}
-            <div className="md:col-span-4 portfolio-card group relative cursor-pointer" style={{ aspectRatio: '3/4' }}>
+            <CardTilt3D maxTilt={6} glareOpacity={0.12} className="md:col-span-4">
+            <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '3/4' }}>
               <div className="relative w-full h-full overflow-hidden">
                 <Image
                   src={projects[1].image}
@@ -324,12 +331,14 @@ export default function PortfolioSection() {
                 <div className="accent-line absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#25A2DC] to-[#D4AF37]" />
               </div>
             </div>
+            </CardTilt3D>
           </div>
 
           {/* Second row: 3 equal cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-4 md:mb-5">
             {projects.slice(2, 5).map((project, index) => (
-              <div key={project.title} className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '4/5' }}>
+              <CardTilt3D key={`tilt-${project.title}`} maxTilt={8} glareOpacity={0.1}>
+              <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '4/5' }}>
                 <div className="relative w-full h-full overflow-hidden">
                   <Image
                     src={project.image}
@@ -369,10 +378,12 @@ export default function PortfolioSection() {
                   <div className="accent-line absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#25A2DC] to-[#D4AF37]" />
                 </div>
               </div>
+              </CardTilt3D>
             ))}
           </div>
 
           {/* Third row: Full-width cinematic project */}
+          <CardTilt3D maxTilt={4} glareOpacity={0.08}>
           <div className="portfolio-card group relative cursor-pointer mb-4 md:mb-5" style={{ aspectRatio: '21/9' }}>
             <div className="relative w-full h-full overflow-hidden">
               <Image
@@ -414,6 +425,7 @@ export default function PortfolioSection() {
               <div className="accent-line absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#25A2DC] to-[#D4AF37]" />
             </div>
           </div>
+          </CardTilt3D>
         </div>
 
         {/* === Animated Stats Bar === */}

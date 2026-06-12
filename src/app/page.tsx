@@ -9,8 +9,9 @@ import PortfolioSection from '@/components/PortfolioSection';
 import ContactSection from '@/components/ContactSection';
 import CursorGlow from '@/components/CursorGlow';
 
-// Dynamic import Scene3D to avoid SSR hydration issues with random values
+// Dynamic imports for client-only components
 const Scene3D = dynamic(() => import('@/components/Scene3D'), { ssr: false });
+const SectionReveal3D = dynamic(() => import('@/components/SectionReveal3D'), { ssr: false });
 
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
@@ -125,9 +126,13 @@ export default function Home() {
           <>
             <HeroSection introComplete={introComplete} />
             <div className="section-divider relative z-10" />
-            <PortfolioSection />
+            <SectionReveal3D rotateX={6} translateZ={-40} duration={1400} delay={0}>
+              <PortfolioSection />
+            </SectionReveal3D>
             <div className="section-divider relative z-10" />
-            <ContactSection />
+            <SectionReveal3D rotateX={4} translateZ={-30} duration={1200} delay={0}>
+              <ContactSection />
+            </SectionReveal3D>
           </>
         )}
       </div>

@@ -1108,6 +1108,100 @@ html {
   backface-visibility: hidden;
 }
 
+/* ============================================
+   3D PARALLAX DEPTH LAYERS
+   Different scroll speeds for depth illusion
+   ============================================ */
+
+.parallax-layer-deep {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+.parallax-layer-mid {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+.parallax-layer-fg {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+/* ============================================
+   3D CARD TILT EFFECT
+   Premium hover interaction for portfolio cards
+   ============================================ */
+
+.card-tilt-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.card-tilt-3d:hover {
+  z-index: 10;
+}
+
+/* ============================================
+   3D TEXT SPLIT ANIMATION
+   Letter-by-letter 3D entrance + scroll
+   ============================================ */
+
+.text-split-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.text-split-letter {
+  display: inline-block;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  text-shadow: 0 0 40px rgba(212,175,55,0.1), 0 0 80px rgba(37,162,220,0.05);
+  transition: text-shadow 0.3s ease;
+}
+
+.text-split-letter:hover {
+  text-shadow: 0 0 30px rgba(212,175,55,0.4), 0 0 60px rgba(37,162,220,0.2);
+}
+
+/* ============================================
+   3D SECTION REVEAL
+   Architectural blueprint unfolding effect
+   ============================================ */
+
+.section-reveal-3d {
+  perspective: 1200px;
+  perspective-origin: 50% 0%;
+}
+
+.section-reveal-3d-inner {
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-origin: 50% 0%;
+}
+
+/* ============================================
+   3D PARALLAX CONTAINER
+   ============================================ */
+
+.parallax-3d-container {
+  position: relative;
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+}
+
+.parallax-3d-layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+  backface-visibility: hidden;
+  pointer-events: none;
+}
+
 /* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
   *,
