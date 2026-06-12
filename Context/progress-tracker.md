@@ -50,11 +50,11 @@
 - [ ] إنشاء ContactSection.tsx
 - [ ] نموذج تواصل (اسم + ايميل + رسالة + budget range)
 - [ ] API route للإرسال (/api/contact)
-- [ ] وسائل التواصل: Instagram + Email + Location (العميل أكد)
+- [ ] وسائل التواصل: Instagram + Email (العميل أكد)
 - [ ] 3D background continuity
-- [ ] Footer بسيط (Logo + copyright + Instagram + Email + Location)
+- [ ] Footer بسيط (Logo + copyright + Instagram + Email)
 - [ ] Proper SEO metadata (إزالة noindex!)
-- [ ] ⚠️ بيانات إضافية (Phone, WhatsApp) محفوظة في project-overview.md لو العميل طلبها بعدين
+- [ ] ⚠️ بيانات إضافية (Phone, WhatsApp, Location) محفوظة في project-overview.md لو العميل طلبها بعدين
 
 ### Phase 5: Integration & Polish
 - [ ] Smooth scrolling بين الأقسام

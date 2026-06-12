@@ -98,15 +98,15 @@
 - **وسائل التواصل اللي هتظهر في الموقع:**
   - Instagram: @harmens.design (https://www.instagram.com/harmens.design/)
   - Email: info@harmensdesign.com
-  - Location: Saudi Arabia
 - **3D particles/effects** في الخلفية (continuous من الهيرو)
 - **Scroll animation** على النموذج والعناصر
-- Footer بسيط: اللوجو + copyright + Instagram + Email + Location
+- Footer بسيط: اللوجو + copyright + Instagram + Email
 - **مهم:** لازم نشيل الـ noindex tag! + نضيف proper SEO metadata
 
 ### ⚠️ بيانات التواصل الإضافية (محفوظة لو العميل طلبها):
 - التلفون: 00966570533358
 - واتساب: wa.me/966570533358
+- Location: Saudi Arabia
 - **لو العميل طلب إضافتها بعدين، هنضيفها بسهولة**
 
 ## Reference Websites Analysis
