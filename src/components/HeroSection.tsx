@@ -136,24 +136,17 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
         >
           <a
             href="#portfolio"
-            className="group relative inline-flex items-center gap-3 px-10 py-4 text-sm md:text-base tracking-[0.3em] uppercase font-medium text-white overflow-hidden transition-all duration-500"
+            className="group relative inline-flex items-center gap-4 px-8 py-4 text-xs md:text-sm tracking-[0.35em] uppercase font-normal text-[#A0AEC0] border border-[#2D3A4D] hover:border-[#25A2DC] hover:text-white transition-all duration-500 hover:bg-[#25A2DC]/10"
           >
-            {/* Button background with animated border */}
-            <span className="absolute inset-0 bg-[#25A2DC] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <span className="absolute inset-0 border border-[#25A2DC] group-hover:border-[#1B8BBE] transition-colors duration-500" />
-
-            {/* Shimmer effect on hover */}
-            <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-              style={{
-                background: 'linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.1) 45%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 55%, transparent 60%)',
-                backgroundSize: '200% 100%',
-                animation: 'shimmer 2s ease-in-out infinite',
-              }}
-            />
-
-            <span className="relative z-10 border border-[#25A2DC] group-hover:border-transparent px-10 py-4 transition-colors duration-500">
-              Explore Our Work
-            </span>
+            <span>Explore Our Work</span>
+            <svg
+              className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
           </a>
         </motion.div>
       </motion.div>
@@ -176,13 +169,6 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
         </motion.div>
       </motion.div>
 
-      {/* Shimmer keyframes */}
-      <style jsx>{`
-        @keyframes shimmer {
-          0% { background-position: -200% 0; }
-          100% { background-position: 200% 0; }
-        }
-      `}</style>
     </section>
   );
 }
