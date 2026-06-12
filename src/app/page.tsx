@@ -25,19 +25,19 @@ export default function Home() {
       setIntroComplete(true);
       setShowContent(true);
       // Delay 3D scene load slightly for better performance
-      setTimeout(() => setSceneLoaded(true), 500);
+      setTimeout(() => setSceneLoaded(true), 300);
     }
   }, []);
 
   const handleIntroComplete = () => {
     setIntroComplete(true);
     sessionStorage.setItem('harmens-intro-seen', 'true');
-    // Small delay before showing content for smooth transition
+    // Smooth transition: content appears as intro fades
     setTimeout(() => {
       setShowContent(true);
-      // Delay 3D scene load to avoid lag during hero animation
-      setTimeout(() => setSceneLoaded(true), 800);
-    }, 200);
+      // Delay 3D scene load to avoid lag during hero entrance
+      setTimeout(() => setSceneLoaded(true), 600);
+    }, 100);
   };
 
   return (
@@ -48,14 +48,21 @@ export default function Home() {
       {/* Cinematic Intro Animation */}
       {!introComplete && <IntroAnimation onComplete={handleIntroComplete} />}
 
-      {/* Main Content */}
-      {showContent && (
-        <>
-          <HeroSection introComplete={introComplete} />
-          <PortfolioSection />
-          <ContactSection />
-        </>
-      )}
+      {/* Main Content — appears with CSS entrance animations */}
+      <div
+        style={{
+          opacity: showContent ? 1 : 0,
+          transition: 'opacity 0.8s cubic-bezier(0.65, 0.05, 0, 1)',
+        }}
+      >
+        {showContent && (
+          <>
+            <HeroSection introComplete={introComplete} />
+            <PortfolioSection />
+            <ContactSection />
+          </>
+        )}
+      </div>
     </main>
   );
 }
