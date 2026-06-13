@@ -12,9 +12,17 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var _s = __turbopack_context__.k.signature();
 'use client';
 ;
+// Session-level flag: has the entrance animation played this session?
+let entrancePlayedThisSession = false;
 function TextSplit3D({ text, mode = 'entrance', className = '', letterClassName = '', staggerDelay = 60, entranceDuration = 800, scrollIntensity = 0.3 }) {
     _s();
-    const [mounted, setMounted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    // If entrance already played, skip straight to "mounted" state
+    const [mounted, setMounted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
+        "TextSplit3D.useState": ()=>mode === 'entrance' ? entrancePlayedThisSession : false
+    }["TextSplit3D.useState"]);
+    const [locked, setLocked] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
+        "TextSplit3D.useState": ()=>mode === 'entrance' ? entrancePlayedThisSession : false
+    }["TextSplit3D.useState"]);
     const [scrollY, setScrollY] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
     const containerRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const rafRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(0);
@@ -26,15 +34,38 @@ function TextSplit3D({ text, mode = 'entrance', className = '', letterClassName 
     ]);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "TextSplit3D.useEffect": ()=>{
+            if (mode === 'entrance' && entrancePlayedThisSession) {
+                // Already played — stay locked in final position
+                return;
+            }
             // Trigger entrance animation after mount
             const timer = setTimeout({
                 "TextSplit3D.useEffect.timer": ()=>setMounted(true)
             }["TextSplit3D.useEffect.timer"], 50);
+            // Lock into final position after animation completes
+            // (stagger delay + entrance duration + buffer)
+            const totalDuration = letters.length * staggerDelay + entranceDuration + 200;
+            const lockTimer = setTimeout({
+                "TextSplit3D.useEffect.lockTimer": ()=>{
+                    setLocked(true);
+                    if (mode === 'entrance') {
+                        entrancePlayedThisSession = true;
+                    }
+                }
+            }["TextSplit3D.useEffect.lockTimer"], totalDuration);
             return ({
-                "TextSplit3D.useEffect": ()=>clearTimeout(timer)
+                "TextSplit3D.useEffect": ()=>{
+                    clearTimeout(timer);
+                    clearTimeout(lockTimer);
+                }
             })["TextSplit3D.useEffect"];
         }
-    }["TextSplit3D.useEffect"], []);
+    }["TextSplit3D.useEffect"], [
+        mode,
+        letters.length,
+        staggerDelay,
+        entranceDuration
+    ]);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "TextSplit3D.useEffect": ()=>{
             if (mode !== 'scroll') return;
@@ -75,12 +106,12 @@ function TextSplit3D({ text, mode = 'entrance', className = '', letterClassName 
         },
         children: letters.map((letter, i)=>{
             const isSpace = letter === ' ';
-            // Entrance animation values — MORE dramatic
+            // Entrance animation values
             const entranceRotateX = mounted ? 0 : 120 + i % 3 * 30;
             const entranceRotateY = mounted ? 0 : i % 2 === 0 ? -50 : 50;
             const entranceTranslateZ = mounted ? 0 : -400;
             const entranceOpacity = mounted ? 1 : 0;
-            // Scroll animation values — MORE visible
+            // Scroll animation values
             const normalizedScroll = scrollY * scrollIntensity * 0.005;
             const scrollRotateX = mode === 'scroll' ? normalizedScroll * (i % 2 === 0 ? 1 : -1) * 12 : 0;
             const scrollRotateY = mode === 'scroll' ? normalizedScroll * (i % 3 === 0 ? 1 : -0.5) * 6 : 0;
@@ -94,26 +125,29 @@ function TextSplit3D({ text, mode = 'entrance', className = '', letterClassName 
                     display: 'inline-block',
                     transform: `rotateX(${finalRotateX}deg) rotateY(${finalRotateY}deg) translateZ(${finalTranslateZ}px)`,
                     opacity: entranceOpacity,
-                    transition: mounted ? `transform ${entranceDuration}ms cubic-bezier(0.16, 1, 0.3, 1) ${i * staggerDelay}ms, opacity ${entranceDuration * 0.6}ms ease ${i * staggerDelay}ms` : 'none',
+                    // When locked: NO transition at all = no re-animation on re-mount
+                    // When animating: full entrance transition
+                    // When not yet started: no transition
+                    transition: locked ? 'none' : mounted ? `transform ${entranceDuration}ms cubic-bezier(0.16, 1, 0.3, 1) ${i * staggerDelay}ms, opacity ${entranceDuration * 0.6}ms ease ${i * staggerDelay}ms` : 'none',
                     transformStyle: 'preserve-3d',
-                    willChange: 'transform, opacity',
+                    willChange: locked ? 'auto' : 'transform, opacity',
                     backfaceVisibility: 'hidden',
                     minWidth: isSpace ? '0.3em' : undefined
                 },
                 children: isSpace ? '\u00A0' : letter
             }, `${letter}-${i}`, false, {
                 fileName: "[project]/src/components/TextSplit3D.tsx",
-                lineNumber: 102,
+                lineNumber: 132,
                 columnNumber: 11
             }, this);
         })
     }, void 0, false, {
         fileName: "[project]/src/components/TextSplit3D.tsx",
-        lineNumber: 72,
+        lineNumber: 102,
         columnNumber: 5
     }, this);
 }
-_s(TextSplit3D, "f7aT6S9P1R9y2H4C33mS0A5rifo=");
+_s(TextSplit3D, "1CUDmua7TcEQoBKD3+d7UlQHByQ=");
 _c = TextSplit3D;
 var _c;
 __turbopack_context__.k.register(_c, "TextSplit3D");
