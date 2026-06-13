@@ -33,7 +33,7 @@ function Scene3D() {
     // Pre-calculate all random values deterministically
     const stars = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "Scene3D.useMemo[stars]": ()=>Array.from({
-                length: 60
+                length: 40
             }).map({
                 "Scene3D.useMemo[stars]": (_, i)=>({
                         width: 1 + seededRandom(i * 7 + 1) * 2,
@@ -49,7 +49,7 @@ function Scene3D() {
     }["Scene3D.useMemo[stars]"], []);
     const particles = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "Scene3D.useMemo[particles]": ()=>Array.from({
-                length: 25
+                length: 15
             }).map({
                 "Scene3D.useMemo[particles]": (_, i)=>({
                         width: 1.5 + seededRandom(i * 29 + 10) * 2.5,

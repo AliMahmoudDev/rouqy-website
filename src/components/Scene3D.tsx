@@ -24,7 +24,7 @@ export default function Scene3D() {
 
   // Pre-calculate all random values deterministically
   const stars = useMemo(() =>
-    Array.from({ length: 60 }).map((_, i) => ({
+    Array.from({ length: 40 }).map((_, i) => ({
       width: 1 + seededRandom(i * 7 + 1) * 2,
       height: 1 + seededRandom(i * 7 + 1) * 2,
       isGold: i % 3 === 0,
@@ -38,7 +38,7 @@ export default function Scene3D() {
   );
 
   const particles = useMemo(() =>
-    Array.from({ length: 25 }).map((_, i) => ({
+    Array.from({ length: 15 }).map((_, i) => ({
       width: 1.5 + seededRandom(i * 29 + 10) * 2.5,
       height: 1.5 + seededRandom(i * 29 + 10) * 2.5,
       isGold: i % 2 === 0,

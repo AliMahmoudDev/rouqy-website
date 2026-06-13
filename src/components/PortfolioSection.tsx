@@ -1,12 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { ArrowUpRight, MapPin, Maximize2 } from 'lucide-react';
-import dynamic from 'next/dynamic';
-
-// Dynamic import CardTilt3D to avoid SSR issues
-const CardTilt3D = dynamic(() => import('@/components/CardTilt3D'), { ssr: false });
 
 const projects = [
   {
@@ -80,7 +76,6 @@ function AnimatedCounter({ target, suffix = '', duration = 2000 }: { target: num
           const animate = () => {
             const elapsed = Date.now() - startTime;
             const progress = Math.min(elapsed / duration, 1);
-            // Ease out cubic
             const eased = 1 - Math.pow(1 - progress, 3);
             setCount(Math.floor(eased * target));
             if (progress < 1) {
@@ -122,7 +117,7 @@ export default function PortfolioSection() {
       { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
     );
 
-    const elements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale, .scroll-reveal-clip, .stagger-children');
+    const elements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale, .scroll-reveal-clip, .stagger-children, .card-3d-enter-left, .card-3d-enter-right, .card-3d-enter-bottom, .card-3d-enter-up');
     elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
@@ -130,7 +125,7 @@ export default function PortfolioSection() {
 
   /* Apply revealed class when element becomes visible */
   useEffect(() => {
-    const elements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale, .scroll-reveal-clip, .stagger-children');
+    const elements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale, .scroll-reveal-clip, .stagger-children, .card-3d-enter-left, .card-3d-enter-right, .card-3d-enter-bottom, .card-3d-enter-up');
     elements.forEach((el) => {
       if (visibleElements.has(el.id)) {
         el.classList.add('revealed');
@@ -144,19 +139,15 @@ export default function PortfolioSection() {
       id="portfolio"
       className="relative z-10 py-32 md:py-40 px-4 md:px-8 lg:px-12 overflow-hidden"
     >
-      {/* Video background for portfolio section */}
+      {/* Background image for portfolio section — luxury furniture */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="w-full h-full object-cover"
-          style={{ opacity: 0.06 }}
-        >
-          <source src="/videos/portfolio-bg.mp4" type="video/mp4" />
-        </video>
+        <Image
+          src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=40"
+          alt=""
+          fill
+          className="object-cover"
+          style={{ opacity: 0.05 }}
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-[#161E2D] via-transparent to-[#0B0F18]" />
       </div>
 
@@ -241,108 +232,62 @@ export default function PortfolioSection() {
           />
         </div>
 
-        {/* === PROJECT GRID — Magazine Editorial Layout === */}
+        {/* === PROJECT GRID — 3D Entrance Animations === */}
         <div ref={gridRef} id="portfolio-grid" className="stagger-children">
           {/* First row: Large hero project + tall project */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 mb-4 md:mb-5">
-            {/* Hero project - spans 8 cols */}
-            <CardTilt3D maxTilt={12} glareOpacity={0.25} className="md:col-span-8">
-            <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '16/9' }}>
-              <div className="relative w-full h-full overflow-hidden">
-                <Image
-                  src={projects[0].image}
-                  alt={projects[0].title}
-                  fill
-                  className="card-image object-cover"
-                  sizes="(max-width: 768px) 100vw, 66vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F18]/90 via-[#0B0F18]/20 to-transparent" />
-                <div className="absolute inset-0 bg-[#0B0F18]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                {/* Project number */}
-                <div className="card-number absolute top-6 left-6 z-10">
-                  <span className="text-white/15 text-7xl md:text-9xl font-bold tracking-tighter leading-none">01</span>
-                </div>
-
-                {/* Hover arrow */}
-                <div className="absolute top-6 right-6 z-10 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
-                  <div className="w-12 h-12 border border-[#25A2DC]/50 flex items-center justify-center bg-[#0B0F18]/40 backdrop-blur-sm animate-glow-blue-intense">
-                    <ArrowUpRight className="w-5 h-5 text-[#25A2DC]" />
-                  </div>
-                </div>
-
-                {/* Bottom info */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-10">
-                  <div className="card-tag">
-                    <span className="text-[10px] tracking-[0.3em] uppercase text-[#D4AF37] border border-[#D4AF37]/30 px-2 py-1">
-                      {projects[0].category}
-                    </span>
-                  </div>
-                  <h3 className="card-info text-white text-2xl md:text-3xl lg:text-4xl font-semibold tracking-wide mt-3">
-                    {projects[0].title}
-                  </h3>
-                  <p className="card-info text-[#A0AEC0]/70 text-sm mt-2 max-w-md">{projects[0].description}</p>
-                  <div className="card-info flex items-center gap-4 mt-3 text-[#A0AEC0] text-xs tracking-wider">
-                    <span className="flex items-center gap-1"><MapPin className="w-3 h-3" />{projects[0].location}</span>
-                    <span className="flex items-center gap-1"><Maximize2 className="w-3 h-3" />{projects[0].area}</span>
-                  </div>
-                </div>
-
-                {/* Gold accent line at bottom */}
-                <div className="accent-line absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#25A2DC] to-[#D4AF37]" />
-              </div>
-            </div>
-            </CardTilt3D>
-
-            {/* Tall project - spans 4 cols */}
-            <CardTilt3D maxTilt={12} glareOpacity={0.25} className="md:col-span-4">
-            <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '3/4' }}>
-              <div className="relative w-full h-full overflow-hidden">
-                <Image
-                  src={projects[1].image}
-                  alt={projects[1].title}
-                  fill
-                  className="card-image object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F18]/90 via-[#0B0F18]/20 to-transparent" />
-                <div className="absolute inset-0 bg-[#0B0F18]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                <div className="card-number absolute top-6 left-6 z-10">
-                  <span className="text-white/15 text-6xl md:text-7xl font-bold tracking-tighter leading-none">02</span>
-                </div>
-
-                <div className="absolute top-6 right-6 z-10 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
-                  <div className="w-10 h-10 border border-[#25A2DC]/50 flex items-center justify-center bg-[#0B0F18]/40 backdrop-blur-sm">
-                    <ArrowUpRight className="w-4 h-4 text-[#25A2DC]" />
-                  </div>
-                </div>
-
-                <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 z-10">
-                  <div className="card-tag">
-                    <span className="text-[10px] tracking-[0.3em] uppercase text-[#D4AF37] border border-[#D4AF37]/30 px-2 py-1">
-                      {projects[1].category}
-                    </span>
-                  </div>
-                  <h3 className="card-info text-white text-xl md:text-2xl font-semibold tracking-wide mt-3">{projects[1].title}</h3>
-                  <p className="card-info text-[#A0AEC0]/70 text-xs mt-2">{projects[1].description}</p>
-                </div>
-
-                <div className="accent-line absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#25A2DC] to-[#D4AF37]" />
-              </div>
-            </div>
-            </CardTilt3D>
-          </div>
-
-          {/* Second row: 3 equal cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-4 md:mb-5">
-            {projects.slice(2, 5).map((project, index) => (
-              <CardTilt3D key={`tilt-${project.title}`} maxTilt={14} glareOpacity={0.25}>
-              <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '4/5' }}>
+            {/* Hero project — FLIES IN FROM LEFT with 3D rotation */}
+            <div id="card-1" className="md:col-span-8 card-3d-enter-left" style={{ perspective: '1200px' }}>
+              <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '16/9' }}>
                 <div className="relative w-full h-full overflow-hidden">
                   <Image
-                    src={project.image}
-                    alt={project.title}
+                    src={projects[0].image}
+                    alt={projects[0].title}
+                    fill
+                    className="card-image object-cover"
+                    sizes="(max-width: 768px) 100vw, 66vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F18]/90 via-[#0B0F18]/20 to-transparent" />
+                  <div className="absolute inset-0 bg-[#0B0F18]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  <div className="card-number absolute top-6 left-6 z-10">
+                    <span className="text-white/15 text-7xl md:text-9xl font-bold tracking-tighter leading-none">01</span>
+                  </div>
+
+                  <div className="absolute top-6 right-6 z-10 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+                    <div className="w-12 h-12 border border-[#25A2DC]/50 flex items-center justify-center bg-[#0B0F18]/40 backdrop-blur-sm animate-glow-blue-intense">
+                      <ArrowUpRight className="w-5 h-5 text-[#25A2DC]" />
+                    </div>
+                  </div>
+
+                  <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-10">
+                    <div className="card-tag">
+                      <span className="text-[10px] tracking-[0.3em] uppercase text-[#D4AF37] border border-[#D4AF37]/30 px-2 py-1">
+                        {projects[0].category}
+                      </span>
+                    </div>
+                    <h3 className="card-info text-white text-2xl md:text-3xl lg:text-4xl font-semibold tracking-wide mt-3">
+                      {projects[0].title}
+                    </h3>
+                    <p className="card-info text-[#A0AEC0]/70 text-sm mt-2 max-w-md">{projects[0].description}</p>
+                    <div className="card-info flex items-center gap-4 mt-3 text-[#A0AEC0] text-xs tracking-wider">
+                      <span className="flex items-center gap-1"><MapPin className="w-3 h-3" />{projects[0].location}</span>
+                      <span className="flex items-center gap-1"><Maximize2 className="w-3 h-3" />{projects[0].area}</span>
+                    </div>
+                  </div>
+
+                  <div className="accent-line absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#25A2DC] to-[#D4AF37]" />
+                </div>
+              </div>
+            </div>
+
+            {/* Tall project — FLIES IN FROM RIGHT with 3D rotation */}
+            <div id="card-2" className="md:col-span-4 card-3d-enter-right" style={{ perspective: '1200px' }}>
+              <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '3/4' }}>
+                <div className="relative w-full h-full overflow-hidden">
+                  <Image
+                    src={projects[1].image}
+                    alt={projects[1].title}
                     fill
                     className="card-image object-cover"
                     sizes="(max-width: 768px) 100vw, 33vw"
@@ -350,82 +295,129 @@ export default function PortfolioSection() {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F18]/90 via-[#0B0F18]/20 to-transparent" />
                   <div className="absolute inset-0 bg-[#0B0F18]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                  <div className="card-number absolute top-5 right-5 z-10">
-                    <span className="text-white/15 text-5xl md:text-6xl font-bold tracking-tighter leading-none">
-                      {String(index + 3).padStart(2, '0')}
-                    </span>
+                  <div className="card-number absolute top-6 left-6 z-10">
+                    <span className="text-white/15 text-6xl md:text-7xl font-bold tracking-tighter leading-none">02</span>
                   </div>
 
-                  <div className="absolute top-5 left-5 z-10 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+                  <div className="absolute top-6 right-6 z-10 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
                     <div className="w-10 h-10 border border-[#25A2DC]/50 flex items-center justify-center bg-[#0B0F18]/40 backdrop-blur-sm">
                       <ArrowUpRight className="w-4 h-4 text-[#25A2DC]" />
                     </div>
                   </div>
 
-                  <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
+                  <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 z-10">
                     <div className="card-tag">
                       <span className="text-[10px] tracking-[0.3em] uppercase text-[#D4AF37] border border-[#D4AF37]/30 px-2 py-1">
-                        {project.category}
+                        {projects[1].category}
                       </span>
                     </div>
-                    <h3 className="card-info text-white text-lg md:text-xl font-semibold tracking-wide mt-3">{project.title}</h3>
-                    <div className="card-info flex items-center gap-3 mt-2 text-[#A0AEC0] text-xs tracking-wider">
-                      <span className="flex items-center gap-1"><MapPin className="w-3 h-3" />{project.location}</span>
-                      <span className="flex items-center gap-1"><Maximize2 className="w-3 h-3" />{project.area}</span>
-                    </div>
+                    <h3 className="card-info text-white text-xl md:text-2xl font-semibold tracking-wide mt-3">{projects[1].title}</h3>
+                    <p className="card-info text-[#A0AEC0]/70 text-xs mt-2">{projects[1].description}</p>
                   </div>
 
                   <div className="accent-line absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#25A2DC] to-[#D4AF37]" />
                 </div>
               </div>
-              </CardTilt3D>
+            </div>
+          </div>
+
+          {/* Second row: 3 equal cards — alternating from left/right */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-4 md:mb-5">
+            {projects.slice(2, 5).map((project, index) => (
+              <div
+                key={project.title}
+                id={`card-${index + 3}`}
+                className={index % 2 === 0 ? 'card-3d-enter-left' : 'card-3d-enter-right'}
+                style={{ perspective: '1200px' }}
+              >
+                <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '4/5' }}>
+                  <div className="relative w-full h-full overflow-hidden">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="card-image object-cover"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F18]/90 via-[#0B0F18]/20 to-transparent" />
+                    <div className="absolute inset-0 bg-[#0B0F18]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                    <div className="card-number absolute top-5 right-5 z-10">
+                      <span className="text-white/15 text-5xl md:text-6xl font-bold tracking-tighter leading-none">
+                        {String(index + 3).padStart(2, '0')}
+                      </span>
+                    </div>
+
+                    <div className="absolute top-5 left-5 z-10 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+                      <div className="w-10 h-10 border border-[#25A2DC]/50 flex items-center justify-center bg-[#0B0F18]/40 backdrop-blur-sm">
+                        <ArrowUpRight className="w-4 h-4 text-[#25A2DC]" />
+                      </div>
+                    </div>
+
+                    <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
+                      <div className="card-tag">
+                        <span className="text-[10px] tracking-[0.3em] uppercase text-[#D4AF37] border border-[#D4AF37]/30 px-2 py-1">
+                          {project.category}
+                        </span>
+                      </div>
+                      <h3 className="card-info text-white text-lg md:text-xl font-semibold tracking-wide mt-3">{project.title}</h3>
+                      <div className="card-info flex items-center gap-3 mt-2 text-[#A0AEC0] text-xs tracking-wider">
+                        <span className="flex items-center gap-1"><MapPin className="w-3 h-3" />{project.location}</span>
+                        <span className="flex items-center gap-1"><Maximize2 className="w-3 h-3" />{project.area}</span>
+                      </div>
+                    </div>
+
+                    <div className="accent-line absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#25A2DC] to-[#D4AF37]" />
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
 
-          {/* Third row: Full-width cinematic project */}
-          <CardTilt3D maxTilt={10} glareOpacity={0.2}>
-          <div className="portfolio-card group relative cursor-pointer mb-4 md:mb-5" style={{ aspectRatio: '21/9' }}>
-            <div className="relative w-full h-full overflow-hidden">
-              <Image
-                src={projects[5].image}
-                alt={projects[5].title}
-                fill
-                className="card-image object-cover"
-                sizes="100vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F18]/90 via-[#0B0F18]/20 to-transparent" />
-              <div className="absolute inset-0 bg-[#0B0F18]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          {/* Third row: Full-width — RISES UP with 3D tilt */}
+          <div id="card-6" className="card-3d-enter-bottom" style={{ perspective: '1200px' }}>
+            <div className="portfolio-card group relative cursor-pointer mb-4 md:mb-5" style={{ aspectRatio: '21/9' }}>
+              <div className="relative w-full h-full overflow-hidden">
+                <Image
+                  src={projects[5].image}
+                  alt={projects[5].title}
+                  fill
+                  className="card-image object-cover"
+                  sizes="100vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F18]/90 via-[#0B0F18]/20 to-transparent" />
+                <div className="absolute inset-0 bg-[#0B0F18]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              <div className="card-number absolute top-8 left-8 z-10">
-                <span className="text-white/15 text-8xl md:text-[120px] font-bold tracking-tighter leading-none">06</span>
-              </div>
-
-              <div className="absolute top-8 right-8 z-10 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
-                <div className="w-14 h-14 border border-[#25A2DC]/50 flex items-center justify-center bg-[#0B0F18]/40 backdrop-blur-sm animate-glow-blue-intense">
-                  <ArrowUpRight className="w-6 h-6 text-[#25A2DC]" />
+                <div className="card-number absolute top-8 left-8 z-10">
+                  <span className="text-white/15 text-8xl md:text-[120px] font-bold tracking-tighter leading-none">06</span>
                 </div>
-              </div>
 
-              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 z-10">
-                <div className="max-w-xl">
-                  <div className="card-tag">
-                    <span className="text-[10px] tracking-[0.3em] uppercase text-[#D4AF37] border border-[#D4AF37]/30 px-3 py-1.5">
-                      {projects[5].category}
-                    </span>
-                  </div>
-                  <h3 className="card-info text-white text-3xl md:text-4xl lg:text-5xl font-semibold tracking-wide mt-4">{projects[5].title}</h3>
-                  <p className="card-info text-[#A0AEC0]/70 text-sm md:text-base mt-3">{projects[5].description}</p>
-                  <div className="card-info flex items-center gap-4 mt-4 text-[#A0AEC0] text-xs tracking-wider">
-                    <span className="flex items-center gap-1"><MapPin className="w-3 h-3" />{projects[5].location}</span>
-                    <span className="flex items-center gap-1"><Maximize2 className="w-3 h-3" />{projects[5].area}</span>
+                <div className="absolute top-8 right-8 z-10 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+                  <div className="w-14 h-14 border border-[#25A2DC]/50 flex items-center justify-center bg-[#0B0F18]/40 backdrop-blur-sm animate-glow-blue-intense">
+                    <ArrowUpRight className="w-6 h-6 text-[#25A2DC]" />
                   </div>
                 </div>
-              </div>
 
-              <div className="accent-line absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#25A2DC] to-[#D4AF37]" />
+                <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 z-10">
+                  <div className="max-w-xl">
+                    <div className="card-tag">
+                      <span className="text-[10px] tracking-[0.3em] uppercase text-[#D4AF37] border border-[#D4AF37]/30 px-3 py-1.5">
+                        {projects[5].category}
+                      </span>
+                    </div>
+                    <h3 className="card-info text-white text-3xl md:text-4xl lg:text-5xl font-semibold tracking-wide mt-4">{projects[5].title}</h3>
+                    <p className="card-info text-[#A0AEC0]/70 text-sm md:text-base mt-3">{projects[5].description}</p>
+                    <div className="card-info flex items-center gap-4 mt-4 text-[#A0AEC0] text-xs tracking-wider">
+                      <span className="flex items-center gap-1"><MapPin className="w-3 h-3" />{projects[5].location}</span>
+                      <span className="flex items-center gap-1"><Maximize2 className="w-3 h-3" />{projects[5].area}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="accent-line absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#25A2DC] to-[#D4AF37]" />
+              </div>
             </div>
           </div>
-          </CardTilt3D>
         </div>
 
         {/* === Animated Stats Bar === */}
@@ -444,7 +436,6 @@ export default function PortfolioSection() {
                 <p className="text-[#A0AEC0] text-xs tracking-[0.2em] uppercase mt-2">
                   {stat.label}
                 </p>
-                {/* Animated underline on hover */}
                 <div className="mt-2 h-[1px] w-0 group-hover:w-full bg-gradient-to-r from-[#25A2DC] to-[#D4AF37] transition-all duration-500" />
               </div>
             ))}

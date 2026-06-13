@@ -19,10 +19,10 @@ function seededRandom(seed: number): number {
   return x - Math.floor(x);
 }
 
-/* CSS-only floating particles — deterministic values */
+/* CSS-only floating particles — deterministic values — REDUCED for performance */
 function FloatingParticles() {
-  // Pre-calculate all particle data deterministically
-  const goldParticles = Array.from({ length: 15 }).map((_, i) => ({
+  // Fewer particles for better performance
+  const goldParticles = Array.from({ length: 8 }).map((_, i) => ({
     width: 2 + seededRandom(i * 7 + 1) * 3,
     height: 2 + seededRandom(i * 7 + 1) * 3,
     left: seededRandom(i * 11 + 2) * 100,
@@ -30,7 +30,7 @@ function FloatingParticles() {
     duration: 8 + seededRandom(i * 17 + 4) * 12,
     delay: seededRandom(i * 19 + 5) * 10,
   }));
-  const blueParticles = Array.from({ length: 12 }).map((_, i) => ({
+  const blueParticles = Array.from({ length: 6 }).map((_, i) => ({
     width: 1.5 + seededRandom(i * 23 + 6) * 2,
     height: 1.5 + seededRandom(i * 23 + 6) * 2,
     left: seededRandom(i * 29 + 7) * 100,
@@ -38,7 +38,7 @@ function FloatingParticles() {
     duration: 10 + seededRandom(i * 37 + 9) * 15,
     delay: seededRandom(i * 41 + 10) * 10,
   }));
-  const sparkleParticles = Array.from({ length: 8 }).map((_, i) => ({
+  const sparkleParticles = Array.from({ length: 4 }).map((_, i) => ({
     left: 10 + seededRandom(i * 43 + 11) * 80,
     top: 10 + seededRandom(i * 47 + 12) * 80,
     duration: 2 + seededRandom(i * 53 + 13) * 3,
@@ -248,18 +248,16 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden"
     >
-      {/* Video Background Layer */}
-      <div className="video-bg-container">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          poster="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1920&q=40"
-        >
-          <source src="/videos/hero-bg.mp4" type="video/mp4" />
-        </video>
+      {/* Background Image Layer — luxury interior decor (lighter than video) */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1920&q=60"
+          alt=""
+          fill
+          className="object-cover"
+          style={{ opacity: 0.12 }}
+          priority
+        />
         <div className="video-bg-overlay" />
       </div>
 

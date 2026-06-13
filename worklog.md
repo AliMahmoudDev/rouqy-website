@@ -74,3 +74,30 @@ Stage Summary:
 - Logos enlarged (navbar 36→48px, hero 120→160px)
 - All 3D effects dramatically more visible: stronger tilts, faster parallax, bigger shapes, brighter glows
 - The client will immediately notice the 3D effects now — not subtle anymore
+
+---
+Task ID: 4
+Agent: Main Agent
+Task: Fix lag, replace CardTilt with visible 3D entrance animations, change videos to decor images
+
+Work Log:
+- Removed CardTilt3D entirely from PortfolioSection (was causing lag with mouse tracking on 6 cards)
+- Added 3D entrance animations for all portfolio cards:
+  - Row 1: Hero card flies from LEFT with rotateY(-25deg) + translateX(-120px) + scale(0.85)
+  - Row 1: Tall card flies from RIGHT with rotateY(25deg) + translateX(120px) + scale(0.85)
+  - Row 2: 3 cards alternate left/right with staggered delays
+  - Row 3: Full-width card rises from bottom with rotateX(15deg) + translateY(100px)
+- All entrance animations are CSS-only (IntersectionObserver triggers once) = ZERO ongoing lag
+- Added CSS classes: .card-3d-enter-left, .card-3d-enter-right, .card-3d-enter-bottom, .card-3d-enter-up
+- Reduced Hero particles: gold 15→8, blue 12→6, sparkle 8→4
+- Reduced Scene3D particles: stars 60→40, floating 25→15
+- Replaced Hero video background with static interior decor image (removes video decode lag)
+- Replaced Portfolio video background with luxury furniture image
+- Build succeeded with zero errors
+
+Stage Summary:
+- CardTilt removed = no more mouse-tracking lag on 6 cards
+- 3D entrance animations are VISIBLE and impressive (25° rotation, 120px slide, scale)
+- Videos replaced with images = significantly less GPU usage
+- Particle counts reduced by ~40% across Hero and Scene3D
+- The 3D card entrances will be immediately noticeable to the client
