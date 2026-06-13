@@ -168,7 +168,7 @@ export default function HorizontalGallery3D() {
           overflowX: 'auto',
           overflowY: 'hidden',
           scrollSnapType: 'x proximity',
-          touchAction: 'pan-y',          // Vertical scroll → page, Horizontal → gallery
+          touchAction: 'pan-x pan-y',    // Allow both — browser picks direction by swipe
           overscrollBehaviorX: 'contain', // Prevent browser back/forward on overscroll
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
