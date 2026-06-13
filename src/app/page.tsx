@@ -8,6 +8,10 @@ import HeroSection from '@/components/HeroSection';
 import PortfolioSection from '@/components/PortfolioSection';
 import ContactSection from '@/components/ContactSection';
 import CursorGlow from '@/components/CursorGlow';
+import StackingCards3D from '@/components/StackingCards3D';
+import HorizontalGallery3D from '@/components/HorizontalGallery3D';
+import ImageUnframe3D from '@/components/ImageUnframe3D';
+import ParallaxFooter3D from '@/components/ParallaxFooter3D';
 
 // Dynamic imports for client-only components
 const Scene3D = dynamic(() => import('@/components/Scene3D'), { ssr: false });
@@ -130,6 +134,17 @@ export default function Home() {
             <div className="section-divider relative z-10 -mt-8 md:-mt-12" />
             <PortfolioSection />
             <div className="section-divider relative z-10" />
+            
+            {/* ====== 3D EFFECT SECTIONS (Experimental) ====== */}
+            <StackingCards3D />
+            <div className="section-divider relative z-10" />
+            <HorizontalGallery3D />
+            <div className="section-divider relative z-10" />
+            <ImageUnframe3D />
+            <div className="section-divider relative z-10" />
+            <ParallaxFooter3D />
+            <div className="section-divider relative z-10" />
+            
             <ContactSection />
           </>
         )}
