@@ -116,7 +116,7 @@ export default function Home() {
         {showContent && (
           <>
             <HeroSection introComplete={introComplete} />
-            <div className="section-divider relative z-10 -mt-32 md:-mt-44" />
+            <div className="section-divider relative z-10 -mt-8 md:-mt-12" />
             <PortfolioSection />
             <div className="section-divider relative z-10" />
             <ContactSection />
