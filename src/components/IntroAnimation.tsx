@@ -52,7 +52,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
     timers.push(setTimeout(() => {
       setPhase('done');
       onCompleteStable();
-    }, 8100));
+    }, 8800));
 
     return () => timers.forEach(clearTimeout);
   }, [mounted, onCompleteStable]);
@@ -132,7 +132,9 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden"
       style={{
         background: '#050810',
-        transition: 'all 0.8s cubic-bezier(0.65, 0.05, 0, 1)',
+        transition: 'opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), filter 1.2s cubic-bezier(0.4, 0, 0.2, 1)',
+        opacity: isWiping ? 0 : 1,
+        filter: isWiping ? 'blur(20px) brightness(2)' : 'blur(0px) brightness(1)',
       }}
     >
       {/* ====== CINEMATIC BARS ====== */}
@@ -631,14 +633,14 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         </>
       )}
 
-      {/* ====== PHASE 7: WIPE — Everything fades with blur ====== */}
+      {/* ====== PHASE 7: WIPE — Smooth gradient dissolve ====== */}
       {isWiping && (
         <div
           className="absolute inset-0 z-20 pointer-events-none"
           style={{
-            background: '#050810',
-            opacity: 1,
-            animation: 'intro-wipe-in 0.5s ease-out forwards',
+            background: 'radial-gradient(ellipse at center, #050810 0%, #050810 100%)',
+            opacity: 0,
+            animation: 'intro-wipe-smooth 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards',
           }}
         />
       )}
