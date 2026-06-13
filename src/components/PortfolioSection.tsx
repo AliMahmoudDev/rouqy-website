@@ -99,9 +99,15 @@ function AnimatedCounter({ target, suffix = '', duration = 2000 }: { target: num
 }
 
 export default function PortfolioSection() {
+  // Responsive rootMargin: much earlier on desktop, reasonable on mobile
+  const [rootMargin] = useState(() =>
+    typeof window !== 'undefined' && window.innerWidth >= 768
+      ? '500px 0px -20px 0px'
+      : '200px 0px -20px 0px'
+  );
   const sectionRef = useScrollReveal<HTMLElement>({
-    threshold: 0.02,
-    rootMargin: '200px 0px -20px 0px',
+    threshold: 0.01,
+    rootMargin,
   });
   const parallaxRef = useParallax3D<HTMLElement>();
 
