@@ -13,10 +13,10 @@ var _s = __turbopack_context__.k.signature();
 'use client';
 ;
 /* ============================================
-   HARMENS CSS Background Scene v4.0
+   HARMENS CSS Background Scene v5.0
    — ZERO WebGL, Pure CSS 3D transforms
    — Fixed hydration (deterministic random)
-   — Same visual impact, 10x better performance
+   — Mobile-optimized: shapes hidden on small screens
    ============================================ */ // Deterministic pseudo-random for SSR consistency
 function seededRandom(seed) {
     const x = Math.sin(seed * 127.1 + 311.7) * 43758.5453;
@@ -47,9 +47,10 @@ function Scene3D() {
                     })
             }["Scene3D.useMemo[stars]"])
     }["Scene3D.useMemo[stars]"], []);
+    // Reduced particles for mobile (fewer, only visible on larger screens)
     const particles = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "Scene3D.useMemo[particles]": ()=>Array.from({
-                length: 15
+                length: 8
             }).map({
                 "Scene3D.useMemo[particles]": (_, i)=>({
                         width: 1.5 + seededRandom(i * 29 + 10) * 2.5,
@@ -86,16 +87,16 @@ function Scene3D() {
                         }
                     }, `star-${i}`, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 59,
+                        lineNumber: 60,
                         columnNumber: 13
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 57,
+                lineNumber: 58,
                 columnNumber: 9
             }, this),
             mounted && particles.map((p, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "absolute rounded-full",
+                    className: "absolute rounded-full hidden md:block",
                     style: {
                         width: p.width,
                         height: p.height,
@@ -107,11 +108,11 @@ function Scene3D() {
                     }
                 }, `particle-${i}`, false, {
                     fileName: "[project]/src/components/Scene3D.tsx",
-                    lineNumber: 81,
+                    lineNumber: 82,
                     columnNumber: 9
                 }, this)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute",
+                className: "absolute hidden md:block",
                 style: {
                     width: '450px',
                     height: '450px',
@@ -130,7 +131,7 @@ function Scene3D() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 114,
+                        lineNumber: 115,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -142,7 +143,7 @@ function Scene3D() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 122,
+                        lineNumber: 123,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -155,7 +156,7 @@ function Scene3D() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 131,
+                        lineNumber: 132,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -172,17 +173,17 @@ function Scene3D() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 141,
+                        lineNumber: 142,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 101,
+                lineNumber: 102,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute rounded-full",
+                className: "absolute rounded-full hidden md:block",
                 style: {
                     width: '220px',
                     height: '220px',
@@ -195,11 +196,11 @@ function Scene3D() {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 157,
+                lineNumber: 158,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute",
+                className: "absolute hidden lg:block",
                 style: {
                     width: '300px',
                     height: '300px',
@@ -217,7 +218,7 @@ function Scene3D() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 184,
+                        lineNumber: 185,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -229,7 +230,7 @@ function Scene3D() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 192,
+                        lineNumber: 193,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -242,12 +243,12 @@ function Scene3D() {
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/components/Scene3D.tsx",
-                            lineNumber: 202,
+                            lineNumber: 203,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 201,
+                        lineNumber: 202,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -260,12 +261,12 @@ function Scene3D() {
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/components/Scene3D.tsx",
-                            lineNumber: 205,
+                            lineNumber: 206,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 204,
+                        lineNumber: 205,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -277,7 +278,7 @@ function Scene3D() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 208,
+                        lineNumber: 209,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -289,17 +290,17 @@ function Scene3D() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 216,
+                        lineNumber: 217,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 172,
+                lineNumber: 173,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute rounded-full animate-morph",
+                className: "absolute rounded-full hidden md:block",
                 style: {
                     width: '140px',
                     height: '140px',
@@ -312,11 +313,11 @@ function Scene3D() {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 227,
+                lineNumber: 228,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute",
+                className: "absolute hidden lg:block",
                 style: {
                     width: '180px',
                     height: '180px',
@@ -334,7 +335,7 @@ function Scene3D() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 253,
+                        lineNumber: 254,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -346,17 +347,17 @@ function Scene3D() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 260,
+                        lineNumber: 261,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 242,
+                lineNumber: 243,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute",
+                className: "absolute hidden md:block",
                 style: {
                     top: '5%',
                     left: '3%',
@@ -380,7 +381,7 @@ function Scene3D() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 283,
+                        lineNumber: 284,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -391,7 +392,7 @@ function Scene3D() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 297,
+                        lineNumber: 298,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -404,17 +405,17 @@ function Scene3D() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 305,
+                        lineNumber: 306,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 271,
+                lineNumber: 272,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute rounded-full animate-border-glow-gold",
+                className: "absolute rounded-full animate-border-glow-gold hidden lg:block",
                 style: {
                     width: '200px',
                     height: '200px',
@@ -425,11 +426,11 @@ function Scene3D() {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 317,
+                lineNumber: 318,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute rounded-full",
+                className: "absolute rounded-full hidden md:block",
                 style: {
                     width: '130px',
                     height: '130px',
@@ -440,11 +441,11 @@ function Scene3D() {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 328,
+                lineNumber: 329,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute",
+                className: "absolute hidden lg:block",
                 style: {
                     width: '80px',
                     height: '80px',
@@ -463,16 +464,16 @@ function Scene3D() {
                     }
                 }, void 0, false, {
                     fileName: "[project]/src/components/Scene3D.tsx",
-                    lineNumber: 352,
+                    lineNumber: 353,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 341,
+                lineNumber: 342,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute",
+                className: "absolute hidden lg:block",
                 style: {
                     width: '70px',
                     height: '70px',
@@ -491,7 +492,7 @@ function Scene3D() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 375,
+                        lineNumber: 376,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -508,17 +509,17 @@ function Scene3D() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 384,
+                        lineNumber: 385,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 364,
+                lineNumber: 365,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute",
+                className: "absolute hidden md:block",
                 style: {
                     width: '200px',
                     height: '200px',
@@ -534,7 +535,7 @@ function Scene3D() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 412,
+                        lineNumber: 413,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -546,7 +547,7 @@ function Scene3D() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 413,
+                        lineNumber: 414,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -559,22 +560,22 @@ function Scene3D() {
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/components/Scene3D.tsx",
-                            lineNumber: 415,
+                            lineNumber: 416,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 414,
+                        lineNumber: 415,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 402,
+                lineNumber: 403,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute rounded-full",
+                className: "absolute rounded-full hidden md:block",
                 style: {
                     width: '120px',
                     height: '120px',
@@ -587,11 +588,11 @@ function Scene3D() {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 420,
+                lineNumber: 421,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute",
+                className: "absolute hidden md:block",
                 style: {
                     width: '120px',
                     height: '120px',
@@ -603,11 +604,11 @@ function Scene3D() {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 435,
+                lineNumber: 436,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute rounded-full animate-border-glow-gold",
+                className: "absolute rounded-full animate-border-glow-gold hidden lg:block",
                 style: {
                     width: '160px',
                     height: '160px',
@@ -618,11 +619,11 @@ function Scene3D() {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 449,
+                lineNumber: 450,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute",
+                className: "absolute hidden md:block",
                 style: {
                     width: '220px',
                     height: '220px',
@@ -638,7 +639,7 @@ function Scene3D() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 474,
+                        lineNumber: 475,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -650,17 +651,17 @@ function Scene3D() {
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
-                        lineNumber: 475,
+                        lineNumber: 476,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 464,
+                lineNumber: 465,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute",
+                className: "absolute hidden md:block",
                 style: {
                     width: '150px',
                     height: '150px',
@@ -673,11 +674,11 @@ function Scene3D() {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 479,
+                lineNumber: 480,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute rounded-full",
+                className: "absolute rounded-full hidden lg:block",
                 style: {
                     width: '180px',
                     height: '180px',
@@ -688,7 +689,7 @@ function Scene3D() {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 494,
+                lineNumber: 495,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -704,11 +705,11 @@ function Scene3D() {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 509,
+                lineNumber: 510,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute rounded-full pointer-events-none",
+                className: "absolute rounded-full pointer-events-none hidden md:block",
                 style: {
                     width: '500px',
                     height: '500px',
@@ -720,11 +721,11 @@ function Scene3D() {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 523,
+                lineNumber: 524,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute rounded-full pointer-events-none",
+                className: "absolute rounded-full pointer-events-none hidden md:block",
                 style: {
                     width: '500px',
                     height: '500px',
@@ -736,13 +737,13 @@ function Scene3D() {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/Scene3D.tsx",
-                lineNumber: 537,
+                lineNumber: 538,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/Scene3D.tsx",
-        lineNumber: 53,
+        lineNumber: 54,
         columnNumber: 5
     }, this);
 }
