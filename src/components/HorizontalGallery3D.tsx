@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useCallback, useState } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 
 const galleryItems = [
   {
@@ -55,14 +55,16 @@ const galleryItems = [
 
 export default function HorizontalGallery3D() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
+  const isDraggingRef = useRef(false);
   const dragRef = useRef({
-    active: false,
     startX: 0,
     scrollLeft: 0,
   });
+  const scrollEndTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const rafRef = useRef<number | null>(null);
+  const isSnappingRef = useRef(false);
 
-  // Lightweight 3D update — NO transitions, direct style only
+  // Lightweight 3D update — direct style only, NO transitions
   const updateCard3D = useCallback(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -81,12 +83,69 @@ export default function HorizontalGallery3D() {
       const scale = 1 - absClamped * absClamped * 0.1;
       const opacity = 1 - absClamped * 0.35;
 
-      // Direct style — NO transition during drag or scroll
+      // Direct style — NO transition ever during scroll/drag
       card.style.transition = 'none';
       card.style.transform = `perspective(1000px) rotateY(${rotateY}deg) scale(${scale})`;
       card.style.opacity = `${opacity}`;
     });
   }, []);
+
+  // JS-based snap: find the nearest card to center and smooth-scroll to it
+  const snapToNearestCard = useCallback(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const cards = container.querySelectorAll<HTMLElement>('[data-gallery-card]');
+    const containerRect = container.getBoundingClientRect();
+    const containerCenter = containerRect.left + containerRect.width / 2;
+
+    let nearestCard: HTMLElement | null = null;
+    let nearestDistance = Infinity;
+
+    cards.forEach((card) => {
+      const rect = card.getBoundingClientRect();
+      const cardCenter = rect.left + rect.width / 2;
+      const distance = Math.abs(cardCenter - containerCenter);
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearestCard = card;
+      }
+    });
+
+    if (nearestCard && nearestDistance > 5) {
+      // Calculate the scroll position that centers the nearest card
+      const cardRect = nearestCard.getBoundingClientRect();
+      const cardOffsetLeft = cardRect.left - containerRect.left + container.scrollLeft;
+      const targetScrollLeft = cardOffsetLeft - (containerRect.width - cardRect.width) / 2;
+
+      isSnappingRef.current = true;
+      container.scrollTo({
+        left: targetScrollLeft,
+        behavior: 'smooth',
+      });
+
+      // After snap animation completes, update 3D one final time with smooth transition
+      setTimeout(() => {
+        isSnappingRef.current = false;
+        updateCard3D();
+      }, 400);
+    }
+  }, [updateCard3D]);
+
+  // Detect scroll end and snap
+  const handleScrollEnd = useCallback(() => {
+    // Clear any existing timer
+    if (scrollEndTimerRef.current) {
+      clearTimeout(scrollEndTimerRef.current);
+    }
+
+    // Wait for scroll to truly stop (debounce)
+    scrollEndTimerRef.current = setTimeout(() => {
+      if (!isDraggingRef.current) {
+        snapToNearestCard();
+      }
+    }, 120); // Short debounce to detect when scrolling has stopped
+  }, [snapToNearestCard]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -97,41 +156,44 @@ export default function HorizontalGallery3D() {
       if (e.button !== 0) return;
       e.preventDefault();
 
+      isDraggingRef.current = true;
       dragRef.current = {
-        active: true,
         startX: e.clientX,
         scrollLeft: container.scrollLeft,
       };
-      setIsDragging(true);
-
-      // FIX #2: Disable scroll snap during drag (prevents snap fighting with drag)
-      container.style.scrollSnapType = 'none';
       container.style.cursor = 'grabbing';
     };
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (!dragRef.current.active) return;
+      if (!isDraggingRef.current) return;
 
-      // FIX #1: NO transition during drag — move instantly with mouse
       const dx = e.clientX - dragRef.current.startX;
       container.scrollLeft = dragRef.current.scrollLeft - dx;
-      requestAnimationFrame(updateCard3D);
+
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(updateCard3D);
     };
 
     const handleMouseUp = () => {
-      if (!dragRef.current.active) return;
+      if (!isDraggingRef.current) return;
 
-      dragRef.current.active = false;
-      setIsDragging(false);
-
-      // FIX #2: Re-enable scroll snap AFTER drag ends (smooth snap to card)
-      container.style.scrollSnapType = 'x mandatory';
+      isDraggingRef.current = false;
       container.style.cursor = 'grab';
+
+      // Snap to nearest card after desktop drag ends
+      // Small delay to let any residual movement settle
+      setTimeout(() => {
+        snapToNearestCard();
+      }, 50);
     };
 
-    // ===== 3D update on native scroll =====
+    // ===== 3D update on native scroll (mobile + desktop) =====
     const handleScroll = () => {
-      requestAnimationFrame(updateCard3D);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(updateCard3D);
+
+      // Detect scroll end for JS-based snapping
+      handleScrollEnd();
     };
 
     container.addEventListener('mousedown', handleMouseDown);
@@ -151,8 +213,10 @@ export default function HorizontalGallery3D() {
       window.removeEventListener('mouseup', handleMouseUp);
       container.removeEventListener('scroll', handleScroll);
       observer.disconnect();
+      if (scrollEndTimerRef.current) clearTimeout(scrollEndTimerRef.current);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [updateCard3D]);
+  }, [updateCard3D, handleScrollEnd, snapToNearestCard]);
 
   return (
     <section className="relative py-20 md:py-32 bg-[#0B0F18] overflow-hidden">
@@ -172,11 +236,12 @@ export default function HorizontalGallery3D() {
       </div>
 
       {/* 
-        KEY FIXES:
-        1. scroll-snap-type: NONE during drag, mandatory AFTER drag ends
-        2. Card transitions: NONE during drag/scroll
-        3. touch-action: pan-x pan-y → native mobile scroll in both directions
-        4. No custom touch handlers → browser handles mobile natively = smooth inertia
+        ARCHITECTURE:
+        - NO CSS scroll-snap at all (removed to prevent browser state desync)
+        - JS-based snap: detects scroll end, finds nearest card, smooth-scrolls to center it
+        - touch-action: pan-x pan-y → native mobile scroll with inertia in both directions
+        - No custom touch handlers → browser handles mobile natively = buttery smooth
+        - Card 3D: direct style updates via rAF, NO CSS transitions during scroll
       */}
       <div
         ref={containerRef}
@@ -184,14 +249,14 @@ export default function HorizontalGallery3D() {
         style={{
           overflowX: 'auto',
           overflowY: 'hidden',
-          // Default: mandatory snap when NOT dragging; JS sets to 'none' during drag
-          scrollSnapType: isDragging ? 'none' : 'x mandatory',
+          // NO scroll-snap-type — JS handles snapping
+          scrollSnapType: 'none',
           touchAction: 'pan-x pan-y',
           overscrollBehaviorX: 'contain',
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
           WebkitOverflowScrolling: 'touch',
-          cursor: isDragging ? 'grabbing' : 'grab',
+          cursor: isDraggingRef.current ? 'grabbing' : 'grab',
         }}
       >
         <style>{`
@@ -204,9 +269,7 @@ export default function HorizontalGallery3D() {
             data-gallery-card
             className="flex-shrink-0 w-[280px] md:w-[380px] h-[380px] md:h-[480px] rounded-2xl overflow-hidden group"
             style={{
-              scrollSnapAlign: 'center',
-              // FIX #1: No transition during drag, smooth transition after release
-              transition: isDragging ? 'none' : 'transform 0.3s ease-out, opacity 0.3s ease-out',
+              // NO scroll-snap-align — JS handles snapping
               willChange: 'transform, opacity',
               boxShadow: `
                 0 25px 50px rgba(0,0,0,0.4),
@@ -219,17 +282,7 @@ export default function HorizontalGallery3D() {
               <img
                 src={item.image}
                 alt={item.title}
-                className="absolute inset-0 w-full h-full object-cover"
-                style={{
-                  transition: isDragging ? 'none' : 'transform 0.7s ease',
-                  transform: 'scale(1)',
-                }}
-                onMouseEnter={(e) => {
-                  if (!isDragging) (e.target as HTMLElement).style.transform = 'scale(1.1)';
-                }}
-                onMouseLeave={(e) => {
-                  (e.target as HTMLElement).style.transform = 'scale(1)';
-                }}
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                 draggable={false}
                 loading="lazy"
               />
@@ -249,16 +302,14 @@ export default function HorizontalGallery3D() {
                   {item.category}
                 </span>
                 <h3 className="text-lg md:text-xl font-bold text-white">{item.title}</h3>
-                <div className="mt-3 h-[2px] w-10" style={{
+                <div className="mt-3 h-[2px] w-10 group-hover:w-16 transition-all duration-500" style={{
                   background: `linear-gradient(90deg, ${item.accent}, transparent)`,
-                  transition: isDragging ? 'none' : 'width 0.5s ease',
                 }} />
               </div>
 
-              <div className="absolute top-5 right-5 w-9 h-9 rounded-full border border-white/15 flex items-center justify-center opacity-30" style={{
+              <div className="absolute top-5 right-5 w-9 h-9 rounded-full border border-white/15 flex items-center justify-center opacity-30 group-hover:opacity-60 transition-opacity duration-300" style={{
                 background: 'rgba(255,255,255,0.05)',
                 backdropFilter: 'blur(8px)',
-                transition: isDragging ? 'none' : 'opacity 0.3s ease',
               }}>
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-white">
                   <path d="M4 2L9 6L4 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
