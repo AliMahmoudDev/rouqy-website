@@ -395,10 +395,9 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
           >
             <TextSplit3D
               text="HARMENS"
-              mode="scroll"
+              mode="entrance"
               staggerDelay={80}
               entranceDuration={1000}
-              scrollIntensity={0.4}
               letterClassName="text-6xl sm:text-7xl md:text-8xl lg:text-[140px] font-bold tracking-tight text-white uppercase"
             />
           </h1>
