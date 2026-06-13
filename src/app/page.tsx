@@ -151,38 +151,62 @@ export default function Home() {
 
           {/* Mobile Menu Overlay */}
           <div
-            className="md:hidden fixed inset-0 bg-[#0B0F18]/[0.97] backdrop-blur-2xl"
+            className="md:hidden fixed inset-0"
             style={{
-              top: '56px', // h-14 = 56px
+              top: '56px',
               opacity: mobileMenuOpen ? 1 : 0,
               pointerEvents: mobileMenuOpen ? 'auto' : 'none',
               transition: 'opacity 0.4s cubic-bezier(0.65, 0.05, 0, 1)',
             }}
           >
-            <div className="flex flex-col items-center justify-center h-full gap-2 px-6">
+            {/* Solid dark background */}
+            <div className="absolute inset-0 bg-[#0B0F18]" />
+
+            {/* Subtle gradient accents */}
+            <div
+              className="absolute top-0 right-0 w-[300px] h-[300px] pointer-events-none"
+              style={{
+                background: 'radial-gradient(circle, rgba(37,162,220,0.04) 0%, transparent 70%)',
+                filter: 'blur(60px)',
+              }}
+            />
+            <div
+              className="absolute bottom-0 left-0 w-[250px] h-[250px] pointer-events-none"
+              style={{
+                background: 'radial-gradient(circle, rgba(212,175,55,0.03) 0%, transparent 70%)',
+                filter: 'blur(50px)',
+              }}
+            />
+
+            {/* Top decorative line */}
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#25A2DC]/30 to-transparent" />
+
+            {/* Menu content — positioned in the upper-middle area */}
+            <div className="relative flex flex-col items-center justify-center h-full px-8" style={{ paddingTop: '25vh' }}>
               {navLinks.map((link, i) => (
                 <a
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center py-4 text-white text-xl tracking-[0.3em] uppercase font-light hover:text-[#25A2DC] transition-all duration-300 border-b border-[#2D3A4D]/20"
+                  className="w-full text-center py-5 text-white text-2xl tracking-[0.35em] uppercase font-light hover:text-[#25A2DC] transition-all duration-300"
                   style={{
                     opacity: mobileMenuOpen ? 1 : 0,
-                    transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-20px)',
-                    transition: `opacity 0.4s ease ${i * 0.08 + 0.1}s, transform 0.4s ease ${i * 0.08 + 0.1}s`,
+                    transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-15px)',
+                    transition: `opacity 0.35s ease ${i * 0.08 + 0.12}s, transform 0.35s ease ${i * 0.08 + 0.12}s`,
                   }}
                 >
                   {link.label}
+                  <div className="mt-3 mx-auto w-8 h-[1px] bg-[#2D3A4D]/40" />
                 </a>
               ))}
               <a
                 href="#contact"
                 onClick={() => setMobileMenuOpen(false)}
-                className="mt-6 text-[11px] tracking-[0.35em] uppercase px-10 py-3.5 border border-[#25A2DC]/40 text-[#25A2DC] hover:bg-[#25A2DC]/10 hover:border-[#25A2DC]/70 transition-all duration-300"
+                className="mt-8 text-[11px] tracking-[0.35em] uppercase px-10 py-3.5 border border-[#25A2DC]/40 text-[#25A2DC] hover:bg-[#25A2DC]/10 hover:border-[#25A2DC]/70 transition-all duration-300"
                 style={{
                   opacity: mobileMenuOpen ? 1 : 0,
-                  transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-20px)',
-                  transition: 'opacity 0.4s ease 0.35s, transform 0.4s ease 0.35s',
+                  transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-15px)',
+                  transition: 'opacity 0.35s ease 0.35s, transform 0.35s ease 0.35s',
                 }}
               >
                 Get In Touch
