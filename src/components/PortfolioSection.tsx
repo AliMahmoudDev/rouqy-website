@@ -322,7 +322,7 @@ export default function PortfolioSection() {
           </div>
 
           {/* Second row: 3 equal cards — alternating left/right with blur */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-4 md:mb-5">
+          <div id="portfolio-gallery" className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-4 md:mb-5">
             {projects.slice(2, 5).map((project, index) => (
               <div
                 key={project.title}

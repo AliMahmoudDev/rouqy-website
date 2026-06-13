@@ -237,7 +237,16 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
             {/* CTA Button — premium styling */}
             <div className={`mt-6 md:mt-10 flex justify-center lg:justify-start ${mounted ? 'hero-enter-cta' : 'opacity-0'}`}>
               <a
-                href="#portfolio"
+                href="#portfolio-gallery"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const target = document.getElementById('portfolio-gallery');
+                  if (target) {
+                    const yOffset = -window.innerHeight * 0.3;
+                    const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                  }
+                }}
                 className="group relative inline-flex items-center gap-3 px-6 py-3 md:px-7 md:py-3.5 text-[10px] md:text-xs tracking-[0.25em] md:tracking-[0.3em] uppercase font-normal transition-all duration-500 overflow-hidden"
                 style={{
                   color: '#C8D0DC',
