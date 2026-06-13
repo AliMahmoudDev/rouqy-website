@@ -581,8 +581,8 @@ html {
 
 /* Logo breathing */
 @keyframes intro-logo-breathe {
-  0%, 100% { transform: scale(0.55) translateY(185px); filter: brightness(1.1) blur(0px); }
-  50% { transform: scale(0.6) translateY(180px); filter: brightness(1.2) blur(0px); }
+  0%, 100% { transform: scale(0.55) translateY(205px); filter: brightness(1.1) blur(0px); }
+  50% { transform: scale(0.6) translateY(200px); filter: brightness(1.2) blur(0px); }
 }
 
 /* Rotating diamond frame */

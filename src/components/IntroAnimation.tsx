@@ -374,7 +374,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
       )}
 
       {/* ====== Decorative line under HARMENS ====== */}
-      <div className="relative z-10 mt-4 md:mt-6 flex items-center gap-3 justify-center" style={{ transform: 'translateY(25px)' }}>
+      <div className="relative z-10 mt-4 md:mt-6 flex items-center gap-3 justify-center">
         <div style={{
           width: (phase === 'letters' || phase === 'logo' || phase === 'logoHold' || phase === 'subtitle' || phase === 'breathe') ? '50px' : '0px',
           height: '2px',
@@ -409,14 +409,14 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           perspective: '1000px',
           opacity: phase === 'logo' || phase === 'logoHold' || phase === 'subtitle' ? 1 : phase === 'breathe' ? 0.9 : phase === 'explode' ? 0.5 : isWiping ? 0 : 0,
           transform: isGrid || phase === 'letters'
-            ? 'perspective(1000px) rotateY(180deg) rotateX(30deg) scale(0.3) translateY(25px) translateZ(-200px)'
+            ? 'perspective(1000px) rotateY(180deg) rotateX(30deg) scale(0.3) translateY(45px) translateZ(-200px)'
             : phase === 'logo' || phase === 'logoHold'
-            ? 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1) translateY(25px) translateZ(0px)'
+            ? 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1) translateY(45px) translateZ(0px)'
             : phase === 'subtitle' || phase === 'breathe'
-            ? 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(0.55) translateY(185px) translateZ(0px)'
+            ? 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(0.55) translateY(205px) translateZ(0px)'
             : phase === 'explode'
-            ? 'perspective(1000px) rotateY(60deg) rotateX(10deg) scale(2.5) translateY(185px) translateZ(100px)'
-            : 'perspective(1000px) rotateY(180deg) scale(0) translateY(325px)',
+            ? 'perspective(1000px) rotateY(60deg) rotateX(10deg) scale(2.5) translateY(205px) translateZ(100px)'
+            : 'perspective(1000px) rotateY(180deg) scale(0) translateY(345px)',
           filter: isGrid || phase === 'letters'
             ? 'brightness(4) blur(15px)'
             : phase === 'explode'
