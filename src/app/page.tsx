@@ -16,22 +16,14 @@ export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-      if (mobileMenuOpen) setMobileMenuOpen(false);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [mobileMenuOpen]);
-
-  // Prevent body scroll when mobile menu is open
-  useEffect(() => {
-    document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [mobileMenuOpen]);
+  }, []);
 
   const handleIntroComplete = () => {
     setIntroComplete(true);
@@ -60,31 +52,31 @@ export default function Home() {
             transition: 'transform 0.7s cubic-bezier(0.65, 0.05, 0, 1)',
           }}
         >
-          {/* Nav background — always visible on mobile, transparent on desktop until scroll */}
+          {/* Nav background */}
           <div
             className="absolute inset-0 transition-all duration-500"
             style={{
-              background: scrolled || mobileMenuOpen
+              background: scrolled
                 ? 'rgba(11, 15, 24, 0.92)'
                 : 'rgba(11, 15, 24, 0.4)',
-              backdropFilter: scrolled || mobileMenuOpen
+              backdropFilter: scrolled
                 ? 'blur(20px) saturate(180%)'
                 : 'blur(8px)',
-              WebkitBackdropFilter: scrolled || mobileMenuOpen
+              WebkitBackdropFilter: scrolled
                 ? 'blur(20px) saturate(180%)'
                 : 'blur(8px)',
               borderBottom: '1px solid rgba(45, 58, 77, 0.2)',
             }}
           />
 
-          <div className="relative max-w-7xl mx-auto px-5 md:px-12 h-14 md:h-20 flex items-center justify-between">
+          {/* Mobile: centered logo only | Desktop: logo left + nav right */}
+          <div className="relative max-w-7xl mx-auto px-5 md:px-12 h-16 md:h-20 flex items-center justify-center md:justify-between">
             {/* Logo */}
             <a
               href="#hero"
-              className="flex items-center gap-2 group"
-              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center group"
             >
-              <div className="relative w-10 h-10 md:w-14 md:h-14 group-hover:scale-105 transition-transform duration-300">
+              <div className="relative w-14 h-14 md:w-14 md:h-14 group-hover:scale-105 transition-transform duration-300">
                 <Image
                   src="/harmens-logo-tran.png"
                   alt="HARMENS"
@@ -114,97 +106,6 @@ export default function Home() {
               <a
                 href="#contact"
                 className="text-[10px] tracking-[0.3em] uppercase px-5 py-2 border border-[#25A2DC]/30 text-[#25A2DC] hover:bg-[#25A2DC]/10 hover:border-[#25A2DC]/60 hover:shadow-[0_0_20px_rgba(37,162,220,0.15)] transition-all duration-300"
-              >
-                Get In Touch
-              </a>
-            </div>
-
-            {/* Mobile Hamburger Button */}
-            <button
-              className="md:hidden flex items-center justify-center w-11 h-11 rounded-lg active:bg-white/5 transition-colors"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              <div className="relative w-6 h-5 flex flex-col justify-between">
-                <span
-                  className="block w-full h-[2px] bg-white rounded-full origin-center transition-all duration-300"
-                  style={{
-                    transform: mobileMenuOpen ? 'rotate(45deg) translateY(8px)' : 'none',
-                  }}
-                />
-                <span
-                  className="block w-full h-[2px] bg-white rounded-full transition-all duration-300"
-                  style={{
-                    opacity: mobileMenuOpen ? 0 : 1,
-                    transform: mobileMenuOpen ? 'scaleX(0)' : 'scaleX(1)',
-                  }}
-                />
-                <span
-                  className="block w-full h-[2px] bg-white rounded-full origin-center transition-all duration-300"
-                  style={{
-                    transform: mobileMenuOpen ? 'rotate(-45deg) translateY(-8px)' : 'none',
-                  }}
-                />
-              </div>
-            </button>
-          </div>
-
-          {/* Mobile Menu Overlay */}
-          <div
-            className="md:hidden"
-            style={{
-              position: 'fixed',
-              top: '56px',
-              left: 0,
-              right: 0,
-              bottom: 0,
-              zIndex: 49,
-              backgroundColor: '#0B0F18',
-              opacity: mobileMenuOpen ? 1 : 0,
-              pointerEvents: mobileMenuOpen ? 'auto' : 'none',
-              transition: 'opacity 0.4s cubic-bezier(0.65, 0.05, 0, 1)',
-              transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-10px)',
-            }}
-          >
-            {/* Top decorative line */}
-            <div className="h-[1px] bg-gradient-to-r from-transparent via-[#25A2DC]/30 to-transparent" />
-
-            {/* Subtle gradient accent */}
-            <div
-              className="absolute top-10 right-0 w-[250px] h-[250px] pointer-events-none"
-              style={{
-                background: 'radial-gradient(circle, rgba(37,162,220,0.05) 0%, transparent 70%)',
-                filter: 'blur(50px)',
-              }}
-            />
-
-            {/* Menu content */}
-            <div className="flex flex-col items-center px-8 pt-12 pb-8">
-              {navLinks.map((link, i) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="w-full text-center py-5 text-white text-2xl tracking-[0.35em] uppercase font-light hover:text-[#25A2DC] transition-all duration-300"
-                  style={{
-                    opacity: mobileMenuOpen ? 1 : 0,
-                    transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-15px)',
-                    transition: `opacity 0.35s ease ${i * 0.08 + 0.12}s, transform 0.35s ease ${i * 0.08 + 0.12}s`,
-                  }}
-                >
-                  {link.label}
-                  <div className="mt-3 mx-auto w-8 h-[1px] bg-[#2D3A4D]/40" />
-                </a>
-              ))}
-              <a
-                href="#contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="mt-8 text-[11px] tracking-[0.35em] uppercase px-10 py-3.5 border border-[#25A2DC]/40 text-[#25A2DC] hover:bg-[#25A2DC]/10 hover:border-[#25A2DC]/70 transition-all duration-300"
-                style={{
-                  opacity: mobileMenuOpen ? 1 : 0,
-                  transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-15px)',
-                  transition: 'opacity 0.35s ease 0.35s, transform 0.35s ease 0.35s',
-                }}
               >
                 Get In Touch
               </a>
