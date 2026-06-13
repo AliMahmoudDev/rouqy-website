@@ -1,19 +1,17 @@
 'use client';
 
-import Image from 'next/image';
+import { useEffect, useRef } from 'react';
 
 /**
  * 🎲 Premium 3D Showcase — "Floating Gallery"
  *
- * A 3D hexagonal arrangement of portfolio frames that
- * gently floats up and down — no rotation, no hover effects.
- * Just a subtle, elegant breathing motion.
+ * Professional 3D carousel where ALL cards are visible as they rotate.
+ * Cards coming from behind are visible (dimmed) — creating a smooth,
+ * immersive 3D feel where you see images "emerging" as they rotate.
  *
- * - 6 frames in hexagonal 3D arrangement (visible depth)
- * - Gentle float animation (up/down) — very subtle
- * - Slight static tilt so 3D depth is visible
- * - Gold corner bracket frames with glass overlay
- * - CSS-only animation for zero lag
+ * Technique: Replace backfaceVisibility:hidden (abrupt disappear) with
+ * JS-controlled opacity per card based on facing direction.
+ * This also eliminates the Chrome Mobile bug where cards randomly vanish.
  */
 
 const showcaseImages = [
@@ -26,18 +24,70 @@ const showcaseImages = [
 ];
 
 export default function RotatingShowcase3D() {
+  const prismRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+
   const faceCount = showcaseImages.length;
   const angleStep = 360 / faceCount;
   const cardWidth = 260;
   const cardHeight = 180;
   const translateZ = Math.round(cardWidth / (2 * Math.tan(Math.PI / faceCount)));
 
+  // JS animation: controls rotation + per-card opacity
+  useEffect(() => {
+    const prism = prismRef.current;
+    if (!prism) return;
+
+    let animId: number;
+    let startTime: number | null = null;
+    const duration = 30000; // 30s per full rotation
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const progress = (elapsed % duration) / duration;
+
+      // Rotation angle
+      const rotateY = progress * 360;
+      // Gentle float
+      const floatY = Math.sin(progress * Math.PI * 2) * 8;
+      // Subtle tilt
+      const rotateX = 5 + Math.sin(progress * Math.PI * 2) * 0.5;
+
+      // Apply transform to prism
+      prism.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(${floatY}px)`;
+
+      // Per-card opacity based on facing direction
+      cardsRef.current.forEach((card, i) => {
+        if (!card) return;
+        const cardAngle = angleStep * i;
+        // Effective angle: card's own rotation + prism rotation
+        const effective = ((cardAngle + rotateY) % 360 + 360) % 360;
+
+        // Calculate how "front-facing" the card is
+        // 0° = directly facing viewer → opacity 1
+        // 180° = fully behind → opacity 0.2 (still visible!)
+        const frontness = Math.cos((effective * Math.PI) / 180);
+        // frontness: 1 (front) to -1 (back)
+        // Map to opacity: front=1.0, side=0.55, back=0.18
+        const opacity = 0.18 + (frontness + 1) * 0.41;
+
+        card.style.opacity = String(Math.round(opacity * 100) / 100);
+      });
+
+      animId = requestAnimationFrame(animate);
+    };
+
+    animId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animId);
+  }, [angleStep]);
+
   return (
     <div
       className="relative select-none"
       style={{ perspective: '1400px', perspectiveOrigin: '50% 50%' }}
     >
-      {/* ====== AMBIENT GLOW — beneath the showcase ====== */}
+      {/* ====== AMBIENT GLOW ====== */}
       <div
         className="absolute pointer-events-none"
         style={{
@@ -51,32 +101,16 @@ export default function RotatingShowcase3D() {
         }}
       />
 
-      {/* ====== REFLECTION SURFACE ====== */}
+      {/* ====== THE 3D PRISM ====== */}
       <div
-        className="absolute pointer-events-none"
-        style={{
-          bottom: -40,
-          left: '50%',
-          transform: 'translateX(-50%) scaleX(1) scaleY(-0.3)',
-          width: cardWidth + 40,
-          height: cardHeight,
-          opacity: 0.08,
-          background: 'linear-gradient(180deg, rgba(212,175,55,0.3), transparent)',
-          filter: 'blur(8px)',
-          borderRadius: 12,
-        }}
-      />
-
-      {/* ====== THE 3D PRISM — static tilt + gentle float ====== */}
-      <div
+        ref={prismRef}
         className="showcase-prism"
         style={{
           width: cardWidth,
           height: cardHeight,
           transformStyle: 'preserve-3d',
-          // Static slight tilt so you can see the 3D depth + gentle float
-          animation: 'showcase-float 30s linear infinite',
-          willChange: 'transform',
+          // NO CSS animation — JS handles rotation + opacity
+          transform: 'rotateX(5deg) rotateY(0deg) translateY(0px)',
         }}
       >
         {showcaseImages.map((face, i) => {
@@ -84,14 +118,17 @@ export default function RotatingShowcase3D() {
           return (
             <div
               key={i}
+              ref={(el) => { cardsRef.current[i] = el; }}
               className="absolute showcase-card"
               style={{
                 width: cardWidth,
                 height: cardHeight,
-                backfaceVisibility: 'hidden',
+                // NO backfaceVisibility:hidden — JS controls opacity instead
+                // This makes back cards visible (dimmed) = more professional 3D feel
                 transform: `rotateY(${angle}deg) translateZ(${translateZ}px)`,
                 borderRadius: 10,
                 overflow: 'hidden',
+                opacity: 1, // JS will update this
               }}
             >
               {/* ====== CARD FRAME ====== */}
@@ -109,17 +146,23 @@ export default function RotatingShowcase3D() {
                 }}
               >
                 {/* Image */}
-                <Image
+                <img
                   src={face.src}
                   alt={face.label}
-                  fill
-                  className="object-cover"
-                  sizes="260px"
+                  loading="eager"
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    backgroundColor: '#0B0F18',
+                  }}
                 />
 
                 {/* Dark overlay gradient — cinematic */}
                 <div
-                  className="absolute inset-0"
+                  className="absolute inset-0 pointer-events-none"
                   style={{
                     background: `
                       linear-gradient(180deg,
@@ -134,7 +177,7 @@ export default function RotatingShowcase3D() {
 
                 {/* Gold top accent line */}
                 <div
-                  className="absolute top-0 left-0 right-0"
+                  className="absolute top-0 left-0 right-0 pointer-events-none"
                   style={{
                     height: 2,
                     background: 'linear-gradient(90deg, transparent 10%, rgba(212,175,55,0.6) 50%, transparent 90%)',
@@ -143,14 +186,14 @@ export default function RotatingShowcase3D() {
 
                 {/* Gold bottom accent line */}
                 <div
-                  className="absolute bottom-0 left-0 right-0"
+                  className="absolute bottom-0 left-0 right-0 pointer-events-none"
                   style={{
                     height: 1,
                     background: 'linear-gradient(90deg, transparent 10%, rgba(212,175,55,0.3) 50%, transparent 90%)',
                   }}
                 />
 
-                {/* ====== CORNER BRACKETS — Luxury Frame ====== */}
+                {/* ====== CORNER BRACKETS ====== */}
                 <div className="absolute top-2 left-2 pointer-events-none" style={{ opacity: 0.7 }}>
                   <div style={{ width: 16, height: 1, background: '#D4AF37' }} />
                   <div style={{ width: 1, height: 16, background: '#D4AF37' }} />
@@ -169,7 +212,7 @@ export default function RotatingShowcase3D() {
                 </div>
 
                 {/* ====== LABEL AREA ====== */}
-                <div className="absolute bottom-0 left-0 right-0 p-3">
+                <div className="absolute bottom-0 left-0 right-0 p-3 pointer-events-none">
                   <span
                     className="text-[7px] tracking-[0.5em] uppercase block"
                     style={{ color: 'rgba(37,162,220,0.6)' }}
