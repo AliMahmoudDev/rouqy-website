@@ -157,7 +157,7 @@ export default function ImageUnframe3D() {
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
             }}>
-              Where Art<br />Meets Home
+              Our Philosophy
             </h2>
             <p className="text-[#A0AEC0]/70 text-base md:text-lg leading-relaxed mb-10">
               At HARMENS, we believe every space should tell a story. Our designs are not just interiors — 
