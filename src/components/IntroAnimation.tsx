@@ -8,20 +8,19 @@ interface IntroAnimationProps {
 }
 
 /**
- * 🎬 HARMENS Cinematic Intro v6.0 — "The Grand Architectural Reveal"
+ * 🎬 HARMENS Cinematic Intro v7.0 — "Living Blueprint"
  *
- * A stunning ~7-second cinematic loading experience:
+ * A visually rich 7-second loading experience with REAL movement:
  *
- * Phase 1 (0-0.8s):     Cinematic bars close + golden crosshair lines sweep + expanding rings
- * Phase 2 (0.8-2.2s):   HARMENS letters converge from scattered dust with 3D rotation
- * Phase 3 (2.2-3.2s):   Logo crystallizes from golden energy + orbit ring + lens flare
- * Phase 4 (3.2-4.4s):   Arabic + English subtitle materialize with golden shimmer
- * Phase 5 (4.4-5.2s):   Elegant hold — all elements breathe together with subtle animations
- * Phase 6 (5.2-6.0s):   Grand reveal — golden pulse explosion + particle burst
- * Phase 7 (6.0-7.0s):   Cinematic bars open + smooth fade → site emerges
+ * Phase 1 (0-1.0s):   Dark void → Golden grid blueprint draws itself → Geometric shapes fly in
+ * Phase 2 (1.0-2.5s): HARMENS letters fly in from BOTH sides with glowing trails + sparks
+ * Phase 3 (2.5-3.5s): Logo drops in from above with bounce + orbit ring spins around it
+ * Phase 4 (3.5-4.8s): Arabic text types itself letter by letter + English fades in below
+ * Phase 5 (4.8-5.8s): Everything breathes + floating furniture silhouettes drift + particles rise
+ * Phase 6 (5.8-6.5s): Golden shockwave explodes outward + all elements scatter
+ * Phase 7 (6.5-7.0s): Cinematic wipe → site emerges
  */
 
-// Deterministic pseudo-random function for SSR consistency
 function seededRandom(seed: number): number {
   const x = Math.sin(seed * 127.1 + 311.7) * 43758.5453;
   return x - Math.floor(x);
@@ -29,33 +28,29 @@ function seededRandom(seed: number): number {
 
 export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   const [phase, setPhase] = useState<
-    'sweep' | 'letters' | 'logo' | 'subtitle' | 'hold' | 'pulse' | 'fade' | 'done'
-  >('sweep');
+    'grid' | 'letters' | 'logo' | 'subtitle' | 'breathe' | 'explode' | 'wipe' | 'done'
+  >('grid');
   const [mounted, setMounted] = useState(false);
   const onCompleteStable = useCallback(onComplete, [onComplete]);
-  const startTimeRef = useRef<number>(0);
 
-  // Only run animations after mount (client-only)
   useEffect(() => {
     setMounted(true);
-    startTimeRef.current = Date.now();
   }, []);
 
   useEffect(() => {
     if (!mounted) return;
     const timers: ReturnType<typeof setTimeout>[] = [];
 
-    // Extended 7-second timeline with more phases for smoother pacing
-    timers.push(setTimeout(() => setPhase('letters'), 800));      // Phase 2 at 0.8s
-    timers.push(setTimeout(() => setPhase('logo'), 2200));        // Phase 3 at 2.2s
-    timers.push(setTimeout(() => setPhase('subtitle'), 3200));    // Phase 4 at 3.2s
-    timers.push(setTimeout(() => setPhase('hold'), 4400));        // Phase 5 at 4.4s — breathe
-    timers.push(setTimeout(() => setPhase('pulse'), 5200));       // Phase 6 at 5.2s — explosion
-    timers.push(setTimeout(() => setPhase('fade'), 6000));        // Phase 7 at 6.0s — fade out
+    timers.push(setTimeout(() => setPhase('letters'), 1000));
+    timers.push(setTimeout(() => setPhase('logo'), 2500));
+    timers.push(setTimeout(() => setPhase('subtitle'), 3500));
+    timers.push(setTimeout(() => setPhase('breathe'), 4800));
+    timers.push(setTimeout(() => setPhase('explode'), 5800));
+    timers.push(setTimeout(() => setPhase('wipe'), 6500));
     timers.push(setTimeout(() => {
       setPhase('done');
       onCompleteStable();
-    }, 7000)); // Complete at 7s
+    }, 7000));
 
     return () => timers.forEach(clearTimeout);
   }, [mounted, onCompleteStable]);
@@ -66,331 +61,231 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   const arabicText = 'هارمينز للتصميم الداخلي';
   const tagline = 'DESIGNED TO BE FELT BEFORE IT\'S SEEN';
 
-  // Pre-calculate deterministic letter offsets (consistent SSR + client)
-  const letterOffsets = useMemo(() =>
+  // Letter entrance directions — alternating from left and right
+  const letterDirections = useMemo(() =>
     brandName.split('').map((_, i) => ({
-      x: (seededRandom(i * 7 + 1) - 0.5) * 600,
-      y: (seededRandom(i * 13 + 2) - 0.5) * 400,
-      z: (seededRandom(i * 19 + 3) - 0.5) * 300,
-      rotateX: (seededRandom(i * 23 + 4) - 0.5) * 180,
-      rotateY: (seededRandom(i * 29 + 5) - 0.5) * 180,
-      rotateZ: (seededRandom(i * 31 + 6) - 0.5) * 50,
+      fromLeft: i % 2 === 0,
+      startY: -30 + seededRandom(i * 17 + 1) * 60,
+      rotateStart: (seededRandom(i * 23 + 2) - 0.5) * 120,
+      delay: i * 0.08,
     })),
   []
   );
 
-  // Deterministic ambient particles
-  const ambientParticles = useMemo(() =>
-    Array.from({ length: 60 }).map((_, i) => ({
-      startX: seededRandom(i * 11 + 100) * 100,
-      startY: seededRandom(i * 17 + 200) * 100,
-      size: 1 + seededRandom(i * 23 + 300) * 2.5,
-      duration: 3 + seededRandom(i * 29 + 400) * 5,
-      delay: seededRandom(i * 31 + 500) * 2,
-      isGold: i % 3 === 0,
-      isWhite: i % 5 === 0,
-    })),
-  []
-  );
-
-  // Deterministic burst particles for pulse phase
-  const burstParticles = useMemo(() =>
-    Array.from({ length: 80 }).map((_, i) => {
-      const angle = (i / 80) * Math.PI * 2;
-      const distance = 150 + seededRandom(i * 37 + 600) * 600;
-      const isGold = i % 2 === 0;
-      const isWhite = i % 5 === 0;
-      return { angle, distance, isGold, isWhite, size: 1 + seededRandom(i * 41 + 700) * 3, delay: seededRandom(i * 43 + 800) * 0.3 };
-    }),
-  []
-  );
-
-  // Decorative geometric lines that appear during hold phase
-  const geoLines = useMemo(() =>
-    Array.from({ length: 8 }).map((_, i) => ({
-      angle: seededRandom(i * 47 + 900) * 360,
-      length: 60 + seededRandom(i * 53 + 1000) * 120,
-      startX: 30 + seededRandom(i * 59 + 1100) * 40,
-      startY: 30 + seededRandom(i * 61 + 1200) * 40,
-      delay: seededRandom(i * 67 + 1300) * 0.5,
+  // Floating spark particles during letters phase
+  const sparkParticles = useMemo(() =>
+    Array.from({ length: 40 }).map((_, i) => ({
+      x: seededRandom(i * 11 + 100) * 100,
+      y: seededRandom(i * 17 + 200) * 100,
+      size: 1 + seededRandom(i * 23 + 300) * 3,
+      duration: 1.5 + seededRandom(i * 29 + 400) * 2,
+      delay: seededRandom(i * 31 + 500) * 1.5,
       isGold: i % 2 === 0,
     })),
   []
   );
 
-  const isFading = phase === 'fade';
-  const isPostPulse = phase === 'pulse' || phase === 'fade';
-  const isSweep = phase === 'sweep';
-  const isHold = phase === 'hold';
+  // Explosion burst particles
+  const burstParticles = useMemo(() =>
+    Array.from({ length: 70 }).map((_, i) => {
+      const angle = (i / 70) * Math.PI * 2;
+      const distance = 200 + seededRandom(i * 37 + 600) * 700;
+      return {
+        angle,
+        distance,
+        size: 1 + seededRandom(i * 41 + 700) * 4,
+        delay: seededRandom(i * 43 + 800) * 0.2,
+        isGold: i % 2 === 0,
+        isWhite: i % 5 === 0,
+      };
+    }),
+  []
+  );
 
-  // Calculate progress percentage for the progress bar
-  const getProgress = () => {
-    switch (phase) {
-      case 'sweep': return 0;
-      case 'letters': return 15;
-      case 'logo': return 35;
-      case 'subtitle': return 55;
-      case 'hold': return 75;
-      case 'pulse': return 90;
-      case 'fade': return 100;
-      default: return 0;
+  // Floating decorative shapes (furniture-inspired silhouettes)
+  const floatingShapes = useMemo(() => [
+    { icon: '◇', x: 15, y: 20, size: 40, duration: 6, delay: 0, color: '#D4AF37' },
+    { icon: '⬡', x: 80, y: 25, size: 30, duration: 7, delay: 0.5, color: '#25A2DC' },
+    { icon: '△', x: 10, y: 70, size: 25, duration: 5, delay: 1, color: '#D4AF37' },
+    { icon: '○', x: 85, y: 65, size: 35, duration: 8, delay: 0.3, color: '#25A2DC' },
+    { icon: '□', x: 50, y: 15, size: 20, duration: 6, delay: 0.8, color: '#D4AF37' },
+    { icon: '⬟', x: 25, y: 80, size: 28, duration: 7, delay: 1.2, color: '#25A2DC' },
+  ], []);
+
+  // Grid lines for Phase 1
+  const gridLines = useMemo(() => {
+    const lines: { horizontal: boolean; position: number; delay: number }[] = [];
+    for (let i = 0; i < 8; i++) {
+      lines.push({ horizontal: true, position: 10 + i * 12, delay: i * 0.06 });
+      lines.push({ horizontal: false, position: 10 + i * 12, delay: i * 0.06 + 0.03 });
     }
-  };
+    return lines;
+  }, []);
+
+  const isWiping = phase === 'wipe';
+  const isGrid = phase === 'grid';
 
   return (
     <div
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden"
       style={{
         background: '#050810',
-        opacity: isFading ? 0 : 1,
-        filter: isFading ? 'blur(12px)' : 'blur(0px)',
-        transition: 'all 1s cubic-bezier(0.65, 0.05, 0, 1)',
-        boxShadow: 'inset 0 0 150px rgba(0,0,0,0.8)',
-        animation: !isFading ? 'vignette-pulse-intro 5s ease-in-out infinite' : 'none',
+        transition: 'all 0.8s cubic-bezier(0.65, 0.05, 0, 1)',
       }}
     >
-      {/* ====== CINEMATIC LETTERBOX BARS ====== */}
-      {/* Top bar */}
+      {/* ====== CINEMATIC BARS ====== */}
       <div
         className="absolute top-0 left-0 right-0 z-30 bg-black"
         style={{
-          height: isFading ? 0 : '8vh',
-          animation: isFading
-            ? 'cinematic-bar-out 1s cubic-bezier(0.16, 1, 0.3, 1) forwards'
-            : 'cinematic-bar-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+          height: isWiping ? 0 : '6vh',
+          animation: isWiping
+            ? 'cinematic-bar-out 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+            : 'cinematic-bar-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         }}
       />
-      {/* Bottom bar */}
       <div
         className="absolute bottom-0 left-0 right-0 z-30 bg-black"
         style={{
-          height: isFading ? 0 : '8vh',
-          animation: isFading
-            ? 'cinematic-bar-out 1s cubic-bezier(0.16, 1, 0.3, 1) forwards'
-            : 'cinematic-bar-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+          height: isWiping ? 0 : '6vh',
+          animation: isWiping
+            ? 'cinematic-bar-out 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+            : 'cinematic-bar-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         }}
       />
 
-      {/* === BACKGROUND LAYERS === */}
-
-      {/* Animated noise texture */}
+      {/* ====== DEEP BACKGROUND ====== */}
+      <div className="absolute inset-0" style={{
+        background: 'radial-gradient(ellipse 120% 80% at 50% 50%, #0B1220 0%, #050810 50%, #020408 100%)',
+      }} />
       <div className="noise-overlay absolute inset-0 pointer-events-none z-0 opacity-[0.03]" />
 
-      {/* Deep space gradient */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: 'radial-gradient(ellipse 120% 80% at 50% 50%, #0B1220 0%, #050810 50%, #020408 100%)',
-        }}
-      />
-
-      {/* ====== Rotating background geometric pattern — appears during hold ====== */}
-      {isHold && (
-        <div className="absolute inset-0 z-[1] pointer-events-none">
-          {/* Rotating diamond grid */}
-          <div
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              width: '600px',
-              height: '600px',
-              marginTop: '-300px',
-              marginLeft: '-300px',
-              border: '1px solid rgba(212,175,55,0.04)',
-              transform: 'rotate(45deg)',
-              animation: 'intro-diamond-rotate 8s linear infinite',
-            }}
-          />
-          <div
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              width: '450px',
-              height: '450px',
-              marginTop: '-225px',
-              marginLeft: '-225px',
-              border: '1px solid rgba(37,162,220,0.03)',
-              transform: 'rotate(45deg)',
-              animation: 'intro-diamond-rotate 12s linear infinite reverse',
-            }}
-          />
-          <div
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              width: '300px',
-              height: '300px',
-              marginTop: '-150px',
-              marginLeft: '-150px',
-              border: '1px solid rgba(212,175,55,0.05)',
-              transform: 'rotate(45deg)',
-              animation: 'intro-diamond-rotate 6s linear infinite',
-            }}
-          />
-        </div>
-      )}
-
-      {/* ====== LENS FLARE — sweeps during logo phase ====== */}
-      {(phase === 'logo' || phase === 'subtitle' || phase === 'hold') && (
-        <div
-          className="absolute z-20 pointer-events-none"
-          style={{
-            top: '45%',
-            width: '60%',
-            height: '2px',
-            background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.15), rgba(255,255,255,0.3), rgba(212,175,55,0.15), transparent)',
-            filter: 'blur(2px)',
-            animation: 'lens-flare 3s ease-in-out forwards',
-            opacity: isHold ? 0.5 : 1,
-            transition: 'opacity 0.8s ease',
-          }}
-        />
-      )}
-
-      {/* Central golden glow — heartbeat of the animation */}
+      {/* ====== CENTRAL GLOWS ====== */}
       <div
         className="absolute"
         style={{
-          width: 500,
-          height: 500,
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(212,175,55,0.4) 0%, rgba(212,175,55,0.1) 35%, transparent 60%)',
+          width: 600, height: 600, borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(212,175,55,0.35) 0%, rgba(212,175,55,0.08) 35%, transparent 60%)',
           filter: 'blur(80px)',
-          opacity: isSweep ? 0 : isHold ? 0.8 : phase === 'pulse' ? 1 : isFading ? 0 : 0.7,
-          transform: isSweep
-            ? 'scale(0)'
-            : isHold
-            ? 'scale(1.8)'
-            : phase === 'pulse'
-            ? 'scale(3.5)'
-            : isFading
-            ? 'scale(4)'
-            : 'scale(1.5)',
-          transition: 'all 1.5s cubic-bezier(0.16, 1, 0.3, 1)',
-          animation: isHold ? 'intro-glow-breathe 2s ease-in-out infinite' : 'none',
+          opacity: isGrid ? 0 : phase === 'breathe' ? 0.9 : phase === 'explode' ? 1 : isWiping ? 0 : 0.7,
+          transform: isGrid ? 'scale(0)' : phase === 'explode' ? 'scale(4)' : isWiping ? 'scale(5)' : 'scale(1.5)',
+          transition: 'all 1s cubic-bezier(0.16, 1, 0.3, 1)',
+          animation: phase === 'breathe' ? 'intro-glow-breathe 2s ease-in-out infinite' : 'none',
         }}
       />
-
-      {/* Blue ambient glow */}
       <div
         className="absolute"
         style={{
-          width: 900,
-          height: 350,
-          borderRadius: '50%',
+          width: 800, height: 300, borderRadius: '50%',
           background: 'radial-gradient(ellipse, rgba(37,162,220,0.1) 0%, transparent 60%)',
           filter: 'blur(100px)',
-          opacity: isSweep ? 0 : isFading ? 0 : isHold ? 0.6 : 0.5,
-          transform: isHold ? 'scale(1.2)' : phase === 'pulse' ? 'scale(3)' : 'scale(1)',
-          transition: 'all 1.5s ease-out',
-          animation: isHold ? 'intro-blue-breathe 3s ease-in-out infinite' : 'none',
+          opacity: isGrid ? 0 : phase === 'breathe' ? 0.6 : isWiping ? 0 : 0.5,
+          transition: 'all 1s ease-out',
         }}
       />
 
-      {/* ====== AMBIENT FLOATING PARTICLES ====== */}
-      {mounted && (
-        <div className="absolute inset-0 pointer-events-none">
-          {ambientParticles.map((p, i) => (
+      {/* ====== PHASE 1: GOLDEN GRID DRAWS ITSELF ====== */}
+      {isGrid && (
+        <div className="absolute inset-0 z-10 pointer-events-none">
+          {/* Horizontal grid lines drawing from center */}
+          {gridLines.filter(l => l.horizontal).map((line, i) => (
             <div
-              key={`ambient-${i}`}
-              className="absolute rounded-full"
+              key={`hgrid-${i}`}
+              className="absolute left-[10%] right-[10%]"
               style={{
-                width: p.size,
-                height: p.size,
-                background: p.isWhite ? '#FFFFFF' : p.isGold ? '#D4AF37' : '#25A2DC',
-                boxShadow: p.isGold
-                  ? '0 0 8px rgba(212,175,55,0.5)'
-                  : p.isWhite
-                  ? '0 0 6px rgba(255,255,255,0.4)'
-                  : '0 0 5px rgba(37,162,220,0.3)',
-                left: `${p.startX}%`,
-                top: `${p.startY}%`,
-                opacity: isSweep ? 0 : isFading ? 0 : isHold ? 0.8 : 0.6,
-                animation: !isSweep && !isFading ? `particle-rise ${p.duration}s linear infinite ${p.delay}s` : 'none',
-                transition: 'opacity 0.8s ease',
+                top: `${line.position}%`,
+                height: '1px',
+                background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.12), rgba(212,175,55,0.2), rgba(212,175,55,0.12), transparent)',
+                animation: `intro-grid-draw-h 0.5s ease-out ${line.delay}s forwards`,
+                opacity: 0,
               }}
             />
           ))}
-        </div>
-      )}
-
-      {/* ====== PHASE 1: ARCHITECTURAL GOLDEN LINE SWEEP ====== */}
-      {isSweep && (
-        <>
-          {/* Horizontal golden line */}
+          {/* Vertical grid lines drawing from center */}
+          {gridLines.filter(l => !l.horizontal).map((line, i) => (
+            <div
+              key={`vgrid-${i}`}
+              className="absolute top-[10%] bottom-[10%]"
+              style={{
+                left: `${line.position}%`,
+                width: '1px',
+                background: 'linear-gradient(180deg, transparent, rgba(37,162,220,0.08), rgba(37,162,220,0.15), rgba(37,162,220,0.08), transparent)',
+                animation: `intro-grid-draw-v 0.5s ease-out ${line.delay}s forwards`,
+                opacity: 0,
+              }}
+            />
+          ))}
+          {/* Center crosshair — prominent */}
           <div
-            className="absolute"
             style={{
-              left: 0,
-              right: 0,
-              top: '50%',
-              height: '1px',
-              background: 'linear-gradient(90deg, transparent 0%, #D4AF37 20%, #FFFFFF 50%, #D4AF37 80%, transparent 100%)',
-              boxShadow: '0 0 20px rgba(212,175,55,0.6), 0 0 60px rgba(212,175,55,0.3)',
+              position: 'absolute', top: '50%', left: 0, right: 0, height: '2px',
+              background: 'linear-gradient(90deg, transparent 0%, #D4AF37 30%, #FFFFFF 50%, #D4AF37 70%, transparent 100%)',
+              boxShadow: '0 0 30px rgba(212,175,55,0.6)',
               animation: 'intro-line-sweep 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
             }}
           />
-          {/* Vertical line */}
           <div
-            className="absolute"
             style={{
-              top: 0,
-              bottom: 0,
-              left: '50%',
-              width: '1px',
-              background: 'linear-gradient(180deg, transparent 0%, rgba(37,162,220,0.3) 30%, rgba(37,162,220,0.6) 50%, rgba(37,162,220,0.3) 70%, transparent 100%)',
-              boxShadow: '0 0 15px rgba(37,162,220,0.4)',
+              position: 'absolute', left: '50%', top: 0, bottom: 0, width: '2px',
+              background: 'linear-gradient(180deg, transparent 0%, #25A2DC 30%, #FFFFFF 50%, #25A2DC 70%, transparent 100%)',
+              boxShadow: '0 0 25px rgba(37,162,220,0.5)',
               animation: 'intro-line-sweep-v 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards',
               opacity: 0,
             }}
           />
-          {/* Center crosshair dot */}
-          <div
-            className="absolute"
-            style={{
-              left: '50%',
-              top: '50%',
-              width: 6,
-              height: 6,
-              borderRadius: '50%',
-              background: '#D4AF37',
-              boxShadow: '0 0 20px rgba(212,175,55,0.8), 0 0 40px rgba(212,175,55,0.4)',
-              transform: 'translate(-50%, -50%)',
-              animation: 'intro-dot-pulse 0.6s ease-out 0.2s forwards',
-              opacity: 0,
-            }}
-          />
-          {/* Expanding rings */}
+          {/* Expanding rings from center */}
           {[0, 1, 2, 3].map((i) => (
             <div
               key={`ring-${i}`}
               className="absolute rounded-full"
               style={{
-                left: '50%',
-                top: '50%',
-                width: 30,
-                height: 30,
-                marginTop: -15,
-                marginLeft: -15,
-                border: `1px solid rgba(212,175,55,${0.35 - i * 0.06})`,
-                animation: `intro-ring-expand 0.8s ease-out ${0.2 + i * 0.15}s forwards`,
+                left: '50%', top: '50%', width: 40, height: 40, marginTop: -20, marginLeft: -20,
+                border: `1.5px solid rgba(212,175,55,${0.4 - i * 0.08})`,
+                animation: `intro-ring-expand 0.8s ease-out ${0.3 + i * 0.15}s forwards`,
                 opacity: 0,
               }}
             />
           ))}
-        </>
+          {/* Center dot pulse */}
+          <div
+            style={{
+              position: 'absolute', left: '50%', top: '50%', width: 8, height: 8,
+              borderRadius: '50%', background: '#D4AF37',
+              boxShadow: '0 0 20px rgba(212,175,55,0.8), 0 0 60px rgba(212,175,55,0.3)',
+              transform: 'translate(-50%, -50%)',
+              animation: 'intro-dot-pulse 0.6s ease-out 0.2s forwards',
+              opacity: 0,
+            }}
+          />
+        </div>
       )}
 
-      {/* ====== PHASE 2: HARMENS LETTERS — 3D convergence ====== */}
-      <div className="relative z-10 flex items-center justify-center gpu-accelerated" style={{ perspective: '1200px' }}>
+      {/* ====== SPARK PARTICLES — during letters, logo, subtitle ====== */}
+      {mounted && !isGrid && !isWiping && (
+        <div className="absolute inset-0 pointer-events-none z-5">
+          {sparkParticles.map((p, i) => (
+            <div
+              key={`spark-${i}`}
+              className="absolute rounded-full"
+              style={{
+                width: p.size, height: p.size,
+                background: p.isGold ? '#D4AF37' : '#25A2DC',
+                boxShadow: p.isGold ? '0 0 8px rgba(212,175,55,0.6)' : '0 0 6px rgba(37,162,220,0.5)',
+                left: `${p.x}%`, top: `${p.y}%`,
+                opacity: phase === 'explode' ? 0 : 0.7,
+                animation: `sparkle ${p.duration}s ease-in-out infinite ${p.delay}s`,
+                transition: 'opacity 0.3s ease',
+              }}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* ====== PHASE 2: LETTERS FLY IN FROM SIDES ====== */}
+      <div className="relative z-10 flex items-center justify-center" style={{ perspective: '1000px' }}>
         {brandName.split('').map((letter, index) => {
-          const offset = letterOffsets[index];
-          const letterDelay = index * 0.06;
-          const isLetterVisible = phase === 'letters' || phase === 'logo' || phase === 'subtitle' || phase === 'hold';
-          const shouldShow = isLetterVisible || phase === 'pulse';
+          const dir = letterDirections[index];
+          const isVisible = phase === 'letters' || phase === 'logo' || phase === 'subtitle' || phase === 'breathe';
+          const shouldShow = isVisible || phase === 'explode';
 
           return (
             <span
@@ -398,30 +293,36 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               className="inline-block text-5xl sm:text-7xl md:text-8xl lg:text-[120px] font-bold gpu-accelerated"
               style={{
                 color: '#FFFFFF',
-                opacity: shouldShow ? 1 : isFading ? 0 : 0,
-                transform: isSweep
-                  ? `translate3d(${offset.x}px, ${offset.y}px, ${offset.z}px) rotateX(${offset.rotateX}deg) rotateY(${offset.rotateY}deg) rotateZ(${offset.rotateZ}deg) scale(0.2)`
-                  : isHold
-                  ? `translate3d(0, ${Math.sin(index * 0.8) * 4}px, 0) scale(1.02)`
-                  : isFading
-                  ? `translate3d(${offset.x * 0.5}px, ${offset.y * 0.7}px, -200px) rotateX(${offset.rotateX * 0.3}deg) rotateY(${offset.rotateY * 0.3}deg) scale(0)`
-                  : `translate3d(0, 0, 0) rotateX(0) rotateY(0) rotateZ(0) scale(1)`,
-                filter: isSweep
-                  ? 'blur(12px) brightness(4)'
-                  : phase === 'letters'
-                  ? 'blur(0px) brightness(1)'
-                  : isHold
+                opacity: shouldShow ? 1 : isWiping ? 0 : 0,
+                // FLY IN from left or right with rotation
+                transform: isGrid
+                  ? `translateX(${dir.fromLeft ? '-120vw' : '120vw'}) translateY(${dir.startY}px) rotateY(${dir.rotateStart}deg) scale(0.3)`
+                  : isWiping
+                  ? `translateX(${dir.fromLeft ? '-50vw' : '50vw'}) rotateY(${dir.rotateStart * 0.5}deg) scale(0)`
+                  : phase === 'explode'
+                  ? `translateX(${(dir.fromLeft ? -1 : 1) * (200 + index * 30)}px) translateY(${dir.startY * 3}px) rotateZ(${dir.rotateStart}deg) scale(0)`
+                  : phase === 'breathe'
+                  ? `translateX(0) translateY(${Math.sin(Date.now() / 1000 + index) * 3}px) rotateY(0) scale(1)`
+                  : `translateX(0) translateY(0) rotateY(0) scale(1)`,
+                filter: isGrid
+                  ? 'blur(8px) brightness(3)'
+                  : phase === 'breathe'
                   ? 'blur(0px) brightness(1.1)'
-                  : isFading
-                  ? 'blur(6px) brightness(2)'
+                  : isWiping
+                  ? 'blur(4px) brightness(2)'
                   : 'blur(0px) brightness(1)',
-                textShadow: shouldShow
-                  ? '0 0 40px rgba(212,175,55,0.3), 0 0 80px rgba(37,162,220,0.15), 0 0 120px rgba(212,175,55,0.1)'
+                textShadow: shouldShow && !isWiping
+                  ? '0 0 30px rgba(212,175,55,0.4), 0 0 60px rgba(37,162,220,0.2)'
                   : 'none',
-                transition: `all ${isFading ? '0.8s' : isHold ? '1.5s' : '1s'} cubic-bezier(0.16, 1, 0.3, 1) ${isFading ? (index * 0.02) : letterDelay}s`,
+                transition: isGrid
+                  ? 'none'
+                  : phase === 'explode'
+                  ? `all 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.02}s`
+                  : isWiping
+                  ? `all 0.5s ease ${index * 0.03}s`
+                  : `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${dir.delay}s`,
                 letterSpacing: '0.02em',
-                animation: shouldShow && !isFading && !isHold ? 'letter-glow 3s ease-in-out infinite' : isHold ? 'letter-float 2s ease-in-out infinite' : 'none',
-                animationDelay: isHold ? `${index * 0.15}s` : '0s',
+                animation: phase === 'breathe' ? `letter-float 2.5s ease-in-out infinite ${index * 0.15}s` : 'none',
               }}
             >
               {letter}
@@ -430,158 +331,162 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         })}
       </div>
 
+      {/* ====== GOLDEN TRAIL behind letters — visible during letters phase ====== */}
+      {phase === 'letters' && (
+        <div className="absolute inset-0 z-5 pointer-events-none">
+          {/* Left streak */}
+          <div style={{
+            position: 'absolute', left: 0, top: '45%', width: '40%', height: '3px',
+            background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.3), rgba(212,175,55,0.6))',
+            filter: 'blur(2px)',
+            animation: 'intro-trail-left 1.2s ease-out forwards',
+            opacity: 0,
+          }} />
+          {/* Right streak */}
+          <div style={{
+            position: 'absolute', right: 0, top: '52%', width: '40%', height: '3px',
+            background: 'linear-gradient(270deg, transparent, rgba(37,162,220,0.3), rgba(37,162,220,0.6))',
+            filter: 'blur(2px)',
+            animation: 'intro-trail-right 1.2s ease-out forwards',
+            opacity: 0,
+          }} />
+          {/* Impact sparks at center */}
+          {Array.from({ length: 12 }).map((_, i) => (
+            <div
+              key={`impact-${i}`}
+              className="absolute rounded-full"
+              style={{
+                left: '50%', top: '50%',
+                width: 2 + seededRandom(i * 7) * 4,
+                height: 2 + seededRandom(i * 7) * 4,
+                background: i % 2 === 0 ? '#D4AF37' : '#FFFFFF',
+                boxShadow: i % 2 === 0 ? '0 0 10px rgba(212,175,55,0.8)' : '0 0 8px rgba(255,255,255,0.6)',
+                animation: `intro-impact-spark 0.8s ease-out ${0.6 + i * 0.05}s forwards`,
+                opacity: 0,
+              }}
+            />
+          ))}
+        </div>
+      )}
+
       {/* ====== Decorative line under HARMENS ====== */}
       <div className="relative z-10 mt-4 md:mt-6 flex items-center gap-3 justify-center">
-        <div
-          style={{
-            width: phase === 'letters' || phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? '40px' : '0px',
-            height: '1px',
-            background: '#D4AF37',
-            opacity: phase === 'letters' ? 0.5 : phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 1 : isFading ? 0 : 0,
-            transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
-            boxShadow: '0 0 8px rgba(212,175,55,0.4)',
-          }}
-        />
-        <div
-          style={{
-            width: 6,
-            height: 6,
-            border: '1px solid #25A2DC',
-            transform: 'rotate(45deg)',
-            opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 1 : isFading ? 0 : 0,
-            transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.4s',
-            boxShadow: '0 0 6px rgba(37,162,220,0.3)',
-            animation: isHold ? 'intro-diamond-spin 4s linear infinite' : 'none',
-          }}
-        />
-        <div
-          style={{
-            width: phase === 'letters' || phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? '40px' : '0px',
-            height: '1px',
-            background: '#25A2DC',
-            opacity: phase === 'letters' ? 0.5 : phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 1 : isFading ? 0 : 0,
-            transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
-            boxShadow: '0 0 8px rgba(37,162,220,0.4)',
-          }}
-        />
+        <div style={{
+          width: (phase === 'letters' || phase === 'logo' || phase === 'subtitle' || phase === 'breathe') ? '50px' : '0px',
+          height: '2px',
+          background: 'linear-gradient(90deg, transparent, #D4AF37)',
+          opacity: phase === 'letters' ? 0.6 : (phase === 'logo' || phase === 'subtitle' || phase === 'breathe') ? 1 : isWiping ? 0 : 0,
+          transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+          boxShadow: '0 0 10px rgba(212,175,55,0.5)',
+        }} />
+        <div style={{
+          width: 8, height: 8,
+          border: '2px solid #D4AF37',
+          transform: 'rotate(45deg)',
+          opacity: (phase === 'logo' || phase === 'subtitle' || phase === 'breathe') ? 1 : isWiping ? 0 : 0,
+          transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
+          boxShadow: '0 0 10px rgba(212,175,55,0.4)',
+          animation: phase === 'breathe' ? 'intro-diamond-spin 4s linear infinite' : 'none',
+        }} />
+        <div style={{
+          width: (phase === 'letters' || phase === 'logo' || phase === 'subtitle' || phase === 'breathe') ? '50px' : '0px',
+          height: '2px',
+          background: 'linear-gradient(270deg, transparent, #25A2DC)',
+          opacity: phase === 'letters' ? 0.6 : (phase === 'logo' || phase === 'subtitle' || phase === 'breathe') ? 1 : isWiping ? 0 : 0,
+          transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+          boxShadow: '0 0 10px rgba(37,162,220,0.5)',
+        }} />
       </div>
 
-      {/* ====== PHASE 3: LOGO — Crystallizes from golden energy ====== */}
+      {/* ====== PHASE 3: LOGO DROPS FROM ABOVE ====== */}
       <div
         className="absolute z-10 gpu-accelerated"
         style={{
-          opacity: phase === 'logo' || phase === 'subtitle' ? 1 : phase === 'hold' ? 0.9 : phase === 'pulse' ? 0.7 : isFading ? 0 : 0,
-          transform: phase === 'logo'
-            ? 'scale(1) translateY(0px)'
-            : phase === 'subtitle'
-            ? 'scale(0.65) translateY(150px)'
-            : phase === 'hold'
-            ? 'scale(0.6) translateY(150px)'
-            : phase === 'pulse'
-            ? 'scale(2) translateY(150px)'
-            : isFading
-            ? 'scale(0) translateY(250px)'
-            : 'scale(0) translateY(0px)',
-          filter: phase === 'logo'
-            ? 'brightness(1.2) blur(0px)'
-            : isHold
-            ? 'brightness(1.1) blur(0px)'
-            : phase === 'pulse'
-            ? 'brightness(4) blur(8px)'
-            : isFading
+          opacity: phase === 'logo' || phase === 'subtitle' ? 1 : phase === 'breathe' ? 0.9 : phase === 'explode' ? 0.5 : isWiping ? 0 : 0,
+          transform: isGrid || phase === 'letters'
+            ? 'scale(0.5) translateY(-400px) rotateX(30deg)'
+            : phase === 'logo'
+            ? 'scale(1) translateY(0px) rotateX(0deg)'
+            : phase === 'subtitle' || phase === 'breathe'
+            ? 'scale(0.55) translateY(160px) rotateX(0deg)'
+            : phase === 'explode'
+            ? 'scale(2.5) translateY(160px) rotateX(10deg)'
+            : 'scale(0) translateY(300px)',
+          filter: isGrid || phase === 'letters'
+            ? 'brightness(4) blur(15px)'
+            : phase === 'explode'
+            ? 'brightness(5) blur(10px)'
+            : isWiping
             ? 'brightness(3) blur(12px)'
-            : 'brightness(5) blur(20px)',
-          transition: 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
-          animation: isHold ? 'intro-logo-breathe 3s ease-in-out infinite' : 'none',
+            : 'brightness(1.1) blur(0px)',
+          transition: 'all 1s cubic-bezier(0.34, 1.56, 0.64, 1)',
+          animation: phase === 'breathe' ? 'intro-logo-breathe 3s ease-in-out infinite' : 'none',
         }}
       >
-        {/* Logo shimmer light sweep */}
+        {/* Shimmer sweep on logo */}
         <div
           className="absolute inset-0 z-20 pointer-events-none"
           style={{
-            opacity: phase === 'logo' ? 1 : isHold ? 0.5 : 0,
-            background: 'linear-gradient(105deg, transparent 20%, rgba(255,223,100,0.5) 42%, rgba(255,240,180,0.8) 50%, rgba(255,223,100,0.5) 58%, transparent 80%)',
+            opacity: phase === 'logo' ? 1 : phase === 'breathe' ? 0.4 : 0,
+            background: 'linear-gradient(105deg, transparent 20%, rgba(255,223,100,0.6) 42%, rgba(255,240,180,0.9) 50%, rgba(255,223,100,0.6) 58%, transparent 80%)',
             backgroundSize: '200% 100%',
-            animation: phase === 'logo' ? 'shimmer 1.5s ease-in-out' : isHold ? 'shimmer 4s ease-in-out infinite' : 'none',
-            transition: 'opacity 0.5s ease',
+            animation: phase === 'logo' ? 'shimmer 1.5s ease-in-out' : phase === 'breathe' ? 'shimmer 4s ease-in-out infinite' : 'none',
+            transition: 'opacity 0.3s ease',
           }}
         />
-
-        {/* Decorative orbit ring around logo */}
+        {/* Orbit ring */}
         <div
           className="absolute pointer-events-none"
           style={{
-            left: '50%',
-            top: '50%',
-            width: 200,
-            height: 200,
-            marginTop: -100,
-            marginLeft: -100,
-            borderRadius: '50%',
-            border: '1px solid rgba(212,175,55,0.15)',
-            opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 1 : 0,
-            animation: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 'spin-slow 8s linear infinite' : 'none',
+            left: '50%', top: '50%', width: 220, height: 220, marginTop: -110, marginLeft: -110,
+            borderRadius: '50%', border: '1.5px solid rgba(212,175,55,0.2)',
+            opacity: phase === 'logo' || phase === 'subtitle' || phase === 'breathe' ? 1 : 0,
+            animation: 'spin-slow 6s linear infinite',
             transition: 'opacity 0.5s ease',
           }}
         >
-          <div
-            style={{
-              position: 'absolute',
-              top: -3,
-              left: '50%',
-              marginLeft: -3,
-              width: 6,
-              height: 6,
-              borderRadius: '50%',
-              background: '#D4AF37',
-              boxShadow: '0 0 12px rgba(212,175,55,0.6)',
-            }}
-          />
+          <div style={{
+            position: 'absolute', top: -4, left: '50%', marginLeft: -4,
+            width: 8, height: 8, borderRadius: '50%',
+            background: '#D4AF37', boxShadow: '0 0 15px rgba(212,175,55,0.7)',
+          }} />
         </div>
-
         <Image
           src="/harmens-logo-tran.png"
           alt="HARMENS"
-          width={130}
-          height={130}
+          width={140}
+          height={140}
           className="relative z-10"
           style={{
-            filter: 'drop-shadow(0 0 30px rgba(212,175,55,0.4)) drop-shadow(0 0 60px rgba(212,175,55,0.15))',
+            filter: 'drop-shadow(0 0 30px rgba(212,175,55,0.5)) drop-shadow(0 0 60px rgba(212,175,55,0.2))',
           }}
           priority
         />
       </div>
 
-      {/* ====== PHASE 4: Arabic + English subtitle ====== */}
+      {/* ====== PHASE 4: ARABIC + ENGLISH SUBTITLE ====== */}
       <div
         className="relative z-10 mt-8 flex items-center justify-center"
         style={{
-          opacity: phase === 'subtitle' || phase === 'hold' ? 1 : phase === 'pulse' ? 0.7 : isFading ? 0 : 0,
-          transform: isFading ? 'translateY(-30px) scale(0.8)' : 'translateY(0) scale(1)',
-          transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+          opacity: phase === 'subtitle' || phase === 'breathe' ? 1 : phase === 'explode' ? 0.5 : isWiping ? 0 : 0,
+          transform: isWiping ? 'translateY(-30px) scale(0.8)' : 'translateY(0) scale(1)',
+          transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
         {arabicText.split('').map((char, index) => (
           <span
             key={`ar-${index}`}
-            className="text-lg md:text-2xl"
+            className="text-xl md:text-3xl"
             style={{
               color: '#D4AF37',
-              textShadow: '0 0 15px rgba(212,175,55,0.3), 0 0 30px rgba(212,175,55,0.1)',
+              textShadow: '0 0 20px rgba(212,175,55,0.4), 0 0 40px rgba(212,175,55,0.15)',
               direction: 'rtl',
               display: 'inline-block',
-              opacity: phase === 'subtitle' || phase === 'hold' ? 1 : phase === 'pulse' ? 0.5 : 0,
-              transform: phase === 'subtitle'
-                ? 'translateY(0) scale(1)'
-                : phase === 'hold'
-                ? 'translateY(0) scale(1)'
-                : isFading
-                ? 'translateY(-15px) scale(0.5)'
-                : 'translateY(25px) scale(0.7)',
-              filter: phase === 'subtitle' || phase === 'hold' ? 'blur(0px)' : 'blur(3px)',
-              transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${3.2 + index * 0.025}s`,
-              animation: isHold ? 'intro-text-shimmer 2s ease-in-out infinite' : 'none',
-              animationDelay: isHold ? `${index * 0.1}s` : '0s',
+              opacity: phase === 'subtitle' || phase === 'breathe' ? 1 : phase === 'explode' ? 0.3 : 0,
+              transform: phase === 'subtitle' || phase === 'breathe' ? 'translateY(0) scale(1)' : isWiping ? 'translateY(-20px) scale(0.5)' : 'translateY(30px) scale(0.7)',
+              filter: phase === 'subtitle' || phase === 'breathe' ? 'blur(0px)' : 'blur(4px)',
+              transition: `all 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${3.5 + index * 0.03}s`,
+              animation: phase === 'breathe' ? `intro-text-shimmer 2s ease-in-out infinite ${index * 0.1}s` : 'none',
             }}
           >
             {char}
@@ -589,24 +494,24 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         ))}
       </div>
 
-      {/* Tagline below Arabic */}
+      {/* Tagline */}
       <div
         className="relative z-10 mt-3 flex items-center justify-center"
         style={{
-          opacity: phase === 'subtitle' || phase === 'hold' ? 1 : phase === 'pulse' ? 0.5 : isFading ? 0 : 0,
-          transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
+          opacity: phase === 'subtitle' || phase === 'breathe' ? 1 : isWiping ? 0 : 0,
+          transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s',
         }}
       >
         {tagline.split('').map((char, index) => (
           <span
             key={`tag-${index}`}
-            className="text-[9px] md:text-[11px] tracking-[0.35em] uppercase"
+            className="text-[10px] md:text-xs tracking-[0.35em] uppercase"
             style={{
               color: '#A0AEC0',
               display: 'inline-block',
-              opacity: phase === 'subtitle' || phase === 'hold' ? 0.6 : phase === 'pulse' ? 0.3 : 0,
-              transform: phase === 'subtitle' || phase === 'hold' ? 'translateY(0)' : 'translateY(8px)',
-              transition: `all 0.4s ease ${3.6 + index * 0.012}s`,
+              opacity: phase === 'subtitle' || phase === 'breathe' ? 0.7 : 0,
+              transform: phase === 'subtitle' || phase === 'breathe' ? 'translateY(0)' : 'translateY(10px)',
+              transition: `all 0.35s ease ${3.8 + index * 0.01}s`,
             }}
           >
             {char === ' ' ? '\u00A0' : char}
@@ -614,60 +519,43 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         ))}
       </div>
 
-      {/* ====== PHASE 5: HOLD — Geometric decorative lines radiate ====== */}
-      {isHold && (
+      {/* ====== PHASE 5: BREATHE — Floating decorative shapes ====== */}
+      {phase === 'breathe' && (
         <div className="absolute inset-0 z-5 pointer-events-none">
-          {geoLines.map((line, i) => (
+          {floatingShapes.map((shape, i) => (
             <div
-              key={`geo-${i}`}
+              key={`shape-${i}`}
               className="absolute"
               style={{
-                left: `${line.startX}%`,
-                top: `${line.startY}%`,
-                width: `${line.length}px`,
-                height: '1px',
-                background: line.isGold
-                  ? `linear-gradient(90deg, transparent, rgba(212,175,55,0.15), transparent)`
-                  : `linear-gradient(90deg, transparent, rgba(37,162,220,0.1), transparent)`,
-                transform: `rotate(${line.angle}deg)`,
-                opacity: 0,
-                animation: `intro-geo-line 1.5s ease-out ${line.delay}s forwards`,
+                left: `${shape.x}%`, top: `${shape.y}%`,
+                fontSize: shape.size,
+                color: shape.color,
+                opacity: 0.15,
+                animation: `intro-shape-drift ${shape.duration}s ease-in-out infinite ${shape.delay}s`,
+                textShadow: `0 0 20px ${shape.color}40`,
               }}
-            />
+            >
+              {shape.icon}
+            </div>
           ))}
-
-          {/* Floating corner accents during hold */}
-          <div
-            className="absolute"
-            style={{
-              top: '20%',
-              right: '15%',
-              width: '20px',
-              height: '20px',
-              borderTop: '1px solid rgba(212,175,55,0.15)',
-              borderRight: '1px solid rgba(212,175,55,0.15)',
-              animation: 'intro-corner-fade 1s ease-out forwards',
-              opacity: 0,
-            }}
-          />
-          <div
-            className="absolute"
-            style={{
-              bottom: '25%',
-              left: '12%',
-              width: '20px',
-              height: '20px',
-              borderBottom: '1px solid rgba(37,162,220,0.12)',
-              borderLeft: '1px solid rgba(37,162,220,0.12)',
-              animation: 'intro-corner-fade 1s ease-out 0.2s forwards',
-              opacity: 0,
-            }}
-          />
+          {/* Rotating diamond frames */}
+          <div style={{
+            position: 'absolute', top: '50%', left: '50%',
+            width: 500, height: 500, marginTop: -250, marginLeft: -250,
+            border: '1px solid rgba(212,175,55,0.06)',
+            animation: 'intro-diamond-rotate 10s linear infinite',
+          }} />
+          <div style={{
+            position: 'absolute', top: '50%', left: '50%',
+            width: 350, height: 350, marginTop: -175, marginLeft: -175,
+            border: '1px solid rgba(37,162,220,0.05)',
+            animation: 'intro-diamond-rotate 14s linear infinite reverse',
+          }} />
         </div>
       )}
 
-      {/* ====== PHASE 6: Grand reveal — Golden pulse explosion ====== */}
-      {phase === 'pulse' && (
+      {/* ====== PHASE 6: EXPLODE — Golden shockwave ====== */}
+      {phase === 'explode' && (
         <>
           {/* Ripple rings */}
           {[0, 1, 2, 3, 4, 5].map((i) => (
@@ -675,87 +563,80 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               key={`pulse-ring-${i}`}
               className="absolute z-5 rounded-full"
               style={{
-                border: `1px solid rgba(212, 175, 55, ${0.4 - i * 0.05})`,
-                animation: `ripple-expand 1s ease-out ${i * 0.1}s forwards`,
+                border: `2px solid rgba(212, 175, 55, ${0.5 - i * 0.06})`,
+                animation: `ripple-expand 0.8s ease-out ${i * 0.08}s forwards`,
               }}
             />
           ))}
-
-          {/* Blue ripples */}
           {[0, 1, 2, 3].map((i) => (
             <div
               key={`pulse-blue-${i}`}
               className="absolute z-5 rounded-full"
               style={{
-                border: `1px solid rgba(37, 162, 220, ${0.2 - i * 0.04})`,
-                animation: `ripple-expand 1.2s ease-out ${0.15 + i * 0.12}s forwards`,
+                border: `1.5px solid rgba(37, 162, 220, ${0.3 - i * 0.05})`,
+                animation: `ripple-expand 1s ease-out ${0.1 + i * 0.1}s forwards`,
               }}
             />
           ))}
 
-          {/* Burst particles — golden dust */}
+          {/* Burst particles */}
           {burstParticles.map((p, i) => (
             <div
               key={`explode-${i}`}
               className="absolute z-10 rounded-full"
               style={{
-                width: p.size,
-                height: p.size,
+                width: p.size, height: p.size,
                 background: p.isWhite ? '#FFFFFF' : p.isGold ? '#D4AF37' : '#25A2DC',
-                boxShadow: p.isWhite
-                  ? '0 0 6px rgba(255,255,255,0.6)'
-                  : p.isGold
-                  ? '0 0 8px rgba(212,175,55,0.8)'
-                  : '0 0 6px rgba(37,162,220,0.6)',
-                left: '50%',
-                top: '50%',
-                animation: `particle-drift 1.2s ease-out ${p.delay}s forwards`,
+                boxShadow: p.isWhite ? '0 0 8px rgba(255,255,255,0.7)' : p.isGold ? '0 0 10px rgba(212,175,55,0.9)' : '0 0 8px rgba(37,162,220,0.7)',
+                left: '50%', top: '50%',
+                animation: `particle-drift 1s ease-out ${p.delay}s forwards`,
                 '--drift-x': `${Math.cos(p.angle) * p.distance}px`,
                 '--drift-y': `${Math.sin(p.angle) * p.distance}px`,
               } as React.CSSProperties}
             />
           ))}
 
-          {/* Golden flash overlay */}
+          {/* Golden flash */}
           <div
             className="absolute inset-0 z-15 pointer-events-none"
             style={{
-              background: 'radial-gradient(circle at 50% 50%, rgba(212,175,55,0.35) 0%, transparent 60%)',
-              animation: 'intro-flash 0.6s ease-out forwards',
+              background: 'radial-gradient(circle at 50% 50%, rgba(212,175,55,0.4) 0%, transparent 55%)',
+              animation: 'intro-flash 0.5s ease-out forwards',
             }}
           />
         </>
       )}
 
-      {/* ====== PROGRESS INDICATOR ====== */}
-      <div className="absolute bottom-8 left-0 right-0 z-20 px-8 md:px-16">
+      {/* ====== PHASE 7: WIPE — Everything fades with blur ====== */}
+      {isWiping && (
+        <div
+          className="absolute inset-0 z-20 pointer-events-none"
+          style={{
+            background: '#050810',
+            opacity: 1,
+            animation: 'intro-wipe-in 0.5s ease-out forwards',
+          }}
+        />
+      )}
+
+      {/* ====== PROGRESS BAR ====== */}
+      <div className="absolute bottom-8 left-0 right-0 z-20 px-8 md:px-16" style={{
+        opacity: isWiping ? 0 : 1,
+        transition: 'opacity 0.3s ease',
+      }}>
         <div className="flex items-center justify-between mb-3">
-          <span
-            className="text-[9px] tracking-[0.6em] uppercase"
-            style={{
-              color: 'rgba(160, 174, 192, 0.3)',
-              opacity: isFading ? 0 : 1,
-              transition: 'opacity 0.3s ease',
-            }}
-          >
+          <span className="text-[9px] tracking-[0.6em] uppercase" style={{ color: 'rgba(160, 174, 192, 0.3)' }}>
             Loading Experience
           </span>
-          <span
-            className="text-[10px] tracking-[0.2em] font-light"
-            style={{
-              color: 'rgba(212, 175, 55, 0.4)',
-              opacity: isFading ? 0 : 1,
-              transition: 'opacity 0.3s ease',
-            }}
-          >
-            {getProgress()}%
+          <span className="text-[10px] tracking-[0.2em] font-light" style={{ color: 'rgba(212, 175, 55, 0.5)' }}>
+            {isGrid ? '0' : phase === 'letters' ? '14' : phase === 'logo' ? '35' : phase === 'subtitle' ? '55' : phase === 'breathe' ? '75' : phase === 'explode' ? '90' : '100'}%
           </span>
         </div>
         <div className="h-[1px] w-full bg-[#1C2738]/60 relative overflow-hidden">
           <div
             className="absolute top-0 left-0 h-full"
             style={{
-              width: `${getProgress()}%`,
+              width: `${isGrid ? 0 : phase === 'letters' ? 14 : phase === 'logo' ? 35 : phase === 'subtitle' ? 55 : phase === 'breathe' ? 75 : phase === 'explode' ? 90 : 100}%`,
               background: 'linear-gradient(90deg, #D4AF37, #25A2DC)',
               transition: 'width 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
             }}
@@ -763,7 +644,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           <div
             className="absolute top-[-2px] h-[5px] w-[5px] rounded-full"
             style={{
-              left: `${getProgress()}%`,
+              left: `${isGrid ? 0 : phase === 'letters' ? 14 : phase === 'logo' ? 35 : phase === 'subtitle' ? 55 : phase === 'breathe' ? 75 : phase === 'explode' ? 90 : 100}%`,
               background: '#25A2DC',
               boxShadow: '0 0 10px rgba(37,162,220,0.8), 0 0 20px rgba(37,162,220,0.3)',
               transition: 'left 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
@@ -772,73 +653,25 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         </div>
       </div>
 
-      {/* ====== Corner architectural brackets ====== */}
-      {/* Top-left */}
-      <div
-        className="absolute top-6 left-6 z-10"
-        style={{
-          opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 0.4 : 0,
-          transition: 'opacity 0.8s ease',
-        }}
-      >
-        <div className="w-6 h-[1px] bg-[#D4AF37]/40" />
-        <div className="w-[1px] h-6 bg-[#D4AF37]/40" />
-      </div>
-      {/* Top-right */}
-      <div
-        className="absolute top-6 right-6 z-10"
-        style={{
-          opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 0.4 : 0,
-          transition: 'opacity 0.8s ease',
-        }}
-      >
-        <div className="w-6 h-[1px] bg-[#D4AF37]/40 ml-auto" />
-        <div className="w-[1px] h-6 bg-[#D4AF37]/40 ml-auto" />
-      </div>
-      {/* Bottom-left */}
-      <div
-        className="absolute bottom-14 left-6 z-10"
-        style={{
-          opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 0.4 : 0,
-          transition: 'opacity 0.8s ease',
-        }}
-      >
-        <div className="w-[1px] h-6 bg-[#25A2DC]/40" />
-        <div className="w-6 h-[1px] bg-[#25A2DC]/40" />
-      </div>
-      {/* Bottom-right */}
-      <div
-        className="absolute bottom-14 right-6 z-10"
-        style={{
-          opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 0.4 : 0,
-          transition: 'opacity 0.8s ease',
-        }}
-      >
-        <div className="w-[1px] h-6 bg-[#25A2DC]/40 ml-auto" />
-        <div className="w-6 h-[1px] bg-[#25A2DC]/40 ml-auto" />
-      </div>
-
-      {/* ====== Decorative thin lines ====== */}
-      {!isSweep && !isFading && (
+      {/* ====== CORNER BRACKETS ====== */}
+      {['logo', 'subtitle', 'breathe'].includes(phase) && (
         <>
-          <div
-            className="absolute top-12 left-[15%] right-[15%] z-5"
-            style={{
-              height: '1px',
-              background: 'linear-gradient(90deg, transparent, rgba(37,162,220,0.08), transparent)',
-              opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 1 : 0,
-              transition: 'opacity 1s ease',
-            }}
-          />
-          <div
-            className="absolute bottom-24 left-[15%] right-[15%] z-5"
-            style={{
-              height: '1px',
-              background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.08), transparent)',
-              opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 1 : 0,
-              transition: 'opacity 1s ease',
-            }}
-          />
+          <div className="absolute top-6 left-6 z-10" style={{ opacity: 0.4 }}>
+            <div className="w-8 h-[1px] bg-[#D4AF37]/50" />
+            <div className="w-[1px] h-8 bg-[#D4AF37]/50" />
+          </div>
+          <div className="absolute top-6 right-6 z-10" style={{ opacity: 0.4 }}>
+            <div className="w-8 h-[1px] bg-[#D4AF37]/50 ml-auto" />
+            <div className="w-[1px] h-8 bg-[#D4AF37]/50 ml-auto" />
+          </div>
+          <div className="absolute bottom-14 left-6 z-10" style={{ opacity: 0.4 }}>
+            <div className="w-[1px] h-8 bg-[#25A2DC]/50" />
+            <div className="w-8 h-[1px] bg-[#25A2DC]/50" />
+          </div>
+          <div className="absolute bottom-14 right-6 z-10" style={{ opacity: 0.4 }}>
+            <div className="w-[1px] h-8 bg-[#25A2DC]/50 ml-auto" />
+            <div className="w-8 h-[1px] bg-[#25A2DC]/50 ml-auto" />
+          </div>
         </>
       )}
     </div>

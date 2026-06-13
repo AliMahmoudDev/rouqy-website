@@ -1,0 +1,847 @@
+     1→'use client';
+     2→
+     3→import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
+     4→import Image from 'next/image';
+     5→
+     6→interface IntroAnimationProps {
+     7→  onComplete: () => void;
+     8→}
+     9→
+    10→/**
+    11→ * 🎬 HARMENS Cinematic Intro v6.0 — "The Grand Architectural Reveal"
+    12→ *
+    13→ * A stunning ~7-second cinematic loading experience:
+    14→ *
+    15→ * Phase 1 (0-0.8s):     Cinematic bars close + golden crosshair lines sweep + expanding rings
+    16→ * Phase 2 (0.8-2.2s):   HARMENS letters converge from scattered dust with 3D rotation
+    17→ * Phase 3 (2.2-3.2s):   Logo crystallizes from golden energy + orbit ring + lens flare
+    18→ * Phase 4 (3.2-4.4s):   Arabic + English subtitle materialize with golden shimmer
+    19→ * Phase 5 (4.4-5.2s):   Elegant hold — all elements breathe together with subtle animations
+    20→ * Phase 6 (5.2-6.0s):   Grand reveal — golden pulse explosion + particle burst
+    21→ * Phase 7 (6.0-7.0s):   Cinematic bars open + smooth fade → site emerges
+    22→ */
+    23→
+    24→// Deterministic pseudo-random function for SSR consistency
+    25→function seededRandom(seed: number): number {
+    26→  const x = Math.sin(seed * 127.1 + 311.7) * 43758.5453;
+    27→  return x - Math.floor(x);
+    28→}
+    29→
+    30→export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
+    31→  const [phase, setPhase] = useState<
+    32→    'sweep' | 'letters' | 'logo' | 'subtitle' | 'hold' | 'pulse' | 'fade' | 'done'
+    33→  >('sweep');
+    34→  const [mounted, setMounted] = useState(false);
+    35→  const onCompleteStable = useCallback(onComplete, [onComplete]);
+    36→  const startTimeRef = useRef<number>(0);
+    37→
+    38→  // Only run animations after mount (client-only)
+    39→  useEffect(() => {
+    40→    setMounted(true);
+    41→    startTimeRef.current = Date.now();
+    42→  }, []);
+    43→
+    44→  useEffect(() => {
+    45→    if (!mounted) return;
+    46→    const timers: ReturnType<typeof setTimeout>[] = [];
+    47→
+    48→    // Extended 7-second timeline with more phases for smoother pacing
+    49→    timers.push(setTimeout(() => setPhase('letters'), 800));      // Phase 2 at 0.8s
+    50→    timers.push(setTimeout(() => setPhase('logo'), 2200));        // Phase 3 at 2.2s
+    51→    timers.push(setTimeout(() => setPhase('subtitle'), 3200));    // Phase 4 at 3.2s
+    52→    timers.push(setTimeout(() => setPhase('hold'), 4400));        // Phase 5 at 4.4s — breathe
+    53→    timers.push(setTimeout(() => setPhase('pulse'), 5200));       // Phase 6 at 5.2s — explosion
+    54→    timers.push(setTimeout(() => setPhase('fade'), 6000));        // Phase 7 at 6.0s — fade out
+    55→    timers.push(setTimeout(() => {
+    56→      setPhase('done');
+    57→      onCompleteStable();
+    58→    }, 7000)); // Complete at 7s
+    59→
+    60→    return () => timers.forEach(clearTimeout);
+    61→  }, [mounted, onCompleteStable]);
+    62→
+    63→  if (phase === 'done') return null;
+    64→
+    65→  const brandName = 'HARMENS';
+    66→  const arabicText = 'هارمينز للتصميم الداخلي';
+    67→  const tagline = 'DESIGNED TO BE FELT BEFORE IT\'S SEEN';
+    68→
+    69→  // Pre-calculate deterministic letter offsets (consistent SSR + client)
+    70→  const letterOffsets = useMemo(() =>
+    71→    brandName.split('').map((_, i) => ({
+    72→      x: (seededRandom(i * 7 + 1) - 0.5) * 600,
+    73→      y: (seededRandom(i * 13 + 2) - 0.5) * 400,
+    74→      z: (seededRandom(i * 19 + 3) - 0.5) * 300,
+    75→      rotateX: (seededRandom(i * 23 + 4) - 0.5) * 180,
+    76→      rotateY: (seededRandom(i * 29 + 5) - 0.5) * 180,
+    77→      rotateZ: (seededRandom(i * 31 + 6) - 0.5) * 50,
+    78→    })),
+    79→  []
+    80→  );
+    81→
+    82→  // Deterministic ambient particles
+    83→  const ambientParticles = useMemo(() =>
+    84→    Array.from({ length: 60 }).map((_, i) => ({
+    85→      startX: seededRandom(i * 11 + 100) * 100,
+    86→      startY: seededRandom(i * 17 + 200) * 100,
+    87→      size: 1 + seededRandom(i * 23 + 300) * 2.5,
+    88→      duration: 3 + seededRandom(i * 29 + 400) * 5,
+    89→      delay: seededRandom(i * 31 + 500) * 2,
+    90→      isGold: i % 3 === 0,
+    91→      isWhite: i % 5 === 0,
+    92→    })),
+    93→  []
+    94→  );
+    95→
+    96→  // Deterministic burst particles for pulse phase
+    97→  const burstParticles = useMemo(() =>
+    98→    Array.from({ length: 80 }).map((_, i) => {
+    99→      const angle = (i / 80) * Math.PI * 2;
+   100→      const distance = 150 + seededRandom(i * 37 + 600) * 600;
+   101→      const isGold = i % 2 === 0;
+   102→      const isWhite = i % 5 === 0;
+   103→      return { angle, distance, isGold, isWhite, size: 1 + seededRandom(i * 41 + 700) * 3, delay: seededRandom(i * 43 + 800) * 0.3 };
+   104→    }),
+   105→  []
+   106→  );
+   107→
+   108→  // Decorative geometric lines that appear during hold phase
+   109→  const geoLines = useMemo(() =>
+   110→    Array.from({ length: 8 }).map((_, i) => ({
+   111→      angle: seededRandom(i * 47 + 900) * 360,
+   112→      length: 60 + seededRandom(i * 53 + 1000) * 120,
+   113→      startX: 30 + seededRandom(i * 59 + 1100) * 40,
+   114→      startY: 30 + seededRandom(i * 61 + 1200) * 40,
+   115→      delay: seededRandom(i * 67 + 1300) * 0.5,
+   116→      isGold: i % 2 === 0,
+   117→    })),
+   118→  []
+   119→  );
+   120→
+   121→  const isFading = phase === 'fade';
+   122→  const isPostPulse = phase === 'pulse' || phase === 'fade';
+   123→  const isSweep = phase === 'sweep';
+   124→  const isHold = phase === 'hold';
+   125→
+   126→  // Calculate progress percentage for the progress bar
+   127→  const getProgress = () => {
+   128→    switch (phase) {
+   129→      case 'sweep': return 0;
+   130→      case 'letters': return 15;
+   131→      case 'logo': return 35;
+   132→      case 'subtitle': return 55;
+   133→      case 'hold': return 75;
+   134→      case 'pulse': return 90;
+   135→      case 'fade': return 100;
+   136→      default: return 0;
+   137→    }
+   138→  };
+   139→
+   140→  return (
+   141→    <div
+   142→      className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden"
+   143→      style={{
+   144→        background: '#050810',
+   145→        opacity: isFading ? 0 : 1,
+   146→        filter: isFading ? 'blur(12px)' : 'blur(0px)',
+   147→        transition: 'all 1s cubic-bezier(0.65, 0.05, 0, 1)',
+   148→        boxShadow: 'inset 0 0 150px rgba(0,0,0,0.8)',
+   149→        animation: !isFading ? 'vignette-pulse-intro 5s ease-in-out infinite' : 'none',
+   150→      }}
+   151→    >
+   152→      {/* ====== CINEMATIC LETTERBOX BARS ====== */}
+   153→      {/* Top bar */}
+   154→      <div
+   155→        className="absolute top-0 left-0 right-0 z-30 bg-black"
+   156→        style={{
+   157→          height: isFading ? 0 : '8vh',
+   158→          animation: isFading
+   159→            ? 'cinematic-bar-out 1s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+   160→            : 'cinematic-bar-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+   161→        }}
+   162→      />
+   163→      {/* Bottom bar */}
+   164→      <div
+   165→        className="absolute bottom-0 left-0 right-0 z-30 bg-black"
+   166→        style={{
+   167→          height: isFading ? 0 : '8vh',
+   168→          animation: isFading
+   169→            ? 'cinematic-bar-out 1s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+   170→            : 'cinematic-bar-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+   171→        }}
+   172→      />
+   173→
+   174→      {/* === BACKGROUND LAYERS === */}
+   175→
+   176→      {/* Animated noise texture */}
+   177→      <div className="noise-overlay absolute inset-0 pointer-events-none z-0 opacity-[0.03]" />
+   178→
+   179→      {/* Deep space gradient */}
+   180→      <div
+   181→        className="absolute inset-0"
+   182→        style={{
+   183→          background: 'radial-gradient(ellipse 120% 80% at 50% 50%, #0B1220 0%, #050810 50%, #020408 100%)',
+   184→        }}
+   185→      />
+   186→
+   187→      {/* ====== Rotating background geometric pattern — appears during hold ====== */}
+   188→      {isHold && (
+   189→        <div className="absolute inset-0 z-[1] pointer-events-none">
+   190→          {/* Rotating diamond grid */}
+   191→          <div
+   192→            style={{
+   193→              position: 'absolute',
+   194→              top: '50%',
+   195→              left: '50%',
+   196→              width: '600px',
+   197→              height: '600px',
+   198→              marginTop: '-300px',
+   199→              marginLeft: '-300px',
+   200→              border: '1px solid rgba(212,175,55,0.04)',
+   201→              transform: 'rotate(45deg)',
+   202→              animation: 'intro-diamond-rotate 8s linear infinite',
+   203→            }}
+   204→          />
+   205→          <div
+   206→            style={{
+   207→              position: 'absolute',
+   208→              top: '50%',
+   209→              left: '50%',
+   210→              width: '450px',
+   211→              height: '450px',
+   212→              marginTop: '-225px',
+   213→              marginLeft: '-225px',
+   214→              border: '1px solid rgba(37,162,220,0.03)',
+   215→              transform: 'rotate(45deg)',
+   216→              animation: 'intro-diamond-rotate 12s linear infinite reverse',
+   217→            }}
+   218→          />
+   219→          <div
+   220→            style={{
+   221→              position: 'absolute',
+   222→              top: '50%',
+   223→              left: '50%',
+   224→              width: '300px',
+   225→              height: '300px',
+   226→              marginTop: '-150px',
+   227→              marginLeft: '-150px',
+   228→              border: '1px solid rgba(212,175,55,0.05)',
+   229→              transform: 'rotate(45deg)',
+   230→              animation: 'intro-diamond-rotate 6s linear infinite',
+   231→            }}
+   232→          />
+   233→        </div>
+   234→      )}
+   235→
+   236→      {/* ====== LENS FLARE — sweeps during logo phase ====== */}
+   237→      {(phase === 'logo' || phase === 'subtitle' || phase === 'hold') && (
+   238→        <div
+   239→          className="absolute z-20 pointer-events-none"
+   240→          style={{
+   241→            top: '45%',
+   242→            width: '60%',
+   243→            height: '2px',
+   244→            background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.15), rgba(255,255,255,0.3), rgba(212,175,55,0.15), transparent)',
+   245→            filter: 'blur(2px)',
+   246→            animation: 'lens-flare 3s ease-in-out forwards',
+   247→            opacity: isHold ? 0.5 : 1,
+   248→            transition: 'opacity 0.8s ease',
+   249→          }}
+   250→        />
+   251→      )}
+   252→
+   253→      {/* Central golden glow — heartbeat of the animation */}
+   254→      <div
+   255→        className="absolute"
+   256→        style={{
+   257→          width: 500,
+   258→          height: 500,
+   259→          borderRadius: '50%',
+   260→          background: 'radial-gradient(circle, rgba(212,175,55,0.4) 0%, rgba(212,175,55,0.1) 35%, transparent 60%)',
+   261→          filter: 'blur(80px)',
+   262→          opacity: isSweep ? 0 : isHold ? 0.8 : phase === 'pulse' ? 1 : isFading ? 0 : 0.7,
+   263→          transform: isSweep
+   264→            ? 'scale(0)'
+   265→            : isHold
+   266→            ? 'scale(1.8)'
+   267→            : phase === 'pulse'
+   268→            ? 'scale(3.5)'
+   269→            : isFading
+   270→            ? 'scale(4)'
+   271→            : 'scale(1.5)',
+   272→          transition: 'all 1.5s cubic-bezier(0.16, 1, 0.3, 1)',
+   273→          animation: isHold ? 'intro-glow-breathe 2s ease-in-out infinite' : 'none',
+   274→        }}
+   275→      />
+   276→
+   277→      {/* Blue ambient glow */}
+   278→      <div
+   279→        className="absolute"
+   280→        style={{
+   281→          width: 900,
+   282→          height: 350,
+   283→          borderRadius: '50%',
+   284→          background: 'radial-gradient(ellipse, rgba(37,162,220,0.1) 0%, transparent 60%)',
+   285→          filter: 'blur(100px)',
+   286→          opacity: isSweep ? 0 : isFading ? 0 : isHold ? 0.6 : 0.5,
+   287→          transform: isHold ? 'scale(1.2)' : phase === 'pulse' ? 'scale(3)' : 'scale(1)',
+   288→          transition: 'all 1.5s ease-out',
+   289→          animation: isHold ? 'intro-blue-breathe 3s ease-in-out infinite' : 'none',
+   290→        }}
+   291→      />
+   292→
+   293→      {/* ====== AMBIENT FLOATING PARTICLES ====== */}
+   294→      {mounted && (
+   295→        <div className="absolute inset-0 pointer-events-none">
+   296→          {ambientParticles.map((p, i) => (
+   297→            <div
+   298→              key={`ambient-${i}`}
+   299→              className="absolute rounded-full"
+   300→              style={{
+   301→                width: p.size,
+   302→                height: p.size,
+   303→                background: p.isWhite ? '#FFFFFF' : p.isGold ? '#D4AF37' : '#25A2DC',
+   304→                boxShadow: p.isGold
+   305→                  ? '0 0 8px rgba(212,175,55,0.5)'
+   306→                  : p.isWhite
+   307→                  ? '0 0 6px rgba(255,255,255,0.4)'
+   308→                  : '0 0 5px rgba(37,162,220,0.3)',
+   309→                left: `${p.startX}%`,
+   310→                top: `${p.startY}%`,
+   311→                opacity: isSweep ? 0 : isFading ? 0 : isHold ? 0.8 : 0.6,
+   312→                animation: !isSweep && !isFading ? `particle-rise ${p.duration}s linear infinite ${p.delay}s` : 'none',
+   313→                transition: 'opacity 0.8s ease',
+   314→              }}
+   315→            />
+   316→          ))}
+   317→        </div>
+   318→      )}
+   319→
+   320→      {/* ====== PHASE 1: ARCHITECTURAL GOLDEN LINE SWEEP ====== */}
+   321→      {isSweep && (
+   322→        <>
+   323→          {/* Horizontal golden line */}
+   324→          <div
+   325→            className="absolute"
+   326→            style={{
+   327→              left: 0,
+   328→              right: 0,
+   329→              top: '50%',
+   330→              height: '1px',
+   331→              background: 'linear-gradient(90deg, transparent 0%, #D4AF37 20%, #FFFFFF 50%, #D4AF37 80%, transparent 100%)',
+   332→              boxShadow: '0 0 20px rgba(212,175,55,0.6), 0 0 60px rgba(212,175,55,0.3)',
+   333→              animation: 'intro-line-sweep 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+   334→            }}
+   335→          />
+   336→          {/* Vertical line */}
+   337→          <div
+   338→            className="absolute"
+   339→            style={{
+   340→              top: 0,
+   341→              bottom: 0,
+   342→              left: '50%',
+   343→              width: '1px',
+   344→              background: 'linear-gradient(180deg, transparent 0%, rgba(37,162,220,0.3) 30%, rgba(37,162,220,0.6) 50%, rgba(37,162,220,0.3) 70%, transparent 100%)',
+   345→              boxShadow: '0 0 15px rgba(37,162,220,0.4)',
+   346→              animation: 'intro-line-sweep-v 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards',
+   347→              opacity: 0,
+   348→            }}
+   349→          />
+   350→          {/* Center crosshair dot */}
+   351→          <div
+   352→            className="absolute"
+   353→            style={{
+   354→              left: '50%',
+   355→              top: '50%',
+   356→              width: 6,
+   357→              height: 6,
+   358→              borderRadius: '50%',
+   359→              background: '#D4AF37',
+   360→              boxShadow: '0 0 20px rgba(212,175,55,0.8), 0 0 40px rgba(212,175,55,0.4)',
+   361→              transform: 'translate(-50%, -50%)',
+   362→              animation: 'intro-dot-pulse 0.6s ease-out 0.2s forwards',
+   363→              opacity: 0,
+   364→            }}
+   365→          />
+   366→          {/* Expanding rings */}
+   367→          {[0, 1, 2, 3].map((i) => (
+   368→            <div
+   369→              key={`ring-${i}`}
+   370→              className="absolute rounded-full"
+   371→              style={{
+   372→                left: '50%',
+   373→                top: '50%',
+   374→                width: 30,
+   375→                height: 30,
+   376→                marginTop: -15,
+   377→                marginLeft: -15,
+   378→                border: `1px solid rgba(212,175,55,${0.35 - i * 0.06})`,
+   379→                animation: `intro-ring-expand 0.8s ease-out ${0.2 + i * 0.15}s forwards`,
+   380→                opacity: 0,
+   381→              }}
+   382→            />
+   383→          ))}
+   384→        </>
+   385→      )}
+   386→
+   387→      {/* ====== PHASE 2: HARMENS LETTERS — 3D convergence ====== */}
+   388→      <div className="relative z-10 flex items-center justify-center gpu-accelerated" style={{ perspective: '1200px' }}>
+   389→        {brandName.split('').map((letter, index) => {
+   390→          const offset = letterOffsets[index];
+   391→          const letterDelay = index * 0.06;
+   392→          const isLetterVisible = phase === 'letters' || phase === 'logo' || phase === 'subtitle' || phase === 'hold';
+   393→          const shouldShow = isLetterVisible || phase === 'pulse';
+   394→
+   395→          return (
+   396→            <span
+   397→              key={`letter-${index}`}
+   398→              className="inline-block text-5xl sm:text-7xl md:text-8xl lg:text-[120px] font-bold gpu-accelerated"
+   399→              style={{
+   400→                color: '#FFFFFF',
+   401→                opacity: shouldShow ? 1 : isFading ? 0 : 0,
+   402→                transform: isSweep
+   403→                  ? `translate3d(${offset.x}px, ${offset.y}px, ${offset.z}px) rotateX(${offset.rotateX}deg) rotateY(${offset.rotateY}deg) rotateZ(${offset.rotateZ}deg) scale(0.2)`
+   404→                  : isHold
+   405→                  ? `translate3d(0, ${Math.sin(index * 0.8) * 4}px, 0) scale(1.02)`
+   406→                  : isFading
+   407→                  ? `translate3d(${offset.x * 0.5}px, ${offset.y * 0.7}px, -200px) rotateX(${offset.rotateX * 0.3}deg) rotateY(${offset.rotateY * 0.3}deg) scale(0)`
+   408→                  : `translate3d(0, 0, 0) rotateX(0) rotateY(0) rotateZ(0) scale(1)`,
+   409→                filter: isSweep
+   410→                  ? 'blur(12px) brightness(4)'
+   411→                  : phase === 'letters'
+   412→                  ? 'blur(0px) brightness(1)'
+   413→                  : isHold
+   414→                  ? 'blur(0px) brightness(1.1)'
+   415→                  : isFading
+   416→                  ? 'blur(6px) brightness(2)'
+   417→                  : 'blur(0px) brightness(1)',
+   418→                textShadow: shouldShow
+   419→                  ? '0 0 40px rgba(212,175,55,0.3), 0 0 80px rgba(37,162,220,0.15), 0 0 120px rgba(212,175,55,0.1)'
+   420→                  : 'none',
+   421→                transition: `all ${isFading ? '0.8s' : isHold ? '1.5s' : '1s'} cubic-bezier(0.16, 1, 0.3, 1) ${isFading ? (index * 0.02) : letterDelay}s`,
+   422→                letterSpacing: '0.02em',
+   423→                animation: shouldShow && !isFading && !isHold ? 'letter-glow 3s ease-in-out infinite' : isHold ? 'letter-float 2s ease-in-out infinite' : 'none',
+   424→                animationDelay: isHold ? `${index * 0.15}s` : '0s',
+   425→              }}
+   426→            >
+   427→              {letter}
+   428→            </span>
+   429→          );
+   430→        })}
+   431→      </div>
+   432→
+   433→      {/* ====== Decorative line under HARMENS ====== */}
+   434→      <div className="relative z-10 mt-4 md:mt-6 flex items-center gap-3 justify-center">
+   435→        <div
+   436→          style={{
+   437→            width: phase === 'letters' || phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? '40px' : '0px',
+   438→            height: '1px',
+   439→            background: '#D4AF37',
+   440→            opacity: phase === 'letters' ? 0.5 : phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 1 : isFading ? 0 : 0,
+   441→            transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
+   442→            boxShadow: '0 0 8px rgba(212,175,55,0.4)',
+   443→          }}
+   444→        />
+   445→        <div
+   446→          style={{
+   447→            width: 6,
+   448→            height: 6,
+   449→            border: '1px solid #25A2DC',
+   450→            transform: 'rotate(45deg)',
+   451→            opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 1 : isFading ? 0 : 0,
+   452→            transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.4s',
+   453→            boxShadow: '0 0 6px rgba(37,162,220,0.3)',
+   454→            animation: isHold ? 'intro-diamond-spin 4s linear infinite' : 'none',
+   455→          }}
+   456→        />
+   457→        <div
+   458→          style={{
+   459→            width: phase === 'letters' || phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? '40px' : '0px',
+   460→            height: '1px',
+   461→            background: '#25A2DC',
+   462→            opacity: phase === 'letters' ? 0.5 : phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 1 : isFading ? 0 : 0,
+   463→            transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
+   464→            boxShadow: '0 0 8px rgba(37,162,220,0.4)',
+   465→          }}
+   466→        />
+   467→      </div>
+   468→
+   469→      {/* ====== PHASE 3: LOGO — Crystallizes from golden energy ====== */}
+   470→      <div
+   471→        className="absolute z-10 gpu-accelerated"
+   472→        style={{
+   473→          opacity: phase === 'logo' || phase === 'subtitle' ? 1 : phase === 'hold' ? 0.9 : phase === 'pulse' ? 0.7 : isFading ? 0 : 0,
+   474→          transform: phase === 'logo'
+   475→            ? 'scale(1) translateY(0px)'
+   476→            : phase === 'subtitle'
+   477→            ? 'scale(0.65) translateY(150px)'
+   478→            : phase === 'hold'
+   479→            ? 'scale(0.6) translateY(150px)'
+   480→            : phase === 'pulse'
+   481→            ? 'scale(2) translateY(150px)'
+   482→            : isFading
+   483→            ? 'scale(0) translateY(250px)'
+   484→            : 'scale(0) translateY(0px)',
+   485→          filter: phase === 'logo'
+   486→            ? 'brightness(1.2) blur(0px)'
+   487→            : isHold
+   488→            ? 'brightness(1.1) blur(0px)'
+   489→            : phase === 'pulse'
+   490→            ? 'brightness(4) blur(8px)'
+   491→            : isFading
+   492→            ? 'brightness(3) blur(12px)'
+   493→            : 'brightness(5) blur(20px)',
+   494→          transition: 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
+   495→          animation: isHold ? 'intro-logo-breathe 3s ease-in-out infinite' : 'none',
+   496→        }}
+   497→      >
+   498→        {/* Logo shimmer light sweep */}
+   499→        <div
+   500→          className="absolute inset-0 z-20 pointer-events-none"
+   501→          style={{
+   502→            opacity: phase === 'logo' ? 1 : isHold ? 0.5 : 0,
+   503→            background: 'linear-gradient(105deg, transparent 20%, rgba(255,223,100,0.5) 42%, rgba(255,240,180,0.8) 50%, rgba(255,223,100,0.5) 58%, transparent 80%)',
+   504→            backgroundSize: '200% 100%',
+   505→            animation: phase === 'logo' ? 'shimmer 1.5s ease-in-out' : isHold ? 'shimmer 4s ease-in-out infinite' : 'none',
+   506→            transition: 'opacity 0.5s ease',
+   507→          }}
+   508→        />
+   509→
+   510→        {/* Decorative orbit ring around logo */}
+   511→        <div
+   512→          className="absolute pointer-events-none"
+   513→          style={{
+   514→            left: '50%',
+   515→            top: '50%',
+   516→            width: 200,
+   517→            height: 200,
+   518→            marginTop: -100,
+   519→            marginLeft: -100,
+   520→            borderRadius: '50%',
+   521→            border: '1px solid rgba(212,175,55,0.15)',
+   522→            opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 1 : 0,
+   523→            animation: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 'spin-slow 8s linear infinite' : 'none',
+   524→            transition: 'opacity 0.5s ease',
+   525→          }}
+   526→        >
+   527→          <div
+   528→            style={{
+   529→              position: 'absolute',
+   530→              top: -3,
+   531→              left: '50%',
+   532→              marginLeft: -3,
+   533→              width: 6,
+   534→              height: 6,
+   535→              borderRadius: '50%',
+   536→              background: '#D4AF37',
+   537→              boxShadow: '0 0 12px rgba(212,175,55,0.6)',
+   538→            }}
+   539→          />
+   540→        </div>
+   541→
+   542→        <Image
+   543→          src="/harmens-logo-tran.png"
+   544→          alt="HARMENS"
+   545→          width={130}
+   546→          height={130}
+   547→          className="relative z-10"
+   548→          style={{
+   549→            filter: 'drop-shadow(0 0 30px rgba(212,175,55,0.4)) drop-shadow(0 0 60px rgba(212,175,55,0.15))',
+   550→          }}
+   551→          priority
+   552→        />
+   553→      </div>
+   554→
+   555→      {/* ====== PHASE 4: Arabic + English subtitle ====== */}
+   556→      <div
+   557→        className="relative z-10 mt-8 flex items-center justify-center"
+   558→        style={{
+   559→          opacity: phase === 'subtitle' || phase === 'hold' ? 1 : phase === 'pulse' ? 0.7 : isFading ? 0 : 0,
+   560→          transform: isFading ? 'translateY(-30px) scale(0.8)' : 'translateY(0) scale(1)',
+   561→          transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+   562→        }}
+   563→      >
+   564→        {arabicText.split('').map((char, index) => (
+   565→          <span
+   566→            key={`ar-${index}`}
+   567→            className="text-lg md:text-2xl"
+   568→            style={{
+   569→              color: '#D4AF37',
+   570→              textShadow: '0 0 15px rgba(212,175,55,0.3), 0 0 30px rgba(212,175,55,0.1)',
+   571→              direction: 'rtl',
+   572→              display: 'inline-block',
+   573→              opacity: phase === 'subtitle' || phase === 'hold' ? 1 : phase === 'pulse' ? 0.5 : 0,
+   574→              transform: phase === 'subtitle'
+   575→                ? 'translateY(0) scale(1)'
+   576→                : phase === 'hold'
+   577→                ? 'translateY(0) scale(1)'
+   578→                : isFading
+   579→                ? 'translateY(-15px) scale(0.5)'
+   580→                : 'translateY(25px) scale(0.7)',
+   581→              filter: phase === 'subtitle' || phase === 'hold' ? 'blur(0px)' : 'blur(3px)',
+   582→              transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${3.2 + index * 0.025}s`,
+   583→              animation: isHold ? 'intro-text-shimmer 2s ease-in-out infinite' : 'none',
+   584→              animationDelay: isHold ? `${index * 0.1}s` : '0s',
+   585→            }}
+   586→          >
+   587→            {char}
+   588→          </span>
+   589→        ))}
+   590→      </div>
+   591→
+   592→      {/* Tagline below Arabic */}
+   593→      <div
+   594→        className="relative z-10 mt-3 flex items-center justify-center"
+   595→        style={{
+   596→          opacity: phase === 'subtitle' || phase === 'hold' ? 1 : phase === 'pulse' ? 0.5 : isFading ? 0 : 0,
+   597→          transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
+   598→        }}
+   599→      >
+   600→        {tagline.split('').map((char, index) => (
+   601→          <span
+   602→            key={`tag-${index}`}
+   603→            className="text-[9px] md:text-[11px] tracking-[0.35em] uppercase"
+   604→            style={{
+   605→              color: '#A0AEC0',
+   606→              display: 'inline-block',
+   607→              opacity: phase === 'subtitle' || phase === 'hold' ? 0.6 : phase === 'pulse' ? 0.3 : 0,
+   608→              transform: phase === 'subtitle' || phase === 'hold' ? 'translateY(0)' : 'translateY(8px)',
+   609→              transition: `all 0.4s ease ${3.6 + index * 0.012}s`,
+   610→            }}
+   611→          >
+   612→            {char === ' ' ? '\u00A0' : char}
+   613→          </span>
+   614→        ))}
+   615→      </div>
+   616→
+   617→      {/* ====== PHASE 5: HOLD — Geometric decorative lines radiate ====== */}
+   618→      {isHold && (
+   619→        <div className="absolute inset-0 z-5 pointer-events-none">
+   620→          {geoLines.map((line, i) => (
+   621→            <div
+   622→              key={`geo-${i}`}
+   623→              className="absolute"
+   624→              style={{
+   625→                left: `${line.startX}%`,
+   626→                top: `${line.startY}%`,
+   627→                width: `${line.length}px`,
+   628→                height: '1px',
+   629→                background: line.isGold
+   630→                  ? `linear-gradient(90deg, transparent, rgba(212,175,55,0.15), transparent)`
+   631→                  : `linear-gradient(90deg, transparent, rgba(37,162,220,0.1), transparent)`,
+   632→                transform: `rotate(${line.angle}deg)`,
+   633→                opacity: 0,
+   634→                animation: `intro-geo-line 1.5s ease-out ${line.delay}s forwards`,
+   635→              }}
+   636→            />
+   637→          ))}
+   638→
+   639→          {/* Floating corner accents during hold */}
+   640→          <div
+   641→            className="absolute"
+   642→            style={{
+   643→              top: '20%',
+   644→              right: '15%',
+   645→              width: '20px',
+   646→              height: '20px',
+   647→              borderTop: '1px solid rgba(212,175,55,0.15)',
+   648→              borderRight: '1px solid rgba(212,175,55,0.15)',
+   649→              animation: 'intro-corner-fade 1s ease-out forwards',
+   650→              opacity: 0,
+   651→            }}
+   652→          />
+   653→          <div
+   654→            className="absolute"
+   655→            style={{
+   656→              bottom: '25%',
+   657→              left: '12%',
+   658→              width: '20px',
+   659→              height: '20px',
+   660→              borderBottom: '1px solid rgba(37,162,220,0.12)',
+   661→              borderLeft: '1px solid rgba(37,162,220,0.12)',
+   662→              animation: 'intro-corner-fade 1s ease-out 0.2s forwards',
+   663→              opacity: 0,
+   664→            }}
+   665→          />
+   666→        </div>
+   667→      )}
+   668→
+   669→      {/* ====== PHASE 6: Grand reveal — Golden pulse explosion ====== */}
+   670→      {phase === 'pulse' && (
+   671→        <>
+   672→          {/* Ripple rings */}
+   673→          {[0, 1, 2, 3, 4, 5].map((i) => (
+   674→            <div
+   675→              key={`pulse-ring-${i}`}
+   676→              className="absolute z-5 rounded-full"
+   677→              style={{
+   678→                border: `1px solid rgba(212, 175, 55, ${0.4 - i * 0.05})`,
+   679→                animation: `ripple-expand 1s ease-out ${i * 0.1}s forwards`,
+   680→              }}
+   681→            />
+   682→          ))}
+   683→
+   684→          {/* Blue ripples */}
+   685→          {[0, 1, 2, 3].map((i) => (
+   686→            <div
+   687→              key={`pulse-blue-${i}`}
+   688→              className="absolute z-5 rounded-full"
+   689→              style={{
+   690→                border: `1px solid rgba(37, 162, 220, ${0.2 - i * 0.04})`,
+   691→                animation: `ripple-expand 1.2s ease-out ${0.15 + i * 0.12}s forwards`,
+   692→              }}
+   693→            />
+   694→          ))}
+   695→
+   696→          {/* Burst particles — golden dust */}
+   697→          {burstParticles.map((p, i) => (
+   698→            <div
+   699→              key={`explode-${i}`}
+   700→              className="absolute z-10 rounded-full"
+   701→              style={{
+   702→                width: p.size,
+   703→                height: p.size,
+   704→                background: p.isWhite ? '#FFFFFF' : p.isGold ? '#D4AF37' : '#25A2DC',
+   705→                boxShadow: p.isWhite
+   706→                  ? '0 0 6px rgba(255,255,255,0.6)'
+   707→                  : p.isGold
+   708→                  ? '0 0 8px rgba(212,175,55,0.8)'
+   709→                  : '0 0 6px rgba(37,162,220,0.6)',
+   710→                left: '50%',
+   711→                top: '50%',
+   712→                animation: `particle-drift 1.2s ease-out ${p.delay}s forwards`,
+   713→                '--drift-x': `${Math.cos(p.angle) * p.distance}px`,
+   714→                '--drift-y': `${Math.sin(p.angle) * p.distance}px`,
+   715→              } as React.CSSProperties}
+   716→            />
+   717→          ))}
+   718→
+   719→          {/* Golden flash overlay */}
+   720→          <div
+   721→            className="absolute inset-0 z-15 pointer-events-none"
+   722→            style={{
+   723→              background: 'radial-gradient(circle at 50% 50%, rgba(212,175,55,0.35) 0%, transparent 60%)',
+   724→              animation: 'intro-flash 0.6s ease-out forwards',
+   725→            }}
+   726→          />
+   727→        </>
+   728→      )}
+   729→
+   730→      {/* ====== PROGRESS INDICATOR ====== */}
+   731→      <div className="absolute bottom-8 left-0 right-0 z-20 px-8 md:px-16">
+   732→        <div className="flex items-center justify-between mb-3">
+   733→          <span
+   734→            className="text-[9px] tracking-[0.6em] uppercase"
+   735→            style={{
+   736→              color: 'rgba(160, 174, 192, 0.3)',
+   737→              opacity: isFading ? 0 : 1,
+   738→              transition: 'opacity 0.3s ease',
+   739→            }}
+   740→          >
+   741→            Loading Experience
+   742→          </span>
+   743→          <span
+   744→            className="text-[10px] tracking-[0.2em] font-light"
+   745→            style={{
+   746→              color: 'rgba(212, 175, 55, 0.4)',
+   747→              opacity: isFading ? 0 : 1,
+   748→              transition: 'opacity 0.3s ease',
+   749→            }}
+   750→          >
+   751→            {getProgress()}%
+   752→          </span>
+   753→        </div>
+   754→        <div className="h-[1px] w-full bg-[#1C2738]/60 relative overflow-hidden">
+   755→          <div
+   756→            className="absolute top-0 left-0 h-full"
+   757→            style={{
+   758→              width: `${getProgress()}%`,
+   759→              background: 'linear-gradient(90deg, #D4AF37, #25A2DC)',
+   760→              transition: 'width 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+   761→            }}
+   762→          />
+   763→          <div
+   764→            className="absolute top-[-2px] h-[5px] w-[5px] rounded-full"
+   765→            style={{
+   766→              left: `${getProgress()}%`,
+   767→              background: '#25A2DC',
+   768→              boxShadow: '0 0 10px rgba(37,162,220,0.8), 0 0 20px rgba(37,162,220,0.3)',
+   769→              transition: 'left 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+   770→            }}
+   771→          />
+   772→        </div>
+   773→      </div>
+   774→
+   775→      {/* ====== Corner architectural brackets ====== */}
+   776→      {/* Top-left */}
+   777→      <div
+   778→        className="absolute top-6 left-6 z-10"
+   779→        style={{
+   780→          opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 0.4 : 0,
+   781→          transition: 'opacity 0.8s ease',
+   782→        }}
+   783→      >
+   784→        <div className="w-6 h-[1px] bg-[#D4AF37]/40" />
+   785→        <div className="w-[1px] h-6 bg-[#D4AF37]/40" />
+   786→      </div>
+   787→      {/* Top-right */}
+   788→      <div
+   789→        className="absolute top-6 right-6 z-10"
+   790→        style={{
+   791→          opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 0.4 : 0,
+   792→          transition: 'opacity 0.8s ease',
+   793→        }}
+   794→      >
+   795→        <div className="w-6 h-[1px] bg-[#D4AF37]/40 ml-auto" />
+   796→        <div className="w-[1px] h-6 bg-[#D4AF37]/40 ml-auto" />
+   797→      </div>
+   798→      {/* Bottom-left */}
+   799→      <div
+   800→        className="absolute bottom-14 left-6 z-10"
+   801→        style={{
+   802→          opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 0.4 : 0,
+   803→          transition: 'opacity 0.8s ease',
+   804→        }}
+   805→      >
+   806→        <div className="w-[1px] h-6 bg-[#25A2DC]/40" />
+   807→        <div className="w-6 h-[1px] bg-[#25A2DC]/40" />
+   808→      </div>
+   809→      {/* Bottom-right */}
+   810→      <div
+   811→        className="absolute bottom-14 right-6 z-10"
+   812→        style={{
+   813→          opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 0.4 : 0,
+   814→          transition: 'opacity 0.8s ease',
+   815→        }}
+   816→      >
+   817→        <div className="w-[1px] h-6 bg-[#25A2DC]/40 ml-auto" />
+   818→        <div className="w-6 h-[1px] bg-[#25A2DC]/40 ml-auto" />
+   819→      </div>
+   820→
+   821→      {/* ====== Decorative thin lines ====== */}
+   822→      {!isSweep && !isFading && (
+   823→        <>
+   824→          <div
+   825→            className="absolute top-12 left-[15%] right-[15%] z-5"
+   826→            style={{
+   827→              height: '1px',
+   828→              background: 'linear-gradient(90deg, transparent, rgba(37,162,220,0.08), transparent)',
+   829→              opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 1 : 0,
+   830→              transition: 'opacity 1s ease',
+   831→            }}
+   832→          />
+   833→          <div
+   834→            className="absolute bottom-24 left-[15%] right-[15%] z-5"
+   835→            style={{
+   836→              height: '1px',
+   837→              background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.08), transparent)',
+   838→              opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 1 : 0,
+   839→              transition: 'opacity 1s ease',
+   840→            }}
+   841→          />
+   842→        </>
+   843→      )}
+   844→    </div>
+   845→  );
+   846→}
+   847→

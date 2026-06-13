@@ -130,3 +130,29 @@ Stage Summary:
 - Intro animation is now 7 seconds with 7 phases including a "hold" breathing phase
 - All new animations are pure CSS (no extra JS overhead) to minimize lag
 - CardTilt3D removed from codebase
+
+---
+Task ID: 2
+Agent: main
+Task: Complete rewrite of IntroAnimation to v7.0 "Living Blueprint" with visible letter movement, geometric shapes, and expressive visuals
+
+Work Log:
+- Completely rewrote IntroAnimation.tsx from v6 to v7 "Living Blueprint"
+- Phase 1 (0-1s): Golden grid blueprint draws itself from center outward with 16 grid lines + crosshair + rings
+- Phase 2 (1-2.5s): HARMENS letters FLY IN from BOTH SIDES (alternating left/right) with rotation and blur trails
+- Phase 3 (2.5-3.5s): Logo DROPS FROM ABOVE with bounce (spring easing) + orbit ring
+- Phase 4 (3.5-4.8s): Arabic text types letter by letter + English tagline fades in
+- Phase 5 (4.8-5.8s): Everything breathes + 6 floating geometric shapes (◇⬡△○□⬟) drift around + rotating diamond frames
+- Phase 6 (5.8-6.5s): Golden shockwave explosion + 70 burst particles + flash
+- Phase 7 (6.5-7s): Dark wipe overlay + site emerges
+- Added letter entrance trails (gold streak from left, blue streak from right)
+- Added 12 impact sparks when letters meet at center
+- Added 40 ambient spark particles
+- Added new CSS keyframes: intro-grid-draw-h, intro-grid-draw-v, intro-trail-left, intro-trail-right, intro-impact-spark, intro-shape-drift, intro-wipe-in
+- Updated existing keyframes: letter-float, intro-glow-breathe, intro-logo-breathe with bigger ranges
+- Build passed successfully
+
+Stage Summary:
+- Intro is now visually RICH with actual movement: letters fly from sides, logo drops from top, geometric shapes float, grid draws itself
+- All animations are pure CSS for zero lag
+- Session storage key "harmens-intro-seen" will skip intro on revisit (clear browser session to re-see)

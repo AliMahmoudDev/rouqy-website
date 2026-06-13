@@ -559,33 +559,33 @@ html {
   50% { text-shadow: 0 0 40px rgba(212,175,55,0.5), 0 0 80px rgba(37,162,220,0.2), 0 0 120px rgba(212,175,55,0.15); }
 }
 
-/* === EXTENDED INTRO v6 — 7s timeline keyframes === */
+/* === INTRO v7 — "Living Blueprint" 7s timeline keyframes === */
 
-/* Letter floating during hold phase */
+/* Letter floating during breathe phase */
 @keyframes letter-float {
-  0%, 100% { transform: translateY(0) scale(1.02); }
-  50% { transform: translateY(-6px) scale(1.04); }
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-8px) scale(1.03); }
 }
 
-/* Golden glow breathing during hold */
+/* Golden glow breathing */
 @keyframes intro-glow-breathe {
   0%, 100% { opacity: 0.7; transform: scale(1.8); }
-  50% { opacity: 0.9; transform: scale(2.0); }
+  50% { opacity: 1; transform: scale(2.2); }
 }
 
-/* Blue glow breathing during hold */
+/* Blue glow breathing */
 @keyframes intro-blue-breathe {
   0%, 100% { opacity: 0.5; transform: scale(1.2); }
-  50% { opacity: 0.7; transform: scale(1.4); }
+  50% { opacity: 0.7; transform: scale(1.5); }
 }
 
-/* Logo breathing during hold */
+/* Logo breathing */
 @keyframes intro-logo-breathe {
-  0%, 100% { transform: scale(0.6) translateY(150px); filter: brightness(1.1) blur(0px); }
-  50% { transform: scale(0.65) translateY(148px); filter: brightness(1.15) blur(0px); }
+  0%, 100% { transform: scale(0.55) translateY(160px); filter: brightness(1.1) blur(0px); }
+  50% { transform: scale(0.6) translateY(155px); filter: brightness(1.2) blur(0px); }
 }
 
-/* Rotating diamond grid during hold */
+/* Rotating diamond frame */
 @keyframes intro-diamond-rotate {
   from { transform: rotate(45deg); }
   to { transform: rotate(405deg); }
@@ -597,24 +597,59 @@ html {
   to { transform: rotate(405deg); }
 }
 
-/* Geometric line fade in during hold */
-@keyframes intro-geo-line {
-  0% { opacity: 0; transform: rotate(var(--r, 0deg)) scaleX(0); }
-  40% { opacity: 1; }
-  100% { opacity: 0; transform: rotate(var(--r, 0deg)) scaleX(1); }
+/* Grid line draw horizontal — from center outward */
+@keyframes intro-grid-draw-h {
+  0% { clip-path: inset(0 50% 0 50%); opacity: 0; }
+  30% { opacity: 1; }
+  100% { clip-path: inset(0 0 0 0); opacity: 0.8; }
 }
 
-/* Corner accent fade in */
-@keyframes intro-corner-fade {
-  0% { opacity: 0; transform: scale(0.5); }
-  50% { opacity: 1; }
-  100% { opacity: 0.6; transform: scale(1); }
+/* Grid line draw vertical — from center outward */
+@keyframes intro-grid-draw-v {
+  0% { clip-path: inset(50% 0 50% 0); opacity: 0; }
+  30% { opacity: 1; }
+  100% { clip-path: inset(0 0 0 0); opacity: 0.8; }
 }
 
-/* Text shimmer during hold */
+/* Letter trail from left */
+@keyframes intro-trail-left {
+  0% { transform: translateX(-100%); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateX(0); opacity: 0; }
+}
+
+/* Letter trail from right */
+@keyframes intro-trail-right {
+  0% { transform: translateX(100%); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateX(0); opacity: 0; }
+}
+
+/* Impact spark at center when letters meet */
+@keyframes intro-impact-spark {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+  30% { opacity: 1; transform: translate(-50%, -50%) scale(1.5); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5) translateY(-30px); }
+}
+
+/* Floating geometric shapes drift */
+@keyframes intro-shape-drift {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.15; }
+  25% { transform: translateY(-15px) rotate(5deg); opacity: 0.25; }
+  50% { transform: translateY(-8px) rotate(-3deg); opacity: 0.2; }
+  75% { transform: translateY(-20px) rotate(8deg); opacity: 0.18; }
+}
+
+/* Text shimmer during breathe */
 @keyframes intro-text-shimmer {
   0%, 100% { text-shadow: 0 0 15px rgba(212,175,55,0.3), 0 0 30px rgba(212,175,55,0.1); }
-  50% { text-shadow: 0 0 25px rgba(212,175,55,0.6), 0 0 50px rgba(212,175,55,0.2), 0 0 80px rgba(37,162,220,0.1); }
+  50% { text-shadow: 0 0 30px rgba(212,175,55,0.7), 0 0 60px rgba(212,175,55,0.3), 0 0 90px rgba(37,162,220,0.15); }
+}
+
+/* Wipe overlay — dark covers screen */
+@keyframes intro-wipe-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 /* === NOISE / GRAIN === */
