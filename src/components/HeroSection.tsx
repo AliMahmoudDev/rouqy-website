@@ -20,28 +20,20 @@ function seededRandom(seed: number): number {
   return x - Math.floor(x);
 }
 
-/* CSS-only floating particles — deterministic values — REDUCED for performance & mobile */
+/* Minimal floating particles — just a few gold dots for luxury feel */
 function FloatingParticles() {
-  const goldParticles = Array.from({ length: 4 }).map((_, i) => ({
-    width: 2 + seededRandom(i * 7 + 1) * 3,
-    height: 2 + seededRandom(i * 7 + 1) * 3,
+  const goldParticles = Array.from({ length: 3 }).map((_, i) => ({
+    width: 1.5 + seededRandom(i * 7 + 1) * 2,
+    height: 1.5 + seededRandom(i * 7 + 1) * 2,
     left: seededRandom(i * 11 + 2) * 100,
     top: seededRandom(i * 13 + 3) * 100,
-    duration: 8 + seededRandom(i * 17 + 4) * 12,
-    delay: seededRandom(i * 19 + 5) * 10,
-  }));
-  const blueParticles = Array.from({ length: 3 }).map((_, i) => ({
-    width: 1.5 + seededRandom(i * 23 + 6) * 2,
-    height: 1.5 + seededRandom(i * 23 + 6) * 2,
-    left: seededRandom(i * 29 + 7) * 100,
-    top: seededRandom(i * 31 + 8) * 100,
-    duration: 10 + seededRandom(i * 37 + 9) * 15,
-    delay: seededRandom(i * 41 + 10) * 10,
+    duration: 10 + seededRandom(i * 17 + 4) * 15,
+    delay: seededRandom(i * 19 + 5) * 8,
   }));
   const sparkleParticles = Array.from({ length: 2 }).map((_, i) => ({
-    left: 10 + seededRandom(i * 43 + 11) * 80,
-    top: 10 + seededRandom(i * 47 + 12) * 80,
-    duration: 2 + seededRandom(i * 53 + 13) * 3,
+    left: 15 + seededRandom(i * 43 + 11) * 70,
+    top: 20 + seededRandom(i * 47 + 12) * 60,
+    duration: 3 + seededRandom(i * 53 + 13) * 4,
     delay: seededRandom(i * 59 + 14) * 5,
   }));
 
@@ -55,28 +47,11 @@ function FloatingParticles() {
             width: `${p.width}px`,
             height: `${p.height}px`,
             background: '#D4AF37',
-            boxShadow: '0 0 6px rgba(212,175,55,0.4)',
+            boxShadow: '0 0 6px rgba(212,175,55,0.3)',
             left: `${p.left}%`,
             top: `${p.top}%`,
             opacity: 0,
             animation: `particle-rise ${p.duration}s linear infinite`,
-            animationDelay: `${p.delay}s`,
-          }}
-        />
-      ))}
-      {blueParticles.map((p, i) => (
-        <div
-          key={`blue-${i}`}
-          className="hero-particle"
-          style={{
-            width: `${p.width}px`,
-            height: `${p.height}px`,
-            background: '#25A2DC',
-            boxShadow: '0 0 4px rgba(37,162,220,0.3)',
-            left: `${p.left}%`,
-            top: `${p.top}%`,
-            opacity: 0,
-            animation: `particle-fall ${p.duration}s linear infinite`,
             animationDelay: `${p.delay}s`,
           }}
         />
@@ -89,7 +64,7 @@ function FloatingParticles() {
             width: '2px',
             height: '2px',
             background: '#FFFFFF',
-            boxShadow: '0 0 8px rgba(255,255,255,0.5)',
+            boxShadow: '0 0 6px rgba(255,255,255,0.4)',
             left: `${p.left}%`,
             top: `${p.top}%`,
             opacity: 0,
@@ -102,155 +77,6 @@ function FloatingParticles() {
   );
 }
 
-/* 
- * Smooth decorative elements — ALL CSS-driven, zero JS
- * 
- * Key principles:
- * - translate3d() forces GPU compositing = no repaints = no lag
- * - Longer durations (20-40s) = smoother perceived motion
- * - ease-in-out curves = organic, non-robotic movement
- * - No DOM queries in scroll handlers
- */
-
-/* Orbiting rings — smooth continuous rotation with GPU layers */
-function OrbitingRings() {
-  return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {/* Large gold ring */}
-      <div
-        className="absolute hero-orbit-ring"
-        style={{
-          width: '500px',
-          height: '500px',
-          top: '50%',
-          left: '50%',
-          marginTop: '-250px',
-          marginLeft: '-250px',
-          border: '1px solid rgba(212,175,55,0.08)',
-          borderRadius: '50%',
-          animation: 'hero-orbit 40s linear infinite',
-        }}
-      >
-        <div
-          className="absolute w-2 h-2 rounded-full"
-          style={{
-            background: '#D4AF37',
-            boxShadow: '0 0 10px rgba(212,175,55,0.5)',
-            top: '-4px',
-            left: '50%',
-            marginLeft: '-4px',
-          }}
-        />
-      </div>
-      {/* Medium blue ring */}
-      <div
-        className="absolute hero-orbit-ring"
-        style={{
-          width: '350px',
-          height: '350px',
-          top: '50%',
-          left: '50%',
-          marginTop: '-175px',
-          marginLeft: '-175px',
-          border: '1px solid rgba(37,162,220,0.06)',
-          borderRadius: '50%',
-          animation: 'hero-orbit-reverse 35s linear infinite',
-        }}
-      >
-        <div
-          className="absolute w-1.5 h-1.5 rounded-full"
-          style={{
-            background: '#25A2DC',
-            boxShadow: '0 0 8px rgba(37,162,220,0.4)',
-            top: '-3px',
-            left: '50%',
-            marginLeft: '-3px',
-          }}
-        />
-      </div>
-      {/* Small gold ring */}
-      <div
-        className="absolute hero-orbit-ring"
-        style={{
-          width: '200px',
-          height: '200px',
-          top: '50%',
-          left: '50%',
-          marginTop: '-100px',
-          marginLeft: '-100px',
-          border: '1px solid rgba(212,175,55,0.05)',
-          borderRadius: '50%',
-          animation: 'hero-orbit 28s linear infinite',
-        }}
-      />
-    </div>
-  );
-}
-
-/* 
- * Smooth floating geometric shapes
- * Uses hero-float-smooth keyframe — long duration, gentle curves
- */
-function FloatingShapes() {
-  return (
-    <>
-      {/* Gold diamond — smooth float + gentle rotation */}
-      <div
-        className="absolute pointer-events-none hero-float-shape"
-        style={{
-          width: 60,
-          height: 60,
-          top: '15%',
-          right: '12%',
-          border: '1px solid rgba(212,175,55,0.12)',
-          transform: 'rotate(45deg)',
-          animation: 'hero-float-smooth 20s ease-in-out infinite',
-        }}
-      />
-      {/* Blue circle — smooth float */}
-      <div
-        className="absolute pointer-events-none hero-float-shape"
-        style={{
-          width: 40,
-          height: 40,
-          bottom: '25%',
-          left: '8%',
-          border: '1px solid rgba(37,162,220,0.1)',
-          borderRadius: '50%',
-          animation: 'hero-float-smooth 25s ease-in-out infinite 3s',
-        }}
-      />
-      {/* Small gold triangle hint — top left */}
-      <div
-        className="absolute pointer-events-none hero-float-shape"
-        style={{
-          width: 0,
-          height: 0,
-          top: '30%',
-          left: '15%',
-          borderLeft: '12px solid transparent',
-          borderRight: '12px solid transparent',
-          borderBottom: '20px solid rgba(212,175,55,0.06)',
-          animation: 'hero-float-smooth 30s ease-in-out infinite 6s',
-        }}
-      />
-      {/* Tiny blue dot cluster — bottom right */}
-      <div
-        className="absolute pointer-events-none hero-float-shape"
-        style={{
-          width: 8,
-          height: 8,
-          bottom: '35%',
-          right: '18%',
-          background: 'rgba(37,162,220,0.08)',
-          borderRadius: '50%',
-          animation: 'hero-float-smooth 22s ease-in-out infinite 1.5s',
-        }}
-      />
-    </>
-  );
-}
-
 export default function HeroSection({ introComplete }: HeroSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const parallaxRef = useParallax3D<HTMLElement>();
@@ -260,8 +86,7 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
     offset: ['start start', 'end start'],
   });
 
-  // Framer Motion handles content parallax only (1 element, no lag)
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -60]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   useEffect(() => {
@@ -276,12 +101,11 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
   return (
     <section
       ref={(node) => {
-        // Merge both refs
         (sectionRef as React.MutableRefObject<HTMLElement | null>).current = node;
         (parallaxRef as React.MutableRefObject<HTMLElement | null>).current = node;
       }}
       id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Background Video Layer */}
       <div className="absolute inset-0 z-0">
@@ -291,7 +115,7 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
           loop
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ opacity: 0.18 }}
+          style={{ opacity: 0.15 }}
           preload="auto"
         >
           <source src="/videos/hero-bg.mp4" type="video/mp4" />
@@ -299,193 +123,176 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
         <div className="video-bg-overlay" />
       </div>
 
-      {/* Architectural blueprint grid overlay — very subtle */}
-      <div className="absolute inset-0 pointer-events-none z-[1] opacity-[0.012]" style={{
-        backgroundImage: `
-          linear-gradient(rgba(37,162,220,0.5) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(37,162,220,0.5) 1px, transparent 1px)
-        `,
-        backgroundSize: '120px 120px',
-      }} />
-
-      {/* Animated gradient mesh background */}
+      {/* Subtle ambient gradient — single soft glow only */}
       <div className="hero-gradient-bg" />
 
-      {/* Noise texture overlay */}
-      <div className="noise-overlay absolute inset-0 pointer-events-none z-[1]" />
-
-      {/* Top gradient for smooth blend */}
+      {/* Top gradient for smooth blend into nav */}
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#0B0F18] to-transparent z-10 pointer-events-none" />
 
       {/* Bottom gradient for smooth transition */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 md:h-60 bg-gradient-to-t from-[#161E2D] via-[#161E2D]/80 to-transparent z-10 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 md:h-56 bg-gradient-to-t from-[#161E2D] via-[#161E2D]/70 to-transparent z-10 pointer-events-none" />
 
-      {/* Floating Particles (reduced on mobile) */}
+      {/* Minimal floating particles */}
       <FloatingParticles />
 
-      {/* 3D Parallax depth layers — move at different speeds */}
+      {/* Single subtle ambient orb — no clutter */}
       {mounted && (
-        <>
-          {/* Deep background layer — orbiting rings (desktop only) */}
-          <div className="absolute inset-0 pointer-events-none hero-parallax-deep hidden md:block" data-parallax-depth="0.15">
-            <OrbitingRings />
-          </div>
-
-          {/* Mid-ground decorative orbs */}
-          <div className="absolute inset-0 pointer-events-none hero-parallax-mid" data-parallax-depth="0.3">
-            <div
-              className="absolute w-[300px] md:w-[600px] h-[300px] md:h-[600px] rounded-full opacity-10 md:opacity-20"
-              style={{
-                background: 'radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%)',
-                top: '10%',
-                right: '-20% md:right-[-10%]',
-                filter: 'blur(60px)',
-                animation: 'breathe 8s ease-in-out infinite',
-              }}
-            />
-            <div
-              className="absolute w-[250px] md:w-[400px] h-[250px] md:h-[400px] rounded-full opacity-10 md:opacity-15"
-              style={{
-                background: 'radial-gradient(circle, rgba(37,162,220,0.15) 0%, transparent 70%)',
-                bottom: '20%',
-                left: '-10%',
-                filter: 'blur(50px)',
-                animation: 'breathe 7s ease-in-out infinite 1.5s',
-              }}
-            />
-          </div>
-
-          {/* Foreground floating shapes (desktop only) */}
-          <div className="absolute inset-0 pointer-events-none hero-parallax-fg hidden lg:block" data-parallax-depth="0.5">
-            <FloatingShapes />
-          </div>
-        </>
+        <div className="absolute inset-0 pointer-events-none z-[1]">
+          <div
+            className="absolute rounded-full"
+            style={{
+              width: 500,
+              height: 500,
+              top: '20%',
+              right: '-10%',
+              background: 'radial-gradient(circle, rgba(212,175,55,0.06) 0%, transparent 70%)',
+              filter: 'blur(80px)',
+            }}
+          />
+          <div
+            className="absolute rounded-full"
+            style={{
+              width: 350,
+              height: 350,
+              bottom: '10%',
+              left: '-5%',
+              background: 'radial-gradient(circle, rgba(37,162,220,0.04) 0%, transparent 70%)',
+              filter: 'blur(60px)',
+            }}
+          />
+        </div>
       )}
 
-      {/* Content - Framer only for scroll parallax on this one container */}
+      {/* ====== MAIN CONTENT AREA — Two-column on desktop ====== */}
       <div
-        className="relative z-20 text-center max-w-6xl mx-auto gpu-accelerated"
+        className="relative z-20 w-full max-w-7xl mx-auto px-5 md:px-12 lg:px-16 gpu-accelerated"
         style={{ y: contentY, opacity: contentOpacity }}
-        data-parallax-depth="0.6"
       >
-        {/* Logo */}
-        <div className={`mb-6 md:mb-10 flex justify-center ${mounted ? 'hero-enter-logo' : 'opacity-0'}`}>
-          <div className="relative">
-            <div className="hero-logo-glow" />
-            <Image
-              src="/harmens-logo-tran.png"
-              alt="HARMENS"
-              width={120}
-              height={120}
-              className="relative z-10 w-24 h-24 md:w-40 md:h-40"
-              priority
-            />
-          </div>
-        </div>
+        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-4 min-h-screen py-28 md:py-32">
 
-        {/* Brand Name — 3D Text Split (always rendered, animates once per session) */}
-        <h1
-          className={`text-5xl sm:text-6xl md:text-8xl lg:text-[140px] font-bold tracking-tight text-white uppercase leading-[0.9] ${
-            mounted ? 'hero-enter-title' : 'opacity-0'
-          }`}
-        >
-          <TextSplit3D
-            text="HARMENS"
-            mode="entrance"
-            staggerDelay={80}
-            entranceDuration={1000}
-            letterClassName="text-5xl sm:text-6xl md:text-8xl lg:text-[140px] font-bold tracking-tight text-white uppercase"
-          />
-        </h1>
+          {/* ====== LEFT COLUMN — Text Content ====== */}
+          <div className="flex-1 text-center lg:text-left lg:max-w-[55%]">
 
-        {/* Decorative line */}
-        <div className={`mx-auto mt-6 md:mt-8 ${mounted ? 'hero-enter-line' : 'opacity-0'}`}>
-          <div className="h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent" style={{ width: '80px', margin: '0 auto' }} />
-        </div>
+            {/* Logo — smaller, elegant */}
+            <div className={`mb-4 md:mb-6 flex justify-center lg:justify-start ${mounted ? 'hero-enter-logo' : 'opacity-0'}`}>
+              <div className="relative">
+                <div className="hero-logo-glow" />
+                <Image
+                  src="/harmens-logo-tran.png"
+                  alt="HARMENS"
+                  width={100}
+                  height={100}
+                  className="relative z-10 w-16 h-16 md:w-24 md:h-24"
+                  priority
+                />
+              </div>
+            </div>
 
-        {/* Tagline with text shimmer effect */}
-        <p
-          className={`mt-4 md:mt-8 text-sm md:text-lg lg:text-xl tracking-[0.2em] md:tracking-[0.3em] uppercase font-light px-2 ${
-            mounted ? 'hero-enter-tagline' : 'opacity-0'
-          }`}
-          style={{
-            background: 'linear-gradient(90deg, #A0AEC0, #FFFFFF, #A0AEC0)',
-            backgroundSize: '200% auto',
-            WebkitBackgroundClip: 'text',
-            backgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            animation: mounted ? 'text-gradient-flow 4s ease infinite 1s' : 'none',
-          }}
-        >
-          Designed To Be Felt Before It&apos;s Seen
-        </p>
-
-        {/* Sub-tagline */}
-        <p
-          className={`mt-2 text-[10px] md:text-sm tracking-[0.15em] md:tracking-[0.2em] text-[#A0AEC0]/50 font-light px-4 ${
-            mounted ? 'hero-enter-tagline' : 'opacity-0'
-          }`}
-          style={{ animationDelay: '1.2s' }}
-        >
-          Crafting Timeless Luxury Interiors
-        </p>
-
-        {/* CTA Button */}
-        <div className={`mt-8 md:mt-14 ${mounted ? 'hero-enter-cta' : 'opacity-0'}`}>
-          <a
-            href="#portfolio"
-            className="cta-animated group relative inline-flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 text-[10px] md:text-sm tracking-[0.25em] md:tracking-[0.35em] uppercase font-normal text-[#A0AEC0] border border-[#2D3A4D] hover:border-[#25A2DC] hover:text-white transition-all duration-500 hover:bg-[#25A2DC]/10"
-          >
-            <span>Explore Our Work</span>
-            <svg
-              className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            {/* Brand Name — reduced size for better balance */}
+            <h1
+              className={`text-4xl sm:text-5xl md:text-7xl lg:text-[96px] font-bold tracking-tight text-white uppercase leading-[0.92] ${
+                mounted ? 'hero-enter-title' : 'opacity-0'
+              }`}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m4-4l-4 4m4-4H3" />
-            </svg>
-          </a>
+              <TextSplit3D
+                text="HARMENS"
+                mode="entrance"
+                staggerDelay={80}
+                entranceDuration={1000}
+                letterClassName="text-4xl sm:text-5xl md:text-7xl lg:text-[96px] font-bold tracking-tight text-white uppercase"
+              />
+            </h1>
+
+            {/* Decorative line */}
+            <div className={`mx-auto lg:mx-0 mt-5 md:mt-6 ${mounted ? 'hero-enter-line' : 'opacity-0'}`}>
+              <div className="h-[1px] bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent lg:bg-gradient-to-r lg:from-[#D4AF37] lg:via-[#D4AF37] lg:to-transparent" style={{ width: '80px' }} />
+            </div>
+
+            {/* Tagline — more readable, solid color */}
+            <p
+              className={`mt-4 md:mt-6 text-sm md:text-base lg:text-lg tracking-[0.2em] md:tracking-[0.3em] uppercase font-light px-2 ${
+                mounted ? 'hero-enter-tagline' : 'opacity-0'
+              }`}
+              style={{
+                color: '#C8D0DC',
+                textShadow: '0 0 30px rgba(212,175,55,0.1)',
+              }}
+            >
+              Designed To Be Felt Before It&apos;s Seen
+            </p>
+
+            {/* Sub-tagline — slightly more visible */}
+            <p
+              className={`mt-2 text-[10px] md:text-xs tracking-[0.15em] md:tracking-[0.2em] font-light px-4 ${
+                mounted ? 'hero-enter-tagline' : 'opacity-0'
+              }`}
+              style={{
+                color: 'rgba(160,174,192,0.55)',
+                animationDelay: '1.2s',
+              }}
+            >
+              Crafting Timeless Luxury Interiors
+            </p>
+
+            {/* CTA Button — premium styling */}
+            <div className={`mt-6 md:mt-10 flex justify-center lg:justify-start ${mounted ? 'hero-enter-cta' : 'opacity-0'}`}>
+              <a
+                href="#portfolio"
+                className="group relative inline-flex items-center gap-3 px-6 py-3 md:px-7 md:py-3.5 text-[10px] md:text-xs tracking-[0.25em] md:tracking-[0.3em] uppercase font-normal transition-all duration-500 overflow-hidden"
+                style={{
+                  color: '#C8D0DC',
+                  border: '1px solid rgba(212,175,55,0.25)',
+                  background: 'rgba(212,175,55,0.03)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(212,175,55,0.6)';
+                  e.currentTarget.style.color = '#FFFFFF';
+                  e.currentTarget.style.background = 'rgba(212,175,55,0.08)';
+                  e.currentTarget.style.boxShadow = '0 0 30px rgba(212,175,55,0.1), inset 0 0 20px rgba(212,175,55,0.03)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(212,175,55,0.25)';
+                  e.currentTarget.style.color = '#C8D0DC';
+                  e.currentTarget.style.background = 'rgba(212,175,55,0.03)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <span>Explore Our Work</span>
+                <svg
+                  className="w-3.5 h-3.5 transition-transform duration-500 group-hover:translate-x-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m4-4l-4 4m4-4H3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          {/* ====== RIGHT COLUMN — 3D Showcase ====== */}
+          <div className={`flex-1 flex justify-center lg:justify-end lg:max-w-[45%] ${mounted ? 'hero-enter-cta' : 'opacity-0'}`}>
+            {/* Desktop: full size showcase */}
+            <div className="hidden lg:block" style={{ transform: 'scale(0.85)', transformOrigin: 'center center' }}>
+              <RotatingShowcase3D />
+            </div>
+            {/* Mobile/Tablet: smaller showcase below content */}
+            <div className="lg:hidden mt-4 md:mt-6 flex justify-center" style={{ transform: 'scale(0.5)', transformOrigin: 'top center' }}>
+              <RotatingShowcase3D />
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* 3D Rotating Showcase — premium floating gallery */}
-      {mounted && (
-        <div
-          className={`relative z-15 ${mounted ? 'hero-enter-cta' : 'opacity-0'}`}
-          data-parallax-depth="0.8"
-        >
-          {/* Desktop: positioned to the right of content */}
-          <div className="hidden lg:block absolute top-1/2 -translate-y-1/2" style={{ right: '-5%', marginRight: 0 }}>
-            <RotatingShowcase3D />
-          </div>
-          {/* Mobile/Tablet: centered below CTA, compact */}
-          <div className="lg:hidden mt-10 md:mt-14 flex justify-center" style={{ transform: 'scale(0.55)', transformOrigin: 'top center' }}>
-            <RotatingShowcase3D />
-          </div>
-        </div>
-      )}
-
       {/* Scroll Indicator */}
-      <div className={`absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3 ${mounted ? 'hero-enter-scroll' : 'opacity-0'}`}>
-        <span className="text-[#A0AEC0]/60 text-[10px] tracking-[0.5em] uppercase">
+      <div className={`absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 ${mounted ? 'hero-enter-scroll' : 'opacity-0'}`}>
+        <span className="text-[#A0AEC0]/40 text-[9px] tracking-[0.5em] uppercase">
           Scroll
         </span>
         <div style={{ animation: 'bounce-slow 2s ease-in-out infinite' }}>
-          <svg className="w-4 h-4 text-[#25A2DC]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-3.5 h-3.5 text-[#25A2DC]/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
-        </div>
-        <div
-          className="w-[1px] h-8 relative overflow-hidden"
-          style={{
-            background: 'rgba(37,162,220,0.15)',
-          }}
-        >
-          <div
-            className="absolute w-full h-3 bg-[#25A2DC]"
-            style={{ animation: 'particle-fall 2s ease-in-out infinite' }}
-          />
         </div>
       </div>
     </section>
