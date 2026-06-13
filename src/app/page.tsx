@@ -19,34 +19,22 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Track scroll for navbar
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
+      if (mobileMenuOpen) setMobileMenuOpen(false);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Close mobile menu on scroll
-  useEffect(() => {
-    const handleScroll = () => setMobileMenuOpen(false);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [mobileMenuOpen]);
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [mobileMenuOpen]);
 
   const handleIntroComplete = () => {
     setIntroComplete(true);
-    // Smooth transition: content appears as intro fades
     setTimeout(() => setShowContent(true), 100);
   };
 
@@ -63,39 +51,50 @@ export default function Home() {
       {/* CSS Background Scene — no WebGL, no lag */}
       <Scene3D />
 
-      {/* Floating Navigation Bar */}
+      {/* Navigation Bar */}
       {introComplete && (
         <nav
-          className="fixed top-0 left-0 right-0 z-50 transition-all duration-700"
+          className="fixed top-0 left-0 right-0 z-50"
           style={{
-            background: scrolled || mobileMenuOpen ? 'rgba(11, 15, 24, 0.95)' : 'transparent',
-            backdropFilter: scrolled || mobileMenuOpen ? 'blur(20px) saturate(180%)' : 'none',
-            borderBottom: scrolled || mobileMenuOpen ? '1px solid rgba(45, 58, 77, 0.3)' : '1px solid transparent',
             transform: showContent ? 'translateY(0)' : 'translateY(-100%)',
+            transition: 'transform 0.7s cubic-bezier(0.65, 0.05, 0, 1)',
           }}
         >
-          <div className="max-w-7xl mx-auto px-4 md:px-12 h-16 md:h-20 flex items-center justify-between">
+          {/* Nav background — always visible on mobile, transparent on desktop until scroll */}
+          <div
+            className="absolute inset-0 transition-all duration-500"
+            style={{
+              background: scrolled || mobileMenuOpen
+                ? 'rgba(11, 15, 24, 0.92)'
+                : 'rgba(11, 15, 24, 0.4)',
+              backdropFilter: scrolled || mobileMenuOpen
+                ? 'blur(20px) saturate(180%)'
+                : 'blur(8px)',
+              WebkitBackdropFilter: scrolled || mobileMenuOpen
+                ? 'blur(20px) saturate(180%)'
+                : 'blur(8px)',
+              borderBottom: '1px solid rgba(45, 58, 77, 0.2)',
+            }}
+          />
+
+          <div className="relative max-w-7xl mx-auto px-5 md:px-12 h-14 md:h-20 flex items-center justify-between">
             {/* Logo */}
-            <a href="#hero" className="flex items-center gap-3 group" onClick={() => setMobileMenuOpen(false)}>
-              <div className="relative w-12 h-12 md:w-16 md:h-16 group-hover:scale-110 transition-transform duration-300">
+            <a
+              href="#hero"
+              className="flex items-center gap-2 group"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <div className="relative w-10 h-10 md:w-14 md:h-14 group-hover:scale-105 transition-transform duration-300">
                 <Image
                   src="/harmens-logo-tran.png"
                   alt="HARMENS"
-                  width={64}
-                  height={64}
+                  width={56}
+                  height={56}
                   className="w-full h-full object-contain"
                   style={{
-                    filter: 'drop-shadow(0 0 16px rgba(212,175,55,0.4))',
+                    filter: 'drop-shadow(0 0 12px rgba(212,175,55,0.3))',
                   }}
                   priority
-                />
-                {/* Glow on hover */}
-                <div
-                  className="absolute inset-[-6px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    background: 'radial-gradient(circle, rgba(212,175,55,0.3) 0%, transparent 70%)',
-                    filter: 'blur(14px)',
-                  }}
                 />
               </div>
             </a>
@@ -122,50 +121,55 @@ export default function Home() {
 
             {/* Mobile Hamburger Button */}
             <button
-              className="md:hidden flex flex-col items-center justify-center w-10 h-10 gap-1.5 relative z-50"
+              className="md:hidden flex items-center justify-center w-11 h-11 rounded-lg active:bg-white/5 transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle menu"
             >
-              <span
-                className="block w-6 h-[1.5px] bg-[#A0AEC0] transition-all duration-300"
-                style={{
-                  transform: mobileMenuOpen ? 'rotate(45deg) translate(3px, 3px)' : 'none',
-                }}
-              />
-              <span
-                className="block w-6 h-[1.5px] bg-[#A0AEC0] transition-all duration-300"
-                style={{
-                  opacity: mobileMenuOpen ? 0 : 1,
-                }}
-              />
-              <span
-                className="block w-6 h-[1.5px] bg-[#A0AEC0] transition-all duration-300"
-                style={{
-                  transform: mobileMenuOpen ? 'rotate(-45deg) translate(3px, -3px)' : 'none',
-                }}
-              />
+              <div className="relative w-6 h-5 flex flex-col justify-between">
+                <span
+                  className="block w-full h-[2px] bg-white rounded-full origin-center transition-all duration-300"
+                  style={{
+                    transform: mobileMenuOpen ? 'rotate(45deg) translateY(8px)' : 'none',
+                  }}
+                />
+                <span
+                  className="block w-full h-[2px] bg-white rounded-full transition-all duration-300"
+                  style={{
+                    opacity: mobileMenuOpen ? 0 : 1,
+                    transform: mobileMenuOpen ? 'scaleX(0)' : 'scaleX(1)',
+                  }}
+                />
+                <span
+                  className="block w-full h-[2px] bg-white rounded-full origin-center transition-all duration-300"
+                  style={{
+                    transform: mobileMenuOpen ? 'rotate(-45deg) translateY(-8px)' : 'none',
+                  }}
+                />
+              </div>
             </button>
           </div>
 
           {/* Mobile Menu Overlay */}
           <div
-            className="md:hidden fixed inset-0 top-16 bg-[#0B0F18]/98 backdrop-blur-xl transition-all duration-500"
+            className="md:hidden fixed inset-0 bg-[#0B0F18]/[0.97] backdrop-blur-2xl"
             style={{
+              top: '56px', // h-14 = 56px
               opacity: mobileMenuOpen ? 1 : 0,
               pointerEvents: mobileMenuOpen ? 'auto' : 'none',
+              transition: 'opacity 0.4s cubic-bezier(0.65, 0.05, 0, 1)',
             }}
           >
-            <div className="flex flex-col items-center justify-center h-full gap-8 pt-8">
+            <div className="flex flex-col items-center justify-center h-full gap-2 px-6">
               {navLinks.map((link, i) => (
                 <a
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-white text-2xl tracking-[0.4em] uppercase font-light hover:text-[#25A2DC] transition-all duration-300"
+                  className="w-full text-center py-4 text-white text-xl tracking-[0.3em] uppercase font-light hover:text-[#25A2DC] transition-all duration-300 border-b border-[#2D3A4D]/20"
                   style={{
                     opacity: mobileMenuOpen ? 1 : 0,
-                    transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-30px)',
-                    transition: `opacity 0.4s ease ${i * 0.1 + 0.15}s, transform 0.4s ease ${i * 0.1 + 0.15}s`,
+                    transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-20px)',
+                    transition: `opacity 0.4s ease ${i * 0.08 + 0.1}s, transform 0.4s ease ${i * 0.08 + 0.1}s`,
                   }}
                 >
                   {link.label}
@@ -174,11 +178,11 @@ export default function Home() {
               <a
                 href="#contact"
                 onClick={() => setMobileMenuOpen(false)}
-                className="mt-4 text-xs tracking-[0.4em] uppercase px-8 py-3 border border-[#25A2DC]/30 text-[#25A2DC] hover:bg-[#25A2DC]/10 hover:border-[#25A2DC]/60 transition-all duration-300"
+                className="mt-6 text-[11px] tracking-[0.35em] uppercase px-10 py-3.5 border border-[#25A2DC]/40 text-[#25A2DC] hover:bg-[#25A2DC]/10 hover:border-[#25A2DC]/70 transition-all duration-300"
                 style={{
                   opacity: mobileMenuOpen ? 1 : 0,
-                  transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-30px)',
-                  transition: 'opacity 0.4s ease 0.45s, transform 0.4s ease 0.45s',
+                  transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-20px)',
+                  transition: 'opacity 0.4s ease 0.35s, transform 0.4s ease 0.35s',
                 }}
               >
                 Get In Touch
