@@ -4,9 +4,11 @@ import { useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import { useRef, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import useParallax3D from '@/hooks/useParallax3D';
 
 // Dynamic import for 3D Text Split (client-only)
 const TextSplit3D = dynamic(() => import('@/components/TextSplit3D'), { ssr: false });
+const RotatingShowcase3D = dynamic(() => import('@/components/RotatingShowcase3D'), { ssr: false });
 
 interface HeroSectionProps {
   introComplete: boolean;
@@ -251,6 +253,7 @@ function FloatingShapes() {
 
 export default function HeroSection({ introComplete }: HeroSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const parallaxRef = useParallax3D<HTMLElement>();
   const [mounted, setMounted] = useState(false);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -272,7 +275,11 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
 
   return (
     <section
-      ref={sectionRef}
+      ref={(node) => {
+        // Merge both refs
+        (sectionRef as React.MutableRefObject<HTMLElement | null>).current = node;
+        (parallaxRef as React.MutableRefObject<HTMLElement | null>).current = node;
+      }}
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden"
     >
@@ -316,20 +323,16 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
       {/* Floating Particles (reduced on mobile) */}
       <FloatingParticles />
 
-      {/* 
-       * Decorative layers — pure CSS, no JS scroll handler
-       * Each layer uses a CSS class with will-change: transform
-       * for GPU compositing. Movement is purely keyframe-driven.
-       */}
+      {/* 3D Parallax depth layers — move at different speeds */}
       {mounted && (
         <>
           {/* Deep background layer — orbiting rings (desktop only) */}
-          <div className="absolute inset-0 pointer-events-none hero-parallax-deep hidden md:block">
+          <div className="absolute inset-0 pointer-events-none hero-parallax-deep hidden md:block" data-parallax-depth="0.15">
             <OrbitingRings />
           </div>
 
           {/* Mid-ground decorative orbs */}
-          <div className="absolute inset-0 pointer-events-none hero-parallax-mid">
+          <div className="absolute inset-0 pointer-events-none hero-parallax-mid" data-parallax-depth="0.3">
             <div
               className="absolute w-[300px] md:w-[600px] h-[300px] md:h-[600px] rounded-full opacity-10 md:opacity-20"
               style={{
@@ -353,7 +356,7 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
           </div>
 
           {/* Foreground floating shapes (desktop only) */}
-          <div className="absolute inset-0 pointer-events-none hero-parallax-fg hidden lg:block">
+          <div className="absolute inset-0 pointer-events-none hero-parallax-fg hidden lg:block" data-parallax-depth="0.5">
             <FloatingShapes />
           </div>
         </>
@@ -363,6 +366,7 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
       <div
         className="relative z-20 text-center max-w-6xl mx-auto gpu-accelerated"
         style={{ y: contentY, opacity: contentOpacity }}
+        data-parallax-depth="0.6"
       >
         {/* Logo */}
         <div className={`mb-6 md:mb-10 flex justify-center ${mounted ? 'hero-enter-logo' : 'opacity-0'}`}>
@@ -444,6 +448,23 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
           </a>
         </div>
       </div>
+
+      {/* 3D Rotating Showcase — desktop: floating right side, mobile: below content */}
+      {mounted && (
+        <div
+          className={`relative z-20 ${mounted ? 'hero-enter-cta' : 'opacity-0'}`}
+          data-parallax-depth="0.8"
+        >
+          {/* Desktop: positioned to the right */}
+          <div className="hidden lg:block absolute -right-10 top-1/2 -translate-y-1/2" style={{ marginLeft: '60vw' }}>
+            <RotatingShowcase3D />
+          </div>
+          {/* Mobile: centered below CTA, smaller */}
+          <div className="lg:hidden mt-12 flex justify-center" style={{ transform: 'scale(0.65)', transformOrigin: 'top center' }}>
+            <RotatingShowcase3D />
+          </div>
+        </div>
+      )}
 
       {/* Scroll Indicator */}
       <div className={`absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3 ${mounted ? 'hero-enter-scroll' : 'opacity-0'}`}>

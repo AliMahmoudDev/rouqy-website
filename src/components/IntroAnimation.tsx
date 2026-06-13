@@ -398,20 +398,21 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         }} />
       </div>
 
-      {/* ====== PHASE 3: LOGO DROPS FROM ABOVE ====== */}
+      {/* ====== PHASE 3: LOGO 3D SPIN FROM BEHIND ====== */}
       <div
         className="absolute z-10 gpu-accelerated"
         style={{
+          perspective: '1000px',
           opacity: phase === 'logo' || phase === 'subtitle' ? 1 : phase === 'breathe' ? 0.9 : phase === 'explode' ? 0.5 : isWiping ? 0 : 0,
           transform: isGrid || phase === 'letters'
-            ? 'scale(0.5) translateY(-400px) rotateX(30deg)'
+            ? 'perspective(1000px) rotateY(180deg) rotateX(30deg) scale(0.3) translateZ(-200px)'
             : phase === 'logo'
-            ? 'scale(1) translateY(0px) rotateX(0deg)'
+            ? 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1) translateZ(0px)'
             : phase === 'subtitle' || phase === 'breathe'
-            ? 'scale(0.55) translateY(160px) rotateX(0deg)'
+            ? 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(0.55) translateY(160px) translateZ(0px)'
             : phase === 'explode'
-            ? 'scale(2.5) translateY(160px) rotateX(10deg)'
-            : 'scale(0) translateY(300px)',
+            ? 'perspective(1000px) rotateY(60deg) rotateX(10deg) scale(2.5) translateY(160px) translateZ(100px)'
+            : 'perspective(1000px) rotateY(180deg) scale(0) translateY(300px)',
           filter: isGrid || phase === 'letters'
             ? 'brightness(4) blur(15px)'
             : phase === 'explode'
@@ -419,21 +420,41 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
             : isWiping
             ? 'brightness(3) blur(12px)'
             : 'brightness(1.1) blur(0px)',
-          transition: 'all 1s cubic-bezier(0.34, 1.56, 0.64, 1)',
+          transition: 'all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
           animation: phase === 'breathe' ? 'intro-logo-breathe 3s ease-in-out infinite' : 'none',
         }}
       >
-        {/* Shimmer sweep on logo */}
+        {/* 3D Glow ring that expands on logo appearance */}
         <div
-          className="absolute inset-0 z-20 pointer-events-none"
+          className="absolute pointer-events-none"
           style={{
-            opacity: phase === 'logo' ? 1 : phase === 'breathe' ? 0.4 : 0,
-            background: 'linear-gradient(105deg, transparent 20%, rgba(255,223,100,0.6) 42%, rgba(255,240,180,0.9) 50%, rgba(255,223,100,0.6) 58%, transparent 80%)',
-            backgroundSize: '200% 100%',
-            animation: phase === 'logo' ? 'shimmer 1.5s ease-in-out' : phase === 'breathe' ? 'shimmer 4s ease-in-out infinite' : 'none',
-            transition: 'opacity 0.3s ease',
+            left: '50%', top: '50%', width: 40, height: 40, marginTop: -20, marginLeft: -20,
+            borderRadius: '50%',
+            border: '2px solid rgba(212,175,55,0.6)',
+            opacity: phase === 'logo' ? 1 : 0,
+            animation: phase === 'logo' ? 'intro-ring-expand 1.5s ease-out forwards' : 'none',
           }}
         />
+        {/* 3D Shine sweep — diagonal light reflection */}
+        <div
+          className="absolute inset-0 z-20 pointer-events-none overflow-hidden"
+          style={{
+            opacity: phase === 'logo' ? 1 : phase === 'breathe' ? 0.4 : 0,
+            animation: phase === 'logo' ? 'intro-shine-sweep 1s ease-out 0.5s' : phase === 'breathe' ? 'intro-shine-sweep 4s ease-in-out infinite' : 'none',
+            transition: 'opacity 0.3s ease',
+          }}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: '-100%',
+              width: '60%',
+              height: '200%',
+              background: 'linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%)',
+            }}
+          />
+        </div>
         {/* Orbit ring */}
         <div
           className="absolute pointer-events-none"
@@ -459,6 +480,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           className="relative z-10"
           style={{
             filter: 'drop-shadow(0 0 30px rgba(212,175,55,0.5)) drop-shadow(0 0 60px rgba(212,175,55,0.2))',
+            animation: phase === 'logo' ? 'intro-logo-glow-3d 1.5s ease-out' : 'none',
           }}
           priority
         />

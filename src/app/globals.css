@@ -1001,6 +1001,152 @@ html {
   transform: perspective(1200px) rotateX(0deg) translateY(0) scale(1);
 }
 
+/* FLIP-UP — Full 3D flip from below (dramatic page-flip effect) */
+[data-sr="flip-up"] {
+  opacity: 0;
+  transform: perspective(1200px) rotateX(90deg) translateY(40px);
+  transform-origin: 50% 100%;
+  transition:
+    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    transform var(--sr-duration) var(--sr-ease) var(--sr-delay);
+}
+[data-sr="flip-up"].sr-visible {
+  opacity: 1;
+  transform: perspective(1200px) rotateX(0deg) translateY(0);
+}
+
+/* FLIP-DOWN — 3D flip from above */
+[data-sr="flip-down"] {
+  opacity: 0;
+  transform: perspective(1200px) rotateX(-90deg) translateY(-40px);
+  transform-origin: 50% 0%;
+  transition:
+    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    transform var(--sr-duration) var(--sr-ease) var(--sr-delay);
+}
+[data-sr="flip-down"].sr-visible {
+  opacity: 1;
+  transform: perspective(1200px) rotateX(0deg) translateY(0);
+}
+
+/* ZOOM-3D — 3D zoom from deep behind (cinematic dolly shot) */
+[data-sr="zoom-3d"] {
+  opacity: 0;
+  transform: perspective(1200px) translateZ(-300px) scale(0.7);
+  transition:
+    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    transform var(--sr-duration) var(--sr-ease) var(--sr-delay);
+}
+[data-sr="zoom-3d"].sr-visible {
+  opacity: 1;
+  transform: perspective(1200px) translateZ(0px) scale(1);
+}
+
+/* FOLD-IN — 3D fold from the side like opening a book */
+[data-sr="fold-in"] {
+  opacity: 0;
+  transform: perspective(1200px) rotateY(-90deg) translateX(-40px);
+  transform-origin: 0% 50%;
+  transition:
+    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    transform var(--sr-duration) var(--sr-ease) var(--sr-delay);
+}
+[data-sr="fold-in"].sr-visible {
+  opacity: 1;
+  transform: perspective(1200px) rotateY(0deg) translateX(0);
+}
+
+/* FOLD-IN-RIGHT — 3D fold from right side */
+[data-sr="fold-in-right"] {
+  opacity: 0;
+  transform: perspective(1200px) rotateY(90deg) translateX(40px);
+  transform-origin: 100% 50%;
+  transition:
+    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    transform var(--sr-duration) var(--sr-ease) var(--sr-delay);
+}
+[data-sr="fold-in-right"].sr-visible {
+  opacity: 1;
+  transform: perspective(1200px) rotateY(0deg) translateX(0);
+}
+
+/* HELIX — 3D helix entrance (rotate + translate + scale combo) */
+[data-sr="helix"] {
+  opacity: 0;
+  transform: perspective(1200px) rotateX(calc(var(--sr-rot) * 0.8)) rotateY(calc(var(--sr-rot) * 0.5)) translateY(var(--sr-dist)) scale(var(--sr-scale));
+  transition:
+    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    transform var(--sr-duration) var(--sr-ease) var(--sr-delay);
+}
+[data-sr="helix"].sr-visible {
+  opacity: 1;
+  transform: perspective(1200px) rotateX(0deg) rotateY(0deg) translateY(0) scale(1);
+}
+
+/* =============================================
+   3D ROTATING SHOWCASE
+   ============================================= */
+
+@keyframes showcase-rotate {
+  0% { transform: rotateY(0deg) rotateX(5deg); }
+  25% { transform: rotateY(90deg) rotateX(-2deg); }
+  50% { transform: rotateY(180deg) rotateX(5deg); }
+  75% { transform: rotateY(270deg) rotateX(-2deg); }
+  100% { transform: rotateY(360deg) rotateX(5deg); }
+}
+
+/* 3D INTRO LOGO ANIMATION */
+@keyframes intro-logo-3d-spin {
+  0% {
+    transform: perspective(1000px) rotateY(180deg) rotateX(30deg) scale(0.3) translateZ(-200px);
+    opacity: 0;
+    filter: blur(10px) brightness(3);
+  }
+  40% {
+    opacity: 1;
+    filter: blur(3px) brightness(1.5);
+  }
+  70% {
+    transform: perspective(1000px) rotateY(-15deg) rotateX(-5deg) scale(1.05) translateZ(20px);
+    filter: blur(0px) brightness(1);
+  }
+  85% {
+    transform: perspective(1000px) rotateY(8deg) rotateX(3deg) scale(0.98) translateZ(-5px);
+  }
+  100% {
+    transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1) translateZ(0px);
+    opacity: 1;
+    filter: blur(0px) brightness(1);
+  }
+}
+
+@keyframes intro-logo-glow-3d {
+  0% {
+    box-shadow: 0 0 0px rgba(212,175,55,0), 0 0 0px rgba(37,162,220,0);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(212,175,55,0.4), 0 0 60px rgba(37,162,220,0.2);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(212,175,55,0.15), 0 0 20px rgba(37,162,220,0.05);
+  }
+}
+
+/* 3D Shine sweep across logo */
+@keyframes intro-shine-sweep {
+  0% {
+    transform: translateX(-100%) rotate(25deg);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateX(200%) rotate(25deg);
+    opacity: 0;
+  }
+}
+
 /* =============================================
    LEGACY SUPPORT — keep old class names working
    ============================================= */

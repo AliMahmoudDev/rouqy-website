@@ -13,7 +13,8 @@ import { useEffect, useRef } from 'react';
  *   // Add data-sr attributes to children:
  *   // data-sr="up" | "down" | "left" | "right" | "scale" | "blur" |
  *   //          "rotate-left" | "rotate-right" | "clip-up" | "clip-left" |
- *   //          "clip-right" | "fade" | "tilt-up"
+ *   //          "clip-right" | "fade" | "tilt-up" | "flip-up" | "flip-down" |
+ *   //          "zoom-3d" | "fold-in" | "fold-in-right" | "helix"
  *   // data-sr-delay="1" through "12" (delay increments)
  *   // data-sr-duration="fast" | "normal" | "slow" | "grand"
  *   // data-sr-distance="near" | "normal" | "far"

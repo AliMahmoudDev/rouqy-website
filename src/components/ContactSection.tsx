@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import useScrollReveal from '@/hooks/useScrollReveal';
+import useParallax3D from '@/hooks/useParallax3D';
 
 const budgetRanges = [
   '$50K - $100K',
@@ -21,6 +22,7 @@ export default function ContactSection() {
     threshold: 0.08,
     rootMargin: '0px 0px -40px 0px',
   });
+  const parallaxRef = useParallax3D<HTMLElement>();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -54,7 +56,13 @@ export default function ContactSection() {
   };
 
   return (
-    <section ref={sectionRef} id="contact" className="relative z-10 py-16 md:py-32 px-4 md:px-8 overflow-hidden">
+    <section
+      ref={(node) => {
+        (sectionRef as React.MutableRefObject<HTMLElement | null>).current = node;
+        (parallaxRef as React.MutableRefObject<HTMLElement | null>).current = node;
+      }}
+      id="contact" className="relative z-10 py-16 md:py-32 px-4 md:px-8 overflow-hidden"
+    >
       {/* Background gradient animation */}
       <div className="absolute inset-0 pointer-events-none bg-mesh" />
 
@@ -67,9 +75,10 @@ export default function ContactSection() {
         backgroundSize: '80px 80px',
       }} />
 
-      {/* Decorative orbs (smaller on mobile) */}
+      {/* Decorative orbs (smaller on mobile) — parallax depth */}
       <div
         className="absolute w-[200px] md:w-[400px] h-[200px] md:h-[400px] rounded-full pointer-events-none animate-breathe"
+        data-parallax-depth="0.2"
         style={{
           background: 'radial-gradient(circle, rgba(37,162,220,0.05) 0%, transparent 70%)',
           top: '20%',
@@ -79,6 +88,7 @@ export default function ContactSection() {
       />
       <div
         className="absolute w-[150px] md:w-[300px] h-[150px] md:h-[300px] rounded-full pointer-events-none"
+        data-parallax-depth="0.35"
         style={{
           background: 'radial-gradient(circle, rgba(212,175,55,0.04) 0%, transparent 70%)',
           bottom: '30%',
@@ -115,18 +125,18 @@ export default function ContactSection() {
       />
 
       <div className="max-w-7xl mx-auto relative">
-        {/* Section Header — elegant left entrance */}
-        <div className="mb-10 md:mb-20">
-          <p data-sr="left" data-sr-delay="1" data-sr-duration="slow" className="text-[#25A2DC] text-xs md:text-sm tracking-[0.3em] md:tracking-[0.4em] uppercase mb-3 md:mb-4">Contact</p>
-          <h2 data-sr="up" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="far" className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
+        {/* Section Header — 3D entrance */}
+        <div className="mb-10 md:mb-20" data-parallax-depth="0.4">
+          <p data-sr="fold-in" data-sr-delay="1" data-sr-duration="slow" className="text-[#25A2DC] text-xs md:text-sm tracking-[0.3em] md:tracking-[0.4em] uppercase mb-3 md:mb-4">Contact</p>
+          <h2 data-sr="zoom-3d" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="far" className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
             Let&apos;s Create <span className="animate-text-gradient">Together</span>
           </h2>
           <div data-sr="clip-left" data-sr-delay="5" data-sr-duration="slow" className="mt-4 w-16 h-[2px] bg-[#25A2DC]" />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 lg:gap-24">
-          {/* Contact Form — slides in from left */}
-          <div data-sr="left" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="far">
+          {/* Contact Form — 3D fold from left */}
+          <div data-sr="fold-in" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="far">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div data-sr="up" data-sr-delay="4" data-sr-duration="slow" data-sr-distance="near" className="space-y-2">
                 <label htmlFor="name" className="text-[#A0AEC0] text-sm tracking-wider uppercase">
@@ -215,8 +225,8 @@ export default function ContactSection() {
             </form>
           </div>
 
-          {/* Contact Info — slides in from right */}
-          <div data-sr="right" data-sr-delay="4" data-sr-duration="grand" data-sr-distance="far" className="space-y-10">
+          {/* Contact Info — 3D fold from right */}
+          <div data-sr="fold-in-right" data-sr-delay="4" data-sr-duration="grand" data-sr-distance="far" className="space-y-10">
             {/* Stats */}
             <div className="grid grid-cols-2 gap-4 md:gap-8">
               {[
@@ -282,8 +292,8 @@ export default function ContactSection() {
         </div>
       </div>
 
-      {/* Footer — blur in */}
-      <div data-sr="blur" data-sr-delay="3" data-sr-duration="grand" className="mt-16 md:mt-32 pt-6 md:pt-8 border-t border-[#2D3A4D]">
+      {/* Footer — 3D helix entrance */}
+      <div data-sr="helix" data-sr-delay="3" data-sr-duration="grand" className="mt-16 md:mt-32 pt-6 md:pt-8 border-t border-[#2D3A4D]" data-parallax-depth="0.5">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-[#A0AEC0] text-sm">
           <p className="tracking-wider">&copy; {new Date().getFullYear()} HARMENS. All rights reserved.</p>
           <div className="flex items-center gap-6">

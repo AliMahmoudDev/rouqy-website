@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { ArrowUpRight, MapPin, Maximize2 } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 import useScrollReveal from '@/hooks/useScrollReveal';
+import useParallax3D from '@/hooks/useParallax3D';
 
 const projects = [
   {
@@ -103,10 +104,14 @@ export default function PortfolioSection() {
     threshold: 0.08,
     rootMargin: '0px 0px -40px 0px',
   });
+  const parallaxRef = useParallax3D<HTMLElement>();
 
   return (
     <section
-      ref={sectionRef}
+      ref={(node) => {
+        (sectionRef as React.MutableRefObject<HTMLElement | null>).current = node;
+        (parallaxRef as React.MutableRefObject<HTMLElement | null>).current = node;
+      }}
       id="portfolio"
       className="relative z-10 pt-24 md:pt-32 pb-32 md:pb-40 px-4 md:px-8 lg:px-12 overflow-hidden"
     >
@@ -131,9 +136,10 @@ export default function PortfolioSection() {
         backgroundSize: '100px 100px',
       }} />
 
-      {/* Animated gradient orbs (smaller on mobile) */}
+      {/* Animated gradient orbs (smaller on mobile) — parallax depth */}
       <div
         className="absolute w-[250px] md:w-[500px] h-[250px] md:h-[500px] rounded-full pointer-events-none animate-breathe"
+        data-parallax-depth="0.2"
         style={{
           background: 'radial-gradient(circle, rgba(212,175,55,0.06) 0%, transparent 70%)',
           top: '10%',
@@ -143,6 +149,7 @@ export default function PortfolioSection() {
       />
       <div
         className="absolute w-[200px] md:w-[400px] h-[200px] md:h-[400px] rounded-full pointer-events-none"
+        data-parallax-depth="0.3"
         style={{
           background: 'radial-gradient(circle, rgba(37,162,220,0.05) 0%, transparent 70%)',
           bottom: '20%',
@@ -173,9 +180,9 @@ export default function PortfolioSection() {
       </div>
 
       <div className="max-w-[1400px] mx-auto relative">
-        {/* === Section Header — organized staggered entrance === */}
-        <div className="mb-12 md:mb-28">
-          <div data-sr="left" data-sr-delay="1" data-sr-duration="slow" className="flex items-center gap-6 mb-6">
+        {/* === Section Header — organized staggered entrance with 3D === */}
+        <div className="mb-12 md:mb-28" data-parallax-depth="0.4">
+          <div data-sr="fold-in" data-sr-delay="1" data-sr-duration="slow" className="flex items-center gap-6 mb-6">
             <div className="w-12 h-[1px] bg-[#25A2DC]" style={{ animation: 'line-draw 0.8s cubic-bezier(0.65, 0.05, 0, 1) forwards' }} />
             <p className="text-[#25A2DC] text-xs tracking-[0.5em] uppercase font-light">
               Portfolio
@@ -183,11 +190,11 @@ export default function PortfolioSection() {
           </div>
 
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-            <h2 data-sr="up" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="far" className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[0.95]">
+            <h2 data-sr="zoom-3d" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="far" className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[0.95]">
               Selected<br />
               <span className="animate-text-gradient">Works</span>
             </h2>
-            <p data-sr="right" data-sr-delay="5" data-sr-duration="slow" className="text-[#A0AEC0]/60 text-sm tracking-wider max-w-xs leading-relaxed">
+            <p data-sr="fold-in-right" data-sr-delay="5" data-sr-duration="slow" className="text-[#A0AEC0]/60 text-sm tracking-wider max-w-xs leading-relaxed">
               Each project is a testament to our commitment to crafting spaces that transcend the ordinary.
             </p>
           </div>
@@ -209,8 +216,8 @@ export default function PortfolioSection() {
         <div>
           {/* First row: Large hero project + tall project */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 mb-4 md:mb-5">
-            {/* Hero project — ROTATES IN FROM LEFT */}
-            <div data-sr="rotate-left" data-sr-delay="2" data-sr-duration="grand" data-sr-distance="far" className="md:col-span-8" style={{ perspective: '1200px' }}>
+            {/* Hero project — FLIPS UP FROM BELOW */}
+            <div data-sr="flip-up" data-sr-delay="2" data-sr-duration="grand" data-sr-distance="far" className="md:col-span-8" style={{ perspective: '1200px' }}>
               <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '16/9' }}>
                 <div className="relative w-full h-full overflow-hidden">
                   <Image
@@ -254,8 +261,8 @@ export default function PortfolioSection() {
               </div>
             </div>
 
-            {/* Tall project — ROTATES IN FROM RIGHT */}
-            <div data-sr="rotate-right" data-sr-delay="4" data-sr-duration="grand" data-sr-distance="far" className="md:col-span-4" style={{ perspective: '1200px' }}>
+            {/* Tall project — FOLDS IN FROM RIGHT */}
+            <div data-sr="fold-in-right" data-sr-delay="4" data-sr-duration="grand" data-sr-distance="far" className="md:col-span-4" style={{ perspective: '1200px' }}>
               <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '3/4' }}>
                 <div className="relative w-full h-full overflow-hidden">
                   <Image
@@ -299,7 +306,7 @@ export default function PortfolioSection() {
             {projects.slice(2, 5).map((project, index) => (
               <div
                 key={project.title}
-                data-sr={index % 2 === 0 ? 'rotate-left' : 'rotate-right'}
+                data-sr={index % 2 === 0 ? 'fold-in' : 'fold-in-right'}
                 data-sr-delay={String(index * 2 + 3)}
                 data-sr-duration="grand"
                 data-sr-distance="normal"
@@ -349,8 +356,8 @@ export default function PortfolioSection() {
             ))}
           </div>
 
-          {/* Third row: Full-width — TILTS UP from below */}
-          <div data-sr="tilt-up" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="normal" style={{ perspective: '1200px' }}>
+          {/* Third row: Full-width — 3D ZOOM IN */}
+          <div data-sr="zoom-3d" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="normal" style={{ perspective: '1200px' }}>
             <div className="portfolio-card group relative cursor-pointer mb-4 md:mb-5" style={{ aspectRatio: '21/9' }}>
               <div className="relative w-full h-full overflow-hidden">
                 <Image
@@ -395,8 +402,8 @@ export default function PortfolioSection() {
           </div>
         </div>
 
-        {/* === Animated Stats Bar — blur in === */}
-        <div data-sr="blur" data-sr-delay="2" data-sr-duration="grand" className="mt-10 md:mt-24 pt-6 md:pt-8 border-t border-[#2D3A4D]">
+        {/* === Animated Stats Bar — 3D helix entrance === */}
+        <div data-sr="helix" data-sr-delay="2" data-sr-duration="grand" className="mt-10 md:mt-24 pt-6 md:pt-8 border-t border-[#2D3A4D]" data-parallax-depth="0.5">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12">
             {[
               { value: 200, suffix: '+', label: 'Projects Completed' },

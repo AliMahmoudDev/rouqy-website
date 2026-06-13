@@ -1040,6 +1040,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$imag
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$shared$2f$lib$2f$app$2d$dynamic$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/shared/lib/app-dynamic.js [app-ssr] (ecmascript)");
 ;
+;
 'use client';
 ;
 ;
@@ -1051,6 +1052,14 @@ const TextSplit3D = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mod
     loadableGenerated: {
         modules: [
             "[project]/src/components/TextSplit3D.tsx [app-client] (ecmascript, next/dynamic entry)"
+        ]
+    },
+    ssr: false
+});
+const RotatingShowcase3D = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$shared$2f$lib$2f$app$2d$dynamic$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"])(async ()=>{}, {
+    loadableGenerated: {
+        modules: [
+            "[project]/src/components/RotatingShowcase3D.tsx [app-client] (ecmascript, next/dynamic entry)"
         ]
     },
     ssr: false
@@ -1107,7 +1116,7 @@ function seededRandom(seed) {
                     }
                 }, `gold-${i}`, false, {
                     fileName: "[project]/src/components/HeroSection.tsx",
-                    lineNumber: 49,
+                    lineNumber: 51,
                     columnNumber: 9
                 }, this)),
             blueParticles.map((p, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1125,7 +1134,7 @@ function seededRandom(seed) {
                     }
                 }, `blue-${i}`, false, {
                     fileName: "[project]/src/components/HeroSection.tsx",
-                    lineNumber: 66,
+                    lineNumber: 68,
                     columnNumber: 9
                 }, this)),
             sparkleParticles.map((p, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1143,13 +1152,13 @@ function seededRandom(seed) {
                     }
                 }, `spark-${i}`, false, {
                     fileName: "[project]/src/components/HeroSection.tsx",
-                    lineNumber: 83,
+                    lineNumber: 85,
                     columnNumber: 9
                 }, this))
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/HeroSection.tsx",
-        lineNumber: 47,
+        lineNumber: 49,
         columnNumber: 5
     }, this);
 }
@@ -1189,12 +1198,12 @@ function seededRandom(seed) {
                     }
                 }, void 0, false, {
                     fileName: "[project]/src/components/HeroSection.tsx",
-                    lineNumber: 132,
+                    lineNumber: 134,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 118,
+                lineNumber: 120,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1221,12 +1230,12 @@ function seededRandom(seed) {
                     }
                 }, void 0, false, {
                     fileName: "[project]/src/components/HeroSection.tsx",
-                    lineNumber: 158,
+                    lineNumber: 160,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 144,
+                lineNumber: 146,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1244,13 +1253,13 @@ function seededRandom(seed) {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 170,
+                lineNumber: 172,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/HeroSection.tsx",
-        lineNumber: 116,
+        lineNumber: 118,
         columnNumber: 5
     }, this);
 }
@@ -1273,7 +1282,7 @@ function seededRandom(seed) {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 196,
+                lineNumber: 198,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1289,7 +1298,7 @@ function seededRandom(seed) {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 209,
+                lineNumber: 211,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1306,7 +1315,7 @@ function seededRandom(seed) {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 222,
+                lineNumber: 224,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1322,7 +1331,7 @@ function seededRandom(seed) {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 236,
+                lineNumber: 238,
                 columnNumber: 7
             }, this)
         ]
@@ -1385,25 +1394,25 @@ function HeroSection({ introComplete }) {
                             type: "video/mp4"
                         }, void 0, false, {
                             fileName: "[project]/src/components/HeroSection.tsx",
-                            lineNumber: 290,
+                            lineNumber: 292,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 281,
+                        lineNumber: 283,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "video-bg-overlay"
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 292,
+                        lineNumber: 294,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 280,
+                lineNumber: 282,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1417,40 +1426,40 @@ function HeroSection({ introComplete }) {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 296,
+                lineNumber: 298,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "hero-gradient-bg"
             }, void 0, false, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 305,
+                lineNumber: 307,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "noise-overlay absolute inset-0 pointer-events-none z-[1]"
             }, void 0, false, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 308,
+                lineNumber: 310,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#0B0F18] to-transparent z-10 pointer-events-none"
             }, void 0, false, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 311,
+                lineNumber: 313,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute bottom-0 left-0 right-0 h-40 md:h-60 bg-gradient-to-t from-[#161E2D] via-[#161E2D]/80 to-transparent z-10 pointer-events-none"
             }, void 0, false, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 314,
+                lineNumber: 316,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(FloatingParticles, {}, void 0, false, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 317,
+                lineNumber: 319,
                 columnNumber: 7
             }, this),
             mounted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -1459,12 +1468,12 @@ function HeroSection({ introComplete }) {
                         className: "absolute inset-0 pointer-events-none hero-parallax-deep hidden md:block",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(OrbitingRings, {}, void 0, false, {
                             fileName: "[project]/src/components/HeroSection.tsx",
-                            lineNumber: 328,
+                            lineNumber: 330,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 327,
+                        lineNumber: 329,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1481,7 +1490,7 @@ function HeroSection({ introComplete }) {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/components/HeroSection.tsx",
-                                lineNumber: 333,
+                                lineNumber: 335,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1495,25 +1504,25 @@ function HeroSection({ introComplete }) {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/components/HeroSection.tsx",
-                                lineNumber: 343,
+                                lineNumber: 345,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 332,
+                        lineNumber: 334,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute inset-0 pointer-events-none hero-parallax-fg hidden lg:block",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(FloatingShapes, {}, void 0, false, {
                             fileName: "[project]/src/components/HeroSection.tsx",
-                            lineNumber: 357,
+                            lineNumber: 359,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 356,
+                        lineNumber: 358,
                         columnNumber: 11
                     }, this)
                 ]
@@ -1534,7 +1543,7 @@ function HeroSection({ introComplete }) {
                                     className: "hero-logo-glow"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/HeroSection.tsx",
-                                    lineNumber: 370,
+                                    lineNumber: 372,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1546,18 +1555,18 @@ function HeroSection({ introComplete }) {
                                     priority: true
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/HeroSection.tsx",
-                                    lineNumber: 371,
+                                    lineNumber: 373,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/HeroSection.tsx",
-                            lineNumber: 369,
+                            lineNumber: 371,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 368,
+                        lineNumber: 370,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -1570,12 +1579,12 @@ function HeroSection({ introComplete }) {
                             letterClassName: "text-5xl sm:text-6xl md:text-8xl lg:text-[140px] font-bold tracking-tight text-white uppercase"
                         }, void 0, false, {
                             fileName: "[project]/src/components/HeroSection.tsx",
-                            lineNumber: 388,
+                            lineNumber: 390,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 383,
+                        lineNumber: 385,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1588,12 +1597,12 @@ function HeroSection({ introComplete }) {
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/components/HeroSection.tsx",
-                            lineNumber: 399,
+                            lineNumber: 401,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 398,
+                        lineNumber: 400,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1609,7 +1618,7 @@ function HeroSection({ introComplete }) {
                         children: "Designed To Be Felt Before It's Seen"
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 403,
+                        lineNumber: 405,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1620,7 +1629,7 @@ function HeroSection({ introComplete }) {
                         children: "Crafting Timeless Luxury Interiors"
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 420,
+                        lineNumber: 422,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1633,7 +1642,7 @@ function HeroSection({ introComplete }) {
                                     children: "Explore Our Work"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/HeroSection.tsx",
-                                    lineNumber: 435,
+                                    lineNumber: 437,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -1648,29 +1657,29 @@ function HeroSection({ introComplete }) {
                                         d: "M17 8l4 4m4-4l-4 4m4-4H3"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/HeroSection.tsx",
-                                        lineNumber: 442,
+                                        lineNumber: 444,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/HeroSection.tsx",
-                                    lineNumber: 436,
+                                    lineNumber: 438,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/HeroSection.tsx",
-                            lineNumber: 431,
+                            lineNumber: 433,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 430,
+                        lineNumber: 432,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 363,
+                lineNumber: 365,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1681,7 +1690,7 @@ function HeroSection({ introComplete }) {
                         children: "Scroll"
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 450,
+                        lineNumber: 452,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1700,17 +1709,17 @@ function HeroSection({ introComplete }) {
                                 d: "M19 14l-7 7m0 0l-7-7m7 7V3"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/HeroSection.tsx",
-                                lineNumber: 455,
+                                lineNumber: 457,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/HeroSection.tsx",
-                            lineNumber: 454,
+                            lineNumber: 456,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 453,
+                        lineNumber: 455,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1725,24 +1734,24 @@ function HeroSection({ introComplete }) {
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/components/HeroSection.tsx",
-                            lineNumber: 464,
+                            lineNumber: 466,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 458,
+                        lineNumber: 460,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 449,
+                lineNumber: 451,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/HeroSection.tsx",
-        lineNumber: 274,
+        lineNumber: 276,
         columnNumber: 5
     }, this);
 }
