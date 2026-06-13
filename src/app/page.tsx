@@ -47,7 +47,7 @@ export default function Home() {
       {/* Navigation Bar */}
       {introComplete && (
         <nav
-          className="fixed top-0 left-0 right-0 z-50"
+          className="hidden md:block fixed top-0 left-0 right-0 z-50"
           style={{
             transform: showContent ? 'translateY(0)' : 'translateY(-100%)',
             transition: 'transform 0.7s cubic-bezier(0.65, 0.05, 0, 1)',
