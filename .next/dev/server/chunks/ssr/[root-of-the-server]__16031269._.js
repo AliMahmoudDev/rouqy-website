@@ -4220,53 +4220,103 @@ function Home() {
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "md:hidden fixed inset-0 bg-[#0B0F18]/[0.97] backdrop-blur-2xl",
+                        className: "md:hidden fixed inset-0",
                         style: {
                             top: '56px',
                             opacity: mobileMenuOpen ? 1 : 0,
                             pointerEvents: mobileMenuOpen ? 'auto' : 'none',
                             transition: 'opacity 0.4s cubic-bezier(0.65, 0.05, 0, 1)'
                         },
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex flex-col items-center justify-center h-full gap-2 px-6",
-                            children: [
-                                navLinks.map((link, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                        href: link.href,
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "absolute inset-0 bg-[#0B0F18]"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/page.tsx",
+                                lineNumber: 163,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "absolute top-0 right-0 w-[300px] h-[300px] pointer-events-none",
+                                style: {
+                                    background: 'radial-gradient(circle, rgba(37,162,220,0.04) 0%, transparent 70%)',
+                                    filter: 'blur(60px)'
+                                }
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/page.tsx",
+                                lineNumber: 166,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "absolute bottom-0 left-0 w-[250px] h-[250px] pointer-events-none",
+                                style: {
+                                    background: 'radial-gradient(circle, rgba(212,175,55,0.03) 0%, transparent 70%)',
+                                    filter: 'blur(50px)'
+                                }
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/page.tsx",
+                                lineNumber: 173,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#25A2DC]/30 to-transparent"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/page.tsx",
+                                lineNumber: 182,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "relative flex flex-col items-center justify-center h-full px-8",
+                                style: {
+                                    paddingTop: '25vh'
+                                },
+                                children: [
+                                    navLinks.map((link, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                                            href: link.href,
+                                            onClick: ()=>setMobileMenuOpen(false),
+                                            className: "w-full text-center py-5 text-white text-2xl tracking-[0.35em] uppercase font-light hover:text-[#25A2DC] transition-all duration-300",
+                                            style: {
+                                                opacity: mobileMenuOpen ? 1 : 0,
+                                                transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-15px)',
+                                                transition: `opacity 0.35s ease ${i * 0.08 + 0.12}s, transform 0.35s ease ${i * 0.08 + 0.12}s`
+                                            },
+                                            children: [
+                                                link.label,
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "mt-3 mx-auto w-8 h-[1px] bg-[#2D3A4D]/40"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/app/page.tsx",
+                                                    lineNumber: 199,
+                                                    columnNumber: 19
+                                                }, this)
+                                            ]
+                                        }, link.label, true, {
+                                            fileName: "[project]/src/app/page.tsx",
+                                            lineNumber: 187,
+                                            columnNumber: 17
+                                        }, this)),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                                        href: "#contact",
                                         onClick: ()=>setMobileMenuOpen(false),
-                                        className: "w-full text-center py-4 text-white text-xl tracking-[0.3em] uppercase font-light hover:text-[#25A2DC] transition-all duration-300 border-b border-[#2D3A4D]/20",
+                                        className: "mt-8 text-[11px] tracking-[0.35em] uppercase px-10 py-3.5 border border-[#25A2DC]/40 text-[#25A2DC] hover:bg-[#25A2DC]/10 hover:border-[#25A2DC]/70 transition-all duration-300",
                                         style: {
                                             opacity: mobileMenuOpen ? 1 : 0,
-                                            transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-20px)',
-                                            transition: `opacity 0.4s ease ${i * 0.08 + 0.1}s, transform 0.4s ease ${i * 0.08 + 0.1}s`
+                                            transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-15px)',
+                                            transition: 'opacity 0.35s ease 0.35s, transform 0.35s ease 0.35s'
                                         },
-                                        children: link.label
-                                    }, link.label, false, {
+                                        children: "Get In Touch"
+                                    }, void 0, false, {
                                         fileName: "[project]/src/app/page.tsx",
-                                        lineNumber: 164,
-                                        columnNumber: 17
-                                    }, this)),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                    href: "#contact",
-                                    onClick: ()=>setMobileMenuOpen(false),
-                                    className: "mt-6 text-[11px] tracking-[0.35em] uppercase px-10 py-3.5 border border-[#25A2DC]/40 text-[#25A2DC] hover:bg-[#25A2DC]/10 hover:border-[#25A2DC]/70 transition-all duration-300",
-                                    style: {
-                                        opacity: mobileMenuOpen ? 1 : 0,
-                                        transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-20px)',
-                                        transition: 'opacity 0.4s ease 0.35s, transform 0.4s ease 0.35s'
-                                    },
-                                    children: "Get In Touch"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/app/page.tsx",
-                                    lineNumber: 178,
-                                    columnNumber: 15
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/app/page.tsx",
-                            lineNumber: 162,
-                            columnNumber: 13
-                        }, this)
-                    }, void 0, false, {
+                                        lineNumber: 202,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/src/app/page.tsx",
+                                lineNumber: 185,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
                         fileName: "[project]/src/app/page.tsx",
                         lineNumber: 153,
                         columnNumber: 11
@@ -4281,7 +4331,7 @@ function Home() {
                 onComplete: handleIntroComplete
             }, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 196,
+                lineNumber: 220,
                 columnNumber: 26
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -4295,38 +4345,38 @@ function Home() {
                             introComplete: introComplete
                         }, void 0, false, {
                             fileName: "[project]/src/app/page.tsx",
-                            lineNumber: 207,
+                            lineNumber: 231,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "section-divider relative z-10 -mt-8 md:-mt-12"
                         }, void 0, false, {
                             fileName: "[project]/src/app/page.tsx",
-                            lineNumber: 208,
+                            lineNumber: 232,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$PortfolioSection$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                             fileName: "[project]/src/app/page.tsx",
-                            lineNumber: 209,
+                            lineNumber: 233,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "section-divider relative z-10"
                         }, void 0, false, {
                             fileName: "[project]/src/app/page.tsx",
-                            lineNumber: 210,
+                            lineNumber: 234,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ContactSection$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                             fileName: "[project]/src/app/page.tsx",
-                            lineNumber: 211,
+                            lineNumber: 235,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true)
             }, void 0, false, {
                 fileName: "[project]/src/app/page.tsx",
-                lineNumber: 199,
+                lineNumber: 223,
                 columnNumber: 7
             }, this)
         ]

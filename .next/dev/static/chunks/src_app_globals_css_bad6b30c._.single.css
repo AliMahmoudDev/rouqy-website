@@ -2034,6 +2034,11 @@
     background-color: lab(15.2363% -.700384 -12.6739 / .6);
   }
 
+  .bg-\[\#2D3A4D\]\/40 {
+    background-color: #2d3a4d66;
+    background-color: lab(23.8917% -1.26641 -13.5096 / .4);
+  }
+
   .bg-\[\#25A2DC\] {
     background-color: #25a2dc;
   }
@@ -2225,6 +2230,18 @@
     --tw-gradient-stops: var(--tw-gradient-via-stops);
   }
 
+  .via-\[\#25A2DC\]\/30 {
+    --tw-gradient-via: #25a2dc4d;
+    --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-via-stops);
+  }
+
+  @supports (color: lab(0% 0 0)) {
+    .via-\[\#25A2DC\]\/30 {
+      --tw-gradient-via: lab(62.2126% -18.4616 -39.4785 / .3);
+    }
+  }
+
   .via-\[\#161E2D\]\/80 {
     --tw-gradient-via: #161e2dcc;
     --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);
@@ -2386,6 +2403,10 @@
 
   .py-4 {
     padding-block: calc(var(--spacing) * 4);
+  }
+
+  .py-5 {
+    padding-block: calc(var(--spacing) * 5);
   }
 
   .py-6 {
