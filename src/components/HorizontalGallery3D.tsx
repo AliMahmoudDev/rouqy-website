@@ -1,10 +1,7 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const galleryItems = [
   {
@@ -58,74 +55,175 @@ const galleryItems = [
 ];
 
 export default function HorizontalGallery3D() {
-  const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+  const velocity = useRef(0);
+  const lastX = useRef(0);
+  const lastTime = useRef(0);
+  const animFrame = useRef<number>(0);
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    const track = trackRef.current;
-    if (!section || !track) return;
+  // Update 3D card transforms based on their position
+  const updateCard3D = useCallback(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
-    const cards = cardsRef.current.filter(Boolean);
+    const cards = container.querySelectorAll<HTMLDivElement>('[data-gallery-card]');
+    const viewportCenter = window.innerWidth / 2;
 
-    // Horizontal scroll mapping
-    const totalScroll = track.scrollWidth - window.innerWidth;
+    cards.forEach((card) => {
+      const rect = card.getBoundingClientRect();
+      const cardCenter = rect.left + rect.width / 2;
+      const offset = (cardCenter - viewportCenter) / (window.innerWidth / 2);
+      const clampedOffset = Math.max(-1, Math.min(1, offset));
 
-    const st = gsap.to(track, {
-      x: -totalScroll,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: section,
-        start: 'top top',
-        end: `+=${totalScroll}`,
-        pin: true,
-        scrub: 1,
-        anticipatePin: 1,
-        onUpdate: (self) => {
-          // 3D rotation based on position relative to viewport center
-          cards.forEach((card, i) => {
-            const rect = card.getBoundingClientRect();
-            const cardCenter = rect.left + rect.width / 2;
-            const viewportCenter = window.innerWidth / 2;
-            const offset = (cardCenter - viewportCenter) / (window.innerWidth / 2); // -1 to 1
-            const clampedOffset = Math.max(-1, Math.min(1, offset));
+      const rotateY = clampedOffset * 20;
+      const scale = 1 - Math.abs(clampedOffset) * 0.12;
+      const opacity = 1 - Math.abs(clampedOffset) * 0.4;
 
-            // Rotate toward center: center = 0deg, edges = ±30deg
-            const rotateY = clampedOffset * 30;
-            // Scale: center = 1, edges = 0.85
-            const scale = 1 - Math.abs(clampedOffset) * 0.15;
-            // Opacity: center = 1, edges = 0.5
-            const opacity = 1 - Math.abs(clampedOffset) * 0.5;
-            // Z translation for depth
-            const translateZ = -Math.abs(clampedOffset) * 80;
-
-            gsap.set(card, {
-              rotateY,
-              scale,
-              opacity,
-              z: translateZ,
-            });
-          });
-        },
-      },
+      gsap.set(card, {
+        rotateY,
+        scale,
+        opacity,
+        transformOrigin: 'center center',
+      });
     });
-
-    return () => {
-      st.scrollTrigger?.kill();
-      st.kill();
-    };
   }, []);
 
+  // Momentum scroll with requestAnimationFrame
+  const momentumScroll = useCallback(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    if (Math.abs(velocity.current) > 0.5) {
+      container.scrollLeft += velocity.current;
+      velocity.current *= 0.95; // Friction
+      updateCard3D();
+      animFrame.current = requestAnimationFrame(momentumScroll);
+    }
+  }, [updateCard3D]);
+
+  // Mouse/touch drag handlers
+  const onDragStart = useCallback((clientX: number) => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    isDragging.current = true;
+    startX.current = clientX;
+    scrollLeft.current = container.scrollLeft;
+    velocity.current = 0;
+    lastX.current = clientX;
+    lastTime.current = Date.now();
+    cancelAnimationFrame(animFrame.current);
+
+    container.style.cursor = 'grabbing';
+  }, []);
+
+  const onDragMove = useCallback((clientX: number) => {
+    const container = containerRef.current;
+    if (!isDragging.current || !container) return;
+
+    const dx = clientX - startX.current;
+    container.scrollLeft = scrollLeft.current - dx;
+
+    // Track velocity for momentum
+    const now = Date.now();
+    const dt = now - lastTime.current;
+    if (dt > 0) {
+      velocity.current = (lastX.current - clientX) / dt * 16; // Normalize to ~60fps
+    }
+    lastX.current = clientX;
+    lastTime.current = now;
+
+    updateCard3D();
+  }, [updateCard3D]);
+
+  const onDragEnd = useCallback(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    isDragging.current = false;
+    container.style.cursor = 'grab';
+
+    // Start momentum
+    animFrame.current = requestAnimationFrame(momentumScroll);
+  }, [momentumScroll]);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    container.style.cursor = 'grab';
+    container.style.overflowX = 'auto';
+    container.style.scrollbarWidth = 'none';
+    container.style.msOverflowStyle = 'none';
+
+    // Hide scrollbar via CSS
+    const style = document.createElement('style');
+    style.textContent = `
+      .gallery-container::-webkit-scrollbar { display: none; }
+    `;
+    document.head.appendChild(style);
+
+    // Mouse events
+    const handleMouseDown = (e: MouseEvent) => {
+      e.preventDefault();
+      onDragStart(e.clientX);
+    };
+    const handleMouseMove = (e: MouseEvent) => {
+      onDragMove(e.clientX);
+    };
+    const handleMouseUp = () => {
+      onDragEnd();
+    };
+
+    // Touch events
+    const handleTouchStart = (e: TouchEvent) => {
+      onDragStart(e.touches[0].clientX);
+    };
+    const handleTouchMove = (e: TouchEvent) => {
+      onDragMove(e.touches[0].clientX);
+    };
+    const handleTouchEnd = () => {
+      onDragEnd();
+    };
+
+    // Scroll event for native scroll (trackpad, etc.)
+    const handleScroll = () => {
+      updateCard3D();
+    };
+
+    container.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+    container.addEventListener('touchstart', handleTouchStart, { passive: true });
+    container.addEventListener('touchmove', handleTouchMove, { passive: true });
+    container.addEventListener('touchend', handleTouchEnd);
+    container.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Initial 3D update
+    updateCard3D();
+
+    return () => {
+      container.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchmove', handleTouchMove);
+      container.removeEventListener('touchend', handleTouchEnd);
+      container.removeEventListener('scroll', handleScroll);
+      cancelAnimationFrame(animFrame.current);
+      style.remove();
+    };
+  }, [onDragStart, onDragMove, onDragEnd, updateCard3D]);
+
   return (
-    <section
-      ref={sectionRef}
-      className="relative min-h-screen bg-[#0B0F18] overflow-hidden"
-      style={{ perspective: '1200px' }}
-    >
+    <section className="relative py-20 md:py-32 bg-[#0B0F18] overflow-hidden">
       {/* Section header */}
-      <div className="absolute top-0 left-0 right-0 z-30 pt-24 md:pt-32 pb-8 px-6 md:px-16">
-        <span className="text-[10px] tracking-[0.6em] uppercase text-[#25A2DC]/60 block mb-3">3D Gallery</span>
+      <div className="px-6 md:px-16 mb-10 md:mb-14">
+        <span className="text-[10px] tracking-[0.6em] uppercase text-[#25A2DC]/60 block mb-3">Gallery</span>
         <h2 className="text-3xl md:text-5xl font-bold text-white" style={{
           background: 'linear-gradient(135deg, #FFFFFF 0%, #25A2DC 50%, #D4AF37 100%)',
           WebkitBackgroundClip: 'text',
@@ -134,40 +232,41 @@ export default function HorizontalGallery3D() {
           Floating Gallery
         </h2>
         <p className="text-[#A0AEC0]/50 text-sm mt-3 max-w-lg">
-          Scroll to walk through our 3D exhibition — each project turns to face you as you approach
+          Drag or swipe to explore our projects — each space turns to face you as you browse
         </p>
       </div>
 
-      {/* Horizontal scroll track */}
+      {/* Draggable horizontal container */}
       <div
-        ref={trackRef}
-        className="flex items-center gap-8 md:gap-12 pt-48 md:pt-44 px-[10vw] will-change-transform"
+        ref={containerRef}
+        className="gallery-container flex items-center gap-6 md:gap-8 px-6 md:px-16 pb-4"
         style={{
-          transformStyle: 'preserve-3d',
-          width: `${galleryItems.length * 450 + 200}px`,
+          perspective: '1200px',
+          scrollSnapType: 'x proximity',
+          WebkitOverflowScrolling: 'touch',
         }}
       >
         {galleryItems.map((item, i) => (
           <div
             key={i}
-            ref={(el) => { if (el) cardsRef.current[i] = el; }}
-            className="flex-shrink-0 w-[320px] md:w-[400px] h-[420px] md:h-[500px] rounded-2xl overflow-hidden cursor-pointer group"
+            data-gallery-card
+            className="flex-shrink-0 w-[280px] md:w-[380px] h-[380px] md:h-[480px] rounded-2xl overflow-hidden cursor-grab group select-none"
             style={{
               transformStyle: 'preserve-3d',
+              scrollSnapAlign: 'center',
               boxShadow: `
-                0 30px 60px rgba(0,0,0,0.5),
+                0 25px 50px rgba(0,0,0,0.4),
                 0 0 0 1px rgba(212,175,55,0.08),
-                0 0 100px rgba(0,0,0,0.3)
+                0 0 80px rgba(0,0,0,0.2)
               `,
-              opacity: 0.5,
             }}
           >
-            {/* Image */}
-            <div className="relative w-full h-full overflow-hidden">
+            <div className="relative w-full h-full overflow-hidden pointer-events-none">
               <img
                 src={item.image}
                 alt={item.title}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                draggable={false}
                 loading="lazy"
               />
               {/* Overlay */}
@@ -176,7 +275,7 @@ export default function HorizontalGallery3D() {
               }} />
 
               {/* Info */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+              <div className="absolute bottom-0 left-0 right-0 p-5 md:p-7">
                 <span
                   className="text-[9px] tracking-[0.3em] uppercase px-3 py-1 rounded-full border mb-3 inline-block"
                   style={{
@@ -187,19 +286,19 @@ export default function HorizontalGallery3D() {
                 >
                   {item.category}
                 </span>
-                <h3 className="text-xl md:text-2xl font-bold text-white">{item.title}</h3>
-                <div className="mt-3 h-[2px] w-12 transition-all duration-500 group-hover:w-24" style={{
+                <h3 className="text-lg md:text-xl font-bold text-white">{item.title}</h3>
+                <div className="mt-3 h-[2px] w-10 transition-all duration-500 group-hover:w-20" style={{
                   background: `linear-gradient(90deg, ${item.accent}, transparent)`,
                 }} />
               </div>
 
-              {/* Hover arrow */}
-              <div className="absolute top-6 right-6 w-10 h-10 rounded-full border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:border-white/50" style={{
+              {/* Drag hint arrow */}
+              <div className="absolute top-5 right-5 w-9 h-9 rounded-full border border-white/15 flex items-center justify-center opacity-40 group-hover:opacity-80 transition-opacity duration-300" style={{
                 background: 'rgba(255,255,255,0.05)',
                 backdropFilter: 'blur(8px)',
               }}>
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="text-white">
-                  <path d="M1 13L13 1M13 1H3M13 1V11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" className="text-white">
+                  <path d="M4 2L9 6L4 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
             </div>
@@ -207,9 +306,15 @@ export default function HorizontalGallery3D() {
         ))}
       </div>
 
-      {/* Bottom progress bar */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 w-48 h-[2px] bg-white/10 rounded-full overflow-hidden">
-        <div className="h-full bg-gradient-to-r from-[#D4AF37] to-[#25A2DC] rounded-full gallery-progress" style={{ width: '0%' }} />
+      {/* Drag hint */}
+      <div className="flex items-center justify-center gap-2 mt-6 opacity-30">
+        <svg width="20" height="10" viewBox="0 0 20 10" fill="none">
+          <path d="M1 5H19M15 1L19 5L15 9" stroke="#A0AEC0" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+        <span className="text-[9px] tracking-[0.3em] uppercase text-[#A0AEC0]">Drag to explore</span>
+        <svg width="20" height="10" viewBox="0 0 20 10" fill="none">
+          <path d="M19 5H1M5 1L1 5L5 9" stroke="#A0AEC0" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
       </div>
     </section>
   );
