@@ -1090,7 +1090,7 @@ function seededRandom(seed) {
             delay: seededRandom(i * 59 + 14) * 5
         }));
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "hero-particles hidden md:block",
+        className: "hero-particles",
         children: [
             goldParticles.map((p, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "hero-particle",
@@ -1368,7 +1368,7 @@ function HeroSection({ introComplete }) {
         className: "relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute inset-0 z-0 hidden md:block",
+                className: "absolute inset-0 z-0",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("video", {
                         autoPlay: true,
@@ -1468,14 +1468,14 @@ function HeroSection({ introComplete }) {
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "absolute inset-0 pointer-events-none hero-parallax-mid hidden md:block",
+                        className: "absolute inset-0 pointer-events-none hero-parallax-mid",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "absolute w-[600px] h-[600px] rounded-full opacity-20",
+                                className: "absolute w-[300px] md:w-[600px] h-[300px] md:h-[600px] rounded-full opacity-10 md:opacity-20",
                                 style: {
                                     background: 'radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%)',
                                     top: '10%',
-                                    right: '-10%',
+                                    right: '-20% md:right-[-10%]',
                                     filter: 'blur(60px)',
                                     animation: 'breathe 8s ease-in-out infinite'
                                 }
@@ -1485,11 +1485,11 @@ function HeroSection({ introComplete }) {
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "absolute w-[400px] h-[400px] rounded-full opacity-15",
+                                className: "absolute w-[250px] md:w-[400px] h-[250px] md:h-[400px] rounded-full opacity-10 md:opacity-15",
                                 style: {
                                     background: 'radial-gradient(circle, rgba(37,162,220,0.15) 0%, transparent 70%)',
                                     bottom: '20%',
-                                    left: '-5%',
+                                    left: '-10%',
                                     filter: 'blur(50px)',
                                     animation: 'breathe 7s ease-in-out infinite 1.5s'
                                 }
@@ -1996,7 +1996,7 @@ function PortfolioSection() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute w-[500px] h-[500px] rounded-full pointer-events-none animate-breathe hidden md:block",
+                className: "absolute w-[250px] md:w-[500px] h-[250px] md:h-[500px] rounded-full pointer-events-none animate-breathe",
                 style: {
                     background: 'radial-gradient(circle, rgba(212,175,55,0.06) 0%, transparent 70%)',
                     top: '10%',
@@ -2009,7 +2009,7 @@ function PortfolioSection() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute w-[400px] h-[400px] rounded-full pointer-events-none hidden md:block",
+                className: "absolute w-[200px] md:w-[400px] h-[200px] md:h-[400px] rounded-full pointer-events-none",
                 style: {
                     background: 'radial-gradient(circle, rgba(37,162,220,0.05) 0%, transparent 70%)',
                     bottom: '20%',
@@ -3286,7 +3286,7 @@ function ContactSection() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute w-[400px] h-[400px] rounded-full pointer-events-none animate-breathe hidden md:block",
+                className: "absolute w-[200px] md:w-[400px] h-[200px] md:h-[400px] rounded-full pointer-events-none animate-breathe",
                 style: {
                     background: 'radial-gradient(circle, rgba(37,162,220,0.05) 0%, transparent 70%)',
                     top: '20%',
@@ -3299,7 +3299,7 @@ function ContactSection() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute w-[300px] h-[300px] rounded-full pointer-events-none hidden md:block",
+                className: "absolute w-[150px] md:w-[300px] h-[150px] md:h-[300px] rounded-full pointer-events-none",
                 style: {
                     background: 'radial-gradient(circle, rgba(212,175,55,0.04) 0%, transparent 70%)',
                     bottom: '30%',
@@ -4231,7 +4231,7 @@ function Home() {
                             pointerEvents: mobileMenuOpen ? 'auto' : 'none'
                         },
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex flex-col items-center justify-center h-full gap-8 -mt-16",
+                            className: "flex flex-col items-center justify-center h-full gap-8 pt-8",
                             children: [
                                 navLinks.map((link, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                                         href: link.href,
@@ -4239,8 +4239,8 @@ function Home() {
                                         className: "text-white text-2xl tracking-[0.4em] uppercase font-light hover:text-[#25A2DC] transition-all duration-300",
                                         style: {
                                             opacity: mobileMenuOpen ? 1 : 0,
-                                            transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(20px)',
-                                            transition: `opacity 0.4s ease ${i * 0.1 + 0.2}s, transform 0.4s ease ${i * 0.1 + 0.2}s`
+                                            transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-30px)',
+                                            transition: `opacity 0.4s ease ${i * 0.1 + 0.15}s, transform 0.4s ease ${i * 0.1 + 0.15}s`
                                         },
                                         children: link.label
                                     }, link.label, false, {
@@ -4254,8 +4254,8 @@ function Home() {
                                     className: "mt-4 text-xs tracking-[0.4em] uppercase px-8 py-3 border border-[#25A2DC]/30 text-[#25A2DC] hover:bg-[#25A2DC]/10 hover:border-[#25A2DC]/60 transition-all duration-300",
                                     style: {
                                         opacity: mobileMenuOpen ? 1 : 0,
-                                        transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(20px)',
-                                        transition: 'opacity 0.4s ease 0.5s, transform 0.4s ease 0.5s'
+                                        transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-30px)',
+                                        transition: 'opacity 0.4s ease 0.45s, transform 0.4s ease 0.45s'
                                     },
                                     children: "Get In Touch"
                                 }, void 0, false, {
