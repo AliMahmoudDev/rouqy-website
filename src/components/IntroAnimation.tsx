@@ -375,7 +375,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
 
       {/* ====== Decorative line under HARMENS ====== */}
       <div className="relative z-10 mt-4 md:mt-6 flex items-center gap-3 justify-center" style={{
-        transform: (phase === 'logo' || phase === 'logoHold') ? 'translateY(150px)' : 'translateY(0)',
+        transform: (phase === 'logo' || phase === 'logoHold') ? 'translateY(230px)' : 'translateY(0)',
         transition: 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
       }}>
         <div style={{
@@ -414,7 +414,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           transform: isGrid || phase === 'letters'
             ? 'perspective(1000px) rotateY(180deg) rotateX(30deg) scale(0.3) translateZ(-200px)'
             : phase === 'logo' || phase === 'logoHold'
-            ? 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1) translateZ(0px)'
+            ? 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1) translateY(80px) translateZ(0px)'
             : phase === 'subtitle' || phase === 'breathe'
             ? 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(0.55) translateY(160px) translateZ(0px)'
             : phase === 'explode'
