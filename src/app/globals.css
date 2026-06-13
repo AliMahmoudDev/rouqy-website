@@ -1097,6 +1097,12 @@ html {
   100% { transform: rotateY(360deg) rotateX(6deg) rotateZ(0deg); }
 }
 
+/* 3D Showcase — gentle float up/down (experimental) */
+@keyframes showcase-float {
+  0%, 100% { transform: rotateX(5deg) rotateY(-12deg) translateY(0px); }
+  50% { transform: rotateX(5deg) rotateY(-12deg) translateY(-12px); }
+}
+
 /* 3D INTRO LOGO ANIMATION */
 @keyframes intro-logo-3d-spin {
   0% {

@@ -1,20 +1,18 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useCallback, useRef } from 'react';
 
 /**
- * 🎲 Premium 3D Rotating Showcase — "Luxury Gallery"
+ * 🎲 Premium 3D Showcase — "Floating Gallery"
  *
- * A high-end 3D carousel with:
- * - 6 premium floating frames in hexagonal arrangement
- * - Landscape orientation (perfect for interior design)
+ * A 3D hexagonal arrangement of portfolio frames that
+ * gently floats up and down — no rotation, no hover effects.
+ * Just a subtle, elegant breathing motion.
+ *
+ * - 6 frames in hexagonal 3D arrangement (visible depth)
+ * - Gentle float animation (up/down) — very subtle
+ * - Slight static tilt so 3D depth is visible
  * - Gold corner bracket frames with glass overlay
- * - Slow cinematic rotation with subtle tilt oscillation
- * - Hover pauses rotation + slight zoom
- * - Mouse tilt for interactive 3D feel
- * - Reflective surface underneath
- * - Ambient gold/blue glow
  * - CSS-only animation for zero lag
  */
 
@@ -28,39 +26,18 @@ const showcaseImages = [
 ];
 
 export default function RotatingShowcase3D() {
-  const [isHovered, setIsHovered] = useState(false);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const containerRef = useRef<HTMLDivElement>(null);
-
   const faceCount = showcaseImages.length;
   const angleStep = 360 / faceCount;
   const cardWidth = 260;
   const cardHeight = 180;
   const translateZ = Math.round(cardWidth / (2 * Math.tan(Math.PI / faceCount)));
 
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setTilt({ x: y * -12, y: x * 12 });
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    setIsHovered(false);
-    setTilt({ x: 0, y: 0 });
-  }, []);
-
   return (
     <div
-      ref={containerRef}
       className="relative select-none"
       style={{ perspective: '1400px', perspectiveOrigin: '50% 50%' }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      onMouseMove={handleMouseMove}
     >
-      {/* ====== AMBIENT GLOW — beneath the carousel ====== */}
+      {/* ====== AMBIENT GLOW — beneath the showcase ====== */}
       <div
         className="absolute pointer-events-none"
         style={{
@@ -90,20 +67,16 @@ export default function RotatingShowcase3D() {
         }}
       />
 
-      {/* ====== THE 3D CAROUSEL ====== */}
+      {/* ====== THE 3D PRISM — static tilt + gentle float ====== */}
       <div
         className="showcase-prism"
         style={{
           width: cardWidth,
           height: cardHeight,
           transformStyle: 'preserve-3d',
-          animation: isHovered ? 'none' : 'showcase-rotate 30s cubic-bezier(0.37, 0, 0.63, 1) infinite',
+          // Static slight tilt so you can see the 3D depth + gentle float
+          animation: 'showcase-float 6s ease-in-out infinite',
           willChange: 'transform',
-          // Apply mouse tilt on hover
-          transform: isHovered
-            ? `rotateX(${tilt.x}deg) rotateY(${tilt.y + 15}deg) scale(1.08)`
-            : undefined,
-          transition: isHovered ? 'transform 0.3s ease-out' : 'none',
         }}
       >
         {showcaseImages.map((face, i) => {
@@ -178,22 +151,18 @@ export default function RotatingShowcase3D() {
                 />
 
                 {/* ====== CORNER BRACKETS — Luxury Frame ====== */}
-                {/* Top-left corner */}
                 <div className="absolute top-2 left-2 pointer-events-none" style={{ opacity: 0.7 }}>
                   <div style={{ width: 16, height: 1, background: '#D4AF37' }} />
                   <div style={{ width: 1, height: 16, background: '#D4AF37' }} />
                 </div>
-                {/* Top-right corner */}
                 <div className="absolute top-2 right-2 pointer-events-none" style={{ opacity: 0.7 }}>
                   <div style={{ width: 16, height: 1, background: '#D4AF37', marginLeft: 'auto' }} />
                   <div style={{ width: 1, height: 16, background: '#D4AF37', marginLeft: 'auto' }} />
                 </div>
-                {/* Bottom-left corner */}
                 <div className="absolute bottom-8 left-2 pointer-events-none" style={{ opacity: 0.5 }}>
                   <div style={{ width: 12, height: 1, background: '#25A2DC' }} />
                   <div style={{ width: 1, height: 12, background: '#25A2DC' }} />
                 </div>
-                {/* Bottom-right corner */}
                 <div className="absolute bottom-8 right-2 pointer-events-none" style={{ opacity: 0.5 }}>
                   <div style={{ width: 12, height: 1, background: '#25A2DC', marginLeft: 'auto' }} />
                   <div style={{ width: 1, height: 12, background: '#25A2DC', marginLeft: 'auto' }} />
@@ -218,24 +187,13 @@ export default function RotatingShowcase3D() {
                   </span>
                 </div>
 
-                {/* Glass reflection sweep — diagonal shine */}
+                {/* Glass reflection sweep */}
                 <div
                   className="absolute inset-0 pointer-events-none"
                   style={{
                     background: 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.02) 100%)',
                   }}
                 />
-
-                {/* Hover highlight overlay */}
-                {isHovered && (
-                  <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      background: 'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 50%)',
-                      transition: 'opacity 0.3s ease',
-                    }}
-                  />
-                )}
               </div>
             </div>
           );
