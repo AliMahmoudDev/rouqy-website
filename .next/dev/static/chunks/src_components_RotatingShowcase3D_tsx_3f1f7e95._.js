@@ -7,26 +7,21 @@ __turbopack_context__.s([
     ()=>RotatingShowcase3D
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
 ;
-;
 /**
- * 🎲 Premium 3D Rotating Showcase — "Luxury Gallery"
+ * 🎲 Premium 3D Showcase — "Floating Gallery"
  *
- * A high-end 3D carousel with:
- * - 6 premium floating frames in hexagonal arrangement
- * - Landscape orientation (perfect for interior design)
- * - Gold corner bracket frames with glass overlay
- * - Slow cinematic rotation with subtle tilt oscillation
- * - Hover pauses rotation + slight zoom
- * - Mouse tilt for interactive 3D feel
- * - Reflective surface underneath
- * - Ambient gold/blue glow
- * - CSS-only animation for zero lag
+ * Professional 3D carousel where ALL cards are visible as they rotate.
+ * Cards coming from behind are visible (dimmed) — creating a smooth,
+ * immersive 3D feel where you see images "emerging" as they rotate.
+ *
+ * Technique: Replace backfaceVisibility:hidden (abrupt disappear) with
+ * JS-controlled opacity per card based on facing direction.
+ * This also eliminates the Chrome Mobile bug where cards randomly vanish.
  */ const showcaseImages = [
     {
         src: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=600&q=80',
@@ -61,48 +56,68 @@ var _s = __turbopack_context__.k.signature();
 ];
 function RotatingShowcase3D() {
     _s();
-    const [isHovered, setIsHovered] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    const [tilt, setTilt] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
-        x: 0,
-        y: 0
-    });
-    const containerRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const prismRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const cardsRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])([]);
     const faceCount = showcaseImages.length;
     const angleStep = 360 / faceCount;
     const cardWidth = 260;
     const cardHeight = 180;
     const translateZ = Math.round(cardWidth / (2 * Math.tan(Math.PI / faceCount)));
-    const handleMouseMove = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
-        "RotatingShowcase3D.useCallback[handleMouseMove]": (e)=>{
-            if (!containerRef.current) return;
-            const rect = containerRef.current.getBoundingClientRect();
-            const x = (e.clientX - rect.left) / rect.width - 0.5;
-            const y = (e.clientY - rect.top) / rect.height - 0.5;
-            setTilt({
-                x: y * -12,
-                y: x * 12
-            });
+    // JS animation: controls rotation + per-card opacity
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "RotatingShowcase3D.useEffect": ()=>{
+            const prism = prismRef.current;
+            if (!prism) return;
+            let animId;
+            let startTime = null;
+            const duration = 30000; // 30s per full rotation
+            const animate = {
+                "RotatingShowcase3D.useEffect.animate": (timestamp)=>{
+                    if (!startTime) startTime = timestamp;
+                    const elapsed = timestamp - startTime;
+                    const progress = elapsed % duration / duration;
+                    // Rotation angle
+                    const rotateY = progress * 360;
+                    // Gentle float
+                    const floatY = Math.sin(progress * Math.PI * 2) * 8;
+                    // Subtle tilt
+                    const rotateX = 5 + Math.sin(progress * Math.PI * 2) * 0.5;
+                    // Apply transform to prism
+                    prism.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(${floatY}px)`;
+                    // Per-card opacity based on facing direction
+                    cardsRef.current.forEach({
+                        "RotatingShowcase3D.useEffect.animate": (card, i)=>{
+                            if (!card) return;
+                            const cardAngle = angleStep * i;
+                            // Effective angle: card's own rotation + prism rotation
+                            const effective = ((cardAngle + rotateY) % 360 + 360) % 360;
+                            // Calculate how "front-facing" the card is
+                            // 0° = directly facing viewer → opacity 1
+                            // 180° = fully behind → opacity 0.2 (still visible!)
+                            const frontness = Math.cos(effective * Math.PI / 180);
+                            // frontness: 1 (front) to -1 (back)
+                            // Map to opacity: front=1.0, side=0.55, back=0.18
+                            const opacity = 0.18 + (frontness + 1) * 0.41;
+                            card.style.opacity = String(Math.round(opacity * 100) / 100);
+                        }
+                    }["RotatingShowcase3D.useEffect.animate"]);
+                    animId = requestAnimationFrame(animate);
+                }
+            }["RotatingShowcase3D.useEffect.animate"];
+            animId = requestAnimationFrame(animate);
+            return ({
+                "RotatingShowcase3D.useEffect": ()=>cancelAnimationFrame(animId)
+            })["RotatingShowcase3D.useEffect"];
         }
-    }["RotatingShowcase3D.useCallback[handleMouseMove]"], []);
-    const handleMouseLeave = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
-        "RotatingShowcase3D.useCallback[handleMouseLeave]": ()=>{
-            setIsHovered(false);
-            setTilt({
-                x: 0,
-                y: 0
-            });
-        }
-    }["RotatingShowcase3D.useCallback[handleMouseLeave]"], []);
+    }["RotatingShowcase3D.useEffect"], [
+        angleStep
+    ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        ref: containerRef,
         className: "relative select-none",
         style: {
             perspective: '1400px',
             perspectiveOrigin: '50% 50%'
         },
-        onMouseEnter: ()=>setIsHovered(true),
-        onMouseLeave: handleMouseLeave,
-        onMouseMove: handleMouseMove,
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute pointer-events-none",
@@ -117,50 +132,35 @@ function RotatingShowcase3D() {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                lineNumber: 64,
+                lineNumber: 91,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute pointer-events-none",
-                style: {
-                    bottom: -40,
-                    left: '50%',
-                    transform: 'translateX(-50%) scaleX(1) scaleY(-0.3)',
-                    width: cardWidth + 40,
-                    height: cardHeight,
-                    opacity: 0.08,
-                    background: 'linear-gradient(180deg, rgba(212,175,55,0.3), transparent)',
-                    filter: 'blur(8px)',
-                    borderRadius: 12
-                }
-            }, void 0, false, {
-                fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                lineNumber: 78,
-                columnNumber: 7
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                ref: prismRef,
                 className: "showcase-prism",
                 style: {
                     width: cardWidth,
                     height: cardHeight,
                     transformStyle: 'preserve-3d',
-                    animation: isHovered ? 'none' : 'showcase-rotate 30s cubic-bezier(0.37, 0, 0.63, 1) infinite',
-                    willChange: 'transform',
-                    // Apply mouse tilt on hover
-                    transform: isHovered ? `rotateX(${tilt.x}deg) rotateY(${tilt.y + 15}deg) scale(1.08)` : undefined,
-                    transition: isHovered ? 'transform 0.3s ease-out' : 'none'
+                    // NO CSS animation — JS handles rotation + opacity
+                    transform: 'rotateX(5deg) rotateY(0deg) translateY(0px)'
                 },
                 children: showcaseImages.map((face, i)=>{
                     const angle = angleStep * i;
                     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        ref: (el)=>{
+                            cardsRef.current[i] = el;
+                        },
                         className: "absolute showcase-card",
                         style: {
                             width: cardWidth,
                             height: cardHeight,
-                            backfaceVisibility: 'hidden',
+                            // NO backfaceVisibility:hidden — JS controls opacity instead
+                            // This makes back cards visible (dimmed) = more professional 3D feel
                             transform: `rotateY(${angle}deg) translateZ(${translateZ}px)`,
                             borderRadius: 10,
-                            overflow: 'hidden'
+                            overflow: 'hidden',
+                            opacity: 1
                         },
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "absolute inset-0",
@@ -175,19 +175,25 @@ function RotatingShowcase3D() {
                                 overflow: 'hidden'
                             },
                             children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
                                     src: face.src,
                                     alt: face.label,
-                                    fill: true,
-                                    className: "object-cover",
-                                    sizes: "260px"
+                                    loading: "eager",
+                                    style: {
+                                        position: 'absolute',
+                                        inset: 0,
+                                        width: '100%',
+                                        height: '100%',
+                                        objectFit: 'cover',
+                                        backgroundColor: '#0B0F18'
+                                    }
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                    lineNumber: 139,
+                                    lineNumber: 149,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "absolute inset-0",
+                                    className: "absolute inset-0 pointer-events-none",
                                     style: {
                                         background: `
                       linear-gradient(180deg,
@@ -200,29 +206,29 @@ function RotatingShowcase3D() {
                                     }
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                    lineNumber: 148,
+                                    lineNumber: 164,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "absolute top-0 left-0 right-0",
+                                    className: "absolute top-0 left-0 right-0 pointer-events-none",
                                     style: {
                                         height: 2,
                                         background: 'linear-gradient(90deg, transparent 10%, rgba(212,175,55,0.6) 50%, transparent 90%)'
                                     }
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                    lineNumber: 163,
+                                    lineNumber: 179,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "absolute bottom-0 left-0 right-0",
+                                    className: "absolute bottom-0 left-0 right-0 pointer-events-none",
                                     style: {
                                         height: 1,
                                         background: 'linear-gradient(90deg, transparent 10%, rgba(212,175,55,0.3) 50%, transparent 90%)'
                                     }
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                    lineNumber: 172,
+                                    lineNumber: 188,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -239,7 +245,7 @@ function RotatingShowcase3D() {
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                            lineNumber: 183,
+                                            lineNumber: 198,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -250,13 +256,13 @@ function RotatingShowcase3D() {
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                            lineNumber: 184,
+                                            lineNumber: 199,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                    lineNumber: 182,
+                                    lineNumber: 197,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -274,7 +280,7 @@ function RotatingShowcase3D() {
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                            lineNumber: 188,
+                                            lineNumber: 202,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -286,13 +292,13 @@ function RotatingShowcase3D() {
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                            lineNumber: 189,
+                                            lineNumber: 203,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                    lineNumber: 187,
+                                    lineNumber: 201,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -309,7 +315,7 @@ function RotatingShowcase3D() {
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                            lineNumber: 193,
+                                            lineNumber: 206,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -320,13 +326,13 @@ function RotatingShowcase3D() {
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                            lineNumber: 194,
+                                            lineNumber: 207,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                    lineNumber: 192,
+                                    lineNumber: 205,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -344,7 +350,7 @@ function RotatingShowcase3D() {
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                            lineNumber: 198,
+                                            lineNumber: 210,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -356,17 +362,17 @@ function RotatingShowcase3D() {
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                            lineNumber: 199,
+                                            lineNumber: 211,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                    lineNumber: 197,
+                                    lineNumber: 209,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "absolute bottom-0 left-0 right-0 p-3",
+                                    className: "absolute bottom-0 left-0 right-0 p-3 pointer-events-none",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             className: "text-[7px] tracking-[0.5em] uppercase block",
@@ -376,7 +382,7 @@ function RotatingShowcase3D() {
                                             children: face.category
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                            lineNumber: 204,
+                                            lineNumber: 216,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -388,13 +394,13 @@ function RotatingShowcase3D() {
                                             children: face.label
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                            lineNumber: 210,
+                                            lineNumber: 222,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                    lineNumber: 203,
+                                    lineNumber: 215,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -404,35 +410,24 @@ function RotatingShowcase3D() {
                                     }
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                    lineNumber: 222,
+                                    lineNumber: 234,
                                     columnNumber: 17
-                                }, this),
-                                isHovered && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "absolute inset-0 pointer-events-none",
-                                    style: {
-                                        background: 'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 50%)',
-                                        transition: 'opacity 0.3s ease'
-                                    }
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                                    lineNumber: 231,
-                                    columnNumber: 19
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                            lineNumber: 125,
+                            lineNumber: 135,
                             columnNumber: 15
                         }, this)
                     }, i, false, {
                         fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                        lineNumber: 112,
+                        lineNumber: 119,
                         columnNumber: 13
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                lineNumber: 94,
+                lineNumber: 105,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -462,22 +457,22 @@ function RotatingShowcase3D() {
                     }
                 }, void 0, false, {
                     fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                    lineNumber: 260,
+                    lineNumber: 261,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-                lineNumber: 246,
+                lineNumber: 247,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/RotatingShowcase3D.tsx",
-        lineNumber: 55,
+        lineNumber: 86,
         columnNumber: 5
     }, this);
 }
-_s(RotatingShowcase3D, "WSY2a19R23GHPg4QXni0MSI6jeA=");
+_s(RotatingShowcase3D, "VVgAhAAQfOq++8fqavN8L0icchY=");
 _c = RotatingShowcase3D;
 var _c;
 __turbopack_context__.k.register(_c, "RotatingShowcase3D");
