@@ -11,7 +11,6 @@ import CursorGlow from '@/components/CursorGlow';
 
 // Dynamic imports for client-only components
 const Scene3D = dynamic(() => import('@/components/Scene3D'), { ssr: false });
-const SectionReveal3D = dynamic(() => import('@/components/SectionReveal3D'), { ssr: false });
 
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
@@ -118,13 +117,9 @@ export default function Home() {
           <>
             <HeroSection introComplete={introComplete} />
             <div className="section-divider relative z-10" />
-            <SectionReveal3D rotateX={12} translateZ={-80} duration={1600} delay={0}>
-              <PortfolioSection />
-            </SectionReveal3D>
+            <PortfolioSection />
             <div className="section-divider relative z-10" />
-            <SectionReveal3D rotateX={8} translateZ={-60} duration={1400} delay={0}>
-              <ContactSection />
-            </SectionReveal3D>
+            <ContactSection />
           </>
         )}
       </div>

@@ -772,9 +772,238 @@ html {
 .animate-vignette { animation: vignette-pulse 6s ease-in-out infinite; }
 
 /* ============================================
-   SCROLL-TRIGGERED ANIMATION CLASSES
-   Use with IntersectionObserver in JS
+   SCROLL-REVEAL v3.0 — Luxury Animation System
+   
+   data-sr="" controls direction/type:
+     "up" | "down" | "left" | "right" | "scale" | "blur" |
+     "rotate-left" | "rotate-right" | "clip-up" | "clip-left" |
+     "clip-right" | "fade" | "tilt-up"
+   
+   data-sr-delay="1"–"12"  → 100ms–1200ms stagger
+   data-sr-duration="fast" | "normal" | "slow" | "grand"
+   data-sr-distance="near" | "normal" | "far"
+   
+   Trigger: IntersectionObserver adds .sr-visible
+   Performance: GPU-only (transform + opacity + filter)
    ============================================ */
+
+/* --- Base: all sr elements start hidden --- */
+[data-sr] {
+  will-change: transform, opacity, filter;
+  backface-visibility: hidden;
+}
+
+/* --- Duration presets --- */
+[data-sr-duration="fast"]   { --sr-duration: 0.7s; }
+[data-sr-duration="normal"] { --sr-duration: 1s; }
+[data-sr-duration="slow"]   { --sr-duration: 1.4s; }
+[data-sr-duration="grand"]  { --sr-duration: 1.8s; }
+[data-sr]:not([data-sr-duration]) { --sr-duration: 1s; }
+
+/* --- Distance presets --- */
+[data-sr-distance="near"]   { --sr-dist: 30px; --sr-rot: 8deg; --sr-scale: 0.96; }
+[data-sr-distance="normal"] { --sr-dist: 60px; --sr-rot: 15deg; --sr-scale: 0.92; }
+[data-sr-distance="far"]    { --sr-dist: 100px; --sr-rot: 22deg; --sr-scale: 0.85; }
+[data-sr]:not([data-sr-distance]) { --sr-dist: 60px; --sr-rot: 15deg; --sr-scale: 0.92; }
+
+/* --- Delay presets (data-sr-delay="1" to "12") --- */
+[data-sr-delay="1"]  { --sr-delay: 0.08s; }
+[data-sr-delay="2"]  { --sr-delay: 0.16s; }
+[data-sr-delay="3"]  { --sr-delay: 0.24s; }
+[data-sr-delay="4"]  { --sr-delay: 0.36s; }
+[data-sr-delay="5"]  { --sr-delay: 0.48s; }
+[data-sr-delay="6"]  { --sr-delay: 0.6s; }
+[data-sr-delay="7"]  { --sr-delay: 0.72s; }
+[data-sr-delay="8"]  { --sr-delay: 0.88s; }
+[data-sr-delay="9"]  { --sr-delay: 1.04s; }
+[data-sr-delay="10"] { --sr-delay: 1.2s; }
+[data-sr-delay="11"] { --sr-delay: 1.4s; }
+[data-sr-delay="12"] { --sr-delay: 1.6s; }
+[data-sr]:not([data-sr-delay]) { --sr-delay: 0s; }
+
+/* --- Luxury easing --- */
+/* --sr-ease: a custom overshoot easing for a "settling" feel */
+[data-sr] { --sr-ease: cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* =============================================
+   ANIMATION TYPES — initial (hidden) states
+   ============================================= */
+
+/* UP — rises from below */
+[data-sr="up"] {
+  opacity: 0;
+  transform: translateY(var(--sr-dist)) scale(var(--sr-scale));
+  filter: blur(4px);
+  transition: 
+    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    transform var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    filter var(--sr-duration) var(--sr-ease) var(--sr-delay);
+}
+[data-sr="up"].sr-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* DOWN — descends from above */
+[data-sr="down"] {
+  opacity: 0;
+  transform: translateY(calc(var(--sr-dist) * -1)) scale(var(--sr-scale));
+  filter: blur(4px);
+  transition: 
+    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    transform var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    filter var(--sr-duration) var(--sr-ease) var(--sr-delay);
+}
+[data-sr="down"].sr-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* LEFT — slides in from left */
+[data-sr="left"] {
+  opacity: 0;
+  transform: translateX(calc(var(--sr-dist) * -1)) scale(var(--sr-scale));
+  filter: blur(4px);
+  transition: 
+    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    transform var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    filter var(--sr-duration) var(--sr-ease) var(--sr-delay);
+}
+[data-sr="left"].sr-visible {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  filter: blur(0);
+}
+
+/* RIGHT — slides in from right */
+[data-sr="right"] {
+  opacity: 0;
+  transform: translateX(var(--sr-dist)) scale(var(--sr-scale));
+  filter: blur(4px);
+  transition: 
+    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    transform var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    filter var(--sr-duration) var(--sr-ease) var(--sr-delay);
+}
+[data-sr="right"].sr-visible {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  filter: blur(0);
+}
+
+/* SCALE — grows from center */
+[data-sr="scale"] {
+  opacity: 0;
+  transform: scale(calc(var(--sr-scale) - 0.1));
+  filter: blur(6px);
+  transition: 
+    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    transform var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    filter var(--sr-duration) var(--sr-ease) var(--sr-delay);
+}
+[data-sr="scale"].sr-visible {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0);
+}
+
+/* BLUR — fades from heavy blur */
+[data-sr="blur"] {
+  opacity: 0;
+  filter: blur(20px);
+  transform: scale(0.97);
+  transition: 
+    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    filter var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    transform var(--sr-duration) var(--sr-ease) var(--sr-delay);
+}
+[data-sr="blur"].sr-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1);
+}
+
+/* ROTATE-LEFT — rotates in from left side */
+[data-sr="rotate-left"] {
+  opacity: 0;
+  transform: perspective(1200px) rotateY(calc(var(--sr-rot) * -1)) translateX(calc(var(--sr-dist) * -0.8)) scale(var(--sr-scale));
+  transition: 
+    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    transform var(--sr-duration) var(--sr-ease) var(--sr-delay);
+}
+[data-sr="rotate-left"].sr-visible {
+  opacity: 1;
+  transform: perspective(1200px) rotateY(0deg) translateX(0) scale(1);
+}
+
+/* ROTATE-RIGHT — rotates in from right side */
+[data-sr="rotate-right"] {
+  opacity: 0;
+  transform: perspective(1200px) rotateY(var(--sr-rot)) translateX(calc(var(--sr-dist) * 0.8)) scale(var(--sr-scale));
+  transition: 
+    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    transform var(--sr-duration) var(--sr-ease) var(--sr-delay);
+}
+[data-sr="rotate-right"].sr-visible {
+  opacity: 1;
+  transform: perspective(1200px) rotateY(0deg) translateX(0) scale(1);
+}
+
+/* CLIP-UP — reveals from bottom via clip-path */
+[data-sr="clip-up"] {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path var(--sr-duration) cubic-bezier(0.65, 0, 0.35, 1) var(--sr-delay);
+}
+[data-sr="clip-up"].sr-visible {
+  clip-path: inset(0 0 0 0);
+}
+
+/* CLIP-LEFT — reveals from left via clip-path */
+[data-sr="clip-left"] {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path var(--sr-duration) cubic-bezier(0.65, 0, 0.35, 1) var(--sr-delay);
+}
+[data-sr="clip-left"].sr-visible {
+  clip-path: inset(0 0 0 0);
+}
+
+/* CLIP-RIGHT — reveals from right via clip-path */
+[data-sr="clip-right"] {
+  clip-path: inset(0 0 0 100%);
+  transition: clip-path var(--sr-duration) cubic-bezier(0.65, 0, 0.35, 1) var(--sr-delay);
+}
+[data-sr="clip-right"].sr-visible {
+  clip-path: inset(0 0 0 0);
+}
+
+/* FADE — simple elegant fade */
+[data-sr="fade"] {
+  opacity: 0;
+  transition: opacity var(--sr-duration) var(--sr-ease) var(--sr-delay);
+}
+[data-sr="fade"].sr-visible {
+  opacity: 1;
+}
+
+/* TILT-UP — 3D tilt from below (like unfolding a card) */
+[data-sr="tilt-up"] {
+  opacity: 0;
+  transform: perspective(1200px) rotateX(var(--sr-rot)) translateY(calc(var(--sr-dist) * 0.5)) scale(var(--sr-scale));
+  transform-origin: 50% 100%;
+  transition: 
+    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+    transform var(--sr-duration) var(--sr-ease) var(--sr-delay);
+}
+[data-sr="tilt-up"].sr-visible {
+  opacity: 1;
+  transform: perspective(1200px) rotateX(0deg) translateY(0) scale(1);
+}
+
+/* =============================================
+   LEGACY SUPPORT — keep old class names working
+   ============================================= */
 
 .scroll-reveal {
   opacity: 0;

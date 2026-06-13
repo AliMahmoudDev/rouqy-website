@@ -1,8 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import { useRef, useEffect, useState } from 'react';
 import { ArrowUpRight, MapPin, Maximize2 } from 'lucide-react';
+import { useRef, useState, useEffect } from 'react';
+import useScrollReveal from '@/hooks/useScrollReveal';
 
 const projects = [
   {
@@ -98,40 +99,10 @@ function AnimatedCounter({ target, suffix = '', duration = 2000 }: { target: num
 }
 
 export default function PortfolioSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
-  const [visibleElements, setVisibleElements] = useState<Set<string>>(new Set());
-
-  /* Intersection Observer for scroll-triggered CSS animations */
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisibleElements((prev) => new Set(prev).add(entry.target.id));
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
-    );
-
-    const elements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale, .scroll-reveal-clip, .stagger-children, .card-3d-enter-left, .card-3d-enter-right, .card-3d-enter-bottom, .card-3d-enter-up');
-    elements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
-
-  /* Apply revealed class when element becomes visible */
-  useEffect(() => {
-    const elements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale, .scroll-reveal-clip, .stagger-children, .card-3d-enter-left, .card-3d-enter-right, .card-3d-enter-bottom, .card-3d-enter-up');
-    elements.forEach((el) => {
-      if (visibleElements.has(el.id)) {
-        el.classList.add('revealed');
-      }
-    });
-  }, [visibleElements]);
+  const sectionRef = useScrollReveal<HTMLElement>({
+    threshold: 0.08,
+    rootMargin: '0px 0px -40px 0px',
+  });
 
   return (
     <section
@@ -186,7 +157,7 @@ export default function PortfolioSection() {
       <div className="absolute top-20 right-[15%] w-[1px] h-32 decorative-line-vertical opacity-20 animate-float-rotate" style={{ animationDelay: '1s' }} />
 
       {/* ====== MARQUEE TEXT STRIP ====== */}
-      <div className="marquee-strip mb-20 py-6 border-y border-[#2D3A4D]/30">
+      <div data-sr="clip-up" data-sr-duration="slow" className="marquee-strip mb-20 py-6 border-y border-[#2D3A4D]/30">
         <div className="marquee-content">
           {[...Array(3)].map((_, setIdx) => (
             <span key={setIdx} className="inline-flex items-center gap-8 mx-8">
@@ -202,9 +173,9 @@ export default function PortfolioSection() {
       </div>
 
       <div className="max-w-[1400px] mx-auto relative">
-        {/* === Section Header === */}
-        <div ref={headerRef} id="portfolio-header" className="mb-20 md:mb-28 scroll-reveal">
-          <div className="flex items-center gap-6 mb-6">
+        {/* === Section Header — organized staggered entrance === */}
+        <div className="mb-20 md:mb-28">
+          <div data-sr="left" data-sr-delay="1" data-sr-duration="slow" className="flex items-center gap-6 mb-6">
             <div className="w-12 h-[1px] bg-[#25A2DC]" style={{ animation: 'line-draw 0.8s cubic-bezier(0.65, 0.05, 0, 1) forwards' }} />
             <p className="text-[#25A2DC] text-xs tracking-[0.5em] uppercase font-light">
               Portfolio
@@ -212,32 +183,34 @@ export default function PortfolioSection() {
           </div>
 
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[0.95]">
+            <h2 data-sr="up" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="far" className="text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[0.95]">
               Selected<br />
               <span className="animate-text-gradient">Works</span>
             </h2>
-            <p className="text-[#A0AEC0]/60 text-sm tracking-wider max-w-xs leading-relaxed">
+            <p data-sr="right" data-sr-delay="5" data-sr-duration="slow" className="text-[#A0AEC0]/60 text-sm tracking-wider max-w-xs leading-relaxed">
               Each project is a testament to our commitment to crafting spaces that transcend the ordinary.
             </p>
           </div>
 
           {/* Animated gold line */}
           <div
+            data-sr="clip-left"
+            data-sr-delay="6"
+            data-sr-duration="slow"
             className="mt-8 h-[1px]"
             style={{
               background: 'linear-gradient(90deg, #D4AF37, #25A2DC, transparent)',
-              animation: 'line-draw 1.5s cubic-bezier(0.65, 0.05, 0, 1) forwards 0.4s',
-              width: '0%',
+              width: '100%',
             }}
           />
         </div>
 
-        {/* === PROJECT GRID — 3D Entrance Animations === */}
-        <div ref={gridRef} id="portfolio-grid" className="stagger-children">
+        {/* === PROJECT GRID — varied animation directions per row === */}
+        <div>
           {/* First row: Large hero project + tall project */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 mb-4 md:mb-5">
-            {/* Hero project — FLIES IN FROM LEFT with 3D rotation */}
-            <div id="card-1" className="md:col-span-8 card-3d-enter-left" style={{ perspective: '1200px' }}>
+            {/* Hero project — ROTATES IN FROM LEFT */}
+            <div data-sr="rotate-left" data-sr-delay="2" data-sr-duration="grand" data-sr-distance="far" className="md:col-span-8" style={{ perspective: '1200px' }}>
               <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '16/9' }}>
                 <div className="relative w-full h-full overflow-hidden">
                   <Image
@@ -281,8 +254,8 @@ export default function PortfolioSection() {
               </div>
             </div>
 
-            {/* Tall project — FLIES IN FROM RIGHT with 3D rotation */}
-            <div id="card-2" className="md:col-span-4 card-3d-enter-right" style={{ perspective: '1200px' }}>
+            {/* Tall project — ROTATES IN FROM RIGHT */}
+            <div data-sr="rotate-right" data-sr-delay="4" data-sr-duration="grand" data-sr-distance="far" className="md:col-span-4" style={{ perspective: '1200px' }}>
               <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '3/4' }}>
                 <div className="relative w-full h-full overflow-hidden">
                   <Image
@@ -321,13 +294,15 @@ export default function PortfolioSection() {
             </div>
           </div>
 
-          {/* Second row: 3 equal cards — alternating from left/right */}
+          {/* Second row: 3 equal cards — alternating left/right with blur */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-4 md:mb-5">
             {projects.slice(2, 5).map((project, index) => (
               <div
                 key={project.title}
-                id={`card-${index + 3}`}
-                className={index % 2 === 0 ? 'card-3d-enter-left' : 'card-3d-enter-right'}
+                data-sr={index % 2 === 0 ? 'rotate-left' : 'rotate-right'}
+                data-sr-delay={String(index * 2 + 3)}
+                data-sr-duration="grand"
+                data-sr-distance="normal"
                 style={{ perspective: '1200px' }}
               >
                 <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '4/5' }}>
@@ -374,8 +349,8 @@ export default function PortfolioSection() {
             ))}
           </div>
 
-          {/* Third row: Full-width — RISES UP with 3D tilt */}
-          <div id="card-6" className="card-3d-enter-bottom" style={{ perspective: '1200px' }}>
+          {/* Third row: Full-width — TILTS UP from below */}
+          <div data-sr="tilt-up" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="normal" style={{ perspective: '1200px' }}>
             <div className="portfolio-card group relative cursor-pointer mb-4 md:mb-5" style={{ aspectRatio: '21/9' }}>
               <div className="relative w-full h-full overflow-hidden">
                 <Image
@@ -420,8 +395,8 @@ export default function PortfolioSection() {
           </div>
         </div>
 
-        {/* === Animated Stats Bar === */}
-        <div ref={statsRef} id="portfolio-stats" className="mt-16 md:mt-24 pt-8 border-t border-[#2D3A4D] scroll-reveal">
+        {/* === Animated Stats Bar — blur in === */}
+        <div data-sr="blur" data-sr-delay="2" data-sr-duration="grand" className="mt-16 md:mt-24 pt-8 border-t border-[#2D3A4D]">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {[
               { value: 200, suffix: '+', label: 'Projects Completed' },
@@ -429,7 +404,7 @@ export default function PortfolioSection() {
               { value: 25, suffix: '+', label: 'Years Experience' },
               { value: 98, suffix: '%', label: 'Client Satisfaction' },
             ].map((stat, i) => (
-              <div key={stat.label} className="text-center md:text-left group">
+              <div key={stat.label} data-sr="up" data-sr-delay={String(i * 2 + 1)} data-sr-duration="slow" data-sr-distance="near" className="text-center md:text-left group">
                 <p className="text-3xl md:text-5xl font-bold text-white tracking-tight transition-colors duration-300 group-hover:text-[#25A2DC]">
                   <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                 </p>
@@ -444,7 +419,7 @@ export default function PortfolioSection() {
       </div>
 
       {/* ====== SECOND MARQUEE - Reverse direction ====== */}
-      <div className="marquee-strip mt-20 py-6 border-y border-[#2D3A4D]/30">
+      <div data-sr="clip-up" data-sr-delay="3" data-sr-duration="slow" className="marquee-strip mt-20 py-6 border-y border-[#2D3A4D]/30">
         <div className="marquee-content" style={{ animationDirection: 'reverse' }}>
           {[...Array(3)].map((_, setIdx) => (
             <span key={setIdx} className="inline-flex items-center gap-12 mx-10">

@@ -1,10 +1,11 @@
 'use client';
 
 import { Instagram, Mail, Send, ArrowUpRight } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import useScrollReveal from '@/hooks/useScrollReveal';
 
 const budgetRanges = [
   '$50K - $100K',
@@ -16,26 +17,10 @@ const budgetRanges = [
 export default function ContactSection() {
   const [selectedBudget, setSelectedBudget] = useState<string>('');
   const [formState, setFormState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
-  const sectionRef = useRef<HTMLElement>(null);
-
-  /* CSS scroll-triggered animations via IntersectionObserver */
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
-    );
-
-    const elements = sectionRef.current?.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .stagger-children');
-    elements?.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
+  const sectionRef = useScrollReveal<HTMLElement>({
+    threshold: 0.08,
+    rootMargin: '0px 0px -40px 0px',
+  });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -130,20 +115,20 @@ export default function ContactSection() {
       />
 
       <div className="max-w-7xl mx-auto relative">
-        {/* Section Header */}
-        <div id="contact-header" className="mb-16 md:mb-20 scroll-reveal">
-          <p className="text-[#25A2DC] text-sm tracking-[0.4em] uppercase mb-4">Contact</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
+        {/* Section Header — elegant left entrance */}
+        <div className="mb-16 md:mb-20">
+          <p data-sr="left" data-sr-delay="1" data-sr-duration="slow" className="text-[#25A2DC] text-sm tracking-[0.4em] uppercase mb-4">Contact</p>
+          <h2 data-sr="up" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="far" className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
             Let&apos;s Create <span className="animate-text-gradient">Together</span>
           </h2>
-          <div className="mt-4 w-16 h-[2px] bg-[#25A2DC]" style={{ animation: 'line-draw 0.8s ease forwards' }} />
+          <div data-sr="clip-left" data-sr-delay="5" data-sr-duration="slow" className="mt-4 w-16 h-[2px] bg-[#25A2DC]" />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-          {/* Contact Form */}
-          <div id="contact-form" className="scroll-reveal-left">
+          {/* Contact Form — slides in from left */}
+          <div data-sr="left" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="far">
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
+              <div data-sr="up" data-sr-delay="4" data-sr-duration="slow" data-sr-distance="near" className="space-y-2">
                 <label htmlFor="name" className="text-[#A0AEC0] text-sm tracking-wider uppercase">
                   Name
                 </label>
@@ -156,7 +141,7 @@ export default function ContactSection() {
                 />
               </div>
 
-              <div className="space-y-2">
+              <div data-sr="up" data-sr-delay="5" data-sr-duration="slow" data-sr-distance="near" className="space-y-2">
                 <label htmlFor="email" className="text-[#A0AEC0] text-sm tracking-wider uppercase">
                   Email
                 </label>
@@ -170,7 +155,7 @@ export default function ContactSection() {
                 />
               </div>
 
-              <div className="space-y-2">
+              <div data-sr="up" data-sr-delay="6" data-sr-duration="slow" data-sr-distance="near" className="space-y-2">
                 <label className="text-[#A0AEC0] text-sm tracking-wider uppercase">
                   Budget Range
                 </label>
@@ -192,7 +177,7 @@ export default function ContactSection() {
                 </div>
               </div>
 
-              <div className="space-y-2">
+              <div data-sr="up" data-sr-delay="7" data-sr-duration="slow" data-sr-distance="near" className="space-y-2">
                 <label htmlFor="message" className="text-[#A0AEC0] text-sm tracking-wider uppercase">
                   Message
                 </label>
@@ -206,14 +191,16 @@ export default function ContactSection() {
                 />
               </div>
 
-              <Button
-                type="submit"
-                disabled={formState === 'sending'}
-                className="group w-full md:w-auto bg-[#25A2DC] hover:bg-[#1B8BBE] text-white tracking-widest uppercase text-sm h-12 px-10 rounded-none border border-[#25A2DC] hover:border-[#1B8BBE] transition-all duration-300 hover:shadow-[0_0_30px_rgba(37,162,220,0.3)] flex items-center gap-3"
-              >
-                {formState === 'sending' ? 'Sending...' : formState === 'sent' ? 'Message Sent!' : 'Send Message'}
-                <Send className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Button>
+              <div data-sr="up" data-sr-delay="8" data-sr-duration="slow" data-sr-distance="near">
+                <Button
+                  type="submit"
+                  disabled={formState === 'sending'}
+                  className="group w-full md:w-auto bg-[#25A2DC] hover:bg-[#1B8BBE] text-white tracking-widest uppercase text-sm h-12 px-10 rounded-none border border-[#25A2DC] hover:border-[#1B8BBE] transition-all duration-300 hover:shadow-[0_0_30px_rgba(37,162,220,0.3)] flex items-center gap-3"
+                >
+                  {formState === 'sending' ? 'Sending...' : formState === 'sent' ? 'Message Sent!' : 'Send Message'}
+                  <Send className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </Button>
+              </div>
 
               {formState === 'sent' && (
                 <p className="text-[#25A2DC] text-sm mt-2" style={{ animation: 'fade-in-up 0.5s ease forwards' }}>
@@ -228,8 +215,8 @@ export default function ContactSection() {
             </form>
           </div>
 
-          {/* Contact Info */}
-          <div id="contact-info" className="space-y-10 scroll-reveal-right">
+          {/* Contact Info — slides in from right */}
+          <div data-sr="right" data-sr-delay="4" data-sr-duration="grand" data-sr-distance="far" className="space-y-10">
             {/* Stats */}
             <div className="grid grid-cols-2 gap-8">
               {[
@@ -238,7 +225,7 @@ export default function ContactSection() {
                 { value: '24h', label: 'Response Time' },
                 { value: '580+', label: 'Sq Meters Largest Project' },
               ].map((stat, i) => (
-                <div key={stat.label} className="group cursor-default">
+                <div key={stat.label} data-sr="up" data-sr-delay={String(i * 2 + 4)} data-sr-duration="slow" data-sr-distance="near" className="group cursor-default">
                   <p className="text-3xl md:text-4xl font-bold text-white tracking-tight transition-colors duration-300 group-hover:text-[#25A2DC]">
                     {stat.value}
                   </p>
@@ -249,7 +236,7 @@ export default function ContactSection() {
             </div>
 
             {/* Divider with animation */}
-            <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#2D3A4D] to-transparent" style={{ animation: 'line-draw 1s ease forwards' }} />
+            <div data-sr="clip-left" data-sr-delay="8" data-sr-duration="slow" className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#2D3A4D] to-transparent" />
 
             {/* Contact Links */}
             <div className="space-y-6">
@@ -257,6 +244,10 @@ export default function ContactSection() {
                 href="https://www.instagram.com/harmens.design/"
                 target="_blank"
                 rel="noopener noreferrer"
+                data-sr="right"
+                data-sr-delay="6"
+                data-sr-duration="slow"
+                data-sr-distance="near"
                 className="group flex items-center gap-4 text-white hover:text-[#25A2DC] transition-colors duration-300"
               >
                 <div className="w-12 h-12 border border-[#2D3A4D] group-hover:border-[#25A2DC] group-hover:shadow-[0_0_15px_rgba(37,162,220,0.2)] flex items-center justify-center transition-all duration-300">
@@ -271,6 +262,10 @@ export default function ContactSection() {
 
               <a
                 href="mailto:info@harmensdesign.com"
+                data-sr="right"
+                data-sr-delay="7"
+                data-sr-duration="slow"
+                data-sr-distance="near"
                 className="group flex items-center gap-4 text-white hover:text-[#25A2DC] transition-colors duration-300"
               >
                 <div className="w-12 h-12 border border-[#2D3A4D] group-hover:border-[#25A2DC] group-hover:shadow-[0_0_15px_rgba(37,162,220,0.2)] flex items-center justify-center transition-all duration-300">
@@ -287,8 +282,8 @@ export default function ContactSection() {
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="mt-24 md:mt-32 pt-8 border-t border-[#2D3A4D]">
+      {/* Footer — blur in */}
+      <div data-sr="blur" data-sr-delay="3" data-sr-duration="grand" className="mt-24 md:mt-32 pt-8 border-t border-[#2D3A4D]">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-[#A0AEC0] text-sm">
           <p className="tracking-wider">&copy; {new Date().getFullYear()} HARMENS. All rights reserved.</p>
           <div className="flex items-center gap-6">
