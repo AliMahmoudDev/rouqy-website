@@ -101,3 +101,32 @@ Stage Summary:
 - Videos replaced with images = significantly less GPU usage
 - Particle counts reduced by ~40% across Hero and Scene3D
 - The 3D card entrances will be immediately noticeable to the client
+
+---
+Task ID: 1
+Agent: main
+Task: Navbar logo bigger, hero video background, extended 7s intro animation, remove CardTilt3D
+
+Work Log:
+- Increased navbar logo from w-12/h-12 to w-16/h-16 (48px → 64px) and nav height from h-16 to h-20
+- Enhanced logo glow effect (drop-shadow stronger, hover glow bigger)
+- Replaced hero background Unsplash image with <video> element using /videos/hero-bg.mp4
+- Video configured: autoPlay, muted, loop, playsInline, opacity 0.18
+- Completely rewrote IntroAnimation.tsx from v5 (~5s) to v6 (~7s) with new phase structure
+- Added Phase 5 "hold" (4.4s-5.2s) — all elements breathe together with CSS animations
+- Added Phase 6 "pulse" (5.2s-6.0s) — grand reveal explosion
+- Extended Phase 7 "fade" (6.0s-7.0s) — cinematic bars open + smooth fade
+- Added 9 new CSS keyframes: letter-float, intro-glow-breathe, intro-blue-breathe, intro-logo-breathe, intro-diamond-rotate, intro-diamond-spin, intro-geo-line, intro-corner-fade, intro-text-shimmer
+- Added rotating diamond grid pattern during hold phase
+- Added geometric decorative lines and corner accents during hold
+- Added 60 ambient particles (up from 50) and 80 burst particles (up from 60)
+- Added 8 geometric lines for hold phase decoration
+- Removed CardTilt3D.tsx component (was unused)
+- Build passed successfully
+
+Stage Summary:
+- Navbar logo is now 64px with stronger golden glow
+- Hero section uses /videos/hero-bg.mp4 as background video
+- Intro animation is now 7 seconds with 7 phases including a "hold" breathing phase
+- All new animations are pure CSS (no extra JS overhead) to minimize lag
+- CardTilt3D removed from codebase

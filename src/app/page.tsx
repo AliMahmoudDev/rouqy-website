@@ -60,27 +60,27 @@ export default function Home() {
             transform: showContent ? 'translateY(0)' : 'translateY(-100%)',
           }}
         >
-          <div className="max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
             {/* Logo */}
             <a href="#hero" className="flex items-center gap-3 group">
-              <div className="relative w-12 h-12 group-hover:scale-110 transition-transform duration-300">
+              <div className="relative w-16 h-16 group-hover:scale-110 transition-transform duration-300">
                 <Image
                   src="/harmens-logo-tran.png"
                   alt="HARMENS"
-                  width={48}
-                  height={48}
+                  width={64}
+                  height={64}
                   className="w-full h-full object-contain"
                   style={{
-                    filter: 'drop-shadow(0 0 12px rgba(212,175,55,0.3))',
+                    filter: 'drop-shadow(0 0 16px rgba(212,175,55,0.4))',
                   }}
                   priority
                 />
                 {/* Glow on hover */}
                 <div
-                  className="absolute inset-[-4px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute inset-[-6px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   style={{
-                    background: 'radial-gradient(circle, rgba(212,175,55,0.25) 0%, transparent 70%)',
-                    filter: 'blur(12px)',
+                    background: 'radial-gradient(circle, rgba(212,175,55,0.3) 0%, transparent 70%)',
+                    filter: 'blur(14px)',
                   }}
                 />
               </div>

@@ -26,16 +26,17 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$imag
 ;
 ;
 /**
- * 🎬 HARMENS Cinematic Intro v5.0 — "The Grand Architectural Reveal"
+ * 🎬 HARMENS Cinematic Intro v6.0 — "The Grand Architectural Reveal"
  *
- * A stunning ~5-second cinematic loading experience:
+ * A stunning ~7-second cinematic loading experience:
  *
- * Phase 1 (0-0.6s):   Cinematic bars close + golden crosshair lines sweep + expanding rings
- * Phase 2 (0.6-1.8s): HARMENS letters converge from scattered dust with 3D rotation
- * Phase 3 (1.8-2.6s): Logo crystallizes from golden energy + orbit ring + lens flare
- * Phase 4 (2.6-3.6s): Arabic + English subtitle materialize with golden shimmer
- * Phase 5 (3.6-4.2s): Grand reveal — golden pulse explosion + particle burst
- * Phase 6 (4.2-5s):   Cinematic bars open + smooth fade → site emerges
+ * Phase 1 (0-0.8s):     Cinematic bars close + golden crosshair lines sweep + expanding rings
+ * Phase 2 (0.8-2.2s):   HARMENS letters converge from scattered dust with 3D rotation
+ * Phase 3 (2.2-3.2s):   Logo crystallizes from golden energy + orbit ring + lens flare
+ * Phase 4 (3.2-4.4s):   Arabic + English subtitle materialize with golden shimmer
+ * Phase 5 (4.4-5.2s):   Elegant hold — all elements breathe together with subtle animations
+ * Phase 6 (5.2-6.0s):   Grand reveal — golden pulse explosion + particle burst
+ * Phase 7 (6.0-7.0s):   Cinematic bars open + smooth fade → site emerges
  */ // Deterministic pseudo-random function for SSR consistency
 function seededRandom(seed) {
     const x = Math.sin(seed * 127.1 + 311.7) * 43758.5453;
@@ -56,15 +57,17 @@ function IntroAnimation({ onComplete }) {
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         if (!mounted) return;
         const timers = [];
-        timers.push(setTimeout(()=>setPhase('letters'), 600));
-        timers.push(setTimeout(()=>setPhase('logo'), 1800));
-        timers.push(setTimeout(()=>setPhase('subtitle'), 2600));
-        timers.push(setTimeout(()=>setPhase('pulse'), 3600));
-        timers.push(setTimeout(()=>setPhase('fade'), 4200));
+        // Extended 7-second timeline with more phases for smoother pacing
+        timers.push(setTimeout(()=>setPhase('letters'), 800)); // Phase 2 at 0.8s
+        timers.push(setTimeout(()=>setPhase('logo'), 2200)); // Phase 3 at 2.2s
+        timers.push(setTimeout(()=>setPhase('subtitle'), 3200)); // Phase 4 at 3.2s
+        timers.push(setTimeout(()=>setPhase('hold'), 4400)); // Phase 5 at 4.4s — breathe
+        timers.push(setTimeout(()=>setPhase('pulse'), 5200)); // Phase 6 at 5.2s — explosion
+        timers.push(setTimeout(()=>setPhase('fade'), 6000)); // Phase 7 at 6.0s — fade out
         timers.push(setTimeout(()=>{
             setPhase('done');
             onCompleteStable();
-        }, 5000));
+        }, 7000)); // Complete at 7s
         return ()=>timers.forEach(clearTimeout);
     }, [
         mounted,
@@ -85,22 +88,22 @@ function IntroAnimation({ onComplete }) {
             })), []);
     // Deterministic ambient particles
     const ambientParticles = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>Array.from({
-            length: 50
+            length: 60
         }).map((_, i)=>({
                 startX: seededRandom(i * 11 + 100) * 100,
                 startY: seededRandom(i * 17 + 200) * 100,
                 size: 1 + seededRandom(i * 23 + 300) * 2.5,
-                duration: 3 + seededRandom(i * 29 + 400) * 4,
+                duration: 3 + seededRandom(i * 29 + 400) * 5,
                 delay: seededRandom(i * 31 + 500) * 2,
                 isGold: i % 3 === 0,
                 isWhite: i % 5 === 0
             })), []);
     // Deterministic burst particles for pulse phase
     const burstParticles = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>Array.from({
-            length: 60
+            length: 80
         }).map((_, i)=>{
-            const angle = i / 60 * Math.PI * 2;
-            const distance = 150 + seededRandom(i * 37 + 600) * 500;
+            const angle = i / 80 * Math.PI * 2;
+            const distance = 150 + seededRandom(i * 37 + 600) * 600;
             const isGold = i % 2 === 0;
             const isWhite = i % 5 === 0;
             return {
@@ -112,16 +115,49 @@ function IntroAnimation({ onComplete }) {
                 delay: seededRandom(i * 43 + 800) * 0.3
             };
         }), []);
+    // Decorative geometric lines that appear during hold phase
+    const geoLines = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>Array.from({
+            length: 8
+        }).map((_, i)=>({
+                angle: seededRandom(i * 47 + 900) * 360,
+                length: 60 + seededRandom(i * 53 + 1000) * 120,
+                startX: 30 + seededRandom(i * 59 + 1100) * 40,
+                startY: 30 + seededRandom(i * 61 + 1200) * 40,
+                delay: seededRandom(i * 67 + 1300) * 0.5,
+                isGold: i % 2 === 0
+            })), []);
     const isFading = phase === 'fade';
     const isPostPulse = phase === 'pulse' || phase === 'fade';
     const isSweep = phase === 'sweep';
+    const isHold = phase === 'hold';
+    // Calculate progress percentage for the progress bar
+    const getProgress = ()=>{
+        switch(phase){
+            case 'sweep':
+                return 0;
+            case 'letters':
+                return 15;
+            case 'logo':
+                return 35;
+            case 'subtitle':
+                return 55;
+            case 'hold':
+                return 75;
+            case 'pulse':
+                return 90;
+            case 'fade':
+                return 100;
+            default:
+                return 0;
+        }
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden",
         style: {
             background: '#050810',
             opacity: isFading ? 0 : 1,
             filter: isFading ? 'blur(12px)' : 'blur(0px)',
-            transition: 'all 0.8s cubic-bezier(0.65, 0.05, 0, 1)',
+            transition: 'all 1s cubic-bezier(0.65, 0.05, 0, 1)',
             boxShadow: 'inset 0 0 150px rgba(0,0,0,0.8)',
             animation: !isFading ? 'vignette-pulse-intro 5s ease-in-out infinite' : 'none'
         },
@@ -130,29 +166,29 @@ function IntroAnimation({ onComplete }) {
                 className: "absolute top-0 left-0 right-0 z-30 bg-black",
                 style: {
                     height: isFading ? 0 : '8vh',
-                    animation: isFading ? 'cinematic-bar-out 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards' : 'cinematic-bar-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+                    animation: isFading ? 'cinematic-bar-out 1s cubic-bezier(0.16, 1, 0.3, 1) forwards' : 'cinematic-bar-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards'
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                lineNumber: 122,
+                lineNumber: 154,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute bottom-0 left-0 right-0 z-30 bg-black",
                 style: {
                     height: isFading ? 0 : '8vh',
-                    animation: isFading ? 'cinematic-bar-out 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards' : 'cinematic-bar-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+                    animation: isFading ? 'cinematic-bar-out 1s cubic-bezier(0.16, 1, 0.3, 1) forwards' : 'cinematic-bar-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards'
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                lineNumber: 132,
+                lineNumber: 164,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "noise-overlay absolute inset-0 pointer-events-none z-0 opacity-[0.03]"
             }, void 0, false, {
                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                lineNumber: 145,
+                lineNumber: 177,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -162,10 +198,73 @@ function IntroAnimation({ onComplete }) {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                lineNumber: 148,
+                lineNumber: 180,
                 columnNumber: 7
             }, this),
-            (phase === 'logo' || phase === 'subtitle') && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            isHold && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "absolute inset-0 z-[1] pointer-events-none",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        style: {
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            width: '600px',
+                            height: '600px',
+                            marginTop: '-300px',
+                            marginLeft: '-300px',
+                            border: '1px solid rgba(212,175,55,0.04)',
+                            transform: 'rotate(45deg)',
+                            animation: 'intro-diamond-rotate 8s linear infinite'
+                        }
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/IntroAnimation.tsx",
+                        lineNumber: 191,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        style: {
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            width: '450px',
+                            height: '450px',
+                            marginTop: '-225px',
+                            marginLeft: '-225px',
+                            border: '1px solid rgba(37,162,220,0.03)',
+                            transform: 'rotate(45deg)',
+                            animation: 'intro-diamond-rotate 12s linear infinite reverse'
+                        }
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/IntroAnimation.tsx",
+                        lineNumber: 205,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        style: {
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            width: '300px',
+                            height: '300px',
+                            marginTop: '-150px',
+                            marginLeft: '-150px',
+                            border: '1px solid rgba(212,175,55,0.05)',
+                            transform: 'rotate(45deg)',
+                            animation: 'intro-diamond-rotate 6s linear infinite'
+                        }
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/IntroAnimation.tsx",
+                        lineNumber: 219,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/components/IntroAnimation.tsx",
+                lineNumber: 189,
+                columnNumber: 9
+            }, this),
+            (phase === 'logo' || phase === 'subtitle' || phase === 'hold') && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute z-20 pointer-events-none",
                 style: {
                     top: '45%',
@@ -173,11 +272,13 @@ function IntroAnimation({ onComplete }) {
                     height: '2px',
                     background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.15), rgba(255,255,255,0.3), rgba(212,175,55,0.15), transparent)',
                     filter: 'blur(2px)',
-                    animation: 'lens-flare 2s ease-in-out forwards'
+                    animation: 'lens-flare 3s ease-in-out forwards',
+                    opacity: isHold ? 0.5 : 1,
+                    transition: 'opacity 0.8s ease'
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                lineNumber: 157,
+                lineNumber: 238,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -188,13 +289,14 @@ function IntroAnimation({ onComplete }) {
                     borderRadius: '50%',
                     background: 'radial-gradient(circle, rgba(212,175,55,0.4) 0%, rgba(212,175,55,0.1) 35%, transparent 60%)',
                     filter: 'blur(80px)',
-                    opacity: isSweep ? 0 : phase === 'pulse' ? 1 : isFading ? 0 : 0.7,
-                    transform: isSweep ? 'scale(0)' : phase === 'pulse' ? 'scale(3.5)' : isFading ? 'scale(4)' : 'scale(1.5)',
-                    transition: 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)'
+                    opacity: isSweep ? 0 : isHold ? 0.8 : phase === 'pulse' ? 1 : isFading ? 0 : 0.7,
+                    transform: isSweep ? 'scale(0)' : isHold ? 'scale(1.8)' : phase === 'pulse' ? 'scale(3.5)' : isFading ? 'scale(4)' : 'scale(1.5)',
+                    transition: 'all 1.5s cubic-bezier(0.16, 1, 0.3, 1)',
+                    animation: isHold ? 'intro-glow-breathe 2s ease-in-out infinite' : 'none'
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                lineNumber: 171,
+                lineNumber: 254,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -205,13 +307,14 @@ function IntroAnimation({ onComplete }) {
                     borderRadius: '50%',
                     background: 'radial-gradient(ellipse, rgba(37,162,220,0.1) 0%, transparent 60%)',
                     filter: 'blur(100px)',
-                    opacity: isSweep ? 0 : isFading ? 0 : 0.5,
-                    transform: phase === 'pulse' ? 'scale(3)' : 'scale(1)',
-                    transition: 'all 1.2s ease-out'
+                    opacity: isSweep ? 0 : isFading ? 0 : isHold ? 0.6 : 0.5,
+                    transform: isHold ? 'scale(1.2)' : phase === 'pulse' ? 'scale(3)' : 'scale(1)',
+                    transition: 'all 1.5s ease-out',
+                    animation: isHold ? 'intro-blue-breathe 3s ease-in-out infinite' : 'none'
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                lineNumber: 192,
+                lineNumber: 278,
                 columnNumber: 7
             }, this),
             mounted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -225,18 +328,18 @@ function IntroAnimation({ onComplete }) {
                             boxShadow: p.isGold ? '0 0 8px rgba(212,175,55,0.5)' : p.isWhite ? '0 0 6px rgba(255,255,255,0.4)' : '0 0 5px rgba(37,162,220,0.3)',
                             left: `${p.startX}%`,
                             top: `${p.startY}%`,
-                            opacity: isSweep ? 0 : isFading ? 0 : 0.6,
+                            opacity: isSweep ? 0 : isFading ? 0 : isHold ? 0.8 : 0.6,
                             animation: !isSweep && !isFading ? `particle-rise ${p.duration}s linear infinite ${p.delay}s` : 'none',
-                            transition: 'opacity 0.5s ease'
+                            transition: 'opacity 0.8s ease'
                         }
                     }, `ambient-${i}`, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 210,
+                        lineNumber: 297,
                         columnNumber: 13
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                lineNumber: 208,
+                lineNumber: 295,
                 columnNumber: 9
             }, this),
             isSweep && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -250,11 +353,11 @@ function IntroAnimation({ onComplete }) {
                             height: '1px',
                             background: 'linear-gradient(90deg, transparent 0%, #D4AF37 20%, #FFFFFF 50%, #D4AF37 80%, transparent 100%)',
                             boxShadow: '0 0 20px rgba(212,175,55,0.6), 0 0 60px rgba(212,175,55,0.3)',
-                            animation: 'intro-line-sweep 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+                            animation: 'intro-line-sweep 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards'
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 237,
+                        lineNumber: 324,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -266,12 +369,12 @@ function IntroAnimation({ onComplete }) {
                             width: '1px',
                             background: 'linear-gradient(180deg, transparent 0%, rgba(37,162,220,0.3) 30%, rgba(37,162,220,0.6) 50%, rgba(37,162,220,0.3) 70%, transparent 100%)',
                             boxShadow: '0 0 15px rgba(37,162,220,0.4)',
-                            animation: 'intro-line-sweep-v 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards',
+                            animation: 'intro-line-sweep-v 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards',
                             opacity: 0
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 250,
+                        lineNumber: 337,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -285,18 +388,19 @@ function IntroAnimation({ onComplete }) {
                             background: '#D4AF37',
                             boxShadow: '0 0 20px rgba(212,175,55,0.8), 0 0 40px rgba(212,175,55,0.4)',
                             transform: 'translate(-50%, -50%)',
-                            animation: 'intro-dot-pulse 0.5s ease-out 0.2s forwards',
+                            animation: 'intro-dot-pulse 0.6s ease-out 0.2s forwards',
                             opacity: 0
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 264,
+                        lineNumber: 351,
                         columnNumber: 11
                     }, this),
                     [
                         0,
                         1,
-                        2
+                        2,
+                        3
                     ].map((i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "absolute rounded-full",
                             style: {
@@ -306,13 +410,13 @@ function IntroAnimation({ onComplete }) {
                                 height: 30,
                                 marginTop: -15,
                                 marginLeft: -15,
-                                border: `1px solid rgba(212,175,55,${0.35 - i * 0.08})`,
-                                animation: `intro-ring-expand 0.6s ease-out ${0.2 + i * 0.12}s forwards`,
+                                border: `1px solid rgba(212,175,55,${0.35 - i * 0.06})`,
+                                animation: `intro-ring-expand 0.8s ease-out ${0.2 + i * 0.15}s forwards`,
                                 opacity: 0
                             }
                         }, `ring-${i}`, false, {
                             fileName: "[project]/src/components/IntroAnimation.tsx",
-                            lineNumber: 281,
+                            lineNumber: 368,
                             columnNumber: 13
                         }, this))
                 ]
@@ -324,31 +428,32 @@ function IntroAnimation({ onComplete }) {
                 },
                 children: brandName.split('').map((letter, index)=>{
                     const offset = letterOffsets[index];
-                    const letterDelay = index * 0.05;
-                    const isLetterVisible = phase === 'letters' || phase === 'logo' || phase === 'subtitle';
+                    const letterDelay = index * 0.06;
+                    const isLetterVisible = phase === 'letters' || phase === 'logo' || phase === 'subtitle' || phase === 'hold';
                     const shouldShow = isLetterVisible || phase === 'pulse';
                     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                         className: "inline-block text-5xl sm:text-7xl md:text-8xl lg:text-[120px] font-bold gpu-accelerated",
                         style: {
                             color: '#FFFFFF',
                             opacity: shouldShow ? 1 : isFading ? 0 : 0,
-                            transform: isSweep ? `translate3d(${offset.x}px, ${offset.y}px, ${offset.z}px) rotateX(${offset.rotateX}deg) rotateY(${offset.rotateY}deg) rotateZ(${offset.rotateZ}deg) scale(0.2)` : isFading ? `translate3d(${offset.x * 0.5}px, ${offset.y * 0.7}px, -200px) rotateX(${offset.rotateX * 0.3}deg) rotateY(${offset.rotateY * 0.3}deg) scale(0)` : `translate3d(0, 0, 0) rotateX(0) rotateY(0) rotateZ(0) scale(1)`,
-                            filter: isSweep ? 'blur(12px) brightness(4)' : phase === 'letters' ? 'blur(0px) brightness(1)' : isFading ? 'blur(6px) brightness(2)' : 'blur(0px) brightness(1)',
+                            transform: isSweep ? `translate3d(${offset.x}px, ${offset.y}px, ${offset.z}px) rotateX(${offset.rotateX}deg) rotateY(${offset.rotateY}deg) rotateZ(${offset.rotateZ}deg) scale(0.2)` : isHold ? `translate3d(0, ${Math.sin(index * 0.8) * 4}px, 0) scale(1.02)` : isFading ? `translate3d(${offset.x * 0.5}px, ${offset.y * 0.7}px, -200px) rotateX(${offset.rotateX * 0.3}deg) rotateY(${offset.rotateY * 0.3}deg) scale(0)` : `translate3d(0, 0, 0) rotateX(0) rotateY(0) rotateZ(0) scale(1)`,
+                            filter: isSweep ? 'blur(12px) brightness(4)' : phase === 'letters' ? 'blur(0px) brightness(1)' : isHold ? 'blur(0px) brightness(1.1)' : isFading ? 'blur(6px) brightness(2)' : 'blur(0px) brightness(1)',
                             textShadow: shouldShow ? '0 0 40px rgba(212,175,55,0.3), 0 0 80px rgba(37,162,220,0.15), 0 0 120px rgba(212,175,55,0.1)' : 'none',
-                            transition: `all ${isFading ? '0.7s' : '0.8s'} cubic-bezier(0.16, 1, 0.3, 1) ${isFading ? index * 0.02 : letterDelay}s`,
+                            transition: `all ${isFading ? '0.8s' : isHold ? '1.5s' : '1s'} cubic-bezier(0.16, 1, 0.3, 1) ${isFading ? index * 0.02 : letterDelay}s`,
                             letterSpacing: '0.02em',
-                            animation: shouldShow && !isFading ? 'letter-glow 3s ease-in-out infinite' : 'none'
+                            animation: shouldShow && !isFading && !isHold ? 'letter-glow 3s ease-in-out infinite' : isHold ? 'letter-float 2s ease-in-out infinite' : 'none',
+                            animationDelay: isHold ? `${index * 0.15}s` : '0s'
                         },
                         children: letter
                     }, `letter-${index}`, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 309,
+                        lineNumber: 396,
                         columnNumber: 13
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                lineNumber: 301,
+                lineNumber: 388,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -356,16 +461,16 @@ function IntroAnimation({ onComplete }) {
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         style: {
-                            width: phase === 'letters' || phase === 'logo' || phase === 'subtitle' ? '40px' : '0px',
+                            width: phase === 'letters' || phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? '40px' : '0px',
                             height: '1px',
                             background: '#D4AF37',
-                            opacity: phase === 'letters' ? 0.5 : phase === 'logo' || phase === 'subtitle' ? 1 : isFading ? 0 : 0,
-                            transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
+                            opacity: phase === 'letters' ? 0.5 : phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 1 : isFading ? 0 : 0,
+                            transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
                             boxShadow: '0 0 8px rgba(212,175,55,0.4)'
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 343,
+                        lineNumber: 435,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -374,56 +479,58 @@ function IntroAnimation({ onComplete }) {
                             height: 6,
                             border: '1px solid #25A2DC',
                             transform: 'rotate(45deg)',
-                            opacity: phase === 'logo' || phase === 'subtitle' ? 1 : isFading ? 0 : 0,
-                            transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s',
-                            boxShadow: '0 0 6px rgba(37,162,220,0.3)'
+                            opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 1 : isFading ? 0 : 0,
+                            transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.4s',
+                            boxShadow: '0 0 6px rgba(37,162,220,0.3)',
+                            animation: isHold ? 'intro-diamond-spin 4s linear infinite' : 'none'
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 353,
+                        lineNumber: 445,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         style: {
-                            width: phase === 'letters' || phase === 'logo' || phase === 'subtitle' ? '40px' : '0px',
+                            width: phase === 'letters' || phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? '40px' : '0px',
                             height: '1px',
                             background: '#25A2DC',
-                            opacity: phase === 'letters' ? 0.5 : phase === 'logo' || phase === 'subtitle' ? 1 : isFading ? 0 : 0,
-                            transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
+                            opacity: phase === 'letters' ? 0.5 : phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 1 : isFading ? 0 : 0,
+                            transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
                             boxShadow: '0 0 8px rgba(37,162,220,0.4)'
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 364,
+                        lineNumber: 457,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                lineNumber: 342,
+                lineNumber: 434,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute z-10 gpu-accelerated",
                 style: {
-                    opacity: phase === 'logo' || phase === 'subtitle' ? 1 : phase === 'pulse' ? 0.7 : isFading ? 0 : 0,
-                    transform: phase === 'logo' ? 'scale(1) translateY(0px)' : phase === 'subtitle' ? 'scale(0.65) translateY(150px)' : phase === 'pulse' ? 'scale(2) translateY(150px)' : isFading ? 'scale(0) translateY(250px)' : 'scale(0) translateY(0px)',
-                    filter: phase === 'logo' ? 'brightness(1.2) blur(0px)' : phase === 'pulse' ? 'brightness(4) blur(8px)' : isFading ? 'brightness(3) blur(12px)' : 'brightness(5) blur(20px)',
-                    transition: 'all 1s cubic-bezier(0.16, 1, 0.3, 1)'
+                    opacity: phase === 'logo' || phase === 'subtitle' ? 1 : phase === 'hold' ? 0.9 : phase === 'pulse' ? 0.7 : isFading ? 0 : 0,
+                    transform: phase === 'logo' ? 'scale(1) translateY(0px)' : phase === 'subtitle' ? 'scale(0.65) translateY(150px)' : phase === 'hold' ? 'scale(0.6) translateY(150px)' : phase === 'pulse' ? 'scale(2) translateY(150px)' : isFading ? 'scale(0) translateY(250px)' : 'scale(0) translateY(0px)',
+                    filter: phase === 'logo' ? 'brightness(1.2) blur(0px)' : isHold ? 'brightness(1.1) blur(0px)' : phase === 'pulse' ? 'brightness(4) blur(8px)' : isFading ? 'brightness(3) blur(12px)' : 'brightness(5) blur(20px)',
+                    transition: 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                    animation: isHold ? 'intro-logo-breathe 3s ease-in-out infinite' : 'none'
                 },
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute inset-0 z-20 pointer-events-none",
                         style: {
-                            opacity: phase === 'logo' ? 1 : 0,
+                            opacity: phase === 'logo' ? 1 : isHold ? 0.5 : 0,
                             background: 'linear-gradient(105deg, transparent 20%, rgba(255,223,100,0.5) 42%, rgba(255,240,180,0.8) 50%, rgba(255,223,100,0.5) 58%, transparent 80%)',
                             backgroundSize: '200% 100%',
-                            animation: phase === 'logo' ? 'shimmer 1.2s ease-in-out' : 'none',
-                            transition: 'opacity 0.3s ease'
+                            animation: phase === 'logo' ? 'shimmer 1.5s ease-in-out' : isHold ? 'shimmer 4s ease-in-out infinite' : 'none',
+                            transition: 'opacity 0.5s ease'
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 401,
+                        lineNumber: 499,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -437,8 +544,8 @@ function IntroAnimation({ onComplete }) {
                             marginLeft: -100,
                             borderRadius: '50%',
                             border: '1px solid rgba(212,175,55,0.15)',
-                            opacity: phase === 'logo' ? 1 : 0,
-                            animation: phase === 'logo' ? 'spin-slow 8s linear infinite' : 'none',
+                            opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 1 : 0,
+                            animation: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 'spin-slow 8s linear infinite' : 'none',
                             transition: 'opacity 0.5s ease'
                         },
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -455,12 +562,12 @@ function IntroAnimation({ onComplete }) {
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/components/IntroAnimation.tsx",
-                            lineNumber: 429,
+                            lineNumber: 527,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 413,
+                        lineNumber: 511,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -475,21 +582,21 @@ function IntroAnimation({ onComplete }) {
                         priority: true
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 444,
+                        lineNumber: 542,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                lineNumber: 377,
+                lineNumber: 470,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "relative z-10 mt-8 flex items-center justify-center",
                 style: {
-                    opacity: phase === 'subtitle' || phase === 'pulse' ? 1 : isFading ? 0 : 0,
+                    opacity: phase === 'subtitle' || phase === 'hold' ? 1 : phase === 'pulse' ? 0.7 : isFading ? 0 : 0,
                     transform: isFading ? 'translateY(-30px) scale(0.8)' : 'translateY(0) scale(1)',
-                    transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+                    transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)'
                 },
                 children: arabicText.split('').map((char, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                         className: "text-lg md:text-2xl",
@@ -498,47 +605,109 @@ function IntroAnimation({ onComplete }) {
                             textShadow: '0 0 15px rgba(212,175,55,0.3), 0 0 30px rgba(212,175,55,0.1)',
                             direction: 'rtl',
                             display: 'inline-block',
-                            opacity: phase === 'subtitle' || phase === 'pulse' ? 1 : 0,
-                            transform: phase === 'subtitle' ? 'translateY(0) scale(1)' : isFading ? 'translateY(-15px) scale(0.5)' : 'translateY(25px) scale(0.7)',
-                            filter: phase === 'subtitle' ? 'blur(0px)' : 'blur(3px)',
-                            transition: `all 0.45s cubic-bezier(0.16, 1, 0.3, 1) ${2.6 + index * 0.025}s`
+                            opacity: phase === 'subtitle' || phase === 'hold' ? 1 : phase === 'pulse' ? 0.5 : 0,
+                            transform: phase === 'subtitle' ? 'translateY(0) scale(1)' : phase === 'hold' ? 'translateY(0) scale(1)' : isFading ? 'translateY(-15px) scale(0.5)' : 'translateY(25px) scale(0.7)',
+                            filter: phase === 'subtitle' || phase === 'hold' ? 'blur(0px)' : 'blur(3px)',
+                            transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${3.2 + index * 0.025}s`,
+                            animation: isHold ? 'intro-text-shimmer 2s ease-in-out infinite' : 'none',
+                            animationDelay: isHold ? `${index * 0.1}s` : '0s'
                         },
                         children: char
                     }, `ar-${index}`, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 467,
+                        lineNumber: 565,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                lineNumber: 458,
+                lineNumber: 556,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "relative z-10 mt-3 flex items-center justify-center",
                 style: {
-                    opacity: phase === 'subtitle' || phase === 'pulse' ? 1 : isFading ? 0 : 0,
-                    transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s'
+                    opacity: phase === 'subtitle' || phase === 'hold' ? 1 : phase === 'pulse' ? 0.5 : isFading ? 0 : 0,
+                    transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s'
                 },
                 children: tagline.split('').map((char, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                         className: "text-[9px] md:text-[11px] tracking-[0.35em] uppercase",
                         style: {
                             color: '#A0AEC0',
                             display: 'inline-block',
-                            opacity: phase === 'subtitle' || phase === 'pulse' ? 0.5 : 0,
-                            transform: phase === 'subtitle' ? 'translateY(0)' : 'translateY(8px)',
-                            transition: `all 0.35s ease ${3.0 + index * 0.012}s`
+                            opacity: phase === 'subtitle' || phase === 'hold' ? 0.6 : phase === 'pulse' ? 0.3 : 0,
+                            transform: phase === 'subtitle' || phase === 'hold' ? 'translateY(0)' : 'translateY(8px)',
+                            transition: `all 0.4s ease ${3.6 + index * 0.012}s`
                         },
                         children: char === ' ' ? '\u00A0' : char
                     }, `tag-${index}`, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 499,
+                        lineNumber: 601,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                lineNumber: 491,
+                lineNumber: 593,
                 columnNumber: 7
+            }, this),
+            isHold && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "absolute inset-0 z-5 pointer-events-none",
+                children: [
+                    geoLines.map((line, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "absolute",
+                            style: {
+                                left: `${line.startX}%`,
+                                top: `${line.startY}%`,
+                                width: `${line.length}px`,
+                                height: '1px',
+                                background: line.isGold ? `linear-gradient(90deg, transparent, rgba(212,175,55,0.15), transparent)` : `linear-gradient(90deg, transparent, rgba(37,162,220,0.1), transparent)`,
+                                transform: `rotate(${line.angle}deg)`,
+                                opacity: 0,
+                                animation: `intro-geo-line 1.5s ease-out ${line.delay}s forwards`
+                            }
+                        }, `geo-${i}`, false, {
+                            fileName: "[project]/src/components/IntroAnimation.tsx",
+                            lineNumber: 621,
+                            columnNumber: 13
+                        }, this)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "absolute",
+                        style: {
+                            top: '20%',
+                            right: '15%',
+                            width: '20px',
+                            height: '20px',
+                            borderTop: '1px solid rgba(212,175,55,0.15)',
+                            borderRight: '1px solid rgba(212,175,55,0.15)',
+                            animation: 'intro-corner-fade 1s ease-out forwards',
+                            opacity: 0
+                        }
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/IntroAnimation.tsx",
+                        lineNumber: 640,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "absolute",
+                        style: {
+                            bottom: '25%',
+                            left: '12%',
+                            width: '20px',
+                            height: '20px',
+                            borderBottom: '1px solid rgba(37,162,220,0.12)',
+                            borderLeft: '1px solid rgba(37,162,220,0.12)',
+                            animation: 'intro-corner-fade 1s ease-out 0.2s forwards',
+                            opacity: 0
+                        }
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/IntroAnimation.tsx",
+                        lineNumber: 653,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/components/IntroAnimation.tsx",
+                lineNumber: 619,
+                columnNumber: 9
             }, this),
             phase === 'pulse' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                 children: [
@@ -547,31 +716,33 @@ function IntroAnimation({ onComplete }) {
                         1,
                         2,
                         3,
-                        4
+                        4,
+                        5
                     ].map((i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "absolute z-5 rounded-full",
                             style: {
-                                border: `1px solid rgba(212, 175, 55, ${0.4 - i * 0.06})`,
-                                animation: `ripple-expand 0.8s ease-out ${i * 0.1}s forwards`
+                                border: `1px solid rgba(212, 175, 55, ${0.4 - i * 0.05})`,
+                                animation: `ripple-expand 1s ease-out ${i * 0.1}s forwards`
                             }
                         }, `pulse-ring-${i}`, false, {
                             fileName: "[project]/src/components/IntroAnimation.tsx",
-                            lineNumber: 520,
+                            lineNumber: 674,
                             columnNumber: 13
                         }, this)),
                     [
                         0,
                         1,
-                        2
+                        2,
+                        3
                     ].map((i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "absolute z-5 rounded-full",
                             style: {
-                                border: `1px solid rgba(37, 162, 220, ${0.2 - i * 0.05})`,
-                                animation: `ripple-expand 1s ease-out ${0.12 + i * 0.12}s forwards`
+                                border: `1px solid rgba(37, 162, 220, ${0.2 - i * 0.04})`,
+                                animation: `ripple-expand 1.2s ease-out ${0.15 + i * 0.12}s forwards`
                             }
                         }, `pulse-blue-${i}`, false, {
                             fileName: "[project]/src/components/IntroAnimation.tsx",
-                            lineNumber: 532,
+                            lineNumber: 686,
                             columnNumber: 13
                         }, this)),
                     burstParticles.map((p, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -583,24 +754,24 @@ function IntroAnimation({ onComplete }) {
                                 boxShadow: p.isWhite ? '0 0 6px rgba(255,255,255,0.6)' : p.isGold ? '0 0 8px rgba(212,175,55,0.8)' : '0 0 6px rgba(37,162,220,0.6)',
                                 left: '50%',
                                 top: '50%',
-                                animation: `particle-drift 1s ease-out ${p.delay}s forwards`,
+                                animation: `particle-drift 1.2s ease-out ${p.delay}s forwards`,
                                 '--drift-x': `${Math.cos(p.angle) * p.distance}px`,
                                 '--drift-y': `${Math.sin(p.angle) * p.distance}px`
                             }
                         }, `explode-${i}`, false, {
                             fileName: "[project]/src/components/IntroAnimation.tsx",
-                            lineNumber: 544,
+                            lineNumber: 698,
                             columnNumber: 13
                         }, this)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute inset-0 z-15 pointer-events-none",
                         style: {
                             background: 'radial-gradient(circle at 50% 50%, rgba(212,175,55,0.35) 0%, transparent 60%)',
-                            animation: 'intro-flash 0.5s ease-out forwards'
+                            animation: 'intro-flash 0.6s ease-out forwards'
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 566,
+                        lineNumber: 720,
                         columnNumber: 11
                     }, this)
                 ]
@@ -621,7 +792,7 @@ function IntroAnimation({ onComplete }) {
                                 children: "Loading Experience"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                                lineNumber: 579,
+                                lineNumber: 733,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -632,18 +803,18 @@ function IntroAnimation({ onComplete }) {
                                     transition: 'opacity 0.3s ease'
                                 },
                                 children: [
-                                    isSweep ? '0' : phase === 'letters' ? '25' : phase === 'logo' ? '50' : phase === 'subtitle' ? '75' : '100',
+                                    getProgress(),
                                     "%"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                                lineNumber: 589,
+                                lineNumber: 743,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 578,
+                        lineNumber: 732,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -652,146 +823,146 @@ function IntroAnimation({ onComplete }) {
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "absolute top-0 left-0 h-full",
                                 style: {
-                                    width: isSweep ? '0%' : phase === 'letters' ? '25%' : phase === 'logo' ? '50%' : phase === 'subtitle' ? '75%' : '100%',
+                                    width: `${getProgress()}%`,
                                     background: 'linear-gradient(90deg, #D4AF37, #25A2DC)',
-                                    transition: 'width 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+                                    transition: 'width 0.8s cubic-bezier(0.16, 1, 0.3, 1)'
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                                lineNumber: 601,
+                                lineNumber: 755,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "absolute top-[-2px] h-[5px] w-[5px] rounded-full",
                                 style: {
-                                    left: isSweep ? '0%' : phase === 'letters' ? '25%' : phase === 'logo' ? '50%' : phase === 'subtitle' ? '75%' : '100%',
+                                    left: `${getProgress()}%`,
                                     background: '#25A2DC',
                                     boxShadow: '0 0 10px rgba(37,162,220,0.8), 0 0 20px rgba(37,162,220,0.3)',
-                                    transition: 'left 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+                                    transition: 'left 0.8s cubic-bezier(0.16, 1, 0.3, 1)'
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                                lineNumber: 617,
+                                lineNumber: 763,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 600,
+                        lineNumber: 754,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                lineNumber: 577,
+                lineNumber: 731,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute top-6 left-6 z-10",
                 style: {
-                    opacity: phase === 'logo' || phase === 'subtitle' ? 0.4 : 0,
-                    transition: 'opacity 0.6s ease'
+                    opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 0.4 : 0,
+                    transition: 'opacity 0.8s ease'
                 },
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "w-6 h-[1px] bg-[#D4AF37]/40"
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 646,
+                        lineNumber: 784,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "w-[1px] h-6 bg-[#D4AF37]/40"
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 647,
+                        lineNumber: 785,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                lineNumber: 639,
+                lineNumber: 777,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute top-6 right-6 z-10",
                 style: {
-                    opacity: phase === 'logo' || phase === 'subtitle' ? 0.4 : 0,
-                    transition: 'opacity 0.6s ease'
+                    opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 0.4 : 0,
+                    transition: 'opacity 0.8s ease'
                 },
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "w-6 h-[1px] bg-[#D4AF37]/40 ml-auto"
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 657,
+                        lineNumber: 795,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "w-[1px] h-6 bg-[#D4AF37]/40 ml-auto"
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 658,
+                        lineNumber: 796,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                lineNumber: 650,
+                lineNumber: 788,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute bottom-14 left-6 z-10",
                 style: {
-                    opacity: phase === 'logo' || phase === 'subtitle' ? 0.4 : 0,
-                    transition: 'opacity 0.6s ease'
+                    opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 0.4 : 0,
+                    transition: 'opacity 0.8s ease'
                 },
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "w-[1px] h-6 bg-[#25A2DC]/40"
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 668,
+                        lineNumber: 806,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "w-6 h-[1px] bg-[#25A2DC]/40"
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 669,
+                        lineNumber: 807,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                lineNumber: 661,
+                lineNumber: 799,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute bottom-14 right-6 z-10",
                 style: {
-                    opacity: phase === 'logo' || phase === 'subtitle' ? 0.4 : 0,
-                    transition: 'opacity 0.6s ease'
+                    opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 0.4 : 0,
+                    transition: 'opacity 0.8s ease'
                 },
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "w-[1px] h-6 bg-[#25A2DC]/40 ml-auto"
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 679,
+                        lineNumber: 817,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "w-6 h-[1px] bg-[#25A2DC]/40 ml-auto"
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 680,
+                        lineNumber: 818,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/IntroAnimation.tsx",
-                lineNumber: 672,
+                lineNumber: 810,
                 columnNumber: 7
             }, this),
             !isSweep && !isFading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -801,12 +972,12 @@ function IntroAnimation({ onComplete }) {
                         style: {
                             height: '1px',
                             background: 'linear-gradient(90deg, transparent, rgba(37,162,220,0.08), transparent)',
-                            opacity: phase === 'logo' || phase === 'subtitle' ? 1 : 0,
-                            transition: 'opacity 0.8s ease'
+                            opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 1 : 0,
+                            transition: 'opacity 1s ease'
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 686,
+                        lineNumber: 824,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -814,12 +985,12 @@ function IntroAnimation({ onComplete }) {
                         style: {
                             height: '1px',
                             background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.08), transparent)',
-                            opacity: phase === 'logo' || phase === 'subtitle' ? 1 : 0,
-                            transition: 'opacity 0.8s ease'
+                            opacity: phase === 'logo' || phase === 'subtitle' || phase === 'hold' ? 1 : 0,
+                            transition: 'opacity 1s ease'
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/IntroAnimation.tsx",
-                        lineNumber: 695,
+                        lineNumber: 833,
                         columnNumber: 11
                     }, this)
                 ]
@@ -827,7 +998,7 @@ function IntroAnimation({ onComplete }) {
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/IntroAnimation.tsx",
-        lineNumber: 109,
+        lineNumber: 141,
         columnNumber: 5
     }, this);
 }
@@ -1144,15 +1315,24 @@ function HeroSection({ introComplete }) {
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute inset-0 z-0",
                 children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                        src: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1920&q=60",
-                        alt: "",
-                        fill: true,
-                        className: "object-cover",
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("video", {
+                        autoPlay: true,
+                        muted: true,
+                        loop: true,
+                        playsInline: true,
+                        className: "absolute inset-0 w-full h-full object-cover",
                         style: {
-                            opacity: 0.12
+                            opacity: 0.18
                         },
-                        priority: true
+                        preload: "auto",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("source", {
+                            src: "/videos/hero-bg.mp4",
+                            type: "video/mp4"
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/HeroSection.tsx",
+                            lineNumber: 262,
+                            columnNumber: 11
+                        }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
                         lineNumber: 253,
@@ -1162,7 +1342,7 @@ function HeroSection({ introComplete }) {
                         className: "video-bg-overlay"
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 261,
+                        lineNumber: 264,
                         columnNumber: 9
                     }, this)
                 ]
@@ -1182,40 +1362,40 @@ function HeroSection({ introComplete }) {
                 }
             }, void 0, false, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 265,
+                lineNumber: 268,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "hero-gradient-bg"
             }, void 0, false, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 274,
+                lineNumber: 277,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "noise-overlay absolute inset-0 pointer-events-none z-[1]"
             }, void 0, false, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 277,
+                lineNumber: 280,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#0B0F18] to-transparent z-10 pointer-events-none"
             }, void 0, false, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 280,
+                lineNumber: 283,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute bottom-0 left-0 right-0 h-60 bg-gradient-to-t from-[#161E2D] via-[#161E2D]/80 to-transparent z-10 pointer-events-none"
             }, void 0, false, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 283,
+                lineNumber: 286,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(FloatingParticles, {}, void 0, false, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 286,
+                lineNumber: 289,
                 columnNumber: 7
             }, this),
             mounted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -1228,12 +1408,12 @@ function HeroSection({ introComplete }) {
                         },
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(OrbitingRings, {}, void 0, false, {
                             fileName: "[project]/src/components/HeroSection.tsx",
-                            lineNumber: 299,
+                            lineNumber: 302,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 292,
+                        lineNumber: 295,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1252,7 +1432,7 @@ function HeroSection({ introComplete }) {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/components/HeroSection.tsx",
-                                lineNumber: 309,
+                                lineNumber: 312,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1266,13 +1446,13 @@ function HeroSection({ introComplete }) {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/components/HeroSection.tsx",
-                                lineNumber: 318,
+                                lineNumber: 321,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 303,
+                        lineNumber: 306,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1294,7 +1474,7 @@ function HeroSection({ introComplete }) {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/components/HeroSection.tsx",
-                                lineNumber: 338,
+                                lineNumber: 341,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1310,13 +1490,13 @@ function HeroSection({ introComplete }) {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/components/HeroSection.tsx",
-                                lineNumber: 350,
+                                lineNumber: 353,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 331,
+                        lineNumber: 334,
                         columnNumber: 11
                     }, this)
                 ]
@@ -1337,7 +1517,7 @@ function HeroSection({ introComplete }) {
                                     className: "hero-logo-glow"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/HeroSection.tsx",
-                                    lineNumber: 374,
+                                    lineNumber: 377,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1349,18 +1529,18 @@ function HeroSection({ introComplete }) {
                                     priority: true
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/HeroSection.tsx",
-                                    lineNumber: 375,
+                                    lineNumber: 378,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/HeroSection.tsx",
-                            lineNumber: 373,
+                            lineNumber: 376,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 372,
+                        lineNumber: 375,
                         columnNumber: 9
                     }, this),
                     mounted ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -1374,19 +1554,19 @@ function HeroSection({ introComplete }) {
                             letterClassName: "text-6xl sm:text-7xl md:text-8xl lg:text-[140px] font-bold tracking-tight text-white uppercase"
                         }, void 0, false, {
                             fileName: "[project]/src/components/HeroSection.tsx",
-                            lineNumber: 393,
+                            lineNumber: 396,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 388,
+                        lineNumber: 391,
                         columnNumber: 11
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                         className: "text-6xl sm:text-7xl md:text-8xl lg:text-[140px] font-bold tracking-tight text-white uppercase leading-[0.9] opacity-0",
                         children: "HARMENS"
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 403,
+                        lineNumber: 406,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1399,12 +1579,12 @@ function HeroSection({ introComplete }) {
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/components/HeroSection.tsx",
-                            lineNumber: 410,
+                            lineNumber: 413,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 409,
+                        lineNumber: 412,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1420,7 +1600,7 @@ function HeroSection({ introComplete }) {
                         children: "Designed To Be Felt Before It's Seen"
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 414,
+                        lineNumber: 417,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1431,7 +1611,7 @@ function HeroSection({ introComplete }) {
                         children: "Crafting Timeless Luxury Interiors"
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 431,
+                        lineNumber: 434,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1444,7 +1624,7 @@ function HeroSection({ introComplete }) {
                                     children: "Explore Our Work"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/HeroSection.tsx",
-                                    lineNumber: 446,
+                                    lineNumber: 449,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -1459,29 +1639,29 @@ function HeroSection({ introComplete }) {
                                         d: "M17 8l4 4m4-4l-4 4m4-4H3"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/HeroSection.tsx",
-                                        lineNumber: 453,
+                                        lineNumber: 456,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/HeroSection.tsx",
-                                    lineNumber: 447,
+                                    lineNumber: 450,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/HeroSection.tsx",
-                            lineNumber: 442,
+                            lineNumber: 445,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 441,
+                        lineNumber: 444,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 367,
+                lineNumber: 370,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1492,7 +1672,7 @@ function HeroSection({ introComplete }) {
                         children: "Scroll"
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 461,
+                        lineNumber: 464,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1511,17 +1691,17 @@ function HeroSection({ introComplete }) {
                                 d: "M19 14l-7 7m0 0l-7-7m7 7V3"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/HeroSection.tsx",
-                                lineNumber: 466,
+                                lineNumber: 469,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/HeroSection.tsx",
-                            lineNumber: 465,
+                            lineNumber: 468,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 464,
+                        lineNumber: 467,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1536,18 +1716,18 @@ function HeroSection({ introComplete }) {
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/components/HeroSection.tsx",
-                            lineNumber: 476,
+                            lineNumber: 479,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/HeroSection.tsx",
-                        lineNumber: 470,
+                        lineNumber: 473,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/HeroSection.tsx",
-                lineNumber: 460,
+                lineNumber: 463,
                 columnNumber: 7
             }, this)
         ]
@@ -3769,22 +3949,22 @@ function Home() {
                     transform: showContent ? 'translateY(0)' : 'translateY(-100%)'
                 },
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between",
+                    className: "max-w-7xl mx-auto px-6 md:px-12 h-20 flex items-center justify-between",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                             href: "#hero",
                             className: "flex items-center gap-3 group",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "relative w-12 h-12 group-hover:scale-110 transition-transform duration-300",
+                                className: "relative w-16 h-16 group-hover:scale-110 transition-transform duration-300",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                         src: "/harmens-logo-tran.png",
                                         alt: "HARMENS",
-                                        width: 48,
-                                        height: 48,
+                                        width: 64,
+                                        height: 64,
                                         className: "w-full h-full object-contain",
                                         style: {
-                                            filter: 'drop-shadow(0 0 12px rgba(212,175,55,0.3))'
+                                            filter: 'drop-shadow(0 0 16px rgba(212,175,55,0.4))'
                                         },
                                         priority: true
                                     }, void 0, false, {
@@ -3793,10 +3973,10 @@ function Home() {
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "absolute inset-[-4px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300",
+                                        className: "absolute inset-[-6px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300",
                                         style: {
-                                            background: 'radial-gradient(circle, rgba(212,175,55,0.25) 0%, transparent 70%)',
-                                            filter: 'blur(12px)'
+                                            background: 'radial-gradient(circle, rgba(212,175,55,0.3) 0%, transparent 70%)',
+                                            filter: 'blur(14px)'
                                         }
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/page.tsx",

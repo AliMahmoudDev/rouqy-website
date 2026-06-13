@@ -559,6 +559,64 @@ html {
   50% { text-shadow: 0 0 40px rgba(212,175,55,0.5), 0 0 80px rgba(37,162,220,0.2), 0 0 120px rgba(212,175,55,0.15); }
 }
 
+/* === EXTENDED INTRO v6 — 7s timeline keyframes === */
+
+/* Letter floating during hold phase */
+@keyframes letter-float {
+  0%, 100% { transform: translateY(0) scale(1.02); }
+  50% { transform: translateY(-6px) scale(1.04); }
+}
+
+/* Golden glow breathing during hold */
+@keyframes intro-glow-breathe {
+  0%, 100% { opacity: 0.7; transform: scale(1.8); }
+  50% { opacity: 0.9; transform: scale(2.0); }
+}
+
+/* Blue glow breathing during hold */
+@keyframes intro-blue-breathe {
+  0%, 100% { opacity: 0.5; transform: scale(1.2); }
+  50% { opacity: 0.7; transform: scale(1.4); }
+}
+
+/* Logo breathing during hold */
+@keyframes intro-logo-breathe {
+  0%, 100% { transform: scale(0.6) translateY(150px); filter: brightness(1.1) blur(0px); }
+  50% { transform: scale(0.65) translateY(148px); filter: brightness(1.15) blur(0px); }
+}
+
+/* Rotating diamond grid during hold */
+@keyframes intro-diamond-rotate {
+  from { transform: rotate(45deg); }
+  to { transform: rotate(405deg); }
+}
+
+/* Diamond accent spinning */
+@keyframes intro-diamond-spin {
+  from { transform: rotate(45deg); }
+  to { transform: rotate(405deg); }
+}
+
+/* Geometric line fade in during hold */
+@keyframes intro-geo-line {
+  0% { opacity: 0; transform: rotate(var(--r, 0deg)) scaleX(0); }
+  40% { opacity: 1; }
+  100% { opacity: 0; transform: rotate(var(--r, 0deg)) scaleX(1); }
+}
+
+/* Corner accent fade in */
+@keyframes intro-corner-fade {
+  0% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; transform: scale(1); }
+}
+
+/* Text shimmer during hold */
+@keyframes intro-text-shimmer {
+  0%, 100% { text-shadow: 0 0 15px rgba(212,175,55,0.3), 0 0 30px rgba(212,175,55,0.1); }
+  50% { text-shadow: 0 0 25px rgba(212,175,55,0.6), 0 0 50px rgba(212,175,55,0.2), 0 0 80px rgba(37,162,220,0.1); }
+}
+
 /* === NOISE / GRAIN === */
 @keyframes grain {
   0%, 100% { transform: translate(0, 0); }

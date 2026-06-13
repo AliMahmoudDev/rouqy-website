@@ -248,16 +248,19 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden"
     >
-      {/* Background Image Layer — luxury interior decor (lighter than video) */}
+      {/* Background Video Layer — luxury interior decor & furniture */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1920&q=60"
-          alt=""
-          fill
-          className="object-cover"
-          style={{ opacity: 0.12 }}
-          priority
-        />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ opacity: 0.18 }}
+          preload="auto"
+        >
+          <source src="/videos/hero-bg.mp4" type="video/mp4" />
+        </video>
         <div className="video-bg-overlay" />
       </div>
 
