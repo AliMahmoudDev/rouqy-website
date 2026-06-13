@@ -8,17 +8,34 @@ import { useEffect, useRef } from 'react';
  * Zero-lag approach: IntersectionObserver triggers CSS transitions once.
  * No continuous JS — purely CSS-driven animations after trigger.
  * 
+ * FIX: After adding .sr-visible, forces a repaint on elements containing
+ * images. This fixes Chrome Mobile's GPU compositor bug where images
+ * inside animated containers randomly disappear until tap/hover.
+ * 
  * Usage:
  *   const ref = useScrollReveal();
- *   // Add data-sr attributes to children:
- *   // data-sr="up" | "down" | "left" | "right" | "scale" | "blur" |
- *   //          "rotate-left" | "rotate-right" | "clip-up" | "clip-left" |
- *   //          "clip-right" | "fade" | "tilt-up" | "flip-up" | "flip-down" |
- *   //          "zoom-3d" | "fold-in" | "fold-in-right" | "helix"
- *   // data-sr-delay="1" through "12" (delay increments)
- *   // data-sr-duration="fast" | "normal" | "slow" | "grand"
- *   // data-sr-distance="near" | "normal" | "far"
+ *   // Add data-sr attributes to children
  */
+
+function forceRepaint(el: HTMLElement) {
+  // Check if this element or its children contain images
+  const hasImages = el.querySelector('img') || el.tagName === 'IMG';
+  if (!hasImages) return;
+
+  // Force a repaint after the CSS transition has started
+  // This gives Chrome's compositor time to create proper layers for images
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      // Toggle visibility briefly to force full repaint of the element
+      const original = el.style.visibility;
+      el.style.visibility = 'hidden';
+      // Force reflow — reading offsetHeight triggers synchronous layout
+      void el.offsetHeight;
+      el.style.visibility = original || '';
+    });
+  });
+}
+
 export default function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
   options: {
     threshold?: number;
@@ -49,6 +66,8 @@ export default function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
             // Use RAF to ensure CSS transition triggers correctly
             requestAnimationFrame(() => {
               el.classList.add('sr-visible');
+              // Force repaint to fix Chrome Mobile image disappearing bug
+              forceRepaint(el);
             });
             if (triggerOnce) {
               observer.unobserve(el);

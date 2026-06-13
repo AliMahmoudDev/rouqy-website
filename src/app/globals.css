@@ -789,11 +789,11 @@ html {
 
 /* --- Base: all sr elements start hidden --- */
 [data-sr] {
-  will-change: transform, opacity, filter;
-  /* REMOVED: backface-visibility: hidden — caused mobile Chrome bug
-     where images inside data-sr elements randomly disappear until tap/hover.
-     Only apply backface-visibility on elements that truly need it (3D flips),
-     not on all scroll-reveal containers that hold images. */
+  /* REMOVED: will-change — creating too many GPU compositing layers on mobile Chrome
+     causes random image disappearance. Let browser manage compositing naturally.
+     REMOVED: backface-visibility: hidden — same mobile Chrome bug.
+     Both properties caused the GPU compositor to skip rendering some layers
+     until interaction (tap/hover) forced a repaint. */
 }
 
 /* --- Duration presets --- */
@@ -1595,7 +1595,7 @@ html {
 .gpu-accelerated {
   will-change: transform;
   transform: translateZ(0);
-  backface-visibility: hidden;
+  /* REMOVED: backface-visibility: hidden — caused mobile Chrome image disappearing bug */
 }
 
 /* ============================================

@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { ArrowUpRight, MapPin, Maximize2 } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 import useScrollReveal from '@/hooks/useScrollReveal';
@@ -117,12 +116,12 @@ export default function PortfolioSection() {
     >
       {/* Background image for portfolio section — luxury furniture */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <Image
+        <img
           src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=40"
           alt=""
-          fill
-          className="object-cover"
-          style={{ opacity: 0.05 }}
+          loading="eager"
+          decoding="sync"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.05 }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#161E2D] via-transparent to-[#0B0F18]" />
       </div>
@@ -217,15 +216,16 @@ export default function PortfolioSection() {
           {/* First row: Large hero project + tall project */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 mb-4 md:mb-5">
             {/* Hero project — FLIPS UP FROM BELOW */}
-            <div data-sr="flip-up" data-sr-delay="2" data-sr-duration="grand" data-sr-distance="far" className="md:col-span-8" style={{ perspective: '1200px' }}>
+            <div data-sr="flip-up" data-sr-delay="2" data-sr-duration="grand" data-sr-distance="far" className="md:col-span-8">
               <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '16/9' }}>
                 <div className="relative w-full h-full overflow-hidden">
-                  <Image
+                  <img
                     src={projects[0].image}
                     alt={projects[0].title}
-                    fill
-                    className="card-image object-cover"
-                    sizes="(max-width: 768px) 100vw, 66vw"
+                    loading="eager"
+                    decoding="sync"
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                    className="card-image"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F18]/90 via-[#0B0F18]/20 to-transparent" />
                   <div className="absolute inset-0 bg-[#0B0F18]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -262,15 +262,16 @@ export default function PortfolioSection() {
             </div>
 
             {/* Tall project — FOLDS IN FROM RIGHT */}
-            <div data-sr="fold-in-right" data-sr-delay="4" data-sr-duration="grand" data-sr-distance="far" className="md:col-span-4" style={{ perspective: '1200px' }}>
+            <div data-sr="fold-in-right" data-sr-delay="4" data-sr-duration="grand" data-sr-distance="far" className="md:col-span-4">
               <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '3/4' }}>
                 <div className="relative w-full h-full overflow-hidden">
-                  <Image
+                  <img
                     src={projects[1].image}
                     alt={projects[1].title}
-                    fill
-                    className="card-image object-cover"
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    loading="eager"
+                    decoding="sync"
+                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                    className="card-image"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F18]/90 via-[#0B0F18]/20 to-transparent" />
                   <div className="absolute inset-0 bg-[#0B0F18]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -310,16 +311,16 @@ export default function PortfolioSection() {
                 data-sr-delay={String(index * 2 + 3)}
                 data-sr-duration="grand"
                 data-sr-distance="normal"
-                style={{ perspective: '1200px' }}
               >
                 <div className="portfolio-card group relative cursor-pointer" style={{ aspectRatio: '4/5' }}>
                   <div className="relative w-full h-full overflow-hidden">
-                    <Image
+                    <img
                       src={project.image}
                       alt={project.title}
-                      fill
-                      className="card-image object-cover"
-                      sizes="(max-width: 768px) 100vw, 33vw"
+                      loading="eager"
+                      decoding="sync"
+                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                      className="card-image"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F18]/90 via-[#0B0F18]/20 to-transparent" />
                     <div className="absolute inset-0 bg-[#0B0F18]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -357,15 +358,16 @@ export default function PortfolioSection() {
           </div>
 
           {/* Third row: Full-width — 3D ZOOM IN */}
-          <div data-sr="zoom-3d" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="normal" style={{ perspective: '1200px' }}>
+          <div data-sr="zoom-3d" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="normal">
             <div className="portfolio-card group relative cursor-pointer mb-4 md:mb-5" style={{ aspectRatio: '21/9' }}>
               <div className="relative w-full h-full overflow-hidden">
-                <Image
+                <img
                   src={projects[5].image}
                   alt={projects[5].title}
-                  fill
-                  className="card-image object-cover"
-                  sizes="100vw"
+                  loading="eager"
+                  decoding="sync"
+                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+                  className="card-image"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F18]/90 via-[#0B0F18]/20 to-transparent" />
                 <div className="absolute inset-0 bg-[#0B0F18]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
