@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useCallback } from 'react';
-import gsap from 'gsap';
 
 const galleryItems = [
   {
@@ -55,169 +54,93 @@ const galleryItems = [
 ];
 
 export default function HorizontalGallery3D() {
-  const trackRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
-  const velocity = useRef(0);
-  const lastX = useRef(0);
-  const lastTime = useRef(0);
-  const animFrame = useRef<number>(0);
 
-  // Update 3D card transforms based on their position
+  // Lightweight 3D update using direct style manipulation (NO GSAP in drag loop)
   const updateCard3D = useCallback(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    const cards = container.querySelectorAll<HTMLDivElement>('[data-gallery-card]');
+    const cards = container.querySelectorAll<HTMLElement>('[data-gallery-card]');
     const viewportCenter = window.innerWidth / 2;
 
     cards.forEach((card) => {
       const rect = card.getBoundingClientRect();
       const cardCenter = rect.left + rect.width / 2;
       const offset = (cardCenter - viewportCenter) / (window.innerWidth / 2);
-      const clampedOffset = Math.max(-1, Math.min(1, offset));
+      const clamped = Math.max(-1, Math.min(1, offset));
+      const absClamped = Math.abs(clamped);
 
-      const rotateY = clampedOffset * 20;
-      const scale = 1 - Math.abs(clampedOffset) * 0.12;
-      const opacity = 1 - Math.abs(clampedOffset) * 0.4;
+      // Smooth cubic easing for all transforms
+      const eased = clamped * clamped * clamped; // Cubic ease for rotation
+      const rotateY = eased * 18;
+      const scale = 1 - absClamped * absClamped * 0.1; // Quadratic ease for scale
+      const opacity = 1 - absClamped * 0.35;
 
-      gsap.set(card, {
-        rotateY,
-        scale,
-        opacity,
-        transformOrigin: 'center center',
-      });
+      // Direct style — no GSAP, no layout thrash
+      card.style.transform = `perspective(1000px) rotateY(${rotateY}deg) scale(${scale})`;
+      card.style.opacity = `${opacity}`;
     });
   }, []);
 
-  // Momentum scroll with requestAnimationFrame
-  const momentumScroll = useCallback(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    if (Math.abs(velocity.current) > 0.5) {
-      container.scrollLeft += velocity.current;
-      velocity.current *= 0.95; // Friction
-      updateCard3D();
-      animFrame.current = requestAnimationFrame(momentumScroll);
-    }
-  }, [updateCard3D]);
-
-  // Mouse/touch drag handlers
-  const onDragStart = useCallback((clientX: number) => {
+  // Drag handlers — ultra lightweight
+  const onPointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     const container = containerRef.current;
     if (!container) return;
 
     isDragging.current = true;
-    startX.current = clientX;
+    startX.current = e.clientX;
     scrollLeft.current = container.scrollLeft;
-    velocity.current = 0;
-    lastX.current = clientX;
-    lastTime.current = Date.now();
-    cancelAnimationFrame(animFrame.current);
-
+    container.setPointerCapture(e.pointerId);
     container.style.cursor = 'grabbing';
+    container.style.scrollSnapType = 'none'; // Disable snap during drag
   }, []);
 
-  const onDragMove = useCallback((clientX: number) => {
+  const onPointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     const container = containerRef.current;
     if (!isDragging.current || !container) return;
 
-    const dx = clientX - startX.current;
+    const dx = e.clientX - startX.current;
     container.scrollLeft = scrollLeft.current - dx;
-
-    // Track velocity for momentum
-    const now = Date.now();
-    const dt = now - lastTime.current;
-    if (dt > 0) {
-      velocity.current = (lastX.current - clientX) / dt * 16; // Normalize to ~60fps
-    }
-    lastX.current = clientX;
-    lastTime.current = now;
 
     updateCard3D();
   }, [updateCard3D]);
 
-  const onDragEnd = useCallback(() => {
+  const onPointerUp = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     const container = containerRef.current;
     if (!container) return;
 
     isDragging.current = false;
     container.style.cursor = 'grab';
-
-    // Start momentum
-    animFrame.current = requestAnimationFrame(momentumScroll);
-  }, [momentumScroll]);
+    container.style.scrollSnapType = 'x proximity'; // Re-enable snap after drag
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    container.style.cursor = 'grab';
-    container.style.overflowX = 'auto';
-    container.style.scrollbarWidth = 'none';
-    container.style.msOverflowStyle = 'none';
-
-    // Hide scrollbar via CSS
-    const style = document.createElement('style');
-    style.textContent = `
-      .gallery-container::-webkit-scrollbar { display: none; }
-    `;
-    document.head.appendChild(style);
-
-    // Mouse events
-    const handleMouseDown = (e: MouseEvent) => {
-      e.preventDefault();
-      onDragStart(e.clientX);
-    };
-    const handleMouseMove = (e: MouseEvent) => {
-      onDragMove(e.clientX);
-    };
-    const handleMouseUp = () => {
-      onDragEnd();
-    };
-
-    // Touch events
-    const handleTouchStart = (e: TouchEvent) => {
-      onDragStart(e.touches[0].clientX);
-    };
-    const handleTouchMove = (e: TouchEvent) => {
-      onDragMove(e.touches[0].clientX);
-    };
-    const handleTouchEnd = () => {
-      onDragEnd();
-    };
-
-    // Scroll event for native scroll (trackpad, etc.)
+    // Native scroll handler for trackpad/wheel
     const handleScroll = () => {
-      updateCard3D();
+      requestAnimationFrame(updateCard3D);
     };
 
-    container.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
-    container.addEventListener('touchstart', handleTouchStart, { passive: true });
-    container.addEventListener('touchmove', handleTouchMove, { passive: true });
-    container.addEventListener('touchend', handleTouchEnd);
-    container.addEventListener('scroll', handleScroll, { passive: true });
-
-    // Initial 3D update
+    // Initial 3D state
     updateCard3D();
 
+    // Observe resize to recalc
+    const observer = new ResizeObserver(() => updateCard3D());
+    observer.observe(container);
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+
     return () => {
-      container.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
-      container.removeEventListener('touchstart', handleTouchStart);
-      container.removeEventListener('touchmove', handleTouchMove);
-      container.removeEventListener('touchend', handleTouchEnd);
       container.removeEventListener('scroll', handleScroll);
-      cancelAnimationFrame(animFrame.current);
-      style.remove();
+      observer.disconnect();
     };
-  }, [onDragStart, onDragMove, onDragEnd, updateCard3D]);
+  }, [updateCard3D]);
 
   return (
     <section className="relative py-20 md:py-32 bg-[#0B0F18] overflow-hidden">
@@ -239,21 +162,35 @@ export default function HorizontalGallery3D() {
       {/* Draggable horizontal container */}
       <div
         ref={containerRef}
-        className="gallery-container flex items-center gap-6 md:gap-8 px-6 md:px-16 pb-4"
+        className="flex items-center gap-6 md:gap-8 px-6 md:px-16 pb-4 select-none"
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerUp}
         style={{
-          perspective: '1200px',
+          overflowX: 'auto',
+          overflowY: 'hidden',
           scrollSnapType: 'x proximity',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
           WebkitOverflowScrolling: 'touch',
+          cursor: 'grab',
+          touchAction: 'pan-x',
         }}
       >
+        {/* Hide scrollbar CSS */}
+        <style>{`
+          [data-gallery-container]::-webkit-scrollbar { display: none; }
+        `}</style>
+
         {galleryItems.map((item, i) => (
           <div
             key={i}
             data-gallery-card
-            className="flex-shrink-0 w-[280px] md:w-[380px] h-[380px] md:h-[480px] rounded-2xl overflow-hidden cursor-grab group select-none"
+            className="flex-shrink-0 w-[280px] md:w-[380px] h-[380px] md:h-[480px] rounded-2xl overflow-hidden group"
             style={{
-              transformStyle: 'preserve-3d',
               scrollSnapAlign: 'center',
+              willChange: 'transform, opacity',
               boxShadow: `
                 0 25px 50px rgba(0,0,0,0.4),
                 0 0 0 1px rgba(212,175,55,0.08),
@@ -292,8 +229,8 @@ export default function HorizontalGallery3D() {
                 }} />
               </div>
 
-              {/* Drag hint arrow */}
-              <div className="absolute top-5 right-5 w-9 h-9 rounded-full border border-white/15 flex items-center justify-center opacity-40 group-hover:opacity-80 transition-opacity duration-300" style={{
+              {/* Arrow indicator */}
+              <div className="absolute top-5 right-5 w-9 h-9 rounded-full border border-white/15 flex items-center justify-center opacity-30 group-hover:opacity-70 transition-opacity duration-300" style={{
                 background: 'rgba(255,255,255,0.05)',
                 backdropFilter: 'blur(8px)',
               }}>
