@@ -131,9 +131,9 @@ export default function PortfolioSection() {
         backgroundSize: '100px 100px',
       }} />
 
-      {/* Animated gradient orbs (hidden on mobile) */}
+      {/* Animated gradient orbs (smaller on mobile) */}
       <div
-        className="absolute w-[500px] h-[500px] rounded-full pointer-events-none animate-breathe hidden md:block"
+        className="absolute w-[250px] md:w-[500px] h-[250px] md:h-[500px] rounded-full pointer-events-none animate-breathe"
         style={{
           background: 'radial-gradient(circle, rgba(212,175,55,0.06) 0%, transparent 70%)',
           top: '10%',
@@ -142,7 +142,7 @@ export default function PortfolioSection() {
         }}
       />
       <div
-        className="absolute w-[400px] h-[400px] rounded-full pointer-events-none hidden md:block"
+        className="absolute w-[200px] md:w-[400px] h-[200px] md:h-[400px] rounded-full pointer-events-none"
         style={{
           background: 'radial-gradient(circle, rgba(37,162,220,0.05) 0%, transparent 70%)',
           bottom: '20%',

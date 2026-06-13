@@ -77,11 +77,11 @@ export default function Scene3D() {
         </div>
       )}
 
-      {/* ====== FLOATING PARTICLES — CSS only (hidden on mobile) ====== */}
+      {/* ====== FLOATING PARTICLES — CSS only (reduced on mobile) ====== */}
       {mounted && particles.map((p, i) => (
         <div
           key={`particle-${i}`}
-          className="absolute rounded-full hidden md:block"
+          className="absolute rounded-full"
           style={{
             width: p.width,
             height: p.height,
@@ -522,7 +522,7 @@ export default function Scene3D() {
 
       {/* Center gold glow */}
       <div
-        className="absolute rounded-full pointer-events-none hidden md:block"
+        className="absolute rounded-full pointer-events-none"
         style={{
           width: '500px',
           height: '500px',
@@ -536,7 +536,7 @@ export default function Scene3D() {
 
       {/* Bottom-right blue glow */}
       <div
-        className="absolute rounded-full pointer-events-none hidden md:block"
+        className="absolute rounded-full pointer-events-none"
         style={{
           width: '500px',
           height: '500px',

@@ -155,7 +155,7 @@ export default function Home() {
               pointerEvents: mobileMenuOpen ? 'auto' : 'none',
             }}
           >
-            <div className="flex flex-col items-center justify-center h-full gap-8 -mt-16">
+            <div className="flex flex-col items-center justify-center h-full gap-8 pt-8">
               {navLinks.map((link, i) => (
                 <a
                   key={link.label}
@@ -164,8 +164,8 @@ export default function Home() {
                   className="text-white text-2xl tracking-[0.4em] uppercase font-light hover:text-[#25A2DC] transition-all duration-300"
                   style={{
                     opacity: mobileMenuOpen ? 1 : 0,
-                    transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(20px)',
-                    transition: `opacity 0.4s ease ${i * 0.1 + 0.2}s, transform 0.4s ease ${i * 0.1 + 0.2}s`,
+                    transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-30px)',
+                    transition: `opacity 0.4s ease ${i * 0.1 + 0.15}s, transform 0.4s ease ${i * 0.1 + 0.15}s`,
                   }}
                 >
                   {link.label}
@@ -177,8 +177,8 @@ export default function Home() {
                 className="mt-4 text-xs tracking-[0.4em] uppercase px-8 py-3 border border-[#25A2DC]/30 text-[#25A2DC] hover:bg-[#25A2DC]/10 hover:border-[#25A2DC]/60 transition-all duration-300"
                 style={{
                   opacity: mobileMenuOpen ? 1 : 0,
-                  transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(20px)',
-                  transition: 'opacity 0.4s ease 0.5s, transform 0.4s ease 0.5s',
+                  transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-30px)',
+                  transition: 'opacity 0.4s ease 0.45s, transform 0.4s ease 0.45s',
                 }}
               >
                 Get In Touch

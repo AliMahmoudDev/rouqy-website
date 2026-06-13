@@ -44,7 +44,7 @@ function FloatingParticles() {
   }));
 
   return (
-    <div className="hero-particles hidden md:block">
+    <div className="hero-particles">
       {goldParticles.map((p, i) => (
         <div
           key={`gold-${i}`}
@@ -276,8 +276,8 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden"
     >
-      {/* Background Video Layer (hidden on mobile for performance) */}
-      <div className="absolute inset-0 z-0 hidden md:block">
+      {/* Background Video Layer */}
+      <div className="absolute inset-0 z-0">
         <video
           autoPlay
           muted
@@ -313,7 +313,7 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
       {/* Bottom gradient for smooth transition */}
       <div className="absolute bottom-0 left-0 right-0 h-40 md:h-60 bg-gradient-to-t from-[#161E2D] via-[#161E2D]/80 to-transparent z-10 pointer-events-none" />
 
-      {/* Floating Particles */}
+      {/* Floating Particles (reduced on mobile) */}
       <FloatingParticles />
 
       {/* 
@@ -323,36 +323,36 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
        */}
       {mounted && (
         <>
-          {/* Deep background layer — orbiting rings (hidden on mobile) */}
+          {/* Deep background layer — orbiting rings (desktop only) */}
           <div className="absolute inset-0 pointer-events-none hero-parallax-deep hidden md:block">
             <OrbitingRings />
           </div>
 
-          {/* Mid-ground decorative orbs (hidden on mobile) */}
-          <div className="absolute inset-0 pointer-events-none hero-parallax-mid hidden md:block">
+          {/* Mid-ground decorative orbs */}
+          <div className="absolute inset-0 pointer-events-none hero-parallax-mid">
             <div
-              className="absolute w-[600px] h-[600px] rounded-full opacity-20"
+              className="absolute w-[300px] md:w-[600px] h-[300px] md:h-[600px] rounded-full opacity-10 md:opacity-20"
               style={{
                 background: 'radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%)',
                 top: '10%',
-                right: '-10%',
+                right: '-20% md:right-[-10%]',
                 filter: 'blur(60px)',
                 animation: 'breathe 8s ease-in-out infinite',
               }}
             />
             <div
-              className="absolute w-[400px] h-[400px] rounded-full opacity-15"
+              className="absolute w-[250px] md:w-[400px] h-[250px] md:h-[400px] rounded-full opacity-10 md:opacity-15"
               style={{
                 background: 'radial-gradient(circle, rgba(37,162,220,0.15) 0%, transparent 70%)',
                 bottom: '20%',
-                left: '-5%',
+                left: '-10%',
                 filter: 'blur(50px)',
                 animation: 'breathe 7s ease-in-out infinite 1.5s',
               }}
             />
           </div>
 
-          {/* Foreground floating shapes (hidden on mobile) */}
+          {/* Foreground floating shapes (desktop only) */}
           <div className="absolute inset-0 pointer-events-none hero-parallax-fg hidden lg:block">
             <FloatingShapes />
           </div>

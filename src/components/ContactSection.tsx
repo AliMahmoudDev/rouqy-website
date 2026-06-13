@@ -67,9 +67,9 @@ export default function ContactSection() {
         backgroundSize: '80px 80px',
       }} />
 
-      {/* Decorative orbs (hidden on mobile) */}
+      {/* Decorative orbs (smaller on mobile) */}
       <div
-        className="absolute w-[400px] h-[400px] rounded-full pointer-events-none animate-breathe hidden md:block"
+        className="absolute w-[200px] md:w-[400px] h-[200px] md:h-[400px] rounded-full pointer-events-none animate-breathe"
         style={{
           background: 'radial-gradient(circle, rgba(37,162,220,0.05) 0%, transparent 70%)',
           top: '20%',
@@ -78,7 +78,7 @@ export default function ContactSection() {
         }}
       />
       <div
-        className="absolute w-[300px] h-[300px] rounded-full pointer-events-none hidden md:block"
+        className="absolute w-[150px] md:w-[300px] h-[150px] md:h-[300px] rounded-full pointer-events-none"
         style={{
           background: 'radial-gradient(circle, rgba(212,175,55,0.04) 0%, transparent 70%)',
           bottom: '30%',
