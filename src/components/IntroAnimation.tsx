@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import Image from 'next/image';
 
 interface IntroAnimationProps {
@@ -8,23 +8,30 @@ interface IntroAnimationProps {
 }
 
 /**
- * 🎬 HARMENS Cinematic Intro v7.0 — "Living Blueprint"
+ * 🎬 HARMENS Cinematic Intro v8.0 — "Living Blueprint" (Performance Optimized)
  *
- * A visually rich 7-second loading experience with REAL movement:
- *
- * Phase 1 (0-1.0s):   Dark void → Golden grid blueprint draws itself → Geometric shapes fly in
- * Phase 2 (1.0-2.5s): HARMENS letters fly in from BOTH sides with glowing trails + sparks
- * Phase 3 (2.5-3.5s): Logo drops in from above with bounce + orbit ring spins around it
- * Phase 3.5 (3.5-4.6s): Logo HOLDS centered — viewer reads the brand name
- * Phase 4 (4.6-5.9s): Logo shrinks down, Arabic text types itself letter by letter + English fades in below
- * Phase 5 (5.9-6.9s): Everything breathes + floating furniture silhouettes drift + particles rise
- * Phase 6 (6.9-7.6s): Golden shockwave explodes outward + all elements scatter
- * Phase 7 (7.6-8.1s): Cinematic wipe → site emerges
+ * Key optimizations from v7:
+ * - Replaced ALL `transition: all` with specific property lists (transform, opacity, filter)
+ * - Removed container-level blur/brightness during wipe (was causing massive GPU lag)
+ * - Replaced Date.now() in breathe phase with pure CSS animation
+ * - Reduced particle counts: sparks 40→20, burst 70→35
+ * - Reduced grid lines 16→10, floating shapes 6→4, impact sparks 12→8
+ * - Added will-change hints on heavily animated elements
  */
 
 function seededRandom(seed: number): number {
   const x = Math.sin(seed * 127.1 + 311.7) * 43758.5453;
   return x - Math.floor(x);
+}
+
+/** Helper: build specific-property transition string (avoids `transition: all`) */
+function specificTransition(
+  props: string[],
+  duration: string,
+  easing: string,
+  delay: string
+): string {
+  return props.map(p => `${p} ${duration} ${easing} ${delay}`).join(', ');
 }
 
 export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
@@ -74,9 +81,9 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   []
   );
 
-  // Floating spark particles during letters phase
+  // Floating spark particles — REDUCED from 40 to 20
   const sparkParticles = useMemo(() =>
-    Array.from({ length: 40 }).map((_, i) => ({
+    Array.from({ length: 20 }).map((_, i) => ({
       x: seededRandom(i * 11 + 100) * 100,
       y: seededRandom(i * 17 + 200) * 100,
       size: 1 + seededRandom(i * 23 + 300) * 3,
@@ -87,10 +94,10 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   []
   );
 
-  // Explosion burst particles
+  // Explosion burst particles — REDUCED from 70 to 35
   const burstParticles = useMemo(() =>
-    Array.from({ length: 70 }).map((_, i) => {
-      const angle = (i / 70) * Math.PI * 2;
+    Array.from({ length: 35 }).map((_, i) => {
+      const angle = (i / 35) * Math.PI * 2;
       const distance = 200 + seededRandom(i * 37 + 600) * 700;
       return {
         angle,
@@ -104,22 +111,20 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   []
   );
 
-  // Floating decorative shapes (furniture-inspired silhouettes)
+  // Floating decorative shapes — REDUCED from 6 to 4
   const floatingShapes = useMemo(() => [
     { icon: '◇', x: 15, y: 20, size: 40, duration: 6, delay: 0, color: '#D4AF37' },
     { icon: '⬡', x: 80, y: 25, size: 30, duration: 7, delay: 0.5, color: '#25A2DC' },
     { icon: '△', x: 10, y: 70, size: 25, duration: 5, delay: 1, color: '#D4AF37' },
     { icon: '○', x: 85, y: 65, size: 35, duration: 8, delay: 0.3, color: '#25A2DC' },
-    { icon: '□', x: 50, y: 15, size: 20, duration: 6, delay: 0.8, color: '#D4AF37' },
-    { icon: '⬟', x: 25, y: 80, size: 28, duration: 7, delay: 1.2, color: '#25A2DC' },
   ], []);
 
-  // Grid lines for Phase 1
+  // Grid lines — REDUCED from 8+8=16 to 5+5=10
   const gridLines = useMemo(() => {
     const lines: { horizontal: boolean; position: number; delay: number }[] = [];
-    for (let i = 0; i < 8; i++) {
-      lines.push({ horizontal: true, position: 10 + i * 12, delay: i * 0.06 });
-      lines.push({ horizontal: false, position: 10 + i * 12, delay: i * 0.06 + 0.03 });
+    for (let i = 0; i < 5; i++) {
+      lines.push({ horizontal: true, position: 12 + i * 16, delay: i * 0.08 });
+      lines.push({ horizontal: false, position: 12 + i * 16, delay: i * 0.08 + 0.04 });
     }
     return lines;
   }, []);
@@ -132,9 +137,10 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden"
       style={{
         background: '#050810',
-        transition: 'opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), filter 1.2s cubic-bezier(0.4, 0, 0.2, 1)',
+        // FIX: Only transition opacity — NO container-level blur/brightness filter
+        transition: 'opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1)',
         opacity: isWiping ? 0 : 1,
-        filter: isWiping ? 'blur(20px) brightness(2)' : 'blur(0px) brightness(1)',
+        contain: 'layout style',
       }}
     >
       {/* ====== CINEMATIC BARS ====== */}
@@ -172,7 +178,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           filter: 'blur(80px)',
           opacity: isGrid ? 0 : phase === 'breathe' ? 0.9 : phase === 'explode' ? 1 : isWiping ? 0 : 0.7,
           transform: isGrid ? 'scale(0)' : phase === 'explode' ? 'scale(4)' : isWiping ? 'scale(5)' : 'scale(1.5)',
-          transition: 'all 1s cubic-bezier(0.16, 1, 0.3, 1)',
+          transition: 'transform 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s cubic-bezier(0.16, 1, 0.3, 1)',
           animation: phase === 'breathe' ? 'intro-glow-breathe 2s ease-in-out infinite' : 'none',
         }}
       />
@@ -183,14 +189,13 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           background: 'radial-gradient(ellipse, rgba(37,162,220,0.1) 0%, transparent 60%)',
           filter: 'blur(100px)',
           opacity: isGrid ? 0 : phase === 'breathe' ? 0.6 : isWiping ? 0 : 0.5,
-          transition: 'all 1s ease-out',
+          transition: 'opacity 1s ease-out, transform 1s ease-out',
         }}
       />
 
       {/* ====== PHASE 1: GOLDEN GRID DRAWS ITSELF ====== */}
       {isGrid && (
         <div className="absolute inset-0 z-10 pointer-events-none">
-          {/* Horizontal grid lines drawing from center */}
           {gridLines.filter(l => l.horizontal).map((line, i) => (
             <div
               key={`hgrid-${i}`}
@@ -204,7 +209,6 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               }}
             />
           ))}
-          {/* Vertical grid lines drawing from center */}
           {gridLines.filter(l => !l.horizontal).map((line, i) => (
             <div
               key={`vgrid-${i}`}
@@ -218,7 +222,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               }}
             />
           ))}
-          {/* Center crosshair — prominent */}
+          {/* Center crosshair */}
           <div
             style={{
               position: 'absolute', top: '50%', left: 0, right: 0, height: '2px',
@@ -236,14 +240,14 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               opacity: 0,
             }}
           />
-          {/* Expanding rings from center */}
-          {[0, 1, 2, 3].map((i) => (
+          {/* Expanding rings — reduced from 4 to 3 */}
+          {[0, 1, 2].map((i) => (
             <div
               key={`ring-${i}`}
               className="absolute rounded-full"
               style={{
                 left: '50%', top: '50%', width: 40, height: 40, marginTop: -20, marginLeft: -20,
-                border: `1.5px solid rgba(212,175,55,${0.4 - i * 0.08})`,
+                border: `1.5px solid rgba(212,175,55,${0.4 - i * 0.1})`,
                 animation: `intro-ring-expand 0.8s ease-out ${0.3 + i * 0.15}s forwards`,
                 opacity: 0,
               }}
@@ -263,9 +267,9 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         </div>
       )}
 
-      {/* ====== SPARK PARTICLES — during letters, logo, subtitle ====== */}
+      {/* ====== SPARK PARTICLES — reduced from 40 to 20 ====== */}
       {mounted && !isGrid && !isWiping && (
-        <div className="absolute inset-0 pointer-events-none z-5">
+        <div className="absolute inset-0 pointer-events-none z-5" style={{ contain: 'layout style' }}>
           {sparkParticles.map((p, i) => (
             <div
               key={`spark-${i}`}
@@ -294,11 +298,11 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           return (
             <span
               key={`letter-${index}`}
-              className="inline-block text-5xl sm:text-7xl md:text-8xl lg:text-[120px] font-bold gpu-accelerated"
+              className="inline-block text-5xl sm:text-7xl md:text-8xl lg:text-[120px] font-bold"
               style={{
                 color: '#FFFFFF',
                 opacity: shouldShow ? 1 : isWiping ? 0 : 0,
-                // FLY IN from left or right with rotation
+                willChange: 'transform, opacity, filter',
                 transform: isGrid
                   ? `translateX(${dir.fromLeft ? '-120vw' : '120vw'}) translateY(${dir.startY}px) rotateY(${dir.rotateStart}deg) scale(0.3)`
                   : isWiping
@@ -306,7 +310,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                   : phase === 'explode'
                   ? `translateX(${(dir.fromLeft ? -1 : 1) * (200 + index * 30)}px) translateY(${dir.startY * 3}px) rotateZ(${dir.rotateStart}deg) scale(0)`
                   : phase === 'breathe'
-                  ? `translateX(0) translateY(${Math.sin(Date.now() / 1000 + index) * 3}px) rotateY(0) scale(1)`
+                  ? 'translateX(0) translateY(0) rotateY(0) scale(1)'
                   : `translateX(0) translateY(0) rotateY(0) scale(1)`,
                 filter: isGrid
                   ? 'blur(8px) brightness(3)'
@@ -318,14 +322,16 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
                 textShadow: shouldShow && !isWiping
                   ? '0 0 30px rgba(212,175,55,0.4), 0 0 60px rgba(37,162,220,0.2)'
                   : 'none',
+                // FIX: specific properties ONLY — never `transition: all`
                 transition: isGrid
                   ? 'none'
                   : phase === 'explode'
-                  ? `all 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.02}s`
+                  ? specificTransition(['transform', 'opacity', 'filter'], '0.6s', 'cubic-bezier(0.16, 1, 0.3, 1)', `${index * 0.02}s`)
                   : isWiping
-                  ? `all 0.5s ease ${index * 0.03}s`
-                  : `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${dir.delay}s`,
+                  ? specificTransition(['transform', 'opacity', 'filter'], '0.5s', 'ease', `${index * 0.03}s`)
+                  : specificTransition(['transform', 'opacity', 'filter'], '0.8s', 'cubic-bezier(0.16, 1, 0.3, 1)', `${dir.delay}s`),
                 letterSpacing: '0.02em',
+                // FIX: CSS animation handles breathe float — no more Date.now()
                 animation: phase === 'breathe' ? `letter-float 2.5s ease-in-out infinite ${index * 0.15}s` : 'none',
               }}
             >
@@ -335,10 +341,9 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         })}
       </div>
 
-      {/* ====== GOLDEN TRAIL behind letters — visible during letters phase ====== */}
+      {/* ====== GOLDEN TRAIL behind letters ====== */}
       {phase === 'letters' && (
         <div className="absolute inset-0 z-5 pointer-events-none">
-          {/* Left streak */}
           <div style={{
             position: 'absolute', left: 0, top: '45%', width: '40%', height: '3px',
             background: 'linear-gradient(90deg, transparent, rgba(212,175,55,0.3), rgba(212,175,55,0.6))',
@@ -346,7 +351,6 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
             animation: 'intro-trail-left 1.2s ease-out forwards',
             opacity: 0,
           }} />
-          {/* Right streak */}
           <div style={{
             position: 'absolute', right: 0, top: '52%', width: '40%', height: '3px',
             background: 'linear-gradient(270deg, transparent, rgba(37,162,220,0.3), rgba(37,162,220,0.6))',
@@ -354,8 +358,8 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
             animation: 'intro-trail-right 1.2s ease-out forwards',
             opacity: 0,
           }} />
-          {/* Impact sparks at center */}
-          {Array.from({ length: 12 }).map((_, i) => (
+          {/* Impact sparks — reduced from 12 to 8 */}
+          {Array.from({ length: 8 }).map((_, i) => (
             <div
               key={`impact-${i}`}
               className="absolute rounded-full"
@@ -383,7 +387,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           height: '2px',
           background: 'linear-gradient(90deg, transparent, #D4AF37)',
           opacity: phase === 'letters' ? 0.6 : (phase === 'logo' || phase === 'logoHold' || phase === 'subtitle' || phase === 'breathe') ? 1 : isWiping ? 0 : 0,
-          transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+          transition: 'width 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
           boxShadow: '0 0 10px rgba(212,175,55,0.5)',
         }} />
         <div style={{
@@ -391,7 +395,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           border: '2px solid #D4AF37',
           transform: 'rotate(45deg)',
           opacity: (phase === 'logo' || phase === 'logoHold' || phase === 'subtitle' || phase === 'breathe') ? 1 : isWiping ? 0 : 0,
-          transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
+          transition: 'opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
           boxShadow: '0 0 10px rgba(212,175,55,0.4)',
           animation: phase === 'breathe' ? 'intro-diamond-spin 4s linear infinite' : 'none',
         }} />
@@ -400,14 +404,14 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           height: '2px',
           background: 'linear-gradient(270deg, transparent, #25A2DC)',
           opacity: phase === 'letters' ? 0.6 : (phase === 'logo' || phase === 'logoHold' || phase === 'subtitle' || phase === 'breathe') ? 1 : isWiping ? 0 : 0,
-          transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+          transition: 'width 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
           boxShadow: '0 0 10px rgba(37,162,220,0.5)',
         }} />
       </div>
 
       {/* ====== PHASE 3: LOGO 3D SPIN FROM BEHIND ====== */}
       <div
-        className="absolute z-10 gpu-accelerated"
+        className="absolute z-10"
         style={{
           perspective: '1000px',
           opacity: phase === 'logo' || phase === 'logoHold' || phase === 'subtitle' ? 1 : phase === 'breathe' ? 0.9 : phase === 'explode' ? 0.5 : isWiping ? 0 : 0,
@@ -427,11 +431,12 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
             : isWiping
             ? 'brightness(3) blur(12px)'
             : 'brightness(1.1) blur(0px)',
-          transition: 'all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
+          willChange: 'transform, opacity, filter',
+          transition: 'transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 1.2s cubic-bezier(0.34, 1.56, 0.64, 1), filter 1.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
           animation: phase === 'breathe' ? 'intro-logo-breathe 3s ease-in-out infinite' : 'none',
         }}
       >
-        {/* 3D Glow ring that expands on logo appearance */}
+        {/* 3D Glow ring */}
         <div
           className="absolute pointer-events-none"
           style={{
@@ -442,7 +447,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
             animation: phase === 'logo' || phase === 'logoHold' ? 'intro-ring-expand 1.5s ease-out forwards' : 'none',
           }}
         />
-        {/* 3D Shine sweep — diagonal light reflection */}
+        {/* 3D Shine sweep */}
         <div
           className="absolute inset-0 z-20 pointer-events-none overflow-hidden"
           style={{
@@ -499,7 +504,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         style={{
           opacity: phase === 'subtitle' || phase === 'breathe' ? 1 : phase === 'explode' ? 0.5 : isWiping ? 0 : 0,
           transform: isWiping ? 'translateY(-30px) scale(0.8)' : 'translateY(0) scale(1)',
-          transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+          transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
         {arabicText.split('').map((char, index) => (
@@ -514,7 +519,8 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               opacity: phase === 'subtitle' || phase === 'breathe' ? 1 : phase === 'explode' ? 0.3 : 0,
               transform: phase === 'subtitle' || phase === 'breathe' ? 'translateY(0) scale(1)' : isWiping ? 'translateY(-20px) scale(0.5)' : 'translateY(30px) scale(0.7)',
               filter: phase === 'subtitle' || phase === 'breathe' ? 'blur(0px)' : 'blur(4px)',
-              transition: `all 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${3.5 + index * 0.03}s`,
+              willChange: 'transform, opacity, filter',
+              transition: `transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${3.5 + index * 0.03}s, opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${3.5 + index * 0.03}s, filter 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${3.5 + index * 0.03}s`,
               animation: phase === 'breathe' ? `intro-text-shimmer 2s ease-in-out infinite ${index * 0.1}s` : 'none',
             }}
           >
@@ -528,7 +534,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         className="relative z-10 mt-3 flex items-center justify-center"
         style={{
           opacity: phase === 'subtitle' || phase === 'breathe' ? 1 : isWiping ? 0 : 0,
-          transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s',
+          transition: 'opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s',
         }}
       >
         {tagline.split('').map((char, index) => (
@@ -540,7 +546,8 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               display: 'inline-block',
               opacity: phase === 'subtitle' || phase === 'breathe' ? 0.7 : 0,
               transform: phase === 'subtitle' || phase === 'breathe' ? 'translateY(0)' : 'translateY(10px)',
-              transition: `all 0.35s ease ${3.8 + index * 0.01}s`,
+              willChange: 'transform, opacity',
+              transition: `transform 0.35s ease ${3.8 + index * 0.01}s, opacity 0.35s ease ${3.8 + index * 0.01}s`,
             }}
           >
             {char === ' ' ? '\u00A0' : char}
@@ -567,18 +574,11 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
               {shape.icon}
             </div>
           ))}
-          {/* Rotating diamond frames */}
           <div style={{
             position: 'absolute', top: '50%', left: '50%',
             width: 500, height: 500, marginTop: -250, marginLeft: -250,
             border: '1px solid rgba(212,175,55,0.06)',
             animation: 'intro-diamond-rotate 10s linear infinite',
-          }} />
-          <div style={{
-            position: 'absolute', top: '50%', left: '50%',
-            width: 350, height: 350, marginTop: -175, marginLeft: -175,
-            border: '1px solid rgba(37,162,220,0.05)',
-            animation: 'intro-diamond-rotate 14s linear infinite reverse',
           }} />
         </div>
       )}
@@ -586,29 +586,27 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
       {/* ====== PHASE 6: EXPLODE — Golden shockwave ====== */}
       {phase === 'explode' && (
         <>
-          {/* Ripple rings */}
-          {[0, 1, 2, 3, 4, 5].map((i) => (
+          {[0, 1, 2, 3].map((i) => (
             <div
               key={`pulse-ring-${i}`}
               className="absolute z-5 rounded-full"
               style={{
-                border: `2px solid rgba(212, 175, 55, ${0.5 - i * 0.06})`,
+                border: `2px solid rgba(212, 175, 55, ${0.5 - i * 0.08})`,
                 animation: `ripple-expand 0.8s ease-out ${i * 0.08}s forwards`,
               }}
             />
           ))}
-          {[0, 1, 2, 3].map((i) => (
+          {[0, 1, 2].map((i) => (
             <div
               key={`pulse-blue-${i}`}
               className="absolute z-5 rounded-full"
               style={{
-                border: `1.5px solid rgba(37, 162, 220, ${0.3 - i * 0.05})`,
+                border: `1.5px solid rgba(37, 162, 220, ${0.3 - i * 0.06})`,
                 animation: `ripple-expand 1s ease-out ${0.1 + i * 0.1}s forwards`,
               }}
             />
           ))}
 
-          {/* Burst particles */}
           {burstParticles.map((p, i) => (
             <div
               key={`explode-${i}`}
@@ -636,7 +634,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         </>
       )}
 
-      {/* ====== PHASE 7: WIPE — Smooth gradient dissolve ====== */}
+      {/* ====== PHASE 7: WIPE — Clip-path dissolve (NO container blur) ====== */}
       {isWiping && (
         <div
           className="absolute inset-0 z-20 pointer-events-none"
