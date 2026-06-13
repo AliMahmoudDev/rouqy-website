@@ -57,9 +57,10 @@ export default function HorizontalGallery3D() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
-  const scrollLeft = useRef(0);
+  const scrollLeftStart = useRef(0);
+  const hasMoved = useRef(false);
 
-  // Lightweight 3D update using direct style manipulation (NO GSAP in drag loop)
+  // Lightweight 3D update — direct style only
   const updateCard3D = useCallback(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -74,69 +75,71 @@ export default function HorizontalGallery3D() {
       const clamped = Math.max(-1, Math.min(1, offset));
       const absClamped = Math.abs(clamped);
 
-      // Smooth cubic easing for all transforms
-      const eased = clamped * clamped * clamped; // Cubic ease for rotation
-      const rotateY = eased * 18;
-      const scale = 1 - absClamped * absClamped * 0.1; // Quadratic ease for scale
+      // Cubic easing for smooth rotation
+      const rotateY = (clamped * clamped * clamped) * 18;
+      // Quadratic ease for scale
+      const scale = 1 - absClamped * absClamped * 0.1;
       const opacity = 1 - absClamped * 0.35;
 
-      // Direct style — no GSAP, no layout thrash
       card.style.transform = `perspective(1000px) rotateY(${rotateY}deg) scale(${scale})`;
       card.style.opacity = `${opacity}`;
     });
-  }, []);
-
-  // Drag handlers — ultra lightweight
-  const onPointerDown = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    isDragging.current = true;
-    startX.current = e.clientX;
-    scrollLeft.current = container.scrollLeft;
-    container.setPointerCapture(e.pointerId);
-    container.style.cursor = 'grabbing';
-    container.style.scrollSnapType = 'none'; // Disable snap during drag
-  }, []);
-
-  const onPointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    const container = containerRef.current;
-    if (!isDragging.current || !container) return;
-
-    const dx = e.clientX - startX.current;
-    container.scrollLeft = scrollLeft.current - dx;
-
-    updateCard3D();
-  }, [updateCard3D]);
-
-  const onPointerUp = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    isDragging.current = false;
-    container.style.cursor = 'grab';
-    container.style.scrollSnapType = 'x proximity'; // Re-enable snap after drag
   }, []);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    // Native scroll handler for trackpad/wheel
+    // ===== DESKTOP: Mouse drag for horizontal scroll =====
+    const handleMouseDown = (e: MouseEvent) => {
+      // Only left click
+      if (e.button !== 0) return;
+      isDragging.current = true;
+      hasMoved.current = false;
+      startX.current = e.clientX;
+      scrollLeftStart.current = container.scrollLeft;
+      container.style.cursor = 'grabbing';
+      container.style.scrollSnapType = 'none';
+      e.preventDefault(); // Prevent text selection during drag
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDragging.current) return;
+      const dx = e.clientX - startX.current;
+      if (Math.abs(dx) > 3) hasMoved.current = true;
+      container.scrollLeft = scrollLeftStart.current - dx;
+      requestAnimationFrame(updateCard3D);
+    };
+
+    const handleMouseUp = () => {
+      if (!isDragging.current) return;
+      isDragging.current = false;
+      container.style.cursor = 'grab';
+      container.style.scrollSnapType = 'x proximity';
+    };
+
+    // ===== ALL: Native scroll for 3D update =====
     const handleScroll = () => {
       requestAnimationFrame(updateCard3D);
     };
 
+    // Add listeners
+    container.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+    container.addEventListener('scroll', handleScroll, { passive: true });
+
     // Initial 3D state
     updateCard3D();
 
-    // Observe resize to recalc
+    // Resize observer
     const observer = new ResizeObserver(() => updateCard3D());
     observer.observe(container);
 
-    container.addEventListener('scroll', handleScroll, { passive: true });
-
     return () => {
+      container.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
       container.removeEventListener('scroll', handleScroll);
       observer.disconnect();
     };
@@ -155,18 +158,14 @@ export default function HorizontalGallery3D() {
           Floating Gallery
         </h2>
         <p className="text-[#A0AEC0]/50 text-sm mt-3 max-w-lg">
-          Drag or swipe to explore our projects — each space turns to face you as you browse
+          Swipe or drag to explore our projects — each space turns to face you
         </p>
       </div>
 
-      {/* Draggable horizontal container */}
+      {/* Horizontal scroll container — NATIVE scroll on mobile, mouse drag on desktop */}
       <div
         ref={containerRef}
         className="flex items-center gap-6 md:gap-8 px-6 md:px-16 pb-4 select-none"
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerCancel={onPointerUp}
         style={{
           overflowX: 'auto',
           overflowY: 'hidden',
@@ -175,12 +174,10 @@ export default function HorizontalGallery3D() {
           msOverflowStyle: 'none',
           WebkitOverflowScrolling: 'touch',
           cursor: 'grab',
-          touchAction: 'pan-x',
         }}
       >
-        {/* Hide scrollbar CSS */}
         <style>{`
-          [data-gallery-container]::-webkit-scrollbar { display: none; }
+          [data-gallery-scroll]::-webkit-scrollbar { display: none; }
         `}</style>
 
         {galleryItems.map((item, i) => (
@@ -229,7 +226,7 @@ export default function HorizontalGallery3D() {
                 }} />
               </div>
 
-              {/* Arrow indicator */}
+              {/* Arrow */}
               <div className="absolute top-5 right-5 w-9 h-9 rounded-full border border-white/15 flex items-center justify-center opacity-30 group-hover:opacity-70 transition-opacity duration-300" style={{
                 background: 'rgba(255,255,255,0.05)',
                 backdropFilter: 'blur(8px)',
@@ -243,12 +240,12 @@ export default function HorizontalGallery3D() {
         ))}
       </div>
 
-      {/* Drag hint */}
+      {/* Hint */}
       <div className="flex items-center justify-center gap-2 mt-6 opacity-30">
         <svg width="20" height="10" viewBox="0 0 20 10" fill="none">
           <path d="M1 5H19M15 1L19 5L15 9" stroke="#A0AEC0" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
-        <span className="text-[9px] tracking-[0.3em] uppercase text-[#A0AEC0]">Drag to explore</span>
+        <span className="text-[9px] tracking-[0.3em] uppercase text-[#A0AEC0]">Swipe to explore</span>
         <svg width="20" height="10" viewBox="0 0 20 10" fill="none">
           <path d="M19 5H1M5 1L1 5L5 9" stroke="#A0AEC0" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
