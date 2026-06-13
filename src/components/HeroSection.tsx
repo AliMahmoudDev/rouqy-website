@@ -379,26 +379,20 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
           </div>
         </div>
 
-        {/* Brand Name — 3D Text Split */}
-        {mounted ? (
-          <h1
-            className={`text-6xl sm:text-7xl md:text-8xl lg:text-[140px] font-bold tracking-tight text-white uppercase leading-[0.9] ${
-              mounted ? 'hero-enter-title' : 'opacity-0'
-            }`}
-          >
-            <TextSplit3D
-              text="HARMENS"
-              mode="entrance"
-              staggerDelay={80}
-              entranceDuration={1000}
-              letterClassName="text-6xl sm:text-7xl md:text-8xl lg:text-[140px] font-bold tracking-tight text-white uppercase"
-            />
-          </h1>
-        ) : (
-          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-[140px] font-bold tracking-tight text-white uppercase leading-[0.9] opacity-0">
-            HARMENS
-          </h1>
-        )}
+        {/* Brand Name — 3D Text Split (always rendered, animates once per session) */}
+        <h1
+          className={`text-6xl sm:text-7xl md:text-8xl lg:text-[140px] font-bold tracking-tight text-white uppercase leading-[0.9] ${
+            mounted ? 'hero-enter-title' : 'opacity-0'
+          }`}
+        >
+          <TextSplit3D
+            text="HARMENS"
+            mode="entrance"
+            staggerDelay={80}
+            entranceDuration={1000}
+            letterClassName="text-6xl sm:text-7xl md:text-8xl lg:text-[140px] font-bold tracking-tight text-white uppercase"
+          />
+        </h1>
 
         {/* Decorative line */}
         <div className={`mx-auto mt-6 md:mt-8 ${mounted ? 'hero-enter-line' : 'opacity-0'}`}>

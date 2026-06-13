@@ -9,10 +9,12 @@ import { useEffect, useRef, useState, useMemo } from 'react';
  * 3D rotation transforms (rotateX + rotateY + translateZ)
  * 
  * Two modes:
- * 1. "entrance" — Letters fly in from behind on mount (hero title)
+ * 1. "entrance" — Letters fly in from behind on mount, ONCE only
  * 2. "scroll" — Letters respond to scroll with 3D transforms
  * 
- * Performance: CSS transforms only (GPU-accelerated), no layout recalculation
+ * The entrance animation plays only on the first visit per session.
+ * After completing, it locks into final position with no transitions
+ * so re-mounts (scroll away and back) don't re-trigger animation.
  */
 
 interface TextSplit3DProps {
@@ -25,6 +27,9 @@ interface TextSplit3DProps {
   scrollIntensity?: number;  // How much scroll affects 3D rotation (0-1)
 }
 
+// Session-level flag: has the entrance animation played this session?
+let entrancePlayedThisSession = false;
+
 export default function TextSplit3D({
   text,
   mode = 'entrance',
@@ -34,7 +39,13 @@ export default function TextSplit3D({
   entranceDuration = 800,
   scrollIntensity = 0.3,
 }: TextSplit3DProps) {
-  const [mounted, setMounted] = useState(false);
+  // If entrance already played, skip straight to "mounted" state
+  const [mounted, setMounted] = useState(() => 
+    mode === 'entrance' ? entrancePlayedThisSession : false
+  );
+  const [locked, setLocked] = useState(() => 
+    mode === 'entrance' ? entrancePlayedThisSession : false
+  );
   const [scrollY, setScrollY] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number>(0);
@@ -43,10 +54,29 @@ export default function TextSplit3D({
   const letters = useMemo(() => text.split(''), [text]);
 
   useEffect(() => {
+    if (mode === 'entrance' && entrancePlayedThisSession) {
+      // Already played — stay locked in final position
+      return;
+    }
+
     // Trigger entrance animation after mount
     const timer = setTimeout(() => setMounted(true), 50);
-    return () => clearTimeout(timer);
-  }, []);
+
+    // Lock into final position after animation completes
+    // (stagger delay + entrance duration + buffer)
+    const totalDuration = letters.length * staggerDelay + entranceDuration + 200;
+    const lockTimer = setTimeout(() => {
+      setLocked(true);
+      if (mode === 'entrance') {
+        entrancePlayedThisSession = true;
+      }
+    }, totalDuration);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(lockTimer);
+    };
+  }, [mode, letters.length, staggerDelay, entranceDuration]);
 
   useEffect(() => {
     if (mode !== 'scroll') return;
@@ -82,13 +112,13 @@ export default function TextSplit3D({
       {letters.map((letter, i) => {
         const isSpace = letter === ' ';
 
-        // Entrance animation values — MORE dramatic
+        // Entrance animation values
         const entranceRotateX = mounted ? 0 : 120 + (i % 3) * 30;
         const entranceRotateY = mounted ? 0 : (i % 2 === 0 ? -50 : 50);
         const entranceTranslateZ = mounted ? 0 : -400;
         const entranceOpacity = mounted ? 1 : 0;
 
-        // Scroll animation values — MORE visible
+        // Scroll animation values
         const normalizedScroll = scrollY * scrollIntensity * 0.005;
         const scrollRotateX = mode === 'scroll' ? normalizedScroll * (i % 2 === 0 ? 1 : -1) * 12 : 0;
         const scrollRotateY = mode === 'scroll' ? normalizedScroll * (i % 3 === 0 ? 1 : -0.5) * 6 : 0;
@@ -106,11 +136,16 @@ export default function TextSplit3D({
               display: 'inline-block',
               transform: `rotateX(${finalRotateX}deg) rotateY(${finalRotateY}deg) translateZ(${finalTranslateZ}px)`,
               opacity: entranceOpacity,
-              transition: mounted
-                ? `transform ${entranceDuration}ms cubic-bezier(0.16, 1, 0.3, 1) ${i * staggerDelay}ms, opacity ${entranceDuration * 0.6}ms ease ${i * staggerDelay}ms`
-                : 'none',
+              // When locked: NO transition at all = no re-animation on re-mount
+              // When animating: full entrance transition
+              // When not yet started: no transition
+              transition: locked
+                ? 'none'
+                : mounted
+                  ? `transform ${entranceDuration}ms cubic-bezier(0.16, 1, 0.3, 1) ${i * staggerDelay}ms, opacity ${entranceDuration * 0.6}ms ease ${i * staggerDelay}ms`
+                  : 'none',
               transformStyle: 'preserve-3d',
-              willChange: 'transform, opacity',
+              willChange: locked ? 'auto' : 'transform, opacity',
               backfaceVisibility: 'hidden',
               minWidth: isSpace ? '0.3em' : undefined,
             }}
