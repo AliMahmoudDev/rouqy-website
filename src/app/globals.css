@@ -790,7 +790,10 @@ html {
 /* --- Base: all sr elements start hidden --- */
 [data-sr] {
   will-change: transform, opacity, filter;
-  backface-visibility: hidden;
+  /* REMOVED: backface-visibility: hidden — caused mobile Chrome bug
+     where images inside data-sr elements randomly disappear until tap/hover.
+     Only apply backface-visibility on elements that truly need it (3D flips),
+     not on all scroll-reveal containers that hold images. */
 }
 
 /* --- Duration presets --- */
