@@ -75,7 +75,7 @@ export default function RotatingShowcase3D() {
           height: cardHeight,
           transformStyle: 'preserve-3d',
           // Static slight tilt so you can see the 3D depth + gentle float
-          animation: 'showcase-float 6s ease-in-out infinite',
+          animation: 'showcase-float 30s linear infinite',
           willChange: 'transform',
         }}
       >

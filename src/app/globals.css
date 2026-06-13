@@ -1097,10 +1097,21 @@ html {
   100% { transform: rotateY(360deg) rotateX(6deg) rotateZ(0deg); }
 }
 
-/* 3D Showcase — gentle float up/down (experimental) */
+/* 3D Showcase — rotation + gentle float combined (experimental) */
 @keyframes showcase-float {
-  0%, 100% { transform: rotateX(5deg) rotateY(-12deg) translateY(0px); }
-  50% { transform: rotateX(5deg) rotateY(-12deg) translateY(-12px); }
+  0% { transform: rotateX(5deg) rotateY(0deg) translateY(0px); }
+  8% { transform: rotateX(4deg) rotateY(30deg) translateY(-6px); }
+  17% { transform: rotateX(5deg) rotateY(60deg) translateY(-10px); }
+  25% { transform: rotateX(4deg) rotateY(90deg) translateY(-12px); }
+  33% { transform: rotateX(5deg) rotateY(120deg) translateY(-8px); }
+  42% { transform: rotateX(4deg) rotateY(150deg) translateY(0px); }
+  50% { transform: rotateX(5deg) rotateY(180deg) translateY(-6px); }
+  58% { transform: rotateX(4deg) rotateY(210deg) translateY(-12px); }
+  67% { transform: rotateX(5deg) rotateY(240deg) translateY(-10px); }
+  75% { transform: rotateX(4deg) rotateY(270deg) translateY(-4px); }
+  83% { transform: rotateX(5deg) rotateY(300deg) translateY(0px); }
+  92% { transform: rotateX(4deg) rotateY(330deg) translateY(-6px); }
+  100% { transform: rotateX(5deg) rotateY(360deg) translateY(0px); }
 }
 
 /* 3D INTRO LOGO ANIMATION */
