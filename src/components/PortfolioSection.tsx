@@ -100,10 +100,23 @@ function AnimatedCounter({ target, suffix = '', duration = 2000 }: { target: num
 
 export default function PortfolioSection() {
   const sectionRef = useScrollReveal<HTMLElement>({
-    threshold: 0.08,
-    rootMargin: '0px 0px -40px 0px',
+    threshold: 0.02,
+    rootMargin: '200px 0px -20px 0px',
   });
   const parallaxRef = useParallax3D<HTMLElement>();
+
+  // Preload project images early — start fetching before user scrolls to section
+  useEffect(() => {
+    const preloadLinks = projects.map((project) => {
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = project.image;
+      link.as = 'image';
+      document.head.appendChild(link);
+      return link;
+    });
+    return () => preloadLinks.forEach(link => link.remove());
+  }, []);
 
   return (
     <section

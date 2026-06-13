@@ -44,8 +44,8 @@ export default function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
   } = {}
 ) {
   const {
-    threshold = 0.12,
-    rootMargin = '0px 0px -60px 0px',
+    threshold = 0.05,
+    rootMargin = '100px 0px -20px 0px',
     triggerOnce = true,
   } = options;
 
