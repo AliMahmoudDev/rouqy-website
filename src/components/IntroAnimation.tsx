@@ -375,7 +375,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
 
       {/* ====== Decorative line under HARMENS ====== */}
       <div className="relative z-10 mt-4 md:mt-6 flex items-center gap-3 justify-center" style={{
-        transform: (phase === 'logo' || phase === 'logoHold') ? 'translateY(90px)' : (phase === 'subtitle' || phase === 'breathe') ? 'translateY(90px)' : 'translateY(0)',
+        transform: (phase === 'logo' || phase === 'logoHold') ? 'translateY(150px)' : 'translateY(0)',
         transition: 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
       }}>
         <div style={{
