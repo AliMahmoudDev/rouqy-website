@@ -15,10 +15,11 @@ interface IntroAnimationProps {
  * Phase 1 (0-1.0s):   Dark void → Golden grid blueprint draws itself → Geometric shapes fly in
  * Phase 2 (1.0-2.5s): HARMENS letters fly in from BOTH sides with glowing trails + sparks
  * Phase 3 (2.5-3.5s): Logo drops in from above with bounce + orbit ring spins around it
- * Phase 4 (3.5-4.8s): Arabic text types itself letter by letter + English fades in below
- * Phase 5 (4.8-5.8s): Everything breathes + floating furniture silhouettes drift + particles rise
- * Phase 6 (5.8-6.5s): Golden shockwave explodes outward + all elements scatter
- * Phase 7 (6.5-7.0s): Cinematic wipe → site emerges
+ * Phase 3.5 (3.5-4.6s): Logo HOLDS centered — viewer reads the brand name
+ * Phase 4 (4.6-5.9s): Logo shrinks down, Arabic text types itself letter by letter + English fades in below
+ * Phase 5 (5.9-6.9s): Everything breathes + floating furniture silhouettes drift + particles rise
+ * Phase 6 (6.9-7.6s): Golden shockwave explodes outward + all elements scatter
+ * Phase 7 (7.6-8.1s): Cinematic wipe → site emerges
  */
 
 function seededRandom(seed: number): number {
@@ -28,7 +29,7 @@ function seededRandom(seed: number): number {
 
 export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   const [phase, setPhase] = useState<
-    'grid' | 'letters' | 'logo' | 'subtitle' | 'breathe' | 'explode' | 'wipe' | 'done'
+    'grid' | 'letters' | 'logo' | 'logoHold' | 'subtitle' | 'breathe' | 'explode' | 'wipe' | 'done'
   >('grid');
   const [mounted, setMounted] = useState(false);
   const onCompleteStable = useCallback(onComplete, [onComplete]);
@@ -43,14 +44,15 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
 
     timers.push(setTimeout(() => setPhase('letters'), 1000));
     timers.push(setTimeout(() => setPhase('logo'), 2500));
-    timers.push(setTimeout(() => setPhase('subtitle'), 3500));
-    timers.push(setTimeout(() => setPhase('breathe'), 4800));
-    timers.push(setTimeout(() => setPhase('explode'), 5800));
-    timers.push(setTimeout(() => setPhase('wipe'), 6500));
+    timers.push(setTimeout(() => setPhase('logoHold'), 3500));
+    timers.push(setTimeout(() => setPhase('subtitle'), 4600));
+    timers.push(setTimeout(() => setPhase('breathe'), 5900));
+    timers.push(setTimeout(() => setPhase('explode'), 6900));
+    timers.push(setTimeout(() => setPhase('wipe'), 7600));
     timers.push(setTimeout(() => {
       setPhase('done');
       onCompleteStable();
-    }, 7000));
+    }, 8100));
 
     return () => timers.forEach(clearTimeout);
   }, [mounted, onCompleteStable]);
@@ -284,7 +286,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
       <div className="relative z-10 flex items-center justify-center" style={{ perspective: '1000px' }}>
         {brandName.split('').map((letter, index) => {
           const dir = letterDirections[index];
-          const isVisible = phase === 'letters' || phase === 'logo' || phase === 'subtitle' || phase === 'breathe';
+          const isVisible = phase === 'letters' || phase === 'logo' || phase === 'logoHold' || phase === 'subtitle' || phase === 'breathe';
           const shouldShow = isVisible || phase === 'explode';
 
           return (
@@ -372,10 +374,10 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
       {/* ====== Decorative line under HARMENS ====== */}
       <div className="relative z-10 mt-4 md:mt-6 flex items-center gap-3 justify-center">
         <div style={{
-          width: (phase === 'letters' || phase === 'logo' || phase === 'subtitle' || phase === 'breathe') ? '50px' : '0px',
+          width: (phase === 'letters' || phase === 'logo' || phase === 'logoHold' || phase === 'subtitle' || phase === 'breathe') ? '50px' : '0px',
           height: '2px',
           background: 'linear-gradient(90deg, transparent, #D4AF37)',
-          opacity: phase === 'letters' ? 0.6 : (phase === 'logo' || phase === 'subtitle' || phase === 'breathe') ? 1 : isWiping ? 0 : 0,
+          opacity: phase === 'letters' ? 0.6 : (phase === 'logo' || phase === 'logoHold' || phase === 'subtitle' || phase === 'breathe') ? 1 : isWiping ? 0 : 0,
           transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
           boxShadow: '0 0 10px rgba(212,175,55,0.5)',
         }} />
@@ -383,16 +385,16 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           width: 8, height: 8,
           border: '2px solid #D4AF37',
           transform: 'rotate(45deg)',
-          opacity: (phase === 'logo' || phase === 'subtitle' || phase === 'breathe') ? 1 : isWiping ? 0 : 0,
+          opacity: (phase === 'logo' || phase === 'logoHold' || phase === 'subtitle' || phase === 'breathe') ? 1 : isWiping ? 0 : 0,
           transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
           boxShadow: '0 0 10px rgba(212,175,55,0.4)',
           animation: phase === 'breathe' ? 'intro-diamond-spin 4s linear infinite' : 'none',
         }} />
         <div style={{
-          width: (phase === 'letters' || phase === 'logo' || phase === 'subtitle' || phase === 'breathe') ? '50px' : '0px',
+          width: (phase === 'letters' || phase === 'logo' || phase === 'logoHold' || phase === 'subtitle' || phase === 'breathe') ? '50px' : '0px',
           height: '2px',
           background: 'linear-gradient(270deg, transparent, #25A2DC)',
-          opacity: phase === 'letters' ? 0.6 : (phase === 'logo' || phase === 'subtitle' || phase === 'breathe') ? 1 : isWiping ? 0 : 0,
+          opacity: phase === 'letters' ? 0.6 : (phase === 'logo' || phase === 'logoHold' || phase === 'subtitle' || phase === 'breathe') ? 1 : isWiping ? 0 : 0,
           transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
           boxShadow: '0 0 10px rgba(37,162,220,0.5)',
         }} />
@@ -403,10 +405,10 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         className="absolute z-10 gpu-accelerated"
         style={{
           perspective: '1000px',
-          opacity: phase === 'logo' || phase === 'subtitle' ? 1 : phase === 'breathe' ? 0.9 : phase === 'explode' ? 0.5 : isWiping ? 0 : 0,
+          opacity: phase === 'logo' || phase === 'logoHold' || phase === 'subtitle' ? 1 : phase === 'breathe' ? 0.9 : phase === 'explode' ? 0.5 : isWiping ? 0 : 0,
           transform: isGrid || phase === 'letters'
             ? 'perspective(1000px) rotateY(180deg) rotateX(30deg) scale(0.3) translateZ(-200px)'
-            : phase === 'logo'
+            : phase === 'logo' || phase === 'logoHold'
             ? 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1) translateZ(0px)'
             : phase === 'subtitle' || phase === 'breathe'
             ? 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(0.55) translateY(160px) translateZ(0px)'
@@ -431,16 +433,16 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
             left: '50%', top: '50%', width: 40, height: 40, marginTop: -20, marginLeft: -20,
             borderRadius: '50%',
             border: '2px solid rgba(212,175,55,0.6)',
-            opacity: phase === 'logo' ? 1 : 0,
-            animation: phase === 'logo' ? 'intro-ring-expand 1.5s ease-out forwards' : 'none',
+            opacity: phase === 'logo' || phase === 'logoHold' ? 1 : 0,
+            animation: phase === 'logo' || phase === 'logoHold' ? 'intro-ring-expand 1.5s ease-out forwards' : 'none',
           }}
         />
         {/* 3D Shine sweep — diagonal light reflection */}
         <div
           className="absolute inset-0 z-20 pointer-events-none overflow-hidden"
           style={{
-            opacity: phase === 'logo' ? 1 : phase === 'breathe' ? 0.4 : 0,
-            animation: phase === 'logo' ? 'intro-shine-sweep 1s ease-out 0.5s' : phase === 'breathe' ? 'intro-shine-sweep 4s ease-in-out infinite' : 'none',
+            opacity: phase === 'logo' || phase === 'logoHold' ? 1 : phase === 'breathe' ? 0.4 : 0,
+            animation: phase === 'logo' || phase === 'logoHold' ? 'intro-shine-sweep 1s ease-out 0.5s' : phase === 'breathe' ? 'intro-shine-sweep 4s ease-in-out infinite' : 'none',
             transition: 'opacity 0.3s ease',
           }}
         >
@@ -461,7 +463,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           style={{
             left: '50%', top: '50%', width: 220, height: 220, marginTop: -110, marginLeft: -110,
             borderRadius: '50%', border: '1.5px solid rgba(212,175,55,0.2)',
-            opacity: phase === 'logo' || phase === 'subtitle' || phase === 'breathe' ? 1 : 0,
+            opacity: phase === 'logo' || phase === 'logoHold' || phase === 'subtitle' || phase === 'breathe' ? 1 : 0,
             animation: 'spin-slow 6s linear infinite',
             transition: 'opacity 0.5s ease',
           }}
@@ -480,7 +482,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           className="relative z-10"
           style={{
             filter: 'drop-shadow(0 0 30px rgba(212,175,55,0.5)) drop-shadow(0 0 60px rgba(212,175,55,0.2))',
-            animation: phase === 'logo' ? 'intro-logo-glow-3d 1.5s ease-out' : 'none',
+            animation: phase === 'logo' || phase === 'logoHold' ? 'intro-logo-glow-3d 1.5s ease-out' : 'none',
           }}
           priority
         />
@@ -651,14 +653,14 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
             Loading Experience
           </span>
           <span className="text-[10px] tracking-[0.2em] font-light" style={{ color: 'rgba(212, 175, 55, 0.5)' }}>
-            {isGrid ? '0' : phase === 'letters' ? '14' : phase === 'logo' ? '35' : phase === 'subtitle' ? '55' : phase === 'breathe' ? '75' : phase === 'explode' ? '90' : '100'}%
+            {isGrid ? '0' : phase === 'letters' ? '14' : phase === 'logo' ? '28' : phase === 'logoHold' ? '40' : phase === 'subtitle' ? '55' : phase === 'breathe' ? '75' : phase === 'explode' ? '90' : '100'}%
           </span>
         </div>
         <div className="h-[1px] w-full bg-[#1C2738]/60 relative overflow-hidden">
           <div
             className="absolute top-0 left-0 h-full"
             style={{
-              width: `${isGrid ? 0 : phase === 'letters' ? 14 : phase === 'logo' ? 35 : phase === 'subtitle' ? 55 : phase === 'breathe' ? 75 : phase === 'explode' ? 90 : 100}%`,
+              width: `${isGrid ? 0 : phase === 'letters' ? 14 : phase === 'logo' ? 28 : phase === 'logoHold' ? 40 : phase === 'subtitle' ? 55 : phase === 'breathe' ? 75 : phase === 'explode' ? 90 : 100}%`,
               background: 'linear-gradient(90deg, #D4AF37, #25A2DC)',
               transition: 'width 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
             }}
@@ -666,7 +668,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           <div
             className="absolute top-[-2px] h-[5px] w-[5px] rounded-full"
             style={{
-              left: `${isGrid ? 0 : phase === 'letters' ? 14 : phase === 'logo' ? 35 : phase === 'subtitle' ? 55 : phase === 'breathe' ? 75 : phase === 'explode' ? 90 : 100}%`,
+              left: `${isGrid ? 0 : phase === 'letters' ? 14 : phase === 'logo' ? 28 : phase === 'logoHold' ? 40 : phase === 'subtitle' ? 55 : phase === 'breathe' ? 75 : phase === 'explode' ? 90 : 100}%`,
               background: '#25A2DC',
               boxShadow: '0 0 10px rgba(37,162,220,0.8), 0 0 20px rgba(37,162,220,0.3)',
               transition: 'left 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
@@ -676,7 +678,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
       </div>
 
       {/* ====== CORNER BRACKETS ====== */}
-      {['logo', 'subtitle', 'breathe'].includes(phase) && (
+      {['logo', 'logoHold', 'subtitle', 'breathe'].includes(phase) && (
         <>
           <div className="absolute top-6 left-6 z-10" style={{ opacity: 0.4 }}>
             <div className="w-8 h-[1px] bg-[#D4AF37]/50" />
