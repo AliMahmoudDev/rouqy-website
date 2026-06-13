@@ -55,25 +55,11 @@ const galleryItems = [
 
 export default function HorizontalGallery3D() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeftStart = useRef(0);
 
-  // Touch/mouse drag state
-  const dragState = useRef<{
-    active: boolean;
-    startX: number;
-    startY: number;
-    scrollLeft: number;
-    direction: 'none' | 'horizontal' | 'vertical';
-    isTouch: boolean;
-  }>({
-    active: false,
-    startX: 0,
-    startY: 0,
-    scrollLeft: 0,
-    direction: 'none',
-    isTouch: false,
-  });
-
-  // Lightweight 3D update — direct style only
+  // Lightweight 3D update — direct style, no GSAP
   const updateCard3D = useCallback(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -101,114 +87,40 @@ export default function HorizontalGallery3D() {
     const container = containerRef.current;
     if (!container) return;
 
-    const DIRECTION_THRESHOLD = 8; // px to decide horizontal vs vertical
-
-    // ===== TOUCH START =====
-    const handleTouchStart = (e: TouchEvent) => {
-      const touch = e.touches[0];
-      dragState.current = {
-        active: true,
-        startX: touch.clientX,
-        startY: touch.clientY,
-        scrollLeft: container.scrollLeft,
-        direction: 'none',
-        isTouch: true,
-      };
-    };
-
-    // ===== TOUCH MOVE =====
-    const handleTouchMove = (e: TouchEvent) => {
-      const ds = dragState.current;
-      if (!ds.active) return;
-
-      const touch = e.touches[0];
-      const dx = touch.clientX - ds.startX;
-      const dy = touch.clientY - ds.startY;
-
-      // Determine direction if not yet decided
-      if (ds.direction === 'none') {
-        const absDx = Math.abs(dx);
-        const absDy = Math.abs(dy);
-
-        if (absDx > DIRECTION_THRESHOLD || absDy > DIRECTION_THRESHOLD) {
-          if (absDx > absDy) {
-            // Horizontal swipe → take over and scroll gallery
-            ds.direction = 'horizontal';
-            container.style.scrollSnapType = 'none';
-          } else {
-            // Vertical swipe → let browser handle it
-            ds.direction = 'vertical';
-            ds.active = false; // Stop tracking, let native scroll work
-            return;
-          }
-        }
-        return; // Don't do anything until direction is decided
-      }
-
-      if (ds.direction === 'horizontal') {
-        // Prevent vertical scroll while horizontal swiping
-        e.preventDefault();
-        container.scrollLeft = ds.scrollLeft - dx;
-        requestAnimationFrame(updateCard3D);
-      }
-      // If vertical → do nothing, let browser scroll naturally
-    };
-
-    // ===== TOUCH END =====
-    const handleTouchEnd = () => {
-      const ds = dragState.current;
-      ds.active = false;
-      ds.direction = 'none';
-      container.style.scrollSnapType = 'x proximity';
-    };
-
     // ===== DESKTOP: Mouse drag =====
     const handleMouseDown = (e: MouseEvent) => {
       if (e.button !== 0) return;
       e.preventDefault();
-      dragState.current = {
-        active: true,
-        startX: e.clientX,
-        startY: 0,
-        scrollLeft: container.scrollLeft,
-        direction: 'horizontal', // Desktop is always horizontal
-        isTouch: false,
-      };
+      isDragging.current = true;
+      startX.current = e.clientX;
+      scrollLeftStart.current = container.scrollLeft;
       container.style.cursor = 'grabbing';
       container.style.scrollSnapType = 'none';
     };
 
     const handleMouseMove = (e: MouseEvent) => {
-      const ds = dragState.current;
-      if (!ds.active || ds.isTouch) return;
-      const dx = e.clientX - ds.startX;
-      container.scrollLeft = ds.scrollLeft - dx;
+      if (!isDragging.current) return;
+      const dx = e.clientX - startX.current;
+      container.scrollLeft = scrollLeftStart.current - dx;
       requestAnimationFrame(updateCard3D);
     };
 
     const handleMouseUp = () => {
-      const ds = dragState.current;
-      if (!ds.active || ds.isTouch) return;
-      ds.active = false;
+      if (!isDragging.current) return;
+      isDragging.current = false;
       container.style.cursor = 'grab';
       container.style.scrollSnapType = 'x proximity';
     };
 
-    // ===== Native scroll event =====
+    // ===== 3D update on native scroll (mobile + trackpad) =====
     const handleScroll = () => {
       requestAnimationFrame(updateCard3D);
     };
 
-    // Add listeners
-    container.addEventListener('touchstart', handleTouchStart, { passive: true });
-    container.addEventListener('touchmove', handleTouchMove, { passive: false }); // passive:false to allow preventDefault
-    container.addEventListener('touchend', handleTouchEnd, { passive: true });
-    container.addEventListener('touchcancel', handleTouchEnd, { passive: true });
-
+    // Add listeners — NO custom touch handlers, browser handles mobile scroll natively
     container.addEventListener('mousedown', handleMouseDown);
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
-
     container.addEventListener('scroll', handleScroll, { passive: true });
 
     // Initial 3D state
@@ -218,15 +130,9 @@ export default function HorizontalGallery3D() {
     observer.observe(container);
 
     return () => {
-      container.removeEventListener('touchstart', handleTouchStart);
-      container.removeEventListener('touchmove', handleTouchMove);
-      container.removeEventListener('touchend', handleTouchEnd);
-      container.removeEventListener('touchcancel', handleTouchEnd);
-
       container.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
-
       container.removeEventListener('scroll', handleScroll);
       observer.disconnect();
     };
@@ -249,7 +155,12 @@ export default function HorizontalGallery3D() {
         </p>
       </div>
 
-      {/* Horizontal scroll container */}
+      {/* 
+        Mobile: NATIVE horizontal scroll via overflow-x + touch-action: pan-y
+        - touch-action: pan-y → browser handles vertical scroll, element handles horizontal
+        - No JS touch handlers → native momentum/inertia = butter smooth
+        Desktop: Mouse drag via mousedown/mousemove
+      */}
       <div
         ref={containerRef}
         className="flex items-center gap-6 md:gap-8 px-6 md:px-16 pb-4 select-none"
@@ -257,6 +168,8 @@ export default function HorizontalGallery3D() {
           overflowX: 'auto',
           overflowY: 'hidden',
           scrollSnapType: 'x proximity',
+          touchAction: 'pan-y',          // Vertical scroll → page, Horizontal → gallery
+          overscrollBehaviorX: 'contain', // Prevent browser back/forward on overscroll
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
           WebkitOverflowScrolling: 'touch',
@@ -264,7 +177,7 @@ export default function HorizontalGallery3D() {
         }}
       >
         <style>{`
-          .gallery-scroll::-webkit-scrollbar { display: none; }
+          .gallery-scroll-hide::-webkit-scrollbar { display: none; }
         `}</style>
 
         {galleryItems.map((item, i) => (
