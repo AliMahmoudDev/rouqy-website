@@ -19,13 +19,6 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    // Check if user has already seen the intro (session storage)
-    const hasSeenIntro = sessionStorage.getItem('harmens-intro-seen');
-    if (hasSeenIntro) {
-      setIntroComplete(true);
-      setShowContent(true);
-    }
-
     // Track scroll for navbar
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -36,7 +29,6 @@ export default function Home() {
 
   const handleIntroComplete = () => {
     setIntroComplete(true);
-    sessionStorage.setItem('harmens-intro-seen', 'true');
     // Smooth transition: content appears as intro fades
     setTimeout(() => setShowContent(true), 100);
   };
