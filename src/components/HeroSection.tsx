@@ -7,7 +7,6 @@ import dynamic from 'next/dynamic';
 
 // Dynamic import for 3D Text Split (client-only)
 const TextSplit3D = dynamic(() => import('@/components/TextSplit3D'), { ssr: false });
-const Parallax3D = dynamic(() => import('@/components/Parallax3D'), { ssr: false });
 
 interface HeroSectionProps {
   introComplete: boolean;
@@ -21,7 +20,6 @@ function seededRandom(seed: number): number {
 
 /* CSS-only floating particles — deterministic values — REDUCED for performance */
 function FloatingParticles() {
-  // Fewer particles for better performance
   const goldParticles = Array.from({ length: 8 }).map((_, i) => ({
     width: 2 + seededRandom(i * 7 + 1) * 3,
     height: 2 + seededRandom(i * 7 + 1) * 3,
@@ -102,13 +100,23 @@ function FloatingParticles() {
   );
 }
 
-/* Animated decorative orbiting rings */
+/* 
+ * Smooth decorative elements — ALL CSS-driven, zero JS
+ * 
+ * Key principles:
+ * - translate3d() forces GPU compositing = no repaints = no lag
+ * - Longer durations (20-40s) = smoother perceived motion
+ * - ease-in-out curves = organic, non-robotic movement
+ * - No DOM queries in scroll handlers
+ */
+
+/* Orbiting rings — smooth continuous rotation with GPU layers */
 function OrbitingRings() {
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {/* Large gold ring - orbiting */}
+      {/* Large gold ring */}
       <div
-        className="absolute"
+        className="absolute hero-orbit-ring"
         style={{
           width: '500px',
           height: '500px',
@@ -118,7 +126,7 @@ function OrbitingRings() {
           marginLeft: '-250px',
           border: '1px solid rgba(212,175,55,0.08)',
           borderRadius: '50%',
-          animation: 'spin-slow 30s linear infinite',
+          animation: 'hero-orbit 40s linear infinite',
         }}
       >
         <div
@@ -132,9 +140,9 @@ function OrbitingRings() {
           }}
         />
       </div>
-      {/* Medium blue ring - orbiting reverse */}
+      {/* Medium blue ring */}
       <div
-        className="absolute"
+        className="absolute hero-orbit-ring"
         style={{
           width: '350px',
           height: '350px',
@@ -144,7 +152,7 @@ function OrbitingRings() {
           marginLeft: '-175px',
           border: '1px solid rgba(37,162,220,0.06)',
           borderRadius: '50%',
-          animation: 'spin-reverse-slow 25s linear infinite',
+          animation: 'hero-orbit-reverse 35s linear infinite',
         }}
       >
         <div
@@ -160,7 +168,7 @@ function OrbitingRings() {
       </div>
       {/* Small gold ring */}
       <div
-        className="absolute"
+        className="absolute hero-orbit-ring"
         style={{
           width: '200px',
           height: '200px',
@@ -170,10 +178,74 @@ function OrbitingRings() {
           marginLeft: '-100px',
           border: '1px solid rgba(212,175,55,0.05)',
           borderRadius: '50%',
-          animation: 'spin-slow 18s linear infinite',
+          animation: 'hero-orbit 28s linear infinite',
         }}
       />
     </div>
+  );
+}
+
+/* 
+ * Smooth floating geometric shapes
+ * Uses hero-float-smooth keyframe — long duration, gentle curves
+ */
+function FloatingShapes() {
+  return (
+    <>
+      {/* Gold diamond — smooth float + gentle rotation */}
+      <div
+        className="absolute pointer-events-none hero-float-shape"
+        style={{
+          width: 60,
+          height: 60,
+          top: '15%',
+          right: '12%',
+          border: '1px solid rgba(212,175,55,0.12)',
+          transform: 'rotate(45deg)',
+          animation: 'hero-float-smooth 20s ease-in-out infinite',
+        }}
+      />
+      {/* Blue circle — smooth float */}
+      <div
+        className="absolute pointer-events-none hero-float-shape"
+        style={{
+          width: 40,
+          height: 40,
+          bottom: '25%',
+          left: '8%',
+          border: '1px solid rgba(37,162,220,0.1)',
+          borderRadius: '50%',
+          animation: 'hero-float-smooth 25s ease-in-out infinite 3s',
+        }}
+      />
+      {/* Small gold triangle hint — top left */}
+      <div
+        className="absolute pointer-events-none hero-float-shape"
+        style={{
+          width: 0,
+          height: 0,
+          top: '30%',
+          left: '15%',
+          borderLeft: '12px solid transparent',
+          borderRight: '12px solid transparent',
+          borderBottom: '20px solid rgba(212,175,55,0.06)',
+          animation: 'hero-float-smooth 30s ease-in-out infinite 6s',
+        }}
+      />
+      {/* Tiny blue dot cluster — bottom right */}
+      <div
+        className="absolute pointer-events-none hero-float-shape"
+        style={{
+          width: 8,
+          height: 8,
+          bottom: '35%',
+          right: '18%',
+          background: 'rgba(37,162,220,0.08)',
+          borderRadius: '50%',
+          animation: 'hero-float-smooth 22s ease-in-out infinite 1.5s',
+        }}
+      />
+    </>
   );
 }
 
@@ -185,60 +257,16 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
     offset: ['start start', 'end start'],
   });
 
-  // Only use Framer for scroll-based transforms (can't do with CSS)
+  // Framer Motion handles content parallax only (1 element, no lag)
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -80]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   useEffect(() => {
     if (introComplete) {
-      // Small delay to trigger CSS animations
       const timer = setTimeout(() => setMounted(true), 50);
       return () => clearTimeout(timer);
     }
   }, [introComplete]);
-
-  // 3D Parallax scroll handler — different layers at different speeds
-  useEffect(() => {
-    if (!mounted) return;
-
-    let rafId = 0;
-    let ticking = false;
-
-    const handleScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        rafId = requestAnimationFrame(() => {
-          const scrollY = window.scrollY;
-
-          // Deep layer — moves slowest (0.25x scroll speed)
-          const deepLayer = document.querySelector('.parallax-layer-deep');
-          if (deepLayer) {
-            (deepLayer as HTMLElement).style.transform = `translate3d(0, ${scrollY * 0.25}px, 0)`;
-          }
-
-          // Mid layer — medium speed (0.5x scroll speed)
-          const midLayer = document.querySelector('.parallax-layer-mid');
-          if (midLayer) {
-            (midLayer as HTMLElement).style.transform = `translate3d(0, ${scrollY * 0.5}px, 0)`;
-          }
-
-          // Foreground layer — moves fastest (0.8x scroll speed)
-          const fgLayer = document.querySelector('.parallax-layer-fg');
-          if (fgLayer) {
-            (fgLayer as HTMLElement).style.transform = `translate3d(0, ${scrollY * 0.8}px, 0)`;
-          }
-
-          ticking = false;
-        });
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      cancelAnimationFrame(rafId);
-    };
-  }, [mounted]);
 
   if (!introComplete) return null;
 
@@ -248,7 +276,7 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden"
     >
-      {/* Background Video Layer — luxury interior decor & furniture */}
+      {/* Background Video Layer */}
       <div className="absolute inset-0 z-0">
         <video
           autoPlay
@@ -288,34 +316,28 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
       {/* Floating Particles */}
       <FloatingParticles />
 
-      {/* 3D Parallax Depth Layers — elements move at different speeds */}
+      {/* 
+       * Decorative layers — pure CSS, no JS scroll handler
+       * Each layer uses a CSS class with will-change: transform
+       * for GPU compositing. Movement is purely keyframe-driven.
+       */}
       {mounted && (
         <>
-          {/* Deep background layer — moves slowest */}
-          <div
-            className="absolute inset-0 pointer-events-none parallax-layer-deep"
-            style={{
-              willChange: 'transform',
-              transition: 'transform 0.1s linear',
-            }}
-          >
+          {/* Deep background layer — orbiting rings */}
+          <div className="absolute inset-0 pointer-events-none hero-parallax-deep">
             <OrbitingRings />
           </div>
 
-          {/* Mid-ground decorative orbs — medium speed */}
-          <div
-            className="absolute inset-0 pointer-events-none parallax-layer-mid"
-            style={{
-              willChange: 'transform',
-            }}
-          >
+          {/* Mid-ground decorative orbs */}
+          <div className="absolute inset-0 pointer-events-none hero-parallax-mid">
             <div
-              className="absolute w-[600px] h-[600px] rounded-full opacity-20 animate-breathe"
+              className="absolute w-[600px] h-[600px] rounded-full opacity-20"
               style={{
                 background: 'radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%)',
                 top: '10%',
                 right: '-10%',
                 filter: 'blur(60px)',
+                animation: 'breathe 8s ease-in-out infinite',
               }}
             />
             <div
@@ -325,48 +347,19 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
                 bottom: '20%',
                 left: '-5%',
                 filter: 'blur(50px)',
-                animation: 'breathe 5s ease-in-out infinite 1s',
+                animation: 'breathe 7s ease-in-out infinite 1.5s',
               }}
             />
           </div>
 
-          {/* Foreground accent layer — moves fastest */}
-          <div
-            className="absolute inset-0 pointer-events-none parallax-layer-fg"
-            style={{
-              willChange: 'transform',
-            }}
-          >
-            {/* Floating geometric accent — close to camera */}
-            <div
-              className="absolute"
-              style={{
-                width: 60,
-                height: 60,
-                top: '15%',
-                right: '12%',
-                border: '1px solid rgba(212,175,55,0.12)',
-                transform: 'rotate(45deg)',
-                animation: 'float-rotate 6s ease-in-out infinite',
-              }}
-            />
-            <div
-              className="absolute"
-              style={{
-                width: 40,
-                height: 40,
-                bottom: '25%',
-                left: '8%',
-                border: '1px solid rgba(37,162,220,0.1)',
-                borderRadius: '50%',
-                animation: 'float 5s ease-in-out infinite 0.5s',
-              }}
-            />
+          {/* Foreground floating shapes */}
+          <div className="absolute inset-0 pointer-events-none hero-parallax-fg">
+            <FloatingShapes />
           </div>
         </>
       )}
 
-      {/* Content - CSS animations, Framer only for scroll parallax */}
+      {/* Content - Framer only for scroll parallax on this one container */}
       <div
         className="relative z-20 text-center max-w-6xl mx-auto gpu-accelerated"
         style={{ y: contentY, opacity: contentOpacity }}
@@ -439,7 +432,7 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
           Crafting Timeless Luxury Interiors
         </p>
 
-        {/* CTA Button with animated border */}
+        {/* CTA Button */}
         <div className={`mt-10 md:mt-14 ${mounted ? 'hero-enter-cta' : 'opacity-0'}`}>
           <a
             href="#portfolio"
@@ -458,7 +451,7 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
         </div>
       </div>
 
-      {/* Scroll Indicator - CSS only */}
+      {/* Scroll Indicator */}
       <div className={`absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3 ${mounted ? 'hero-enter-scroll' : 'opacity-0'}`}>
         <span className="text-[#A0AEC0]/60 text-[10px] tracking-[0.5em] uppercase">
           Scroll
@@ -468,7 +461,6 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </div>
-        {/* Animated line */}
         <div
           className="w-[1px] h-8 relative overflow-hidden"
           style={{
