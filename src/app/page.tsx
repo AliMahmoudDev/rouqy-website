@@ -151,38 +151,30 @@ export default function Home() {
 
           {/* Mobile Menu Overlay */}
           <div
-            className="md:hidden fixed inset-0"
+            className="md:hidden fixed left-0 right-0 bottom-0 bg-[#0B0F18]"
             style={{
               top: '56px',
               opacity: mobileMenuOpen ? 1 : 0,
               pointerEvents: mobileMenuOpen ? 'auto' : 'none',
               transition: 'opacity 0.4s cubic-bezier(0.65, 0.05, 0, 1)',
+              transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-10px)',
+              zIndex: 49,
             }}
           >
-            {/* Solid dark background */}
-            <div className="absolute inset-0 bg-[#0B0F18]" />
+            {/* Top decorative line */}
+            <div className="h-[1px] bg-gradient-to-r from-transparent via-[#25A2DC]/30 to-transparent" />
 
-            {/* Subtle gradient accents */}
+            {/* Subtle gradient accent */}
             <div
-              className="absolute top-0 right-0 w-[300px] h-[300px] pointer-events-none"
+              className="absolute top-10 right-0 w-[250px] h-[250px] pointer-events-none"
               style={{
-                background: 'radial-gradient(circle, rgba(37,162,220,0.04) 0%, transparent 70%)',
-                filter: 'blur(60px)',
-              }}
-            />
-            <div
-              className="absolute bottom-0 left-0 w-[250px] h-[250px] pointer-events-none"
-              style={{
-                background: 'radial-gradient(circle, rgba(212,175,55,0.03) 0%, transparent 70%)',
+                background: 'radial-gradient(circle, rgba(37,162,220,0.05) 0%, transparent 70%)',
                 filter: 'blur(50px)',
               }}
             />
 
-            {/* Top decorative line */}
-            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#25A2DC]/30 to-transparent" />
-
-            {/* Menu content — positioned in the upper-middle area */}
-            <div className="relative flex flex-col items-center justify-center h-full px-8" style={{ paddingTop: '25vh' }}>
+            {/* Menu content */}
+            <div className="flex flex-col items-center px-8 pt-16 pb-8">
               {navLinks.map((link, i) => (
                 <a
                   key={link.label}
