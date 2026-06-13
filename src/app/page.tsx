@@ -151,14 +151,19 @@ export default function Home() {
 
           {/* Mobile Menu Overlay */}
           <div
-            className="md:hidden fixed left-0 right-0 bottom-0 bg-[#0B0F18]"
+            className="md:hidden"
             style={{
+              position: 'fixed',
               top: '56px',
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 49,
+              backgroundColor: '#0B0F18',
               opacity: mobileMenuOpen ? 1 : 0,
               pointerEvents: mobileMenuOpen ? 'auto' : 'none',
               transition: 'opacity 0.4s cubic-bezier(0.65, 0.05, 0, 1)',
               transform: mobileMenuOpen ? 'translateY(0)' : 'translateY(-10px)',
-              zIndex: 49,
             }}
           >
             {/* Top decorative line */}
@@ -174,7 +179,7 @@ export default function Home() {
             />
 
             {/* Menu content */}
-            <div className="flex flex-col items-center px-8 pt-16 pb-8">
+            <div className="flex flex-col items-center px-8 pt-12 pb-8">
               {navLinks.map((link, i) => (
                 <a
                   key={link.label}
