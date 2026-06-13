@@ -108,7 +108,7 @@ export default function PortfolioSection() {
     <section
       ref={sectionRef}
       id="portfolio"
-      className="relative z-10 py-32 md:py-40 px-4 md:px-8 lg:px-12 overflow-hidden"
+      className="relative z-10 pt-16 md:pt-24 pb-32 md:pb-40 px-4 md:px-8 lg:px-12 overflow-hidden"
     >
       {/* Background image for portfolio section — luxury furniture */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

@@ -1,0 +1,1693 @@
+     1→@import "tailwindcss";
+     2→@import "tw-animate-css";
+     3→
+     4→@custom-variant dark (&:is(.dark *));
+     5→
+     6→@theme inline {
+     7→  --color-background: var(--background);
+     8→  --color-foreground: var(--foreground);
+     9→  --font-sans: var(--font-geist-sans);
+    10→  --font-mono: var(--font-geist-mono);
+    11→  --color-sidebar-ring: var(--sidebar-ring);
+    12→  --color-sidebar-border: var(--sidebar-border);
+    13→  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    14→  --color-sidebar-accent: var(--sidebar-accent);
+    15→  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    16→  --color-sidebar-primary: var(--sidebar-primary);
+    17→  --color-sidebar-foreground: var(--sidebar-foreground);
+    18→  --color-sidebar: var(--sidebar);
+    19→  --color-chart-5: var(--chart-5);
+    20→  --color-chart-4: var(--chart-4);
+    21→  --color-chart-3: var(--chart-3);
+    22→  --color-chart-2: var(--chart-2);
+    23→  --color-chart-1: var(--chart-1);
+    24→  --color-ring: var(--ring);
+    25→  --color-input: var(--input);
+    26→  --color-border: var(--border);
+    27→  --color-destructive: var(--destructive);
+    28→  --color-accent-foreground: var(--accent-foreground);
+    29→  --color-accent: var(--accent);
+    30→  --color-muted-foreground: var(--muted-foreground);
+    31→  --color-muted: var(--muted);
+    32→  --color-secondary-foreground: var(--secondary-foreground);
+    33→  --color-secondary: var(--secondary);
+    34→  --color-primary-foreground: var(--primary-foreground);
+    35→  --color-primary: var(--primary);
+    36→  --color-popover-foreground: var(--popover-foreground);
+    37→  --color-popover: var(--popover);
+    38→  --color-card-foreground: var(--card-foreground);
+    39→  --color-card: var(--card);
+    40→  --radius-sm: calc(var(--radius) - 4px);
+    41→  --radius-md: calc(var(--radius) - 2px);
+    42→  --radius-lg: var(--radius);
+    43→  --radius-xl: calc(var(--radius) + 4px);
+    44→  --color-harmens-navy: #161E2D;
+    45→  --color-harmens-surface: #1C2738;
+    46→  --color-harmens-blue: #25A2DC;
+    47→  --color-harmens-blue-hover: #1B8BBE;
+    48→  --color-harmens-muted: #A0AEC0;
+    49→  --color-harmens-border: #2D3A4D;
+    50→  --color-harmens-card: #1A2535;
+    51→}
+    52→
+    53→:root {
+    54→  --radius: 0.625rem;
+    55→  --background: #0B0F18;
+    56→  --foreground: #FFFFFF;
+    57→  --card: #1A2535;
+    58→  --card-foreground: #FFFFFF;
+    59→  --popover: #1A2535;
+    60→  --popover-foreground: #FFFFFF;
+    61→  --primary: #25A2DC;
+    62→  --primary-foreground: #FFFFFF;
+    63→  --secondary: #1C2738;
+    64→  --secondary-foreground: #A0AEC0;
+    65→  --muted: #1C2738;
+    66→  --muted-foreground: #A0AEC0;
+    67→  --accent: #25A2DC;
+    68→  --accent-foreground: #FFFFFF;
+    69→  --destructive: #ef4444;
+    70→  --border: #2D3A4D;
+    71→  --input: #2D3A4D;
+    72→  --ring: #25A2DC;
+    73→  --chart-1: #25A2DC;
+    74→  --chart-2: #1B8BBE;
+    75→  --chart-3: #A0AEC0;
+    76→  --chart-4: #2D3A4D;
+    77→  --chart-5: #1C2738;
+    78→  --sidebar: #1A2535;
+    79→  --sidebar-foreground: #FFFFFF;
+    80→  --sidebar-primary: #25A2DC;
+    81→  --sidebar-primary-foreground: #FFFFFF;
+    82→  --sidebar-accent: #1C2738;
+    83→  --sidebar-accent-foreground: #FFFFFF;
+    84→  --sidebar-border: #2D3A4D;
+    85→  --sidebar-ring: #25A2DC;
+    86→}
+    87→
+    88→/* Smooth scrolling */
+    89→html {
+    90→  scroll-behavior: smooth;
+    91→  overflow-x: hidden;
+    92→}
+    93→
+    94→/* Custom Scrollbar */
+    95→::-webkit-scrollbar {
+    96→  width: 4px;
+    97→}
+    98→
+    99→::-webkit-scrollbar-track {
+   100→  background: #0B0F18;
+   101→}
+   102→
+   103→::-webkit-scrollbar-thumb {
+   104→  background: #25A2DC;
+   105→  border-radius: 2px;
+   106→}
+   107→
+   108→::-webkit-scrollbar-thumb:hover {
+   109→  background: #1B8BBE;
+   110→}
+   111→
+   112→/* Selection */
+   113→::selection {
+   114→  background: rgba(37, 162, 220, 0.3);
+   115→  color: #FFFFFF;
+   116→}
+   117→
+   118→@layer base {
+   119→  * {
+   120→    @apply border-border outline-ring/50;
+   121→  }
+   122→  body {
+   123→    @apply bg-background text-foreground;
+   124→    background-color: #0B0F18;
+   125→    color: #FFFFFF;
+   126→    overflow-x: hidden;
+   127→  }
+   128→}
+   129→
+   130→/* ============================================
+   131→   HARMENS CSS Animations Library v2.0
+   132→   MASSIVE animation collection for visual impact
+   133→   ============================================ */
+   134→
+   135→/* === GLOW & PULSE EFFECTS === */
+   136→@keyframes glow-pulse {
+   137→  0%, 100% { opacity: 0.4; transform: scale(1); }
+   138→  50% { opacity: 0.8; transform: scale(1.05); }
+   139→}
+   140→
+   141→@keyframes glow-blue {
+   142→  0%, 100% { box-shadow: 0 0 5px rgba(37,162,220,0.1); }
+   143→  50% { box-shadow: 0 0 20px rgba(37,162,220,0.3), 0 0 40px rgba(37,162,220,0.1); }
+   144→}
+   145→
+   146→@keyframes glow-gold {
+   147→  0%, 100% { box-shadow: 0 0 5px rgba(212,175,55,0.1); }
+   148→  50% { box-shadow: 0 0 20px rgba(212,175,55,0.3), 0 0 40px rgba(212,175,55,0.1); }
+   149→}
+   150→
+   151→@keyframes glow-blue-intense {
+   152→  0%, 100% { box-shadow: 0 0 10px rgba(37,162,220,0.2), 0 0 30px rgba(37,162,220,0.1); }
+   153→  50% { box-shadow: 0 0 30px rgba(37,162,220,0.5), 0 0 60px rgba(37,162,220,0.2), 0 0 100px rgba(37,162,220,0.1); }
+   154→}
+   155→
+   156→@keyframes glow-gold-intense {
+   157→  0%, 100% { box-shadow: 0 0 10px rgba(212,175,55,0.2), 0 0 30px rgba(212,175,55,0.1); }
+   158→  50% { box-shadow: 0 0 30px rgba(212,175,55,0.5), 0 0 60px rgba(212,175,55,0.2), 0 0 100px rgba(212,175,55,0.1); }
+   159→}
+   160→
+   161→@keyframes breathe {
+   162→  0%, 100% { transform: scale(1); opacity: 0.6; }
+   163→  50% { transform: scale(1.08); opacity: 1; }
+   164→}
+   165→
+   166→@keyframes breathe-glow {
+   167→  0%, 100% { filter: drop-shadow(0 0 5px rgba(212,175,55,0.2)); transform: scale(1); }
+   168→  50% { filter: drop-shadow(0 0 20px rgba(212,175,55,0.5)); transform: scale(1.02); }
+   169→}
+   170→
+   171→/* === FLOATING / BOUNCING === */
+   172→@keyframes bounce-slow {
+   173→  0%, 100% { transform: translateY(0); }
+   174→  50% { transform: translateY(10px); }
+   175→}
+   176→
+   177→@keyframes float {
+   178→  0%, 100% { transform: translateY(0px); }
+   179→  33% { transform: translateY(-8px); }
+   180→  66% { transform: translateY(4px); }
+   181→}
+   182→
+   183→@keyframes float-rotate {
+   184→  0% { transform: translateY(0px) rotate(0deg); }
+   185→  33% { transform: translateY(-12px) rotate(2deg); }
+   186→  66% { transform: translateY(6px) rotate(-1deg); }
+   187→  100% { transform: translateY(0px) rotate(0deg); }
+   188→}
+   189→
+   190→@keyframes float-horizontal {
+   191→  0%, 100% { transform: translateX(0px); }
+   192→  50% { transform: translateX(15px); }
+   193→}
+   194→
+   195→@keyframes float-3d {
+   196→  0% { transform: translateY(0px) translateX(0px) rotateY(0deg); }
+   197→  25% { transform: translateY(-10px) translateX(5px) rotateY(2deg); }
+   198→  50% { transform: translateY(0px) translateX(10px) rotateY(0deg); }
+   199→  75% { transform: translateY(-5px) translateX(5px) rotateY(-2deg); }
+   200→  100% { transform: translateY(0px) translateX(0px) rotateY(0deg); }
+   201→}
+   202→
+   203→/* === PARTICLE SYSTEMS === */
+   204→@keyframes particle-rise {
+   205→  0% { transform: translateY(100vh) scale(0); opacity: 0; }
+   206→  10% { opacity: 1; transform: translateY(90vh) scale(1); }
+   207→  90% { opacity: 0.5; }
+   208→  100% { transform: translateY(-10vh) scale(0.5); opacity: 0; }
+   209→}
+   210→
+   211→@keyframes particle-fall {
+   212→  0% { transform: translateY(-10vh) scale(0); opacity: 0; }
+   213→  10% { opacity: 1; transform: translateY(0vh) scale(1); }
+   214→  90% { opacity: 0.5; }
+   215→  100% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+   216→}
+   217→
+   218→@keyframes particle-drift {
+   219→  0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+   220→  20% { opacity: 1; }
+   221→  80% { opacity: 0.6; }
+   222→  100% { transform: translate(var(--drift-x, 100px), var(--drift-y, -200px)) rotate(360deg); opacity: 0; }
+   223→}
+   224→
+   225→@keyframes sparkle {
+   226→  0%, 100% { opacity: 0; transform: scale(0); }
+   227→  50% { opacity: 1; transform: scale(1); }
+   228→}
+   229→
+   230→/* === LIGHT & SHIMMER === */
+   231→@keyframes light-trail {
+   232→  0% { text-shadow: 0 0 0px transparent; }
+   233→  50% { text-shadow: 0 0 20px rgba(37,162,220,0.8), 0 0 40px rgba(37,162,220,0.4), 0 0 80px rgba(37,162,220,0.2); }
+   234→  100% { text-shadow: 0 0 4px rgba(37,162,220,0.3); }
+   235→}
+   236→
+   237→@keyframes shimmer {
+   238→  0% { background-position: -200% 0; }
+   239→  100% { background-position: 200% 0; }
+   240→}
+   241→
+   242→@keyframes shimmer-gold {
+   243→  0% { background-position: -200% center; }
+   244→  100% { background-position: 200% center; }
+   245→}
+   246→
+   247→@keyframes border-glow {
+   248→  0%, 100% { border-color: rgba(37,162,220,0.2); }
+   249→  50% { border-color: rgba(37,162,220,0.6); }
+   250→}
+   251→
+   252→@keyframes border-glow-gold {
+   253→  0%, 100% { border-color: rgba(212,175,55,0.15); }
+   254→  50% { border-color: rgba(212,175,55,0.5); }
+   255→}
+   256→
+   257→@keyframes border-dance {
+   258→  0% { border-color: rgba(37,162,220,0.3); }
+   259→  33% { border-color: rgba(212,175,55,0.5); }
+   260→  66% { border-color: rgba(37,162,220,0.5); }
+   261→  100% { border-color: rgba(37,162,220,0.3); }
+   262→}
+   263→
+   264→@keyframes border-trace {
+   265→  0% { clip-path: inset(0 100% 0 0); }
+   266→  25% { clip-path: inset(0 0 100% 0); }
+   267→  50% { clip-path: inset(0 0 0 100%); }
+   268→  75% { clip-path: inset(100% 0 0 0); }
+   269→  100% { clip-path: inset(0 100% 0 0); }
+   270→}
+   271→
+   272→/* === LINE DRAWING / REVEAL === */
+   273→@keyframes line-draw {
+   274→  0% { width: 0; opacity: 0; }
+   275→  50% { opacity: 1; }
+   276→  100% { width: 100%; opacity: 1; }
+   277→}
+   278→
+   279→@keyframes line-draw-vertical {
+   280→  0% { height: 0; opacity: 0; }
+   281→  50% { opacity: 1; }
+   282→  100% { height: 100%; opacity: 1; }
+   283→}
+   284→
+   285→@keyframes line-reveal-center {
+   286→  0% { width: 0; opacity: 0; }
+   287→  100% { width: 80px; opacity: 1; }
+   288→}
+   289→
+   290→/* === TEXT ANIMATIONS === */
+   291→@keyframes text-shimmer {
+   292→  0% { background-position: -200% center; }
+   293→  100% { background-position: 200% center; }
+   294→}
+   295→
+   296→@keyframes text-gradient-flow {
+   297→  0% { background-position: 0% 50%; }
+   298→  50% { background-position: 100% 50%; }
+   299→  100% { background-position: 0% 50%; }
+   300→}
+   301→
+   302→@keyframes letter-spacing-expand {
+   303→  0% { letter-spacing: 0.3em; opacity: 0; }
+   304→  100% { letter-spacing: -0.02em; opacity: 1; }
+   305→}
+   306→
+   307→@keyframes typewriter {
+   308→  from { width: 0; }
+   309→  to { width: 100%; }
+   310→}
+   311→
+   312→@keyframes blink-caret {
+   313→  from, to { border-color: transparent; }
+   314→  50% { border-color: #D4AF37; }
+   315→}
+   316→
+   317→/* === ROTATION === */
+   318→@keyframes spin-slow {
+   319→  from { transform: rotate(0deg); }
+   320→  to { transform: rotate(360deg); }
+   321→}
+   322→
+   323→@keyframes spin-reverse-slow {
+   324→  from { transform: rotate(360deg); }
+   325→  to { transform: rotate(0deg); }
+   326→}
+   327→
+   328→@keyframes spin-3d {
+   329→  0% { transform: rotateY(0deg) rotateX(0deg); }
+   330→  50% { transform: rotateY(180deg) rotateX(10deg); }
+   331→  100% { transform: rotateY(360deg) rotateX(0deg); }
+   332→}
+   333→
+   334→@keyframes tilt-rotate {
+   335→  0% { transform: perspective(1000px) rotateY(0deg) rotateX(0deg); }
+   336→  25% { transform: perspective(1000px) rotateY(5deg) rotateX(3deg); }
+   337→  50% { transform: perspective(1000px) rotateY(0deg) rotateX(-3deg); }
+   338→  75% { transform: perspective(1000px) rotateY(-5deg) rotateX(3deg); }
+   339→  100% { transform: perspective(1000px) rotateY(0deg) rotateX(0deg); }
+   340→}
+   341→
+   342→/* === SCALE / MORPH === */
+   343→@keyframes morph {
+   344→  0%, 100% { border-radius: 40% 60% 60% 40% / 60% 30% 70% 40%; }
+   345→  25% { border-radius: 60% 40% 30% 70% / 40% 60% 40% 60%; }
+   346→  50% { border-radius: 30% 70% 50% 50% / 70% 30% 60% 40%; }
+   347→  75% { border-radius: 50% 50% 40% 60% / 30% 70% 40% 60%; }
+   348→}
+   349→
+   350→@keyframes scale-pulse {
+   351→  0%, 100% { transform: scale(1); }
+   352→  50% { transform: scale(1.03); }
+   353→}
+   354→
+   355→@keyframes scale-bounce {
+   356→  0% { transform: scale(0); opacity: 0; }
+   357→  60% { transform: scale(1.1); opacity: 1; }
+   358→  80% { transform: scale(0.95); }
+   359→  100% { transform: scale(1); opacity: 1; }
+   360→}
+   361→
+   362→@keyframes scale-in-blur {
+   363→  0% { transform: scale(0.5); opacity: 0; filter: blur(10px) brightness(2); }
+   364→  100% { transform: scale(1); opacity: 1; filter: blur(0px) brightness(1); }
+   365→}
+   366→
+   367→/* === GRADIENT ANIMATIONS === */
+   368→@keyframes gradient-shift {
+   369→  0% { background-position: 0% 50%; }
+   370→  50% { background-position: 100% 50%; }
+   371→  100% { background-position: 0% 50%; }
+   372→}
+   373→
+   374→@keyframes gradient-rotate {
+   375→  0% { filter: hue-rotate(0deg); }
+   376→  100% { filter: hue-rotate(360deg); }
+   377→}
+   378→
+   379→@keyframes gradient-mesh {
+   380→  0% { background-position: 0% 0%; }
+   381→  25% { background-position: 100% 0%; }
+   382→  50% { background-position: 100% 100%; }
+   383→  75% { background-position: 0% 100%; }
+   384→  100% { background-position: 0% 0%; }
+   385→}
+   386→
+   387→@keyframes gradient-x {
+   388→  0%, 100% { background-position: 0% 50%; }
+   389→  50% { background-position: 100% 50%; }
+   390→}
+   391→
+   392→@keyframes gradient-y {
+   393→  0%, 100% { background-position: 50% 0%; }
+   394→  50% { background-position: 50% 100%; }
+   395→}
+   396→
+   397→/* === FADE VARIATIONS === */
+   398→@keyframes fade-in-up {
+   399→  0% { opacity: 0; transform: translateY(30px); }
+   400→  100% { opacity: 1; transform: translateY(0); }
+   401→}
+   402→
+   403→@keyframes fade-in-down {
+   404→  0% { opacity: 1; transform: translateY(-30px); }
+   405→  100% { opacity: 1; transform: translateY(0); }
+   406→}
+   407→
+   408→@keyframes fade-in-left {
+   409→  0% { opacity: 0; transform: translateX(-30px); }
+   410→  100% { opacity: 1; transform: translateX(0); }
+   411→}
+   412→
+   413→@keyframes fade-in-right {
+   414→  0% { opacity: 0; transform: translateX(30px); }
+   415→  100% { opacity: 1; transform: translateX(0); }
+   416→}
+   417→
+   418→@keyframes fade-in-scale {
+   419→  0% { opacity: 0; transform: scale(0.8); }
+   420→  100% { opacity: 1; transform: scale(1); }
+   421→}
+   422→
+   423→@keyframes fade-in-blur {
+   424→  0% { opacity: 0; filter: blur(10px); transform: translateY(20px); }
+   425→  100% { opacity: 1; filter: blur(0px); transform: translateY(0); }
+   426→}
+   427→
+   428→/* === SCROLL-LINKED ANIMATIONS === */
+   429→@keyframes parallax-float {
+   430→  0% { transform: translateY(0px); }
+   431→  100% { transform: translateY(var(--parallax-speed, -50px)); }
+   432→}
+   433→
+   434→@keyframes scroll-reveal-up {
+   435→  0% { opacity: 0; transform: translateY(60px); }
+   436→  100% { opacity: 1; transform: translateY(0); }
+   437→}
+   438→
+   439→@keyframes scroll-reveal-scale {
+   440→  0% { opacity: 0; transform: scale(0.9); }
+   441→  100% { opacity: 1; transform: scale(1); }
+   442→}
+   443→
+   444→@keyframes scroll-reveal-clip {
+   445→  0% { clip-path: inset(0 0 100% 0); opacity: 0; }
+   446→  100% { clip-path: inset(0 0 0 0); opacity: 1; }
+   447→}
+   448→
+   449→/* === MARQUEE / SCROLLING TEXT === */
+   450→@keyframes marquee {
+   451→  0% { transform: translateX(0); }
+   452→  100% { transform: translateX(-50%); }
+   453→}
+   454→
+   455→@keyframes marquee-reverse {
+   456→  0% { transform: translateX(-50%); }
+   457→  100% { transform: translateX(0); }
+   458→}
+   459→
+   460→/* === VIDEO OVERLAY EFFECTS === */
+   461→@keyframes video-pulse {
+   462→  0%, 100% { opacity: 0.15; }
+   463→  50% { opacity: 0.25; }
+   464→}
+   465→
+   466→@keyframes video-scanline {
+   467→  0% { transform: translateY(-100%); }
+   468→  100% { transform: translateY(100vh); }
+   469→}
+   470→
+   471→@keyframes vignette-pulse {
+   472→  0%, 100% { box-shadow: inset 0 0 150px rgba(0,0,0,0.8); }
+   473→  50% { box-shadow: inset 0 0 200px rgba(0,0,0,0.9); }
+   474→}
+   475→
+   476→/* === WAVE / RIPPLE === */
+   477→@keyframes wave {
+   478→  0% { transform: translateX(0) translateZ(0) scaleY(1); }
+   479→  50% { transform: translateX(-25%) translateZ(0) scaleY(0.55); }
+   480→  100% { transform: translateX(-50%) translateZ(0) scaleY(1); }
+   481→}
+   482→
+   483→@keyframes ripple-expand {
+   484→  0% { transform: scale(0); opacity: 0.6; }
+   485→  100% { transform: scale(4); opacity: 0; }
+   486→}
+   487→
+   488→@keyframes ripple-gold {
+   489→  0% { box-shadow: 0 0 0 0 rgba(212,175,55,0.4); }
+   490→  100% { box-shadow: 0 0 0 30px rgba(212,175,55,0); }
+   491→}
+   492→
+   493→/* === COUNTER ANIMATION === */
+   494→@keyframes count-up {
+   495→  from { opacity: 0; transform: translateY(10px); }
+   496→  to { opacity: 1; transform: translateY(0); }
+   497→}
+   498→
+   499→/* === INTRO ANIMATION v5.0 — Grand Architectural Reveal === */
+   500→@keyframes intro-line-sweep {
+   501→  0% { clip-path: inset(0 100% 0 0); opacity: 0; }
+   502→  20% { opacity: 1; }
+   503→  100% { clip-path: inset(0 0 0 0); opacity: 1; }
+   504→}
+   505→
+   506→@keyframes intro-line-sweep-v {
+   507→  0% { clip-path: inset(0 0 100% 0); opacity: 0; }
+   508→  20% { opacity: 1; }
+   509→  100% { clip-path: inset(0 0 0 0); opacity: 1; }
+   510→}
+   511→
+   512→@keyframes intro-dot-pulse {
+   513→  0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+   514→  50% { opacity: 1; transform: translate(-50%, -50%) scale(2); }
+   515→  100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+   516→}
+   517→
+   518→@keyframes intro-ring-expand {
+   519→  0% { transform: scale(0); opacity: 0.6; }
+   520→  100% { transform: scale(8); opacity: 0; }
+   521→}
+   522→
+   523→@keyframes intro-flash {
+   524→  0% { opacity: 0; }
+   525→  30% { opacity: 1; }
+   526→  100% { opacity: 0; }
+   527→}
+   528→
+   529→/* Cinematic letterbox bars — slide in/out */
+   530→@keyframes cinematic-bar-in {
+   531→  0% { height: 0; }
+   532→  100% { height: 8vh; }
+   533→}
+   534→
+   535→@keyframes cinematic-bar-out {
+   536→  0% { height: 8vh; }
+   537→  100% { height: 0; }
+   538→}
+   539→
+   540→/* Lens flare sweep */
+   541→@keyframes lens-flare {
+   542→  0% { left: -20%; opacity: 0; }
+   543→  20% { opacity: 0.6; }
+   544→  50% { opacity: 0.8; }
+   545→  80% { opacity: 0.4; }
+   546→  100% { left: 120%; opacity: 0; }
+   547→}
+   548→
+   549→/* Cinematic vignette pulse */
+   550→@keyframes vignette-pulse-intro {
+   551→  0% { box-shadow: inset 0 0 150px rgba(0,0,0,0.9); }
+   552→  50% { box-shadow: inset 0 0 80px rgba(0,0,0,0.6); }
+   553→  100% { box-shadow: inset 0 0 150px rgba(0,0,0,0.9); }
+   554→}
+   555→
+   556→/* Golden letter glow shimmer */
+   557→@keyframes letter-glow {
+   558→  0%, 100% { text-shadow: 0 0 20px rgba(212,175,55,0.2), 0 0 40px rgba(37,162,220,0.1); }
+   559→  50% { text-shadow: 0 0 40px rgba(212,175,55,0.5), 0 0 80px rgba(37,162,220,0.2), 0 0 120px rgba(212,175,55,0.15); }
+   560→}
+   561→
+   562→/* === INTRO v7 — "Living Blueprint" 7s timeline keyframes === */
+   563→
+   564→/* Letter floating during breathe phase */
+   565→@keyframes letter-float {
+   566→  0%, 100% { transform: translateY(0) scale(1); }
+   567→  50% { transform: translateY(-8px) scale(1.03); }
+   568→}
+   569→
+   570→/* Golden glow breathing */
+   571→@keyframes intro-glow-breathe {
+   572→  0%, 100% { opacity: 0.7; transform: scale(1.8); }
+   573→  50% { opacity: 1; transform: scale(2.2); }
+   574→}
+   575→
+   576→/* Blue glow breathing */
+   577→@keyframes intro-blue-breathe {
+   578→  0%, 100% { opacity: 0.5; transform: scale(1.2); }
+   579→  50% { opacity: 0.7; transform: scale(1.5); }
+   580→}
+   581→
+   582→/* Logo breathing */
+   583→@keyframes intro-logo-breathe {
+   584→  0%, 100% { transform: scale(0.55) translateY(160px); filter: brightness(1.1) blur(0px); }
+   585→  50% { transform: scale(0.6) translateY(155px); filter: brightness(1.2) blur(0px); }
+   586→}
+   587→
+   588→/* Rotating diamond frame */
+   589→@keyframes intro-diamond-rotate {
+   590→  from { transform: rotate(45deg); }
+   591→  to { transform: rotate(405deg); }
+   592→}
+   593→
+   594→/* Diamond accent spinning */
+   595→@keyframes intro-diamond-spin {
+   596→  from { transform: rotate(45deg); }
+   597→  to { transform: rotate(405deg); }
+   598→}
+   599→
+   600→/* Grid line draw horizontal — from center outward */
+   601→@keyframes intro-grid-draw-h {
+   602→  0% { clip-path: inset(0 50% 0 50%); opacity: 0; }
+   603→  30% { opacity: 1; }
+   604→  100% { clip-path: inset(0 0 0 0); opacity: 0.8; }
+   605→}
+   606→
+   607→/* Grid line draw vertical — from center outward */
+   608→@keyframes intro-grid-draw-v {
+   609→  0% { clip-path: inset(50% 0 50% 0); opacity: 0; }
+   610→  30% { opacity: 1; }
+   611→  100% { clip-path: inset(0 0 0 0); opacity: 0.8; }
+   612→}
+   613→
+   614→/* Letter trail from left */
+   615→@keyframes intro-trail-left {
+   616→  0% { transform: translateX(-100%); opacity: 0; }
+   617→  30% { opacity: 1; }
+   618→  100% { transform: translateX(0); opacity: 0; }
+   619→}
+   620→
+   621→/* Letter trail from right */
+   622→@keyframes intro-trail-right {
+   623→  0% { transform: translateX(100%); opacity: 0; }
+   624→  30% { opacity: 1; }
+   625→  100% { transform: translateX(0); opacity: 0; }
+   626→}
+   627→
+   628→/* Impact spark at center when letters meet */
+   629→@keyframes intro-impact-spark {
+   630→  0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+   631→  30% { opacity: 1; transform: translate(-50%, -50%) scale(1.5); }
+   632→  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5) translateY(-30px); }
+   633→}
+   634→
+   635→/* Floating geometric shapes drift */
+   636→@keyframes intro-shape-drift {
+   637→  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.15; }
+   638→  25% { transform: translateY(-15px) rotate(5deg); opacity: 0.25; }
+   639→  50% { transform: translateY(-8px) rotate(-3deg); opacity: 0.2; }
+   640→  75% { transform: translateY(-20px) rotate(8deg); opacity: 0.18; }
+   641→}
+   642→
+   643→/* Text shimmer during breathe */
+   644→@keyframes intro-text-shimmer {
+   645→  0%, 100% { text-shadow: 0 0 15px rgba(212,175,55,0.3), 0 0 30px rgba(212,175,55,0.1); }
+   646→  50% { text-shadow: 0 0 30px rgba(212,175,55,0.7), 0 0 60px rgba(212,175,55,0.3), 0 0 90px rgba(37,162,220,0.15); }
+   647→}
+   648→
+   649→/* Wipe overlay — dark covers screen */
+   650→@keyframes intro-wipe-in {
+   651→  0% { opacity: 0; }
+   652→  100% { opacity: 1; }
+   653→}
+   654→
+   655→/* === NOISE / GRAIN === */
+   656→@keyframes grain {
+   657→  0%, 100% { transform: translate(0, 0); }
+   658→  10% { transform: translate(-5%, -10%); }
+   659→  30% { transform: translate(3%, -15%); }
+   660→  50% { transform: translate(-15%, 5%); }
+   661→  70% { transform: translate(10%, 10%); }
+   662→  90% { transform: translate(15%, -5%); }
+   663→}
+   664→
+   665→/* === CURSOR / MAGNETIC === */
+   666→@keyframes magnetic-pull {
+   667→  0% { transform: translate(0, 0); }
+   668→  50% { transform: translate(var(--mx, 0px), var(--my, 0px)); }
+   669→  100% { transform: translate(0, 0); }
+   670→}
+   671→
+   672→/* ============================================
+   673→   UTILITY ANIMATION CLASSES
+   674→   ============================================ */
+   675→
+   676→/* Float & Bounce */
+   677→.animate-bounce-slow { animation: bounce-slow 2s ease-in-out infinite; }
+   678→.animate-float { animation: float 4s ease-in-out infinite; }
+   679→.animate-float-rotate { animation: float-rotate 6s ease-in-out infinite; }
+   680→.animate-float-horizontal { animation: float-horizontal 5s ease-in-out infinite; }
+   681→.animate-float-3d { animation: float-3d 8s ease-in-out infinite; }
+   682→
+   683→/* Spin */
+   684→.animate-spin-slow { animation: spin-slow 20s linear infinite; }
+   685→.animate-spin-reverse-slow { animation: spin-reverse-slow 25s linear infinite; }
+   686→.animate-spin-3d { animation: spin-3d 12s linear infinite; }
+   687→.animate-tilt-rotate { animation: tilt-rotate 10s ease-in-out infinite; }
+   688→
+   689→/* Glow */
+   690→.animate-glow-blue { animation: glow-blue 3s ease-in-out infinite; }
+   691→.animate-glow-gold { animation: glow-gold 3s ease-in-out infinite; }
+   692→.animate-glow-blue-intense { animation: glow-blue-intense 2s ease-in-out infinite; }
+   693→.animate-glow-gold-intense { animation: glow-gold-intense 2s ease-in-out infinite; }
+   694→.animate-breathe { animation: breathe 4s ease-in-out infinite; }
+   695→.animate-breathe-glow { animation: breathe-glow 4s ease-in-out infinite; }
+   696→
+   697→/* Morph & Scale */
+   698→.animate-morph { animation: morph 8s ease-in-out infinite; }
+   699→.animate-scale-pulse { animation: scale-pulse 3s ease-in-out infinite; }
+   700→.animate-scale-bounce { animation: scale-bounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
+   701→.animate-scale-in-blur { animation: scale-in-blur 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+   702→
+   703→/* Shimmer & Gradient */
+   704→.animate-shimmer {
+   705→  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.05) 45%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 55%, transparent 60%);
+   706→  background-size: 200% 100%;
+   707→  animation: shimmer 3s ease-in-out infinite;
+   708→}
+   709→.animate-shimmer-gold {
+   710→  background: linear-gradient(105deg, transparent 40%, rgba(212,175,55,0.05) 45%, rgba(212,175,55,0.15) 50%, rgba(212,175,55,0.05) 55%, transparent 60%);
+   711→  background-size: 200% 100%;
+   712→  animation: shimmer-gold 3s ease-in-out infinite;
+   713→}
+   714→.animate-gradient-shift {
+   715→  background-size: 200% 200%;
+   716→  animation: gradient-shift 4s ease infinite;
+   717→}
+   718→.animate-gradient-mesh {
+   719→  background-size: 400% 400%;
+   720→  animation: gradient-mesh 8s ease infinite;
+   721→}
+   722→.animate-gradient-x {
+   723→  background-size: 200% 200%;
+   724→  animation: gradient-x 3s ease infinite;
+   725→}
+   726→
+   727→/* Border */
+   728→.animate-border-glow { animation: border-glow 3s ease-in-out infinite; }
+   729→.animate-border-glow-gold { animation: border-glow-gold 3s ease-in-out infinite; }
+   730→.animate-border-dance { animation: border-dance 4s ease-in-out infinite; }
+   731→
+   732→/* Text */
+   733→.animate-text-shimmer {
+   734→  background: linear-gradient(90deg, #FFFFFF 0%, #D4AF37 25%, #FFFFFF 50%, #25A2DC 75%, #FFFFFF 100%);
+   735→  background-size: 200% auto;
+   736→  -webkit-background-clip: text;
+   737→  background-clip: text;
+   738→  -webkit-text-fill-color: transparent;
+   739→  animation: text-shimmer 4s linear infinite;
+   740→}
+   741→.animate-text-gradient {
+   742→  background: linear-gradient(90deg, #25A2DC, #D4AF37, #25A2DC);
+   743→  background-size: 200% auto;
+   744→  -webkit-background-clip: text;
+   745→  background-clip: text;
+   746→  -webkit-text-fill-color: transparent;
+   747→  animation: text-gradient-flow 3s ease infinite;
+   748→}
+   749→.animate-letter-spacing { animation: letter-spacing-expand 1.5s cubic-bezier(0.65, 0.05, 0, 1) forwards; }
+   750→
+   751→/* Fade Reveal */
+   752→.animate-fade-in-up { animation: fade-in-up 0.8s cubic-bezier(0.65, 0.05, 0, 1) forwards; }
+   753→.animate-fade-in-blur { animation: fade-in-blur 1s cubic-bezier(0.65, 0.05, 0, 1) forwards; }
+   754→.animate-fade-in-scale { animation: fade-in-scale 0.8s cubic-bezier(0.65, 0.05, 0, 1) forwards; }
+   755→
+   756→/* Particles */
+   757→.animate-particle-rise { animation: particle-rise var(--duration, 10s) linear infinite; }
+   758→.animate-particle-fall { animation: particle-fall var(--duration, 12s) linear infinite; }
+   759→.animate-particle-drift { animation: particle-drift var(--duration, 8s) ease-in-out infinite; }
+   760→.animate-sparkle { animation: sparkle var(--duration, 2s) ease-in-out infinite; }
+   761→
+   762→/* Ripple & Wave */
+   763→.animate-ripple { animation: ripple-expand 1.5s ease-out forwards; }
+   764→.animate-ripple-gold { animation: ripple-gold 1.5s ease-out infinite; }
+   765→.animate-wave { animation: wave 8s linear infinite; }
+   766→
+   767→/* Marquee */
+   768→.animate-marquee { animation: marquee 30s linear infinite; }
+   769→.animate-marquee-reverse { animation: marquee-reverse 30s linear infinite; }
+   770→
+   771→/* Video */
+   772→.animate-vignette { animation: vignette-pulse 6s ease-in-out infinite; }
+   773→
+   774→/* ============================================
+   775→   SCROLL-REVEAL v3.0 — Luxury Animation System
+   776→   
+   777→   data-sr="" controls direction/type:
+   778→     "up" | "down" | "left" | "right" | "scale" | "blur" |
+   779→     "rotate-left" | "rotate-right" | "clip-up" | "clip-left" |
+   780→     "clip-right" | "fade" | "tilt-up"
+   781→   
+   782→   data-sr-delay="1"–"12"  → 100ms–1200ms stagger
+   783→   data-sr-duration="fast" | "normal" | "slow" | "grand"
+   784→   data-sr-distance="near" | "normal" | "far"
+   785→   
+   786→   Trigger: IntersectionObserver adds .sr-visible
+   787→   Performance: GPU-only (transform + opacity + filter)
+   788→   ============================================ */
+   789→
+   790→/* --- Base: all sr elements start hidden --- */
+   791→[data-sr] {
+   792→  will-change: transform, opacity, filter;
+   793→  backface-visibility: hidden;
+   794→}
+   795→
+   796→/* --- Duration presets --- */
+   797→[data-sr-duration="fast"]   { --sr-duration: 0.7s; }
+   798→[data-sr-duration="normal"] { --sr-duration: 1s; }
+   799→[data-sr-duration="slow"]   { --sr-duration: 1.4s; }
+   800→[data-sr-duration="grand"]  { --sr-duration: 1.8s; }
+   801→[data-sr]:not([data-sr-duration]) { --sr-duration: 1s; }
+   802→
+   803→/* --- Distance presets --- */
+   804→[data-sr-distance="near"]   { --sr-dist: 30px; --sr-rot: 8deg; --sr-scale: 0.96; }
+   805→[data-sr-distance="normal"] { --sr-dist: 60px; --sr-rot: 15deg; --sr-scale: 0.92; }
+   806→[data-sr-distance="far"]    { --sr-dist: 100px; --sr-rot: 22deg; --sr-scale: 0.85; }
+   807→[data-sr]:not([data-sr-distance]) { --sr-dist: 60px; --sr-rot: 15deg; --sr-scale: 0.92; }
+   808→
+   809→/* --- Delay presets (data-sr-delay="1" to "12") --- */
+   810→[data-sr-delay="1"]  { --sr-delay: 0.08s; }
+   811→[data-sr-delay="2"]  { --sr-delay: 0.16s; }
+   812→[data-sr-delay="3"]  { --sr-delay: 0.24s; }
+   813→[data-sr-delay="4"]  { --sr-delay: 0.36s; }
+   814→[data-sr-delay="5"]  { --sr-delay: 0.48s; }
+   815→[data-sr-delay="6"]  { --sr-delay: 0.6s; }
+   816→[data-sr-delay="7"]  { --sr-delay: 0.72s; }
+   817→[data-sr-delay="8"]  { --sr-delay: 0.88s; }
+   818→[data-sr-delay="9"]  { --sr-delay: 1.04s; }
+   819→[data-sr-delay="10"] { --sr-delay: 1.2s; }
+   820→[data-sr-delay="11"] { --sr-delay: 1.4s; }
+   821→[data-sr-delay="12"] { --sr-delay: 1.6s; }
+   822→[data-sr]:not([data-sr-delay]) { --sr-delay: 0s; }
+   823→
+   824→/* --- Luxury easing --- */
+   825→/* --sr-ease: a custom overshoot easing for a "settling" feel */
+   826→[data-sr] { --sr-ease: cubic-bezier(0.22, 1, 0.36, 1); }
+   827→
+   828→/* =============================================
+   829→   ANIMATION TYPES — initial (hidden) states
+   830→   ============================================= */
+   831→
+   832→/* UP — rises from below */
+   833→[data-sr="up"] {
+   834→  opacity: 0;
+   835→  transform: translateY(var(--sr-dist)) scale(var(--sr-scale));
+   836→  filter: blur(4px);
+   837→  transition: 
+   838→    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+   839→    transform var(--sr-duration) var(--sr-ease) var(--sr-delay),
+   840→    filter var(--sr-duration) var(--sr-ease) var(--sr-delay);
+   841→}
+   842→[data-sr="up"].sr-visible {
+   843→  opacity: 1;
+   844→  transform: translateY(0) scale(1);
+   845→  filter: blur(0);
+   846→}
+   847→
+   848→/* DOWN — descends from above */
+   849→[data-sr="down"] {
+   850→  opacity: 0;
+   851→  transform: translateY(calc(var(--sr-dist) * -1)) scale(var(--sr-scale));
+   852→  filter: blur(4px);
+   853→  transition: 
+   854→    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+   855→    transform var(--sr-duration) var(--sr-ease) var(--sr-delay),
+   856→    filter var(--sr-duration) var(--sr-ease) var(--sr-delay);
+   857→}
+   858→[data-sr="down"].sr-visible {
+   859→  opacity: 1;
+   860→  transform: translateY(0) scale(1);
+   861→  filter: blur(0);
+   862→}
+   863→
+   864→/* LEFT — slides in from left */
+   865→[data-sr="left"] {
+   866→  opacity: 0;
+   867→  transform: translateX(calc(var(--sr-dist) * -1)) scale(var(--sr-scale));
+   868→  filter: blur(4px);
+   869→  transition: 
+   870→    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+   871→    transform var(--sr-duration) var(--sr-ease) var(--sr-delay),
+   872→    filter var(--sr-duration) var(--sr-ease) var(--sr-delay);
+   873→}
+   874→[data-sr="left"].sr-visible {
+   875→  opacity: 1;
+   876→  transform: translateX(0) scale(1);
+   877→  filter: blur(0);
+   878→}
+   879→
+   880→/* RIGHT — slides in from right */
+   881→[data-sr="right"] {
+   882→  opacity: 0;
+   883→  transform: translateX(var(--sr-dist)) scale(var(--sr-scale));
+   884→  filter: blur(4px);
+   885→  transition: 
+   886→    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+   887→    transform var(--sr-duration) var(--sr-ease) var(--sr-delay),
+   888→    filter var(--sr-duration) var(--sr-ease) var(--sr-delay);
+   889→}
+   890→[data-sr="right"].sr-visible {
+   891→  opacity: 1;
+   892→  transform: translateX(0) scale(1);
+   893→  filter: blur(0);
+   894→}
+   895→
+   896→/* SCALE — grows from center */
+   897→[data-sr="scale"] {
+   898→  opacity: 0;
+   899→  transform: scale(calc(var(--sr-scale) - 0.1));
+   900→  filter: blur(6px);
+   901→  transition: 
+   902→    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+   903→    transform var(--sr-duration) var(--sr-ease) var(--sr-delay),
+   904→    filter var(--sr-duration) var(--sr-ease) var(--sr-delay);
+   905→}
+   906→[data-sr="scale"].sr-visible {
+   907→  opacity: 1;
+   908→  transform: scale(1);
+   909→  filter: blur(0);
+   910→}
+   911→
+   912→/* BLUR — fades from heavy blur */
+   913→[data-sr="blur"] {
+   914→  opacity: 0;
+   915→  filter: blur(20px);
+   916→  transform: scale(0.97);
+   917→  transition: 
+   918→    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+   919→    filter var(--sr-duration) var(--sr-ease) var(--sr-delay),
+   920→    transform var(--sr-duration) var(--sr-ease) var(--sr-delay);
+   921→}
+   922→[data-sr="blur"].sr-visible {
+   923→  opacity: 1;
+   924→  filter: blur(0);
+   925→  transform: scale(1);
+   926→}
+   927→
+   928→/* ROTATE-LEFT — rotates in from left side */
+   929→[data-sr="rotate-left"] {
+   930→  opacity: 0;
+   931→  transform: perspective(1200px) rotateY(calc(var(--sr-rot) * -1)) translateX(calc(var(--sr-dist) * -0.8)) scale(var(--sr-scale));
+   932→  transition: 
+   933→    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+   934→    transform var(--sr-duration) var(--sr-ease) var(--sr-delay);
+   935→}
+   936→[data-sr="rotate-left"].sr-visible {
+   937→  opacity: 1;
+   938→  transform: perspective(1200px) rotateY(0deg) translateX(0) scale(1);
+   939→}
+   940→
+   941→/* ROTATE-RIGHT — rotates in from right side */
+   942→[data-sr="rotate-right"] {
+   943→  opacity: 0;
+   944→  transform: perspective(1200px) rotateY(var(--sr-rot)) translateX(calc(var(--sr-dist) * 0.8)) scale(var(--sr-scale));
+   945→  transition: 
+   946→    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+   947→    transform var(--sr-duration) var(--sr-ease) var(--sr-delay);
+   948→}
+   949→[data-sr="rotate-right"].sr-visible {
+   950→  opacity: 1;
+   951→  transform: perspective(1200px) rotateY(0deg) translateX(0) scale(1);
+   952→}
+   953→
+   954→/* CLIP-UP — reveals from bottom via clip-path */
+   955→[data-sr="clip-up"] {
+   956→  clip-path: inset(100% 0 0 0);
+   957→  transition: clip-path var(--sr-duration) cubic-bezier(0.65, 0, 0.35, 1) var(--sr-delay);
+   958→}
+   959→[data-sr="clip-up"].sr-visible {
+   960→  clip-path: inset(0 0 0 0);
+   961→}
+   962→
+   963→/* CLIP-LEFT — reveals from left via clip-path */
+   964→[data-sr="clip-left"] {
+   965→  clip-path: inset(0 100% 0 0);
+   966→  transition: clip-path var(--sr-duration) cubic-bezier(0.65, 0, 0.35, 1) var(--sr-delay);
+   967→}
+   968→[data-sr="clip-left"].sr-visible {
+   969→  clip-path: inset(0 0 0 0);
+   970→}
+   971→
+   972→/* CLIP-RIGHT — reveals from right via clip-path */
+   973→[data-sr="clip-right"] {
+   974→  clip-path: inset(0 0 0 100%);
+   975→  transition: clip-path var(--sr-duration) cubic-bezier(0.65, 0, 0.35, 1) var(--sr-delay);
+   976→}
+   977→[data-sr="clip-right"].sr-visible {
+   978→  clip-path: inset(0 0 0 0);
+   979→}
+   980→
+   981→/* FADE — simple elegant fade */
+   982→[data-sr="fade"] {
+   983→  opacity: 0;
+   984→  transition: opacity var(--sr-duration) var(--sr-ease) var(--sr-delay);
+   985→}
+   986→[data-sr="fade"].sr-visible {
+   987→  opacity: 1;
+   988→}
+   989→
+   990→/* TILT-UP — 3D tilt from below (like unfolding a card) */
+   991→[data-sr="tilt-up"] {
+   992→  opacity: 0;
+   993→  transform: perspective(1200px) rotateX(var(--sr-rot)) translateY(calc(var(--sr-dist) * 0.5)) scale(var(--sr-scale));
+   994→  transform-origin: 50% 100%;
+   995→  transition: 
+   996→    opacity var(--sr-duration) var(--sr-ease) var(--sr-delay),
+   997→    transform var(--sr-duration) var(--sr-ease) var(--sr-delay);
+   998→}
+   999→[data-sr="tilt-up"].sr-visible {
+  1000→  opacity: 1;
+  1001→  transform: perspective(1200px) rotateX(0deg) translateY(0) scale(1);
+  1002→}
+  1003→
+  1004→/* =============================================
+  1005→   LEGACY SUPPORT — keep old class names working
+  1006→   ============================================= */
+  1007→
+  1008→.scroll-reveal {
+  1009→  opacity: 0;
+  1010→  transform: translateY(40px);
+  1011→  transition: all 0.8s cubic-bezier(0.65, 0.05, 0, 1);
+  1012→}
+  1013→
+  1014→.scroll-reveal.revealed {
+  1015→  opacity: 1;
+  1016→  transform: translateY(0);
+  1017→}
+  1018→
+  1019→.scroll-reveal-left {
+  1020→  opacity: 0;
+  1021→  transform: translateX(-40px);
+  1022→  transition: all 0.8s cubic-bezier(0.65, 0.05, 0, 1);
+  1023→}
+  1024→
+  1025→.scroll-reveal-left.revealed {
+  1026→  opacity: 1;
+  1027→  transform: translateX(0);
+  1028→}
+  1029→
+  1030→.scroll-reveal-right {
+  1031→  opacity: 0;
+  1032→  transform: translateX(40px);
+  1033→  transition: all 0.8s cubic-bezier(0.65, 0.05, 0, 1);
+  1034→}
+  1035→
+  1036→.scroll-reveal-right.revealed {
+  1037→  opacity: 1;
+  1038→  transform: translateX(0);
+  1039→}
+  1040→
+  1041→.scroll-reveal-scale {
+  1042→  opacity: 0;
+  1043→  transform: scale(0.9);
+  1044→  transition: all 0.8s cubic-bezier(0.65, 0.05, 0, 1);
+  1045→}
+  1046→
+  1047→.scroll-reveal-scale.revealed {
+  1048→  opacity: 1;
+  1049→  transform: scale(1);
+  1050→}
+  1051→
+  1052→.scroll-reveal-clip {
+  1053→  clip-path: inset(0 0 100% 0);
+  1054→  transition: clip-path 1s cubic-bezier(0.65, 0.05, 0, 1);
+  1055→}
+  1056→
+  1057→.scroll-reveal-clip.revealed {
+  1058→  clip-path: inset(0 0 0 0);
+  1059→}
+  1060→
+  1061→/* Staggered children */
+  1062→.stagger-children > * {
+  1063→  opacity: 0;
+  1064→  transform: translateY(30px);
+  1065→  transition: all 0.6s cubic-bezier(0.65, 0.05, 0, 1);
+  1066→}
+  1067→
+  1068→.stagger-children.revealed > *:nth-child(1) { transition-delay: 0s; opacity: 1; transform: translateY(0); }
+  1069→.stagger-children.revealed > *:nth-child(2) { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
+  1070→.stagger-children.revealed > *:nth-child(3) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
+  1071→.stagger-children.revealed > *:nth-child(4) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
+  1072→.stagger-children.revealed > *:nth-child(5) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
+  1073→.stagger-children.revealed > *:nth-child(6) { transition-delay: 0.5s; opacity: 1; transform: translateY(0); }
+  1074→.stagger-children.revealed > *:nth-child(7) { transition-delay: 0.6s; opacity: 1; transform: translateY(0); }
+  1075→.stagger-children.revealed > *:nth-child(8) { transition-delay: 0.7s; opacity: 1; transform: translateY(0); }
+  1076→
+  1077→/* ============================================
+  1078→   DECORATIVE ELEMENTS
+  1079→   ============================================ */
+  1080→
+  1081→.decorative-glow {
+  1082→  position: absolute;
+  1083→  border-radius: 50%;
+  1084→  filter: blur(80px);
+  1085→  pointer-events: none;
+  1086→}
+  1087→
+  1088→.decorative-line {
+  1089→  height: 1px;
+  1090→  background: linear-gradient(90deg, transparent, #D4AF37, #25A2DC, transparent);
+  1091→}
+  1092→
+  1093→.decorative-line-vertical {
+  1094→  width: 1px;
+  1095→  background: linear-gradient(180deg, transparent, #D4AF37, #25A2DC, transparent);
+  1096→}
+  1097→
+  1098→/* Animated background mesh */
+  1099→.bg-mesh {
+  1100→  background:
+  1101→    radial-gradient(at 20% 30%, rgba(37,162,220,0.08) 0%, transparent 50%),
+  1102→    radial-gradient(at 80% 70%, rgba(212,175,55,0.06) 0%, transparent 50%),
+  1103→    radial-gradient(at 50% 50%, rgba(37,162,220,0.04) 0%, transparent 70%);
+  1104→  background-size: 200% 200%;
+  1105→  animation: gradient-mesh 12s ease infinite;
+  1106→}
+  1107→
+  1108→/* Animated noise texture overlay */
+  1109→.noise-overlay::before {
+  1110→  content: '';
+  1111→  position: absolute;
+  1112→  inset: 0;
+  1113→  opacity: 0.03;
+  1114→  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  1115→  background-size: 128px;
+  1116→  pointer-events: none;
+  1117→  animation: grain 0.5s steps(1) infinite;
+  1118→}
+  1119→
+  1120→/* ============================================
+  1121→   PROJECT CARD PREMIUM EFFECTS
+  1122→   ============================================ */
+  1123→
+  1124→.project-card {
+  1125→  position: relative;
+  1126→  overflow: hidden;
+  1127→}
+  1128→
+  1129→.project-card::before {
+  1130→  content: '';
+  1131→  position: absolute;
+  1132→  top: 0;
+  1133→  left: -100%;
+  1134→  width: 100%;
+  1135→  height: 100%;
+  1136→  background: linear-gradient(90deg, transparent, rgba(37,162,220,0.03), transparent);
+  1137→  transition: left 0.6s ease;
+  1138→  z-index: 2;
+  1139→  pointer-events: none;
+  1140→}
+  1141→
+  1142→.project-card:hover::before {
+  1143→  left: 100%;
+  1144→}
+  1145→
+  1146→.project-card::after {
+  1147→  content: '';
+  1148→  position: absolute;
+  1149→  inset: 0;
+  1150→  border: 1px solid transparent;
+  1151→  transition: border-color 0.5s ease;
+  1152→  z-index: 3;
+  1153→  pointer-events: none;
+  1154→}
+  1155→
+  1156→.project-card:hover::after {
+  1157→  border-color: rgba(37,162,220,0.3);
+  1158→}
+  1159→
+  1160→/* Portfolio horizontal scroll card */
+  1161→.portfolio-card {
+  1162→  position: relative;
+  1163→  overflow: hidden;
+  1164→  transition: transform 0.6s cubic-bezier(0.65, 0.05, 0, 1);
+  1165→}
+  1166→
+  1167→.portfolio-card:hover {
+  1168→  transform: scale(1.02);
+  1169→}
+  1170→
+  1171→.portfolio-card .card-image {
+  1172→  transition: transform 0.8s cubic-bezier(0.65, 0.05, 0, 1), filter 0.8s ease;
+  1173→}
+  1174→
+  1175→.portfolio-card:hover .card-image {
+  1176→  transform: scale(1.08);
+  1177→  filter: brightness(0.7);
+  1178→}
+  1179→
+  1180→.portfolio-card .card-info {
+  1181→  transform: translateY(20px);
+  1182→  opacity: 0;
+  1183→  transition: all 0.5s cubic-bezier(0.65, 0.05, 0, 1);
+  1184→}
+  1185→
+  1186→.portfolio-card:hover .card-info {
+  1187→  transform: translateY(0);
+  1188→  opacity: 1;
+  1189→}
+  1190→
+  1191→.portfolio-card .card-tag {
+  1192→  transform: translateY(10px);
+  1193→  opacity: 0;
+  1194→  transition: all 0.4s cubic-bezier(0.65, 0.05, 0, 1) 0.1s;
+  1195→}
+  1196→
+  1197→.portfolio-card:hover .card-tag {
+  1198→  transform: translateY(0);
+  1199→  opacity: 1;
+  1200→}
+  1201→
+  1202→.portfolio-card .card-number {
+  1203→  transition: all 0.5s ease;
+  1204→}
+  1205→
+  1206→.portfolio-card:hover .card-number {
+  1207→  color: #D4AF37;
+  1208→  text-shadow: 0 0 20px rgba(212,175,55,0.3);
+  1209→}
+  1210→
+  1211→/* Gold accent line animation on hover */
+  1212→.portfolio-card .accent-line {
+  1213→  width: 0;
+  1214→  transition: width 0.6s cubic-bezier(0.65, 0.05, 0, 1);
+  1215→}
+  1216→
+  1217→.portfolio-card:hover .accent-line {
+  1218→  width: 100%;
+  1219→}
+  1220→
+  1221→/* ============================================
+  1222→   SECTION DIVIDER
+  1223→   ============================================ */
+  1224→
+  1225→.section-divider {
+  1226→  position: relative;
+  1227→  height: 1px;
+  1228→  background: linear-gradient(90deg, transparent 0%, #2D3A4D 20%, #25A2DC 50%, #2D3A4D 80%, transparent 100%);
+  1229→}
+  1230→
+  1231→.section-divider::after {
+  1232→  content: '';
+  1233→  position: absolute;
+  1234→  top: -2px;
+  1235→  left: 50%;
+  1236→  transform: translateX(-50%);
+  1237→  width: 6px;
+  1238→  height: 6px;
+  1239→  background: #25A2DC;
+  1240→  border-radius: 50%;
+  1241→  box-shadow: 0 0 10px rgba(37,162,220,0.5);
+  1242→}
+  1243→
+  1244→/* ============================================
+  1245→   VIDEO BACKGROUND STYLES
+  1246→   ============================================ */
+  1247→
+  1248→.video-bg-container {
+  1249→  position: absolute;
+  1250→  inset: 0;
+  1251→  overflow: hidden;
+  1252→  z-index: 0;
+  1253→}
+  1254→
+  1255→.video-bg-container video {
+  1256→  width: 100%;
+  1257→  height: 100%;
+  1258→  object-fit: cover;
+  1259→  opacity: 0.15;
+  1260→}
+  1261→
+  1262→.video-bg-overlay {
+  1263→  position: absolute;
+  1264→  inset: 0;
+  1265→  background: linear-gradient(
+  1266→    180deg,
+  1267→    rgba(11,15,24,0.9) 0%,
+  1268→    rgba(11,15,24,0.6) 30%,
+  1269→    rgba(11,15,24,0.7) 60%,
+  1270→    rgba(11,15,24,0.95) 100%
+  1271→  );
+  1272→  pointer-events: none;
+  1273→}
+  1274→
+  1275→/* ============================================
+  1276→   HERO-SPECIFIC ANIMATIONS
+  1277→   ============================================ */
+  1278→
+  1279→/* Hero entrance stagger */
+  1280→.hero-enter-logo {
+  1281→  animation: scale-in-blur 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  1282→  animation-delay: 0s;
+  1283→}
+  1284→
+  1285→.hero-enter-title {
+  1286→  animation: fade-in-blur 1.2s cubic-bezier(0.65, 0.05, 0, 1) forwards;
+  1287→  animation-delay: 0.3s;
+  1288→  opacity: 0;
+  1289→}
+  1290→
+  1291→.hero-enter-line {
+  1292→  animation: line-reveal-center 1s cubic-bezier(0.65, 0.05, 0, 1) forwards;
+  1293→  animation-delay: 0.8s;
+  1294→  opacity: 0;
+  1295→}
+  1296→
+  1297→.hero-enter-tagline {
+  1298→  animation: fade-in-blur 1s cubic-bezier(0.65, 0.05, 0, 1) forwards;
+  1299→  animation-delay: 1s;
+  1300→  opacity: 0;
+  1301→}
+  1302→
+  1303→.hero-enter-cta {
+  1304→  animation: fade-in-up 0.8s cubic-bezier(0.65, 0.05, 0, 1) forwards;
+  1305→  animation-delay: 1.4s;
+  1306→  opacity: 0;
+  1307→}
+  1308→
+  1309→.hero-enter-scroll {
+  1310→  animation: fade-in-up 0.8s cubic-bezier(0.65, 0.05, 0, 1) forwards;
+  1311→  animation-delay: 2s;
+  1312→  opacity: 0;
+  1313→}
+  1314→
+  1315→/* Hero logo glow animation */
+  1316→.hero-logo-glow {
+  1317→  position: absolute;
+  1318→  inset: -20px;
+  1319→  background: radial-gradient(circle, rgba(212,175,55,0.3) 0%, rgba(37,162,220,0.15) 50%, transparent 70%);
+  1320→  border-radius: 50%;
+  1321→  filter: blur(30px);
+  1322→  animation: breathe 4s ease-in-out infinite;
+  1323→}
+  1324→
+  1325→/* Hero floating particles container */
+  1326→.hero-particles {
+  1327→  position: absolute;
+  1328→  inset: 0;
+  1329→  overflow: hidden;
+  1330→  pointer-events: none;
+  1331→}
+  1332→
+  1333→.hero-particle {
+  1334→  position: absolute;
+  1335→  border-radius: 50%;
+  1336→  pointer-events: none;
+  1337→}
+  1338→
+  1339→/* Hero gradient mesh background */
+  1340→.hero-gradient-bg {
+  1341→  position: absolute;
+  1342→  inset: 0;
+  1343→  background:
+  1344→    radial-gradient(ellipse 80% 50% at 50% 40%, rgba(37,162,220,0.06) 0%, transparent 50%),
+  1345→    radial-gradient(ellipse 60% 80% at 30% 60%, rgba(212,175,55,0.04) 0%, transparent 50%),
+  1346→    radial-gradient(ellipse 50% 60% at 70% 30%, rgba(37,162,220,0.03) 0%, transparent 50%);
+  1347→  background-size: 200% 200%;
+  1348→  animation: gradient-mesh 15s ease infinite;
+  1349→}
+  1350→
+  1351→/* ============================================
+  1352→   CTA BUTTON ANIMATED BORDER
+  1353→   ============================================ */
+  1354→
+  1355→.cta-animated {
+  1356→  position: relative;
+  1357→  overflow: hidden;
+  1358→  z-index: 1;
+  1359→}
+  1360→
+  1361→.cta-animated::before {
+  1362→  content: '';
+  1363→  position: absolute;
+  1364→  inset: 0;
+  1365→  background: linear-gradient(90deg, #25A2DC, #D4AF37, #25A2DC);
+  1366→  background-size: 200% 100%;
+  1367→  animation: shimmer 3s linear infinite;
+  1368→  opacity: 0;
+  1369→  transition: opacity 0.5s ease;
+  1370→  z-index: -1;
+  1371→}
+  1372→
+  1373→.cta-animated:hover::before {
+  1374→  opacity: 0.1;
+  1375→}
+  1376→
+  1377→.cta-animated::after {
+  1378→  content: '';
+  1379→  position: absolute;
+  1380→  top: 50%;
+  1381→  left: 50%;
+  1382→  width: 0;
+  1383→  height: 0;
+  1384→  background: rgba(37,162,220,0.1);
+  1385→  border-radius: 50%;
+  1386→  transform: translate(-50%, -50%);
+  1387→  transition: width 0.6s ease, height 0.6s ease;
+  1388→  z-index: -1;
+  1389→}
+  1390→
+  1391→.cta-animated:hover::after {
+  1392→  width: 300px;
+  1393→  height: 300px;
+  1394→}
+  1395→
+  1396→/* ============================================
+  1397→   MARQUEE TEXT STRIP
+  1398→   ============================================ */
+  1399→
+  1400→.marquee-strip {
+  1401→  overflow: hidden;
+  1402→  white-space: nowrap;
+  1403→}
+  1404→
+  1405→.marquee-strip .marquee-content {
+  1406→  display: inline-flex;
+  1407→  animation: marquee 40s linear infinite;
+  1408→}
+  1409→
+  1410→.marquee-strip:hover .marquee-content {
+  1411→  animation-play-state: paused;
+  1412→}
+  1413→
+  1414→/* ============================================
+  1415→   ANIMATED COUNTER
+  1416→   ============================================ */
+  1417→
+  1418→.counter-value {
+  1419→  display: inline-block;
+  1420→  transition: all 0.3s ease;
+  1421→}
+  1422→
+  1423→/* ============================================
+  1424→   PERFORMANCE OPTIMIZATIONS
+  1425→   ============================================ */
+  1426→
+  1427→.gpu-accelerated {
+  1428→  will-change: transform;
+  1429→  transform: translateZ(0);
+  1430→  backface-visibility: hidden;
+  1431→}
+  1432→
+  1433→/* ============================================
+  1434→   3D CARD ENTRANCE ANIMATIONS
+  1435→   Cards fly in from sides with 3D rotation
+  1436→   Much more noticeable than tilt — zero lag
+  1437→   ============================================ */
+  1438→
+  1439→.card-3d-enter-left {
+  1440→  opacity: 0;
+  1441→  transform: perspective(1200px) rotateY(-25deg) translateX(-120px) translateZ(-80px) scale(0.85);
+  1442→  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  1443→}
+  1444→
+  1445→.card-3d-enter-left.revealed {
+  1446→  opacity: 1;
+  1447→  transform: perspective(1200px) rotateY(0deg) translateX(0) translateZ(0) scale(1);
+  1448→}
+  1449→
+  1450→.card-3d-enter-right {
+  1451→  opacity: 0;
+  1452→  transform: perspective(1200px) rotateY(25deg) translateX(120px) translateZ(-80px) scale(0.85);
+  1453→  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  1454→}
+  1455→
+  1456→.card-3d-enter-right.revealed {
+  1457→  opacity: 1;
+  1458→  transform: perspective(1200px) rotateY(0deg) translateX(0) translateZ(0) scale(1);
+  1459→}
+  1460→
+  1461→.card-3d-enter-bottom {
+  1462→  opacity: 0;
+  1463→  transform: perspective(1200px) rotateX(15deg) translateY(100px) translateZ(-60px) scale(0.9);
+  1464→  transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+  1465→}
+  1466→
+  1467→.card-3d-enter-bottom.revealed {
+  1468→  opacity: 1;
+  1469→  transform: perspective(1200px) rotateX(0deg) translateY(0) translateZ(0) scale(1);
+  1470→}
+  1471→
+  1472→.card-3d-enter-up {
+  1473→  opacity: 0;
+  1474→  transform: perspective(1200px) rotateX(-15deg) translateY(-80px) translateZ(-60px) scale(0.9);
+  1475→  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  1476→}
+  1477→
+  1478→.card-3d-enter-up.revealed {
+  1479→  opacity: 1;
+  1480→  transform: perspective(1200px) rotateX(0deg) translateY(0) translateZ(0) scale(1);
+  1481→}
+  1482→
+  1483→/* Staggered delay for 3D card entrances within the same row */
+  1484→.card-3d-enter-left:nth-child(1),
+  1485→.card-3d-enter-right:nth-child(1) { transition-delay: 0s; }
+  1486→.card-3d-enter-left:nth-child(2),
+  1487→.card-3d-enter-right:nth-child(2) { transition-delay: 0.15s; }
+  1488→.card-3d-enter-left:nth-child(3),
+  1489→.card-3d-enter-right:nth-child(3) { transition-delay: 0.3s; }
+  1490→.card-3d-enter-bottom:nth-child(1) { transition-delay: 0.1s; }
+  1491→
+  1492→/* ============================================
+  1493→   HERO PARALLAX DEPTH LAYERS — CSS-only
+  1494→   No JS scroll handler = zero lag
+  1495→   GPU-composited via translate3d in keyframes
+  1496→   ============================================ */
+  1497→
+  1498→/* Deep layer — slowest float (0.25x perceived speed) */
+  1499→.hero-parallax-deep {
+  1500→  will-change: transform;
+  1501→  animation: hero-parallax-deep 60s ease-in-out infinite;
+  1502→}
+  1503→
+  1504→/* Mid layer — medium float (0.5x perceived speed) */
+  1505→.hero-parallax-mid {
+  1506→  will-change: transform;
+  1507→  animation: hero-parallax-mid 45s ease-in-out infinite;
+  1508→}
+  1509→
+  1510→/* Foreground layer — fastest float (0.8x perceived speed) */
+  1511→.hero-parallax-fg {
+  1512→  will-change: transform;
+  1513→  animation: hero-parallax-fg 35s ease-in-out infinite;
+  1514→}
+  1515→
+  1516→@keyframes hero-parallax-deep {
+  1517→  0%, 100% { transform: translate3d(0, 0px, 0); }
+  1518→  25% { transform: translate3d(0, -15px, 0); }
+  1519→  50% { transform: translate3d(0, -8px, 0); }
+  1520→  75% { transform: translate3d(0, 5px, 0); }
+  1521→}
+  1522→
+  1523→@keyframes hero-parallax-mid {
+  1524→  0%, 100% { transform: translate3d(0, 0px, 0); }
+  1525→  25% { transform: translate3d(0, -25px, 0); }
+  1526→  50% { transform: translate3d(0, -12px, 0); }
+  1527→  75% { transform: translate3d(0, 10px, 0); }
+  1528→}
+  1529→
+  1530→@keyframes hero-parallax-fg {
+  1531→  0%, 100% { transform: translate3d(0, 0px, 0); }
+  1532→  25% { transform: translate3d(0, -40px, 0); }
+  1533→  50% { transform: translate3d(0, -18px, 0); }
+  1534→  75% { transform: translate3d(0, 15px, 0); }
+  1535→}
+  1536→
+  1537→/* ============================================
+  1538→   HERO ORBIT RINGS — GPU-composited rotation
+  1539→   ============================================ */
+  1540→
+  1541→.hero-orbit-ring {
+  1542→  will-change: transform;
+  1543→  backface-visibility: hidden;
+  1544→  transform: translate3d(0, 0, 0);
+  1545→}
+  1546→
+  1547→@keyframes hero-orbit {
+  1548→  from { transform: rotate(0deg) translate3d(0, 0, 0); }
+  1549→  to { transform: rotate(360deg) translate3d(0, 0, 0); }
+  1550→}
+  1551→
+  1552→@keyframes hero-orbit-reverse {
+  1553→  from { transform: rotate(360deg) translate3d(0, 0, 0); }
+  1554→  to { transform: rotate(0deg) translate3d(0, 0, 0); }
+  1555→}
+  1556→
+  1557→/* ============================================
+  1558→   HERO FLOATING SHAPES — buttery smooth
+  1559→   Long duration + gentle curves = organic motion
+  1560→   translate3d forces GPU compositing = no repaints
+  1561→   ============================================ */
+  1562→
+  1563→.hero-float-shape {
+  1564→  will-change: transform;
+  1565→  backface-visibility: hidden;
+  1566→  transform: translate3d(0, 0, 0);
+  1567→}
+  1568→
+  1569→@keyframes hero-float-smooth {
+  1570→  0% {
+  1571→    transform: translate3d(0, 0, 0) rotate(0deg);
+  1572→  }
+  1573→  15% {
+  1574→    transform: translate3d(8px, -18px, 0) rotate(1.5deg);
+  1575→  }
+  1576→  30% {
+  1577→    transform: translate3d(-5px, -28px, 0) rotate(-0.5deg);
+  1578→  }
+  1579→  45% {
+  1580→    transform: translate3d(-12px, -15px, 0) rotate(1deg);
+  1581→  }
+  1582→  60% {
+  1583→    transform: translate3d(-6px, 8px, 0) rotate(-1deg);
+  1584→  }
+  1585→  75% {
+  1586→    transform: translate3d(10px, 14px, 0) rotate(0.5deg);
+  1587→  }
+  1588→  90% {
+  1589→    transform: translate3d(5px, 6px, 0) rotate(-0.5deg);
+  1590→  }
+  1591→  100% {
+  1592→    transform: translate3d(0, 0, 0) rotate(0deg);
+  1593→  }
+  1594→}
+  1595→
+  1596→/* Legacy parallax classes (kept for compatibility) */
+  1597→.parallax-layer-deep {
+  1598→  will-change: transform;
+  1599→}
+  1600→
+  1601→.parallax-layer-mid {
+  1602→  will-change: transform;
+  1603→}
+  1604→
+  1605→.parallax-layer-fg {
+  1606→  will-change: transform;
+  1607→}
+  1608→
+  1609→/* ============================================
+  1610→   3D CARD TILT EFFECT
+  1611→   Premium hover interaction for portfolio cards
+  1612→   ============================================ */
+  1613→
+  1614→.card-tilt-3d {
+  1615→  position: relative;
+  1616→  transform-style: preserve-3d;
+  1617→  will-change: transform;
+  1618→  backface-visibility: hidden;
+  1619→}
+  1620→
+  1621→.card-tilt-3d:hover {
+  1622→  z-index: 10;
+  1623→}
+  1624→
+  1625→/* ============================================
+  1626→   3D TEXT SPLIT ANIMATION
+  1627→   Letter-by-letter 3D entrance + scroll
+  1628→   ============================================ */
+  1629→
+  1630→.text-split-3d {
+  1631→  transform-style: preserve-3d;
+  1632→  perspective: 1000px;
+  1633→}
+  1634→
+  1635→.text-split-letter {
+  1636→  display: inline-block;
+  1637→  transform-style: preserve-3d;
+  1638→  will-change: transform, opacity;
+  1639→  backface-visibility: hidden;
+  1640→  text-shadow: 0 0 60px rgba(212,175,55,0.2), 0 0 120px rgba(37,162,220,0.1);
+  1641→  transition: text-shadow 0.3s ease;
+  1642→}
+  1643→
+  1644→.text-split-letter:hover {
+  1645→  text-shadow: 0 0 40px rgba(212,175,55,0.6), 0 0 80px rgba(37,162,220,0.3), 0 0 120px rgba(212,175,55,0.2);
+  1646→}
+  1647→
+  1648→/* ============================================
+  1649→   3D SECTION REVEAL
+  1650→   Architectural blueprint unfolding effect
+  1651→   ============================================ */
+  1652→
+  1653→.section-reveal-3d {
+  1654→  perspective: 1200px;
+  1655→  perspective-origin: 50% 0%;
+  1656→}
+  1657→
+  1658→.section-reveal-3d-inner {
+  1659→  transform-style: preserve-3d;
+  1660→  will-change: transform, opacity;
+  1661→  backface-visibility: hidden;
+  1662→  transform-origin: 50% 0%;
+  1663→}
+  1664→
+  1665→/* ============================================
+  1666→   3D PARALLAX CONTAINER
+  1667→   ============================================ */
+  1668→
+  1669→.parallax-3d-container {
+  1670→  position: relative;
+  1671→  perspective: 1200px;
+  1672→  perspective-origin: 50% 50%;
+  1673→}
+  1674→
+  1675→.parallax-3d-layer {
+  1676→  position: absolute;
+  1677→  inset: 0;
+  1678→  will-change: transform;
+  1679→  backface-visibility: hidden;
+  1680→  pointer-events: none;
+  1681→}
+  1682→
+  1683→/* Reduce motion for accessibility */
+  1684→@media (prefers-reduced-motion: reduce) {
+  1685→  *,
+  1686→  *::before,
+  1687→  *::after {
+  1688→    animation-duration: 0.01ms !important;
+  1689→    animation-iteration-count: 1 !important;
+  1690→    transition-duration: 0.01ms !important;
+  1691→  }
+  1692→}
+  1693→

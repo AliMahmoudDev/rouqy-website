@@ -1950,7 +1950,7 @@ function PortfolioSection() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         ref: sectionRef,
         id: "portfolio",
-        className: "relative z-10 py-32 md:py-40 px-4 md:px-8 lg:px-12 overflow-hidden",
+        className: "relative z-10 pt-16 md:pt-24 pb-32 md:pb-40 px-4 md:px-8 lg:px-12 overflow-hidden",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute inset-0 overflow-hidden pointer-events-none",
@@ -4185,7 +4185,7 @@ function Home() {
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "section-divider relative z-10"
+                            className: "section-divider relative z-10 -mt-32 md:-mt-44"
                         }, void 0, false, {
                             fileName: "[project]/src/app/page.tsx",
                             lineNumber: 119,
