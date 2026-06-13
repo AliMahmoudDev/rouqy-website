@@ -449,18 +449,18 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
         </div>
       </div>
 
-      {/* 3D Rotating Showcase — desktop: floating right side, mobile: below content */}
+      {/* 3D Rotating Showcase — premium floating gallery */}
       {mounted && (
         <div
-          className={`relative z-20 ${mounted ? 'hero-enter-cta' : 'opacity-0'}`}
+          className={`relative z-15 ${mounted ? 'hero-enter-cta' : 'opacity-0'}`}
           data-parallax-depth="0.8"
         >
-          {/* Desktop: positioned to the right */}
-          <div className="hidden lg:block absolute -right-10 top-1/2 -translate-y-1/2" style={{ marginLeft: '60vw' }}>
+          {/* Desktop: positioned to the right of content */}
+          <div className="hidden lg:block absolute top-1/2 -translate-y-1/2" style={{ right: '-5%', marginRight: 0 }}>
             <RotatingShowcase3D />
           </div>
-          {/* Mobile: centered below CTA, smaller */}
-          <div className="lg:hidden mt-12 flex justify-center" style={{ transform: 'scale(0.65)', transformOrigin: 'top center' }}>
+          {/* Mobile/Tablet: centered below CTA, compact */}
+          <div className="lg:hidden mt-10 md:mt-14 flex justify-center" style={{ transform: 'scale(0.55)', transformOrigin: 'top center' }}>
             <RotatingShowcase3D />
           </div>
         </div>

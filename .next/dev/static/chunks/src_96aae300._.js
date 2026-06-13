@@ -1860,13 +1860,14 @@ function HeroSection({ introComplete }) {
                 columnNumber: 7
             }, this),
             mounted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: `relative z-20 ${mounted ? 'hero-enter-cta' : 'opacity-0'}`,
+                className: `relative z-15 ${mounted ? 'hero-enter-cta' : 'opacity-0'}`,
                 "data-parallax-depth": "0.8",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "hidden lg:block absolute -right-10 top-1/2 -translate-y-1/2",
+                        className: "hidden lg:block absolute top-1/2 -translate-y-1/2",
                         style: {
-                            marginLeft: '60vw'
+                            right: '-5%',
+                            marginRight: 0
                         },
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(RotatingShowcase3D, {}, void 0, false, {
                             fileName: "[project]/src/components/HeroSection.tsx",
@@ -1879,9 +1880,9 @@ function HeroSection({ introComplete }) {
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "lg:hidden mt-12 flex justify-center",
+                        className: "lg:hidden mt-10 md:mt-14 flex justify-center",
                         style: {
-                            transform: 'scale(0.65)',
+                            transform: 'scale(0.55)',
                             transformOrigin: 'top center'
                         },
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(RotatingShowcase3D, {}, void 0, false, {
