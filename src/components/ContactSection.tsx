@@ -54,12 +54,12 @@ export default function ContactSection() {
   };
 
   return (
-    <section ref={sectionRef} id="contact" className="relative z-10 py-24 md:py-32 px-4 md:px-8 overflow-hidden">
+    <section ref={sectionRef} id="contact" className="relative z-10 py-16 md:py-32 px-4 md:px-8 overflow-hidden">
       {/* Background gradient animation */}
       <div className="absolute inset-0 pointer-events-none bg-mesh" />
 
-      {/* Animated grid lines — architectural blueprint style */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.02]" style={{
+      {/* Animated grid lines — architectural blueprint style (hidden on mobile) */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.02] hidden md:block" style={{
         backgroundImage: `
           linear-gradient(rgba(37,162,220,0.3) 1px, transparent 1px),
           linear-gradient(90deg, rgba(37,162,220,0.3) 1px, transparent 1px)
@@ -67,9 +67,9 @@ export default function ContactSection() {
         backgroundSize: '80px 80px',
       }} />
 
-      {/* Decorative orbs */}
+      {/* Decorative orbs (hidden on mobile) */}
       <div
-        className="absolute w-[400px] h-[400px] rounded-full pointer-events-none animate-breathe"
+        className="absolute w-[400px] h-[400px] rounded-full pointer-events-none animate-breathe hidden md:block"
         style={{
           background: 'radial-gradient(circle, rgba(37,162,220,0.05) 0%, transparent 70%)',
           top: '20%',
@@ -78,7 +78,7 @@ export default function ContactSection() {
         }}
       />
       <div
-        className="absolute w-[300px] h-[300px] rounded-full pointer-events-none"
+        className="absolute w-[300px] h-[300px] rounded-full pointer-events-none hidden md:block"
         style={{
           background: 'radial-gradient(circle, rgba(212,175,55,0.04) 0%, transparent 70%)',
           bottom: '30%',
@@ -88,9 +88,9 @@ export default function ContactSection() {
         }}
       />
 
-      {/* Floating geometric accents */}
+      {/* Floating geometric accents (hidden on mobile) */}
       <div
-        className="absolute pointer-events-none"
+        className="absolute pointer-events-none hidden md:block"
         style={{
           width: 60,
           height: 60,
@@ -102,7 +102,7 @@ export default function ContactSection() {
         }}
       />
       <div
-        className="absolute pointer-events-none"
+        className="absolute pointer-events-none hidden md:block"
         style={{
           width: 40,
           height: 40,
@@ -116,15 +116,15 @@ export default function ContactSection() {
 
       <div className="max-w-7xl mx-auto relative">
         {/* Section Header — elegant left entrance */}
-        <div className="mb-16 md:mb-20">
-          <p data-sr="left" data-sr-delay="1" data-sr-duration="slow" className="text-[#25A2DC] text-sm tracking-[0.4em] uppercase mb-4">Contact</p>
-          <h2 data-sr="up" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="far" className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
+        <div className="mb-10 md:mb-20">
+          <p data-sr="left" data-sr-delay="1" data-sr-duration="slow" className="text-[#25A2DC] text-xs md:text-sm tracking-[0.3em] md:tracking-[0.4em] uppercase mb-3 md:mb-4">Contact</p>
+          <h2 data-sr="up" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="far" className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
             Let&apos;s Create <span className="animate-text-gradient">Together</span>
           </h2>
           <div data-sr="clip-left" data-sr-delay="5" data-sr-duration="slow" className="mt-4 w-16 h-[2px] bg-[#25A2DC]" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 lg:gap-24">
           {/* Contact Form — slides in from left */}
           <div data-sr="left" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="far">
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -218,7 +218,7 @@ export default function ContactSection() {
           {/* Contact Info — slides in from right */}
           <div data-sr="right" data-sr-delay="4" data-sr-duration="grand" data-sr-distance="far" className="space-y-10">
             {/* Stats */}
-            <div className="grid grid-cols-2 gap-8">
+            <div className="grid grid-cols-2 gap-4 md:gap-8">
               {[
                 { value: '200+', label: 'Projects Completed' },
                 { value: '25+', label: 'Years Experience' },
@@ -226,7 +226,7 @@ export default function ContactSection() {
                 { value: '580+', label: 'Sq Meters Largest Project' },
               ].map((stat, i) => (
                 <div key={stat.label} data-sr="up" data-sr-delay={String(i * 2 + 4)} data-sr-duration="slow" data-sr-distance="near" className="group cursor-default">
-                  <p className="text-3xl md:text-4xl font-bold text-white tracking-tight transition-colors duration-300 group-hover:text-[#25A2DC]">
+                  <p className="text-2xl md:text-4xl font-bold text-white tracking-tight transition-colors duration-300 group-hover:text-[#25A2DC]">
                     {stat.value}
                   </p>
                   <p className="text-[#A0AEC0] text-sm tracking-wider uppercase mt-1">{stat.label}</p>
@@ -283,7 +283,7 @@ export default function ContactSection() {
       </div>
 
       {/* Footer — blur in */}
-      <div data-sr="blur" data-sr-delay="3" data-sr-duration="grand" className="mt-24 md:mt-32 pt-8 border-t border-[#2D3A4D]">
+      <div data-sr="blur" data-sr-delay="3" data-sr-duration="grand" className="mt-16 md:mt-32 pt-6 md:pt-8 border-t border-[#2D3A4D]">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-[#A0AEC0] text-sm">
           <p className="tracking-wider">&copy; {new Date().getFullYear()} HARMENS. All rights reserved.</p>
           <div className="flex items-center gap-6">

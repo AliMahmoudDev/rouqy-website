@@ -122,8 +122,8 @@ export default function PortfolioSection() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#161E2D] via-transparent to-[#0B0F18]" />
       </div>
 
-      {/* Architectural blueprint grid lines */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.015]" style={{
+      {/* Architectural blueprint grid lines (hidden on mobile) */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.015] hidden md:block" style={{
         backgroundImage: `
           linear-gradient(rgba(212,175,55,0.4) 1px, transparent 1px),
           linear-gradient(90deg, rgba(212,175,55,0.4) 1px, transparent 1px)
@@ -131,9 +131,9 @@ export default function PortfolioSection() {
         backgroundSize: '100px 100px',
       }} />
 
-      {/* Animated gradient orbs */}
+      {/* Animated gradient orbs (hidden on mobile) */}
       <div
-        className="absolute w-[500px] h-[500px] rounded-full pointer-events-none animate-breathe"
+        className="absolute w-[500px] h-[500px] rounded-full pointer-events-none animate-breathe hidden md:block"
         style={{
           background: 'radial-gradient(circle, rgba(212,175,55,0.06) 0%, transparent 70%)',
           top: '10%',
@@ -142,7 +142,7 @@ export default function PortfolioSection() {
         }}
       />
       <div
-        className="absolute w-[400px] h-[400px] rounded-full pointer-events-none"
+        className="absolute w-[400px] h-[400px] rounded-full pointer-events-none hidden md:block"
         style={{
           background: 'radial-gradient(circle, rgba(37,162,220,0.05) 0%, transparent 70%)',
           bottom: '20%',
@@ -152,12 +152,12 @@ export default function PortfolioSection() {
         }}
       />
 
-      {/* Decorative floating lines */}
-      <div className="absolute top-0 left-[10%] w-[1px] h-40 decorative-line-vertical opacity-30 animate-float" />
-      <div className="absolute top-20 right-[15%] w-[1px] h-32 decorative-line-vertical opacity-20 animate-float-rotate" style={{ animationDelay: '1s' }} />
+      {/* Decorative floating lines (hidden on mobile) */}
+      <div className="absolute top-0 left-[10%] w-[1px] h-40 decorative-line-vertical opacity-30 animate-float hidden md:block" />
+      <div className="absolute top-20 right-[15%] w-[1px] h-32 decorative-line-vertical opacity-20 animate-float-rotate hidden md:block" style={{ animationDelay: '1s' }} />
 
       {/* ====== MARQUEE TEXT STRIP ====== */}
-      <div data-sr="clip-up" data-sr-duration="slow" className="marquee-strip mb-20 py-6 border-y border-[#2D3A4D]/30">
+      <div data-sr="clip-up" data-sr-duration="slow" className="marquee-strip mb-10 md:mb-20 py-4 md:py-6 border-y border-[#2D3A4D]/30">
         <div className="marquee-content">
           {[...Array(3)].map((_, setIdx) => (
             <span key={setIdx} className="inline-flex items-center gap-8 mx-8">
@@ -174,7 +174,7 @@ export default function PortfolioSection() {
 
       <div className="max-w-[1400px] mx-auto relative">
         {/* === Section Header — organized staggered entrance === */}
-        <div className="mb-20 md:mb-28">
+        <div className="mb-12 md:mb-28">
           <div data-sr="left" data-sr-delay="1" data-sr-duration="slow" className="flex items-center gap-6 mb-6">
             <div className="w-12 h-[1px] bg-[#25A2DC]" style={{ animation: 'line-draw 0.8s cubic-bezier(0.65, 0.05, 0, 1) forwards' }} />
             <p className="text-[#25A2DC] text-xs tracking-[0.5em] uppercase font-light">
@@ -183,7 +183,7 @@ export default function PortfolioSection() {
           </div>
 
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-            <h2 data-sr="up" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="far" className="text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[0.95]">
+            <h2 data-sr="up" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="far" className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[0.95]">
               Selected<br />
               <span className="animate-text-gradient">Works</span>
             </h2>
@@ -396,8 +396,8 @@ export default function PortfolioSection() {
         </div>
 
         {/* === Animated Stats Bar — blur in === */}
-        <div data-sr="blur" data-sr-delay="2" data-sr-duration="grand" className="mt-16 md:mt-24 pt-8 border-t border-[#2D3A4D]">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+        <div data-sr="blur" data-sr-delay="2" data-sr-duration="grand" className="mt-10 md:mt-24 pt-6 md:pt-8 border-t border-[#2D3A4D]">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12">
             {[
               { value: 200, suffix: '+', label: 'Projects Completed' },
               { value: 5, suffix: '', label: 'Countries' },
@@ -405,7 +405,7 @@ export default function PortfolioSection() {
               { value: 98, suffix: '%', label: 'Client Satisfaction' },
             ].map((stat, i) => (
               <div key={stat.label} data-sr="up" data-sr-delay={String(i * 2 + 1)} data-sr-duration="slow" data-sr-distance="near" className="text-center md:text-left group">
-                <p className="text-3xl md:text-5xl font-bold text-white tracking-tight transition-colors duration-300 group-hover:text-[#25A2DC]">
+                <p className="text-2xl md:text-5xl font-bold text-white tracking-tight transition-colors duration-300 group-hover:text-[#25A2DC]">
                   <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                 </p>
                 <p className="text-[#A0AEC0] text-xs tracking-[0.2em] uppercase mt-2">
@@ -419,7 +419,7 @@ export default function PortfolioSection() {
       </div>
 
       {/* ====== SECOND MARQUEE - Reverse direction ====== */}
-      <div data-sr="clip-up" data-sr-delay="3" data-sr-duration="slow" className="marquee-strip mt-20 py-6 border-y border-[#2D3A4D]/30">
+      <div data-sr="clip-up" data-sr-delay="3" data-sr-duration="slow" className="marquee-strip mt-10 md:mt-20 py-4 md:py-6 border-y border-[#2D3A4D]/30">
         <div className="marquee-content" style={{ animationDirection: 'reverse' }}>
           {[...Array(3)].map((_, setIdx) => (
             <span key={setIdx} className="inline-flex items-center gap-12 mx-10">

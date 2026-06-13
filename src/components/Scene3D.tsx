@@ -3,10 +3,10 @@
 import { useState, useEffect, useMemo } from 'react';
 
 /* ============================================
-   HARMENS CSS Background Scene v4.0
+   HARMENS CSS Background Scene v5.0
    — ZERO WebGL, Pure CSS 3D transforms
    — Fixed hydration (deterministic random)
-   — Same visual impact, 10x better performance
+   — Mobile-optimized: shapes hidden on small screens
    ============================================ */
 
 // Deterministic pseudo-random for SSR consistency
@@ -37,8 +37,9 @@ export default function Scene3D() {
   []
   );
 
+  // Reduced particles for mobile (fewer, only visible on larger screens)
   const particles = useMemo(() =>
-    Array.from({ length: 15 }).map((_, i) => ({
+    Array.from({ length: 8 }).map((_, i) => ({
       width: 1.5 + seededRandom(i * 29 + 10) * 2.5,
       height: 1.5 + seededRandom(i * 29 + 10) * 2.5,
       isGold: i % 2 === 0,
@@ -52,7 +53,7 @@ export default function Scene3D() {
   return (
     <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden" style={{ perspective: '1200px' }}>
 
-      {/* ====== STAR FIELD — CSS dots ====== */}
+      {/* ====== STAR FIELD — CSS dots (visible on all screens but subtle) ====== */}
       {mounted && (
         <div className="absolute inset-0 animate-spin-slow" style={{ animationDuration: '120s' }}>
           {stars.map((s, i) => (
@@ -76,11 +77,11 @@ export default function Scene3D() {
         </div>
       )}
 
-      {/* ====== FLOATING PARTICLES — CSS only ====== */}
+      {/* ====== FLOATING PARTICLES — CSS only (hidden on mobile) ====== */}
       {mounted && particles.map((p, i) => (
         <div
           key={`particle-${i}`}
-          className="absolute rounded-full"
+          className="absolute rounded-full hidden md:block"
           style={{
             width: p.width,
             height: p.height,
@@ -95,11 +96,11 @@ export default function Scene3D() {
         />
       ))}
 
-      {/* ====== HERO AREA SHAPES ====== */}
+      {/* ====== HERO AREA SHAPES — Hidden on mobile ====== */}
 
       {/* === GOLD INFINITY RING — The centerpiece === */}
       <div
-        className="absolute"
+        className="absolute hidden md:block"
         style={{
           width: '450px',
           height: '450px',
@@ -155,7 +156,7 @@ export default function Scene3D() {
 
       {/* === BLUE SPHERE — Left === */}
       <div
-        className="absolute rounded-full"
+        className="absolute rounded-full hidden md:block"
         style={{
           width: '220px',
           height: '220px',
@@ -170,7 +171,7 @@ export default function Scene3D() {
 
       {/* === WIREFRAME ICOSAHEDRON — Right === */}
       <div
-        className="absolute"
+        className="absolute hidden lg:block"
         style={{
           width: '300px',
           height: '300px',
@@ -225,7 +226,7 @@ export default function Scene3D() {
 
       {/* === GOLD SPHERE — Lower left === */}
       <div
-        className="absolute rounded-full animate-morph"
+        className="absolute rounded-full hidden md:block"
         style={{
           width: '140px',
           height: '140px',
@@ -240,7 +241,7 @@ export default function Scene3D() {
 
       {/* === ROTATING TORUS — Right side === */}
       <div
-        className="absolute"
+        className="absolute hidden lg:block"
         style={{
           width: '180px',
           height: '180px',
@@ -269,7 +270,7 @@ export default function Scene3D() {
 
       {/* === DOUBLE RING (Saturn) — Upper left === */}
       <div
-        className="absolute"
+        className="absolute hidden md:block"
         style={{
           top: '5%',
           left: '3%',
@@ -315,7 +316,7 @@ export default function Scene3D() {
 
       {/* === THIN GOLD RINGS — Scattered === */}
       <div
-        className="absolute rounded-full animate-border-glow-gold"
+        className="absolute rounded-full animate-border-glow-gold hidden lg:block"
         style={{
           width: '200px',
           height: '200px',
@@ -326,7 +327,7 @@ export default function Scene3D() {
         }}
       />
       <div
-        className="absolute rounded-full"
+        className="absolute rounded-full hidden md:block"
         style={{
           width: '130px',
           height: '130px',
@@ -339,7 +340,7 @@ export default function Scene3D() {
 
       {/* === OCTAHEDRON — Geometric accent === */}
       <div
-        className="absolute"
+        className="absolute hidden lg:block"
         style={{
           width: '80px',
           height: '80px',
@@ -362,7 +363,7 @@ export default function Scene3D() {
 
       {/* === CUBE — Architectural accent === */}
       <div
-        className="absolute"
+        className="absolute hidden lg:block"
         style={{
           width: '70px',
           height: '70px',
@@ -396,11 +397,11 @@ export default function Scene3D() {
         />
       </div>
 
-      {/* ====== PORTFOLIO AREA SHAPES ====== */}
+      {/* ====== PORTFOLIO AREA SHAPES — Hidden on mobile ====== */}
 
       {/* Gold wireframe sphere */}
       <div
-        className="absolute"
+        className="absolute hidden md:block"
         style={{
           width: '200px',
           height: '200px',
@@ -418,7 +419,7 @@ export default function Scene3D() {
 
       {/* Blue sphere */}
       <div
-        className="absolute rounded-full"
+        className="absolute rounded-full hidden md:block"
         style={{
           width: '120px',
           height: '120px',
@@ -433,7 +434,7 @@ export default function Scene3D() {
 
       {/* Rotating ring */}
       <div
-        className="absolute"
+        className="absolute hidden md:block"
         style={{
           width: '120px',
           height: '120px',
@@ -447,7 +448,7 @@ export default function Scene3D() {
 
       {/* Gold ring */}
       <div
-        className="absolute rounded-full animate-border-glow-gold"
+        className="absolute rounded-full animate-border-glow-gold hidden lg:block"
         style={{
           width: '160px',
           height: '160px',
@@ -458,11 +459,11 @@ export default function Scene3D() {
         }}
       />
 
-      {/* ====== CONTACT AREA SHAPES ====== */}
+      {/* ====== CONTACT AREA SHAPES — Hidden on mobile ====== */}
 
       {/* Large blue wireframe */}
       <div
-        className="absolute"
+        className="absolute hidden md:block"
         style={{
           width: '220px',
           height: '220px',
@@ -477,7 +478,7 @@ export default function Scene3D() {
 
       {/* Gold torus */}
       <div
-        className="absolute"
+        className="absolute hidden md:block"
         style={{
           width: '150px',
           height: '150px',
@@ -492,7 +493,7 @@ export default function Scene3D() {
 
       {/* Small gold ring */}
       <div
-        className="absolute rounded-full"
+        className="absolute rounded-full hidden lg:block"
         style={{
           width: '180px',
           height: '180px',
@@ -503,7 +504,7 @@ export default function Scene3D() {
         }}
       />
 
-      {/* ====== AMBIENT GLOW ORBS ====== */}
+      {/* ====== AMBIENT GLOW ORBS — visible on all screens (subtle background only) ====== */}
 
       {/* Top-left blue glow */}
       <div
@@ -521,7 +522,7 @@ export default function Scene3D() {
 
       {/* Center gold glow */}
       <div
-        className="absolute rounded-full pointer-events-none"
+        className="absolute rounded-full pointer-events-none hidden md:block"
         style={{
           width: '500px',
           height: '500px',
@@ -535,7 +536,7 @@ export default function Scene3D() {
 
       {/* Bottom-right blue glow */}
       <div
-        className="absolute rounded-full pointer-events-none"
+        className="absolute rounded-full pointer-events-none hidden md:block"
         style={{
           width: '500px',
           height: '500px',

@@ -18,9 +18,9 @@ function seededRandom(seed: number): number {
   return x - Math.floor(x);
 }
 
-/* CSS-only floating particles — deterministic values — REDUCED for performance */
+/* CSS-only floating particles — deterministic values — REDUCED for performance & mobile */
 function FloatingParticles() {
-  const goldParticles = Array.from({ length: 8 }).map((_, i) => ({
+  const goldParticles = Array.from({ length: 4 }).map((_, i) => ({
     width: 2 + seededRandom(i * 7 + 1) * 3,
     height: 2 + seededRandom(i * 7 + 1) * 3,
     left: seededRandom(i * 11 + 2) * 100,
@@ -28,7 +28,7 @@ function FloatingParticles() {
     duration: 8 + seededRandom(i * 17 + 4) * 12,
     delay: seededRandom(i * 19 + 5) * 10,
   }));
-  const blueParticles = Array.from({ length: 6 }).map((_, i) => ({
+  const blueParticles = Array.from({ length: 3 }).map((_, i) => ({
     width: 1.5 + seededRandom(i * 23 + 6) * 2,
     height: 1.5 + seededRandom(i * 23 + 6) * 2,
     left: seededRandom(i * 29 + 7) * 100,
@@ -36,7 +36,7 @@ function FloatingParticles() {
     duration: 10 + seededRandom(i * 37 + 9) * 15,
     delay: seededRandom(i * 41 + 10) * 10,
   }));
-  const sparkleParticles = Array.from({ length: 4 }).map((_, i) => ({
+  const sparkleParticles = Array.from({ length: 2 }).map((_, i) => ({
     left: 10 + seededRandom(i * 43 + 11) * 80,
     top: 10 + seededRandom(i * 47 + 12) * 80,
     duration: 2 + seededRandom(i * 53 + 13) * 3,
@@ -44,7 +44,7 @@ function FloatingParticles() {
   }));
 
   return (
-    <div className="hero-particles">
+    <div className="hero-particles hidden md:block">
       {goldParticles.map((p, i) => (
         <div
           key={`gold-${i}`}
@@ -276,8 +276,8 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden"
     >
-      {/* Background Video Layer */}
-      <div className="absolute inset-0 z-0">
+      {/* Background Video Layer (hidden on mobile for performance) */}
+      <div className="absolute inset-0 z-0 hidden md:block">
         <video
           autoPlay
           muted
@@ -311,7 +311,7 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#0B0F18] to-transparent z-10 pointer-events-none" />
 
       {/* Bottom gradient for smooth transition */}
-      <div className="absolute bottom-0 left-0 right-0 h-60 bg-gradient-to-t from-[#161E2D] via-[#161E2D]/80 to-transparent z-10 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 md:h-60 bg-gradient-to-t from-[#161E2D] via-[#161E2D]/80 to-transparent z-10 pointer-events-none" />
 
       {/* Floating Particles */}
       <FloatingParticles />
@@ -323,13 +323,13 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
        */}
       {mounted && (
         <>
-          {/* Deep background layer — orbiting rings */}
-          <div className="absolute inset-0 pointer-events-none hero-parallax-deep">
+          {/* Deep background layer — orbiting rings (hidden on mobile) */}
+          <div className="absolute inset-0 pointer-events-none hero-parallax-deep hidden md:block">
             <OrbitingRings />
           </div>
 
-          {/* Mid-ground decorative orbs */}
-          <div className="absolute inset-0 pointer-events-none hero-parallax-mid">
+          {/* Mid-ground decorative orbs (hidden on mobile) */}
+          <div className="absolute inset-0 pointer-events-none hero-parallax-mid hidden md:block">
             <div
               className="absolute w-[600px] h-[600px] rounded-full opacity-20"
               style={{
@@ -352,8 +352,8 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
             />
           </div>
 
-          {/* Foreground floating shapes */}
-          <div className="absolute inset-0 pointer-events-none hero-parallax-fg">
+          {/* Foreground floating shapes (hidden on mobile) */}
+          <div className="absolute inset-0 pointer-events-none hero-parallax-fg hidden lg:block">
             <FloatingShapes />
           </div>
         </>
@@ -365,15 +365,15 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
         style={{ y: contentY, opacity: contentOpacity }}
       >
         {/* Logo */}
-        <div className={`mb-8 md:mb-10 flex justify-center ${mounted ? 'hero-enter-logo' : 'opacity-0'}`}>
+        <div className={`mb-6 md:mb-10 flex justify-center ${mounted ? 'hero-enter-logo' : 'opacity-0'}`}>
           <div className="relative">
             <div className="hero-logo-glow" />
             <Image
               src="/harmens-logo-tran.png"
               alt="HARMENS"
-              width={160}
-              height={160}
-              className="relative z-10"
+              width={120}
+              height={120}
+              className="relative z-10 w-24 h-24 md:w-40 md:h-40"
               priority
             />
           </div>
@@ -381,7 +381,7 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
 
         {/* Brand Name — 3D Text Split (always rendered, animates once per session) */}
         <h1
-          className={`text-6xl sm:text-7xl md:text-8xl lg:text-[140px] font-bold tracking-tight text-white uppercase leading-[0.9] ${
+          className={`text-5xl sm:text-6xl md:text-8xl lg:text-[140px] font-bold tracking-tight text-white uppercase leading-[0.9] ${
             mounted ? 'hero-enter-title' : 'opacity-0'
           }`}
         >
@@ -390,7 +390,7 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
             mode="entrance"
             staggerDelay={80}
             entranceDuration={1000}
-            letterClassName="text-6xl sm:text-7xl md:text-8xl lg:text-[140px] font-bold tracking-tight text-white uppercase"
+            letterClassName="text-5xl sm:text-6xl md:text-8xl lg:text-[140px] font-bold tracking-tight text-white uppercase"
           />
         </h1>
 
@@ -401,7 +401,7 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
 
         {/* Tagline with text shimmer effect */}
         <p
-          className={`mt-6 md:mt-8 text-base md:text-lg lg:text-xl tracking-[0.3em] uppercase font-light ${
+          className={`mt-4 md:mt-8 text-sm md:text-lg lg:text-xl tracking-[0.2em] md:tracking-[0.3em] uppercase font-light px-2 ${
             mounted ? 'hero-enter-tagline' : 'opacity-0'
           }`}
           style={{
@@ -418,7 +418,7 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
 
         {/* Sub-tagline */}
         <p
-          className={`mt-2 text-xs md:text-sm tracking-[0.2em] text-[#A0AEC0]/50 font-light ${
+          className={`mt-2 text-[10px] md:text-sm tracking-[0.15em] md:tracking-[0.2em] text-[#A0AEC0]/50 font-light px-4 ${
             mounted ? 'hero-enter-tagline' : 'opacity-0'
           }`}
           style={{ animationDelay: '1.2s' }}
@@ -427,10 +427,10 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
         </p>
 
         {/* CTA Button */}
-        <div className={`mt-10 md:mt-14 ${mounted ? 'hero-enter-cta' : 'opacity-0'}`}>
+        <div className={`mt-8 md:mt-14 ${mounted ? 'hero-enter-cta' : 'opacity-0'}`}>
           <a
             href="#portfolio"
-            className="cta-animated group relative inline-flex items-center gap-4 px-8 py-4 text-xs md:text-sm tracking-[0.35em] uppercase font-normal text-[#A0AEC0] border border-[#2D3A4D] hover:border-[#25A2DC] hover:text-white transition-all duration-500 hover:bg-[#25A2DC]/10"
+            className="cta-animated group relative inline-flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 text-[10px] md:text-sm tracking-[0.25em] md:tracking-[0.35em] uppercase font-normal text-[#A0AEC0] border border-[#2D3A4D] hover:border-[#25A2DC] hover:text-white transition-all duration-500 hover:bg-[#25A2DC]/10"
           >
             <span>Explore Our Work</span>
             <svg
