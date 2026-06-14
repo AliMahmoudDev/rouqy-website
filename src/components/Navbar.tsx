@@ -23,16 +23,17 @@ export default function Navbar() {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center h-16 md:h-20 pointer-events-none"
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-center h-16 md:h-20 pointer-events-auto"
       style={{
         opacity: visible ? 1 : 0,
         transition: 'opacity 0.6s ease-out',
+        backgroundColor: '#13140f',
       }}
     >
       <img
         src="/rouqy-logo-white.svg"
         alt="ROUQY"
-        className="h-8 md:h-10 object-contain pointer-events-auto"
+        className="h-8 md:h-10 object-contain"
         style={{
           filter: 'drop-shadow(0 0 20px rgba(143,191,168,0.08))',
         }}

@@ -371,3 +371,8 @@ It can also happen if the client has a browser extension installed which messes 
 [04:35:15.765] Server  LOG     ✓ Compiled in 186ms
 [04:46:54.474] Server  LOG     ✓ Compiled in 223ms
 [04:46:55.801] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
+[04:55:05.255] Server  LOG     ✓ Compiled in 228ms
+[04:55:05.615] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[04:59:01.608] Server  LOG     ✓ Compiled in 301ms
+[04:59:45.940] Server  LOG     ✓ Compiled in 167ms
+[04:59:57.794] Server  LOG     ✓ Compiled in 156ms
