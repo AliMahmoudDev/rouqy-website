@@ -15,7 +15,7 @@ const LOGO_PATH_D = "M 0,1 L 0,345 L 19,345 L 19,85 L 21,83 L 84,83 L 98,84 L 10
 /**
  * ROUQY Scroll-Driven Experience
  * 
- * ONE continuous pinned section (900vh):
+ * ONE continuous pinned section (1100vh):
  * 1. Hero text "ROUQY" fades out (0-6%)
  * 2. Logo appears centered and draws (6-55%)
  * 3. Fill fades in, effects settle (55-65%)
@@ -23,7 +23,7 @@ const LOGO_PATH_D = "M 0,1 L 0,345 L 19,345 L 19,85 L 21,83 L 84,83 L 98,84 L 10
  * 5. About text reveals LEFT (75-90%)
  * 6. Hold final state (90-100%)
  * 
- * No gap between hero and logo — everything is one timeline!
+ * Key: drawProgress proxy ensures pen tip + stroke are ALWAYS in sync
  */
 
 export default function ScrollExperience() {
@@ -68,7 +68,6 @@ export default function ScrollExperience() {
 
       // ========================================
       // ONE PINNED SECTION — everything in one timeline
-      // Hero text fades → Logo draws → Logo slides right → About appears
       // ========================================
       
       const mainTl = gsap.timeline({
@@ -77,7 +76,7 @@ export default function ScrollExperience() {
           start: 'top top',
           end: '+=1100vh',
           pin: true,
-          scrub: 3,
+          scrub: 1.5,
           anticipatePin: 1,
         },
       });
@@ -87,143 +86,148 @@ export default function ScrollExperience() {
         opacity: 0,
         y: -80,
         scale: 0.85,
-        duration: 0.04,
+        duration: 4,
         ease: 'power2.in',
       });
 
       mainTl.to(scrollIndicatorRef.current, {
         opacity: 0,
         y: 30,
-        duration: 0.02,
+        duration: 2,
         ease: 'power2.in',
       }, '<');
 
       // --- PHASE 2: Logo appears centered (4-5%) ---
       mainTl.fromTo(logoSvgRef.current, 
         { opacity: 0, scale: 0.9 },
-        { opacity: 1, scale: 1, duration: 0.01, ease: 'power2.out' }
+        { opacity: 1, scale: 1, duration: 1, ease: 'power2.out' }
       );
 
       // --- PHASE 3: Grid + pen tip appear (5-6%) ---
       mainTl.to(gridRef.current, {
         opacity: 1,
-        duration: 0.01,
+        duration: 1,
         ease: 'power2.out',
       });
 
       mainTl.to(penTipRef.current, {
         opacity: 1,
-        duration: 0.005,
+        duration: 0.5,
       });
 
       // --- PHASE 4: STROKE DRAWS starting at 6% ---
-      // Drawing from 6% to 52% = 46% of 1100vh = ~506vh of scrolling (slower!)
-      const DRAW_START = 0.06;
-      const DRAW_DURATION = 0.46;
-      mainTl.to(strokePathRef.current, {
-        strokeDashoffset: 0,
-        duration: DRAW_DURATION,
+      // Use a proxy object — both stroke AND pen tip read from the SAME value
+      // This guarantees perfect sync (like the reference code)
+      const drawProxy = { progress: 0 };
+
+      mainTl.to(drawProxy, {
+        progress: 1,
+        duration: 50,  // 50 units out of ~110 total = ~45% of scroll
         ease: 'none',
         onUpdate: function() {
-          if (!strokePathRef.current || !penTipRef.current) return;
-          // Read ACTUAL strokeDashoffset from DOM to sync pen tip with visible stroke
-          // This accounts for scrub smoothing delay
-          const currentOffset = parseFloat(strokePathRef.current.style.strokeDashoffset) || 0;
-          const drawProgress = pathLen > 0 ? Math.max(0, Math.min(1, 1 - (currentOffset / pathLen))) : 0;
+          const p = drawProxy.progress;
           
-          if (drawProgress > 0.005 && drawProgress < 0.995) {
-            try {
-              const point = strokePathRef.current.getPointAtLength(drawProgress * pathLen);
-              const svgEl = strokePathRef.current.closest('svg');
-              const container = logoSvgRef.current;
-              if (svgEl && container) {
-                const svgRect = svgEl.getBoundingClientRect();
-                const contRect = container.getBoundingClientRect();
-                const scaleX = svgRect.width / 800;
-                const scaleY = svgRect.height / 794;
-                const x = svgRect.left - contRect.left + point.x * scaleX;
-                const y = svgRect.top - contRect.top + point.y * scaleY;
-                penTipRef.current.style.left = `${x}px`;
-                penTipRef.current.style.top = `${y}px`;
-              }
-            } catch(e) { /* path not ready */ }
-          } else if (drawProgress >= 0.995) {
-            penTipRef.current.style.opacity = '0';
+          // Set stroke dashoffset from the SAME proxy value
+          if (strokePathRef.current && pathLen > 0) {
+            strokePathRef.current.style.strokeDashoffset = `${pathLen * (1 - p)}`;
+          }
+          
+          // Set pen tip position from the SAME proxy value
+          if (strokePathRef.current && penTipRef.current && pathLen > 0) {
+            if (p > 0.005 && p < 0.995) {
+              try {
+                const point = strokePathRef.current.getPointAtLength(p * pathLen);
+                const svgEl = strokePathRef.current.closest('svg');
+                const container = logoSvgRef.current;
+                if (svgEl && container) {
+                  const svgRect = svgEl.getBoundingClientRect();
+                  const contRect = container.getBoundingClientRect();
+                  const scaleX = svgRect.width / 800;
+                  const scaleY = svgRect.height / 794;
+                  const x = svgRect.left - contRect.left + point.x * scaleX;
+                  const y = svgRect.top - contRect.top + point.y * scaleY;
+                  penTipRef.current.style.left = `${x}px`;
+                  penTipRef.current.style.top = `${y}px`;
+                }
+              } catch(e) { /* path not ready */ }
+            } else if (p >= 0.995) {
+              penTipRef.current.style.opacity = '0';
+            }
           }
         }
       });
 
-      // Glow intensifies during drawing
+      // Glow intensifies during drawing (same duration as draw)
       mainTl.to(glowRef.current, {
         opacity: 0.5,
-        duration: DRAW_DURATION,
+        duration: 50,
         ease: 'none',
       }, '<');
 
-      // --- PHASE 6: Fill fades in (52-58%) ---
+      // --- PHASE 5: Fill fades in ---
       mainTl.to(filledPathRef.current, {
         fillOpacity: 1,
-        duration: 0.06,
+        duration: 6,
         ease: 'power2.inOut',
       });
 
       // Pen tip fades out
       mainTl.to(penTipRef.current, {
         opacity: 0,
-        duration: 0.03,
+        duration: 3,
         ease: 'power2.out',
-      }, '-=0.04');
+      }, '-=4');
 
       // Stroke becomes subtle
       mainTl.to(strokePathRef.current, {
         stroke: 'rgba(255,255,255,0.12)',
         strokeWidth: 0.5,
         opacity: 0.15,
-        duration: 0.05,
+        duration: 4,
         ease: 'power2.out',
       });
 
       // Grid fades out
       mainTl.to(gridRef.current, {
         opacity: 0,
-        duration: 0.03,
+        duration: 3,
         ease: 'power2.out',
-      }, '-=0.02');
+      }, '-=2');
 
       // Glow settles
       mainTl.to(glowRef.current, {
         opacity: 0.08,
-        duration: 0.05,
+        duration: 4,
         ease: 'power2.out',
       });
 
-      // --- PHASE 7: Hold the completed logo (63-66%) ---
-      mainTl.to({}, { duration: 0.03 });
+      // --- PHASE 6: Hold the completed logo ---
+      mainTl.to({}, { duration: 3 });
 
-      // --- PHASE 8: SAME logo slides RIGHT (66-82%) ---
+      // --- PHASE 7: SAME logo slides RIGHT ---
       mainTl.to(logoSvgRef.current, {
         x: '18vw',
         scale: 0.55,
-        duration: 0.16,
+        duration: 16,
         ease: 'power2.inOut',
       });
 
-      // --- PHASE 9: About text reveals LEFT (76-92%) ---
+      // --- PHASE 8: About text reveals LEFT ---
       mainTl.fromTo(aboutTextRef.current,
         { opacity: 0, x: -60 },
-        { opacity: 1, x: 0, duration: 0.12, ease: 'power2.out' },
-        '-=0.10'
+        { opacity: 1, x: 0, duration: 10, ease: 'power2.out' },
+        '-=10'
       );
 
       // Stagger text lines
       mainTl.fromTo('.about-line',
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.10, stagger: 0.03, ease: 'power2.out' },
-        '-=0.06'
+        { opacity: 1, y: 0, duration: 8, stagger: 2, ease: 'power2.out' },
+        '-=6'
       );
 
-      // --- PHASE 10: Hold the final state (92-100%) ---
-      mainTl.to({}, { duration: 0.08 });
+      // --- PHASE 9: Hold the final state ---
+      mainTl.to({}, { duration: 6 });
 
     }, containerRef);
 
@@ -236,7 +240,6 @@ export default function ScrollExperience() {
       {/* ============================================ */}
       {/* SINGLE PINNED SECTION                        */}
       {/* Hero text → Logo draw → Logo slide → About   */}
-      {/* No gap — everything in one timeline!          */}
       {/* ============================================ */}
       <section 
         ref={sectionRef}
@@ -250,7 +253,7 @@ export default function ScrollExperience() {
           }}
         />
 
-        {/* Hero text "ROUQY" — fades out first (phase 1) */}
+        {/* Hero text "ROUQY" — fades out first */}
         <div 
           ref={heroTextRef}
           className="absolute inset-0 flex items-center justify-center z-20 px-4"
