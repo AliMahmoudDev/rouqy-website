@@ -13,7 +13,7 @@ const galleryItems = [
     title: 'Modern Sanctuary',
     category: 'Interior Design',
     image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=85',
-    accent: '#25A2DC',
+    accent: '#1d372d',
   },
   {
     title: 'Minimalist Suite',
@@ -25,7 +25,7 @@ const galleryItems = [
     title: 'Chandelier Hall',
     category: 'Architectural',
     image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=85',
-    accent: '#25A2DC',
+    accent: '#1d372d',
   },
   {
     title: 'Contemporary Space',
@@ -37,7 +37,7 @@ const galleryItems = [
     title: 'Fireplace Lounge',
     category: 'Residential',
     image: 'https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1200&q=85',
-    accent: '#25A2DC',
+    accent: '#1d372d',
   },
   {
     title: 'Azure Residence',
@@ -49,7 +49,7 @@ const galleryItems = [
     title: 'Crystal Pavilion',
     category: 'Hospitality',
     image: 'https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=1200&q=85',
-    accent: '#25A2DC',
+    accent: '#1d372d',
   },
 ];
 
@@ -219,12 +219,12 @@ export default function HorizontalGallery3D() {
   }, [updateCard3D, handleScrollEnd, snapToNearestCard]);
 
   return (
-    <section className="relative py-20 md:py-32 bg-[#0B0F18] overflow-hidden">
+    <section className="relative py-20 md:py-32 bg-[#13140f] overflow-hidden">
       {/* Section header */}
       <div className="px-6 md:px-16 mb-10 md:mb-14">
-        <span className="text-[10px] tracking-[0.6em] uppercase text-[#25A2DC]/60 block mb-3">Gallery</span>
+        <span className="text-[10px] tracking-[0.6em] uppercase text-[#8fbfa8]/60 block mb-3">Gallery</span>
         <h2 className="text-3xl md:text-5xl font-bold text-white" style={{
-          background: 'linear-gradient(135deg, #FFFFFF 0%, #25A2DC 50%, #D4AF37 100%)',
+          background: 'linear-gradient(135deg, #FFFFFF 0%, #1d372d 50%, #D4AF37 100%)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
         }}>
@@ -287,7 +287,7 @@ export default function HorizontalGallery3D() {
                 loading="lazy"
               />
               <div className="absolute inset-0" style={{
-                background: `linear-gradient(to top, rgba(11,15,24,0.9) 0%, rgba(11,15,24,0.2) 40%, transparent 100%)`,
+                background: `linear-gradient(to top, rgba(19,20,15,0.9) 0%, rgba(19,20,15,0.2) 40%, transparent 100%)`,
               }} />
 
               <div className="absolute bottom-0 left-0 right-0 p-5 md:p-7">

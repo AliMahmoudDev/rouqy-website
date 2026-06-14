@@ -37,7 +37,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="relative min-h-screen bg-[#0B0F18]">
+    <main className="relative min-h-screen bg-[#13140f]">
       {/* Custom Cursor Glow Effect */}
       <CursorGlow />
 
@@ -58,15 +58,15 @@ export default function Home() {
             className="absolute inset-0 transition-all duration-500"
             style={{
               background: scrolled
-                ? 'rgba(11, 15, 24, 0.92)'
-                : 'rgba(11, 15, 24, 0.4)',
+                ? 'rgba(19, 20, 15, 0.92)'
+                : 'rgba(19, 20, 15, 0.4)',
               backdropFilter: scrolled
                 ? 'blur(20px) saturate(180%)'
                 : 'blur(8px)',
               WebkitBackdropFilter: scrolled
                 ? 'blur(20px) saturate(180%)'
                 : 'blur(8px)',
-              borderBottom: '1px solid rgba(45, 58, 77, 0.2)',
+              borderBottom: '1px solid rgba(42, 58, 46, 0.2)',
             }}
           />
 
@@ -101,12 +101,12 @@ export default function Home() {
                   className="text-[#A0AEC0]/70 text-xs tracking-[0.3em] uppercase hover:text-white transition-all duration-300 relative group"
                 >
                   {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-gradient-to-r from-[#25A2DC] to-[#D4AF37] group-hover:w-full transition-all duration-500" />
+                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-gradient-to-r from-[#1d372d] to-[#D4AF37] group-hover:w-full transition-all duration-500" />
                 </a>
               ))}
               <a
                 href="#contact"
-                className="text-[10px] tracking-[0.3em] uppercase px-5 py-2 border border-[#25A2DC]/30 text-[#25A2DC] hover:bg-[#25A2DC]/10 hover:border-[#25A2DC]/60 hover:shadow-[0_0_20px_rgba(37,162,220,0.15)] transition-all duration-300"
+                className="text-[10px] tracking-[0.3em] uppercase px-5 py-2 border border-[#1d372d]/30 text-[#8fbfa8] hover:bg-[#1d372d]/10 hover:border-[#1d372d]/60 hover:shadow-[0_0_20px_rgba(29,55,45,0.15)] transition-all duration-300"
               >
                 Get In Touch
               </a>

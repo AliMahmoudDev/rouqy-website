@@ -60,7 +60,7 @@ export default function ParallaxFooter3D() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-[120vh] bg-[#060810] overflow-hidden"
+      className="relative min-h-[120vh] bg-[#0a0c08] overflow-hidden"
       style={{ perspective: '1200px' }}
     >
       {/* CTA Section (revealed behind) */}
@@ -71,14 +71,14 @@ export default function ParallaxFooter3D() {
       >
         {/* Warm ambient glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none" style={{
-          background: 'radial-gradient(circle, rgba(212,175,55,0.12) 0%, rgba(37,162,220,0.05) 40%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(212,175,55,0.12) 0%, rgba(29,55,45,0.05) 40%, transparent 70%)',
           filter: 'blur(60px)',
         }} />
 
         <div className="relative z-10 text-center px-6 md:px-16 max-w-4xl mx-auto">
           <span className="text-[10px] tracking-[0.6em] uppercase text-[#D4AF37]/60 block mb-6">Ready to Begin?</span>
           <h2 className="text-4xl md:text-7xl font-bold text-white mb-6" style={{
-            background: 'linear-gradient(135deg, #FFFFFF 0%, #D4AF37 50%, #25A2DC 100%)',
+            background: 'linear-gradient(135deg, #FFFFFF 0%, #D4AF37 50%, #1d372d 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
           }}>
@@ -90,14 +90,14 @@ export default function ParallaxFooter3D() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href="#contact"
-              className="group relative px-10 py-4 text-[11px] tracking-[0.3em] uppercase font-semibold text-[#0B0F18] overflow-hidden transition-all duration-500"
+              className="group relative px-10 py-4 text-[11px] tracking-[0.3em] uppercase font-semibold text-[#13140f] overflow-hidden transition-all duration-500"
               style={{
                 background: 'linear-gradient(135deg, #D4AF37, #E8C84A)',
                 boxShadow: '0 0 40px rgba(212,175,55,0.3), 0 10px 40px rgba(212,175,55,0.2)',
               }}
             >
               <span className="relative z-10">Book a Consultation</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-[#25A2DC] to-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#1d372d] to-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </a>
             <a
               href="#portfolio"
@@ -109,14 +109,14 @@ export default function ParallaxFooter3D() {
 
           {/* Floating decorative elements */}
           <div className="absolute -top-20 -left-10 w-20 h-20 border border-[#D4AF37]/10 rotate-45 animate-pulse" />
-          <div className="absolute -bottom-16 -right-10 w-16 h-16 border border-[#25A2DC]/10 rotate-12 animate-pulse" style={{ animationDelay: '1s' }} />
+          <div className="absolute -bottom-16 -right-10 w-16 h-16 border border-[#1d372d]/10 rotate-12 animate-pulse" style={{ animationDelay: '1s' }} />
         </div>
       </div>
 
       {/* Main content overlay (lifts to reveal CTA) */}
       <div
         ref={mainRef}
-        className="relative z-10 bg-[#0B0F18] min-h-screen flex items-center"
+        className="relative z-10 bg-[#13140f] min-h-screen flex items-center"
         style={{
           transformStyle: 'preserve-3d',
           transformOrigin: 'top center',
@@ -127,7 +127,7 @@ export default function ParallaxFooter3D() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             {[
               { number: '200+', label: 'Projects Completed', icon: '🏗', accent: '#D4AF37' },
-              { number: '25+', label: 'Years of Excellence', icon: '✦', accent: '#25A2DC' },
+              { number: '25+', label: 'Years of Excellence', icon: '✦', accent: '#1d372d' },
               { number: '98%', label: 'Client Satisfaction', icon: '◆', accent: '#D4AF37' },
             ].map((stat, i) => (
               <div

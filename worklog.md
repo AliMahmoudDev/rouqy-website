@@ -156,3 +156,24 @@ Stage Summary:
 - Intro is now visually RICH with actual movement: letters fly from sides, logo drops from top, geometric shapes float, grid draws itself
 - All animations are pure CSS for zero lag
 - Session storage key "harmens-intro-seen" will skip intro on revisit (clear browser session to re-see)
+---
+Task ID: 1
+Agent: main
+Task: Change site colors to green theme + simplify loading page
+
+Work Log:
+- Mapped old color scheme to new: #0B0F18→#13140f (bg), #25A2DC→#1d372d (green), #1B8BBE→#2a5a45 (green hover), #1C2738/#1A2535→#1a2018 (surface), #2D3A4D→#2a3a2e (border)
+- Ran Python script to replace all color occurrences across 15 files in /src
+- Fixed contrast issues: dark green text on dark bg replaced with #8fbfa8 (light sage green)
+- Kept bg-[#1d372d] on buttons (good contrast with white text)
+- Created simplified IntroAnimation: just background + green logo for ~2 seconds then fade out
+- Copied "Rouqy green logo-23.png" to /public/rouqy-logo-green.png
+- Updated layout.tsx themeColor and body background
+- Fixed nav bar rgba values in page.tsx
+- Build passes successfully
+
+Stage Summary:
+- All colors updated to green theme (#1d372d green, #13140f background)
+- Loading page is now a simple 2-second logo reveal with green logo on dark background
+- Light green (#8fbfa8) used for text/icon accents on dark backgrounds for readability
+- Gold (#D4AF37) kept as secondary accent throughout

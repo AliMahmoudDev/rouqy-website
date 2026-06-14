@@ -127,7 +127,7 @@ function RotatingShowcase3D() {
                     transform: 'translateX(-50%)',
                     width: 400,
                     height: 120,
-                    background: 'radial-gradient(ellipse, rgba(212,175,55,0.12) 0%, rgba(37,162,220,0.06) 40%, transparent 70%)',
+                    background: 'radial-gradient(ellipse, rgba(212,175,55,0.12) 0%, rgba(29,55,45,0.06) 40%, transparent 70%)',
                     filter: 'blur(40px)'
                 }
             }, void 0, false, {
@@ -185,7 +185,7 @@ function RotatingShowcase3D() {
                                         width: '100%',
                                         height: '100%',
                                         objectFit: 'cover',
-                                        backgroundColor: '#0B0F18'
+                                        backgroundColor: '#13140f'
                                     }
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/RotatingShowcase3D.tsx",
@@ -197,10 +197,10 @@ function RotatingShowcase3D() {
                                     style: {
                                         background: `
                       linear-gradient(180deg,
-                        rgba(11,15,24,0.15) 0%,
-                        rgba(11,15,24,0.0) 30%,
-                        rgba(11,15,24,0.0) 50%,
-                        rgba(11,15,24,0.6) 100%
+                        rgba(19,20,15,0.15) 0%,
+                        rgba(19,20,15,0.0) 30%,
+                        rgba(19,20,15,0.0) 50%,
+                        rgba(19,20,15,0.6) 100%
                       )
                     `
                                     }
@@ -311,7 +311,7 @@ function RotatingShowcase3D() {
                                             style: {
                                                 width: 12,
                                                 height: 1,
-                                                background: '#25A2DC'
+                                                background: '#1d372d'
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/RotatingShowcase3D.tsx",
@@ -322,7 +322,7 @@ function RotatingShowcase3D() {
                                             style: {
                                                 width: 1,
                                                 height: 12,
-                                                background: '#25A2DC'
+                                                background: '#1d372d'
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/RotatingShowcase3D.tsx",
@@ -345,7 +345,7 @@ function RotatingShowcase3D() {
                                             style: {
                                                 width: 12,
                                                 height: 1,
-                                                background: '#25A2DC',
+                                                background: '#1d372d',
                                                 marginLeft: 'auto'
                                             }
                                         }, void 0, false, {
@@ -357,7 +357,7 @@ function RotatingShowcase3D() {
                                             style: {
                                                 width: 1,
                                                 height: 12,
-                                                background: '#25A2DC',
+                                                background: '#1d372d',
                                                 marginLeft: 'auto'
                                             }
                                         }, void 0, false, {
@@ -377,7 +377,7 @@ function RotatingShowcase3D() {
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             className: "text-[7px] tracking-[0.5em] uppercase block",
                                             style: {
-                                                color: 'rgba(37,162,220,0.6)'
+                                                color: 'rgba(29,55,45,0.6)'
                                             },
                                             children: face.category
                                         }, void 0, false, {

@@ -96,7 +96,7 @@ export default function RotatingShowcase3D() {
           transform: 'translateX(-50%)',
           width: 400,
           height: 120,
-          background: 'radial-gradient(ellipse, rgba(212,175,55,0.12) 0%, rgba(37,162,220,0.06) 40%, transparent 70%)',
+          background: 'radial-gradient(ellipse, rgba(212,175,55,0.12) 0%, rgba(29,55,45,0.06) 40%, transparent 70%)',
           filter: 'blur(40px)',
         }}
       />
@@ -156,7 +156,7 @@ export default function RotatingShowcase3D() {
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
-                    backgroundColor: '#0B0F18',
+                    backgroundColor: '#13140f',
                   }}
                 />
 
@@ -166,10 +166,10 @@ export default function RotatingShowcase3D() {
                   style={{
                     background: `
                       linear-gradient(180deg,
-                        rgba(11,15,24,0.15) 0%,
-                        rgba(11,15,24,0.0) 30%,
-                        rgba(11,15,24,0.0) 50%,
-                        rgba(11,15,24,0.6) 100%
+                        rgba(19,20,15,0.15) 0%,
+                        rgba(19,20,15,0.0) 30%,
+                        rgba(19,20,15,0.0) 50%,
+                        rgba(19,20,15,0.6) 100%
                       )
                     `,
                   }}
@@ -203,19 +203,19 @@ export default function RotatingShowcase3D() {
                   <div style={{ width: 1, height: 16, background: '#D4AF37', marginLeft: 'auto' }} />
                 </div>
                 <div className="absolute bottom-8 left-2 pointer-events-none" style={{ opacity: 0.5 }}>
-                  <div style={{ width: 12, height: 1, background: '#25A2DC' }} />
-                  <div style={{ width: 1, height: 12, background: '#25A2DC' }} />
+                  <div style={{ width: 12, height: 1, background: '#1d372d' }} />
+                  <div style={{ width: 1, height: 12, background: '#1d372d' }} />
                 </div>
                 <div className="absolute bottom-8 right-2 pointer-events-none" style={{ opacity: 0.5 }}>
-                  <div style={{ width: 12, height: 1, background: '#25A2DC', marginLeft: 'auto' }} />
-                  <div style={{ width: 1, height: 12, background: '#25A2DC', marginLeft: 'auto' }} />
+                  <div style={{ width: 12, height: 1, background: '#1d372d', marginLeft: 'auto' }} />
+                  <div style={{ width: 1, height: 12, background: '#1d372d', marginLeft: 'auto' }} />
                 </div>
 
                 {/* ====== LABEL AREA ====== */}
                 <div className="absolute bottom-0 left-0 right-0 p-3 pointer-events-none">
                   <span
                     className="text-[7px] tracking-[0.5em] uppercase block"
-                    style={{ color: 'rgba(37,162,220,0.6)' }}
+                    style={{ color: 'rgba(29,55,45,0.6)' }}
                   >
                     {face.category}
                   </span>

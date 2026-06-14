@@ -142,7 +142,7 @@ export default function PortfolioSection() {
           decoding="sync"
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.05 }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#161E2D] via-transparent to-[#0B0F18]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#13140f] via-transparent to-[#13140f]" />
       </div>
 
       {/* Architectural blueprint grid lines (hidden on mobile) */}
@@ -169,7 +169,7 @@ export default function PortfolioSection() {
         className="absolute w-[200px] md:w-[400px] h-[200px] md:h-[400px] rounded-full pointer-events-none"
         data-parallax-depth="0.3"
         style={{
-          background: 'radial-gradient(circle, rgba(37,162,220,0.05) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(29,55,45,0.05) 0%, transparent 70%)',
           bottom: '20%',
           left: '-10%',
           filter: 'blur(50px)',
@@ -182,7 +182,7 @@ export default function PortfolioSection() {
       <div className="absolute top-20 right-[15%] w-[1px] h-32 decorative-line-vertical opacity-20 animate-float-rotate hidden md:block" style={{ animationDelay: '1s' }} />
 
       {/* ====== MARQUEE TEXT STRIP ====== */}
-      <div data-sr="clip-up" data-sr-duration="slow" className="marquee-strip mb-10 md:mb-20 py-4 md:py-6 border-y border-[#2D3A4D]/30">
+      <div data-sr="clip-up" data-sr-duration="slow" className="marquee-strip mb-10 md:mb-20 py-4 md:py-6 border-y border-[#2a3a2e]/30">
         <div className="marquee-content">
           {[...Array(3)].map((_, setIdx) => (
             <span key={setIdx} className="inline-flex items-center gap-8 mx-8">
@@ -201,8 +201,8 @@ export default function PortfolioSection() {
         {/* === Section Header — organized staggered entrance with 3D === */}
         <div className="mb-12 md:mb-28" data-parallax-depth="0.4">
           <div data-sr="fold-in" data-sr-delay="1" data-sr-duration="slow" className="flex items-center gap-6 mb-6">
-            <div className="w-12 h-[1px] bg-[#25A2DC]" style={{ animation: 'line-draw 0.8s cubic-bezier(0.65, 0.05, 0, 1) forwards' }} />
-            <p className="text-[#25A2DC] text-xs tracking-[0.5em] uppercase font-light">
+            <div className="w-12 h-[1px] bg-[#8fbfa8]" style={{ animation: 'line-draw 0.8s cubic-bezier(0.65, 0.05, 0, 1) forwards' }} />
+            <p className="text-[#8fbfa8] text-xs tracking-[0.5em] uppercase font-light">
               Portfolio
             </p>
           </div>
@@ -224,7 +224,7 @@ export default function PortfolioSection() {
             data-sr-duration="slow"
             className="mt-8 h-[1px]"
             style={{
-              background: 'linear-gradient(90deg, #D4AF37, #25A2DC, transparent)',
+              background: 'linear-gradient(90deg, #D4AF37, #1d372d, transparent)',
               width: '100%',
             }}
           />
@@ -246,16 +246,16 @@ export default function PortfolioSection() {
                     style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
                     className="card-image"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F18]/90 via-[#0B0F18]/20 to-transparent" />
-                  <div className="absolute inset-0 bg-[#0B0F18]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#13140f]/90 via-[#13140f]/20 to-transparent" />
+                  <div className="absolute inset-0 bg-[#13140f]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                   <div className="card-number absolute top-6 left-6 z-10">
                     <span className="text-white/15 text-7xl md:text-9xl font-bold tracking-tighter leading-none">01</span>
                   </div>
 
                   <div className="absolute top-6 right-6 z-10 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
-                    <div className="w-12 h-12 border border-[#25A2DC]/50 flex items-center justify-center bg-[#0B0F18]/40 backdrop-blur-sm animate-glow-blue-intense">
-                      <ArrowUpRight className="w-5 h-5 text-[#25A2DC]" />
+                    <div className="w-12 h-12 border border-[#8fbfa8]/50 flex items-center justify-center bg-[#13140f]/40 backdrop-blur-sm animate-glow-blue-intense">
+                      <ArrowUpRight className="w-5 h-5 text-[#8fbfa8]" />
                     </div>
                   </div>
 
@@ -275,7 +275,7 @@ export default function PortfolioSection() {
                     </div>
                   </div>
 
-                  <div className="accent-line absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#25A2DC] to-[#D4AF37]" />
+                  <div className="accent-line absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#1d372d] to-[#D4AF37]" />
                 </div>
               </div>
             </div>
@@ -292,16 +292,16 @@ export default function PortfolioSection() {
                     style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
                     className="card-image"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F18]/90 via-[#0B0F18]/20 to-transparent" />
-                  <div className="absolute inset-0 bg-[#0B0F18]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#13140f]/90 via-[#13140f]/20 to-transparent" />
+                  <div className="absolute inset-0 bg-[#13140f]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                   <div className="card-number absolute top-6 left-6 z-10">
                     <span className="text-white/15 text-6xl md:text-7xl font-bold tracking-tighter leading-none">02</span>
                   </div>
 
                   <div className="absolute top-6 right-6 z-10 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
-                    <div className="w-10 h-10 border border-[#25A2DC]/50 flex items-center justify-center bg-[#0B0F18]/40 backdrop-blur-sm">
-                      <ArrowUpRight className="w-4 h-4 text-[#25A2DC]" />
+                    <div className="w-10 h-10 border border-[#8fbfa8]/50 flex items-center justify-center bg-[#13140f]/40 backdrop-blur-sm">
+                      <ArrowUpRight className="w-4 h-4 text-[#8fbfa8]" />
                     </div>
                   </div>
 
@@ -315,7 +315,7 @@ export default function PortfolioSection() {
                     <p className="card-info text-[#A0AEC0]/70 text-xs mt-2">{projects[1].description}</p>
                   </div>
 
-                  <div className="accent-line absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#25A2DC] to-[#D4AF37]" />
+                  <div className="accent-line absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#1d372d] to-[#D4AF37]" />
                 </div>
               </div>
             </div>
@@ -341,8 +341,8 @@ export default function PortfolioSection() {
                       style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
                       className="card-image"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F18]/90 via-[#0B0F18]/20 to-transparent" />
-                    <div className="absolute inset-0 bg-[#0B0F18]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#13140f]/90 via-[#13140f]/20 to-transparent" />
+                    <div className="absolute inset-0 bg-[#13140f]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                     <div className="card-number absolute top-5 right-5 z-10">
                       <span className="text-white/15 text-5xl md:text-6xl font-bold tracking-tighter leading-none">
@@ -351,8 +351,8 @@ export default function PortfolioSection() {
                     </div>
 
                     <div className="absolute top-5 left-5 z-10 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
-                      <div className="w-10 h-10 border border-[#25A2DC]/50 flex items-center justify-center bg-[#0B0F18]/40 backdrop-blur-sm">
-                        <ArrowUpRight className="w-4 h-4 text-[#25A2DC]" />
+                      <div className="w-10 h-10 border border-[#8fbfa8]/50 flex items-center justify-center bg-[#13140f]/40 backdrop-blur-sm">
+                        <ArrowUpRight className="w-4 h-4 text-[#8fbfa8]" />
                       </div>
                     </div>
 
@@ -369,7 +369,7 @@ export default function PortfolioSection() {
                       </div>
                     </div>
 
-                    <div className="accent-line absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#25A2DC] to-[#D4AF37]" />
+                    <div className="accent-line absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#1d372d] to-[#D4AF37]" />
                   </div>
                 </div>
               </div>
@@ -388,16 +388,16 @@ export default function PortfolioSection() {
                   style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
                   className="card-image"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F18]/90 via-[#0B0F18]/20 to-transparent" />
-                <div className="absolute inset-0 bg-[#0B0F18]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#13140f]/90 via-[#13140f]/20 to-transparent" />
+                <div className="absolute inset-0 bg-[#13140f]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 <div className="card-number absolute top-8 left-8 z-10">
                   <span className="text-white/15 text-8xl md:text-[120px] font-bold tracking-tighter leading-none">06</span>
                 </div>
 
                 <div className="absolute top-8 right-8 z-10 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
-                  <div className="w-14 h-14 border border-[#25A2DC]/50 flex items-center justify-center bg-[#0B0F18]/40 backdrop-blur-sm animate-glow-blue-intense">
-                    <ArrowUpRight className="w-6 h-6 text-[#25A2DC]" />
+                  <div className="w-14 h-14 border border-[#8fbfa8]/50 flex items-center justify-center bg-[#13140f]/40 backdrop-blur-sm animate-glow-blue-intense">
+                    <ArrowUpRight className="w-6 h-6 text-[#8fbfa8]" />
                   </div>
                 </div>
 
@@ -417,14 +417,14 @@ export default function PortfolioSection() {
                   </div>
                 </div>
 
-                <div className="accent-line absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#25A2DC] to-[#D4AF37]" />
+                <div className="accent-line absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#1d372d] to-[#D4AF37]" />
               </div>
             </div>
           </div>
         </div>
 
         {/* === Animated Stats Bar — 3D helix entrance === */}
-        <div data-sr="helix" data-sr-delay="2" data-sr-duration="grand" className="mt-10 md:mt-24 pt-6 md:pt-8 border-t border-[#2D3A4D]" data-parallax-depth="0.5">
+        <div data-sr="helix" data-sr-delay="2" data-sr-duration="grand" className="mt-10 md:mt-24 pt-6 md:pt-8 border-t border-[#2a3a2e]" data-parallax-depth="0.5">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12">
             {[
               { value: 200, suffix: '+', label: 'Projects Completed' },
@@ -433,13 +433,13 @@ export default function PortfolioSection() {
               { value: 98, suffix: '%', label: 'Client Satisfaction' },
             ].map((stat, i) => (
               <div key={stat.label} data-sr="up" data-sr-delay={String(i * 2 + 1)} data-sr-duration="slow" data-sr-distance="near" className="text-center md:text-left group">
-                <p className="text-2xl md:text-5xl font-bold text-white tracking-tight transition-colors duration-300 group-hover:text-[#25A2DC]">
+                <p className="text-2xl md:text-5xl font-bold text-white tracking-tight transition-colors duration-300 group-hover:text-[#8fbfa8]">
                   <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                 </p>
                 <p className="text-[#A0AEC0] text-xs tracking-[0.2em] uppercase mt-2">
                   {stat.label}
                 </p>
-                <div className="mt-2 h-[1px] w-0 group-hover:w-full bg-gradient-to-r from-[#25A2DC] to-[#D4AF37] transition-all duration-500" />
+                <div className="mt-2 h-[1px] w-0 group-hover:w-full bg-gradient-to-r from-[#1d372d] to-[#D4AF37] transition-all duration-500" />
               </div>
             ))}
           </div>
@@ -447,14 +447,14 @@ export default function PortfolioSection() {
       </div>
 
       {/* ====== SECOND MARQUEE - Reverse direction ====== */}
-      <div data-sr="clip-up" data-sr-delay="3" data-sr-duration="slow" className="marquee-strip mt-10 md:mt-20 py-4 md:py-6 border-y border-[#2D3A4D]/30">
+      <div data-sr="clip-up" data-sr-delay="3" data-sr-duration="slow" className="marquee-strip mt-10 md:mt-20 py-4 md:py-6 border-y border-[#2a3a2e]/30">
         <div className="marquee-content" style={{ animationDirection: 'reverse' }}>
           {[...Array(3)].map((_, setIdx) => (
             <span key={setIdx} className="inline-flex items-center gap-12 mx-10">
               {['Riyadh', 'Abu Dhabi', 'Doha', 'Kuwait', 'Jeddah', 'Dubai', 'Cairo', 'Muscat'].map((city, i) => (
                 <span key={i} className="flex items-center gap-12">
                   <span className="text-[#A0AEC0]/15 text-lg tracking-[0.4em] uppercase whitespace-nowrap font-light">{city}</span>
-                  <span className="w-1 h-1 rounded-full bg-[#25A2DC]/30" />
+                  <span className="w-1 h-1 rounded-full bg-[#8fbfa8]/30" />
                 </span>
               ))}
             </span>

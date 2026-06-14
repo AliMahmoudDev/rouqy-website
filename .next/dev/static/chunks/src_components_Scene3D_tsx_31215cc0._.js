@@ -78,11 +78,11 @@ function Scene3D() {
                         style: {
                             width: s.width,
                             height: s.height,
-                            background: s.isGold ? '#D4AF37' : '#25A2DC',
+                            background: s.isGold ? '#D4AF37' : '#1d372d',
                             opacity: s.opacity,
                             left: `${s.left}%`,
                             top: `${s.top}%`,
-                            boxShadow: s.isGold ? '0 0 4px rgba(212,175,55,0.3)' : '0 0 4px rgba(37,162,220,0.3)',
+                            boxShadow: s.isGold ? '0 0 4px rgba(212,175,55,0.3)' : '0 0 4px rgba(29,55,45,0.3)',
                             animation: `sparkle ${s.duration}s ease-in-out infinite ${s.delay}s`
                         }
                     }, `star-${i}`, false, {
@@ -100,8 +100,8 @@ function Scene3D() {
                     style: {
                         width: p.width,
                         height: p.height,
-                        background: p.isGold ? 'rgba(212,175,55,0.6)' : 'rgba(37,162,220,0.5)',
-                        boxShadow: p.isGold ? '0 0 6px rgba(212,175,55,0.4)' : '0 0 5px rgba(37,162,220,0.3)',
+                        background: p.isGold ? 'rgba(212,175,55,0.6)' : 'rgba(29,55,45,0.5)',
+                        boxShadow: p.isGold ? '0 0 6px rgba(212,175,55,0.4)' : '0 0 5px rgba(29,55,45,0.3)',
                         left: `${p.left}%`,
                         opacity: 0,
                         animation: `particle-rise ${p.duration}s linear infinite ${p.delay}s`
@@ -150,7 +150,7 @@ function Scene3D() {
                         className: "absolute rounded-full",
                         style: {
                             inset: '50px',
-                            border: '1.5px solid rgba(37,162,220,0.25)',
+                            border: '1.5px solid rgba(29,55,45,0.25)',
                             animation: 'spin-slow 25s linear infinite',
                             transform: 'rotateX(60deg)'
                         }
@@ -189,9 +189,9 @@ function Scene3D() {
                     height: '220px',
                     top: '18%',
                     left: '8%',
-                    background: 'radial-gradient(circle at 35% 35%, rgba(37,162,220,0.35) 0%, rgba(37,162,220,0.12) 50%, transparent 70%)',
-                    boxShadow: '0 0 80px rgba(37,162,220,0.18), inset 0 0 40px rgba(37,162,220,0.1)',
-                    border: '1.5px solid rgba(37,162,220,0.15)',
+                    background: 'radial-gradient(circle at 35% 35%, rgba(29,55,45,0.35) 0%, rgba(29,55,45,0.12) 50%, transparent 70%)',
+                    boxShadow: '0 0 80px rgba(29,55,45,0.18), inset 0 0 40px rgba(29,55,45,0.1)',
+                    border: '1.5px solid rgba(29,55,45,0.15)',
                     animation: 'float-3d 10s ease-in-out infinite, breathe 5s ease-in-out infinite'
                 }
             }, void 0, false, {
@@ -213,8 +213,8 @@ function Scene3D() {
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute inset-0 rounded-full",
                         style: {
-                            border: '1.5px solid rgba(37,162,220,0.3)',
-                            boxShadow: '0 0 30px rgba(37,162,220,0.12)'
+                            border: '1.5px solid rgba(29,55,45,0.3)',
+                            boxShadow: '0 0 30px rgba(29,55,45,0.12)'
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
@@ -225,7 +225,7 @@ function Scene3D() {
                         className: "absolute rounded-full",
                         style: {
                             inset: '35px',
-                            border: '1.5px solid rgba(37,162,220,0.2)',
+                            border: '1.5px solid rgba(29,55,45,0.2)',
                             animation: 'spin-reverse-slow 20s linear infinite'
                         }
                     }, void 0, false, {
@@ -239,7 +239,7 @@ function Scene3D() {
                             style: {
                                 width: '1px',
                                 height: '100%',
-                                background: 'linear-gradient(180deg, transparent, rgba(37,162,220,0.25), transparent)'
+                                background: 'linear-gradient(180deg, transparent, rgba(29,55,45,0.25), transparent)'
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/components/Scene3D.tsx",
@@ -257,7 +257,7 @@ function Scene3D() {
                             style: {
                                 height: '1px',
                                 width: '100%',
-                                background: 'linear-gradient(90deg, transparent, rgba(37,162,220,0.25), transparent)'
+                                background: 'linear-gradient(90deg, transparent, rgba(29,55,45,0.25), transparent)'
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/components/Scene3D.tsx",
@@ -272,7 +272,7 @@ function Scene3D() {
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute inset-0",
                         style: {
-                            border: '1.5px solid rgba(37,162,220,0.12)',
+                            border: '1.5px solid rgba(29,55,45,0.12)',
                             borderRadius: '50%',
                             transform: 'rotate(45deg) scaleY(0.6)'
                         }
@@ -284,7 +284,7 @@ function Scene3D() {
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute inset-0",
                         style: {
-                            border: '1.5px solid rgba(37,162,220,0.12)',
+                            border: '1.5px solid rgba(29,55,45,0.12)',
                             borderRadius: '50%',
                             transform: 'rotate(-45deg) scaleY(0.6)'
                         }
@@ -342,7 +342,7 @@ function Scene3D() {
                         className: "absolute rounded-full",
                         style: {
                             inset: '12px',
-                            border: '1.5px solid rgba(37,162,220,0.2)',
+                            border: '1.5px solid rgba(29,55,45,0.2)',
                             animation: 'spin-reverse-slow 8s linear infinite'
                         }
                     }, void 0, false, {
@@ -376,8 +376,8 @@ function Scene3D() {
                             left: '50%',
                             marginTop: -15,
                             marginLeft: -15,
-                            background: 'radial-gradient(circle, rgba(27,139,190,0.4) 0%, rgba(27,139,190,0.15) 60%, transparent 80%)',
-                            boxShadow: '0 0 20px rgba(37,162,220,0.2)'
+                            background: 'radial-gradient(circle, rgba(42,90,69,0.4) 0%, rgba(42,90,69,0.15) 60%, transparent 80%)',
+                            boxShadow: '0 0 20px rgba(29,55,45,0.2)'
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
@@ -387,7 +387,7 @@ function Scene3D() {
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute inset-0 rounded-full",
                         style: {
-                            border: '1.5px solid rgba(37,162,220,0.2)',
+                            border: '1.5px solid rgba(29,55,45,0.2)',
                             transform: 'rotateX(70deg)'
                         }
                     }, void 0, false, {
@@ -487,8 +487,8 @@ function Scene3D() {
                         style: {
                             width: '100%',
                             height: '100%',
-                            border: '1.5px solid rgba(37,162,220,0.15)',
-                            boxShadow: '0 0 15px rgba(37,162,220,0.06)'
+                            border: '1.5px solid rgba(29,55,45,0.15)',
+                            boxShadow: '0 0 15px rgba(29,55,45,0.06)'
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
@@ -504,7 +504,7 @@ function Scene3D() {
                             left: '50%',
                             marginTop: -20,
                             marginLeft: -20,
-                            border: '1px solid rgba(37,162,220,0.1)',
+                            border: '1px solid rgba(29,55,45,0.1)',
                             transform: 'rotate(45deg)'
                         }
                     }, void 0, false, {
@@ -581,9 +581,9 @@ function Scene3D() {
                     height: '120px',
                     top: '68%',
                     right: '10%',
-                    background: 'radial-gradient(circle at 35% 35%, rgba(37,162,220,0.2) 0%, rgba(37,162,220,0.06) 50%, transparent 70%)',
-                    boxShadow: '0 0 40px rgba(37,162,220,0.08)',
-                    border: '1px solid rgba(37,162,220,0.08)',
+                    background: 'radial-gradient(circle at 35% 35%, rgba(29,55,45,0.2) 0%, rgba(29,55,45,0.06) 50%, transparent 70%)',
+                    boxShadow: '0 0 40px rgba(29,55,45,0.08)',
+                    border: '1px solid rgba(29,55,45,0.08)',
                     animation: 'float-3d 9s ease-in-out infinite 1s, breathe 6s ease-in-out infinite'
                 }
             }, void 0, false, {
@@ -598,7 +598,7 @@ function Scene3D() {
                     height: '120px',
                     top: '85%',
                     left: '30%',
-                    border: '1.5px solid rgba(37,162,220,0.12)',
+                    border: '1.5px solid rgba(29,55,45,0.12)',
                     borderRadius: '50%',
                     animation: 'spin-3d 18s linear infinite, float 8s ease-in-out infinite 2s'
                 }
@@ -635,7 +635,7 @@ function Scene3D() {
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute inset-0 rounded-full",
                         style: {
-                            border: '1px solid rgba(27,139,190,0.12)'
+                            border: '1px solid rgba(42,90,69,0.12)'
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/components/Scene3D.tsx",
@@ -646,7 +646,7 @@ function Scene3D() {
                         className: "absolute rounded-full",
                         style: {
                             inset: '25px',
-                            border: '1px solid rgba(27,139,190,0.08)',
+                            border: '1px solid rgba(42,90,69,0.08)',
                             animation: 'spin-reverse-slow 22s linear infinite'
                         }
                     }, void 0, false, {
@@ -699,7 +699,7 @@ function Scene3D() {
                     height: '600px',
                     top: '-15%',
                     left: '-15%',
-                    background: 'radial-gradient(circle, rgba(37,162,220,0.04) 0%, transparent 60%)',
+                    background: 'radial-gradient(circle, rgba(29,55,45,0.04) 0%, transparent 60%)',
                     filter: 'blur(60px)',
                     animation: 'breathe 8s ease-in-out infinite'
                 }
@@ -731,7 +731,7 @@ function Scene3D() {
                     height: '500px',
                     bottom: '-10%',
                     right: '-10%',
-                    background: 'radial-gradient(circle, rgba(37,162,220,0.03) 0%, transparent 60%)',
+                    background: 'radial-gradient(circle, rgba(29,55,45,0.03) 0%, transparent 60%)',
                     filter: 'blur(70px)',
                     animation: 'breathe 9s ease-in-out infinite 4s'
                 }

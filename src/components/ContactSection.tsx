@@ -69,8 +69,8 @@ export default function ContactSection() {
       {/* Animated grid lines — architectural blueprint style (hidden on mobile) */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.02] hidden md:block" style={{
         backgroundImage: `
-          linear-gradient(rgba(37,162,220,0.3) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(37,162,220,0.3) 1px, transparent 1px)
+          linear-gradient(rgba(29,55,45,0.3) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(29,55,45,0.3) 1px, transparent 1px)
         `,
         backgroundSize: '80px 80px',
       }} />
@@ -80,7 +80,7 @@ export default function ContactSection() {
         className="absolute w-[200px] md:w-[400px] h-[200px] md:h-[400px] rounded-full pointer-events-none animate-breathe"
         data-parallax-depth="0.2"
         style={{
-          background: 'radial-gradient(circle, rgba(37,162,220,0.05) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(29,55,45,0.05) 0%, transparent 70%)',
           top: '20%',
           left: '-10%',
           filter: 'blur(50px)',
@@ -118,7 +118,7 @@ export default function ContactSection() {
           height: 40,
           bottom: '20%',
           left: '5%',
-          border: '1px solid rgba(37,162,220,0.06)',
+          border: '1px solid rgba(29,55,45,0.06)',
           borderRadius: '50%',
           animation: 'float 7s ease-in-out infinite 1s',
         }}
@@ -127,11 +127,11 @@ export default function ContactSection() {
       <div className="max-w-7xl mx-auto relative">
         {/* Section Header — 3D entrance */}
         <div className="mb-10 md:mb-20" data-parallax-depth="0.4">
-          <p data-sr="fold-in" data-sr-delay="1" data-sr-duration="slow" className="text-[#25A2DC] text-xs md:text-sm tracking-[0.3em] md:tracking-[0.4em] uppercase mb-3 md:mb-4">Contact</p>
+          <p data-sr="fold-in" data-sr-delay="1" data-sr-duration="slow" className="text-[#8fbfa8] text-xs md:text-sm tracking-[0.3em] md:tracking-[0.4em] uppercase mb-3 md:mb-4">Contact</p>
           <h2 data-sr="zoom-3d" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="far" className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
             Let&apos;s Create <span className="animate-text-gradient">Together</span>
           </h2>
-          <div data-sr="clip-left" data-sr-delay="5" data-sr-duration="slow" className="mt-4 w-16 h-[2px] bg-[#25A2DC]" />
+          <div data-sr="clip-left" data-sr-delay="5" data-sr-duration="slow" className="mt-4 w-16 h-[2px] bg-[#8fbfa8]" />
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 lg:gap-24">
@@ -146,7 +146,7 @@ export default function ContactSection() {
                   id="name"
                   name="name"
                   required
-                  className="bg-transparent border-[#2D3A4D] text-white placeholder:text-[#A0AEC0]/40 focus:border-[#25A2DC] rounded-none h-12 text-base transition-all duration-300 focus:shadow-[0_0_15px_rgba(37,162,220,0.15)]"
+                  className="bg-transparent border-[#2a3a2e] text-white placeholder:text-[#A0AEC0]/40 focus:border-[#1d372d] rounded-none h-12 text-base transition-all duration-300 focus:shadow-[0_0_15px_rgba(29,55,45,0.15)]"
                   placeholder="Your full name"
                 />
               </div>
@@ -160,7 +160,7 @@ export default function ContactSection() {
                   name="email"
                   type="email"
                   required
-                  className="bg-transparent border-[#2D3A4D] text-white placeholder:text-[#A0AEC0]/40 focus:border-[#25A2DC] rounded-none h-12 text-base transition-all duration-300 focus:shadow-[0_0_15px_rgba(37,162,220,0.15)]"
+                  className="bg-transparent border-[#2a3a2e] text-white placeholder:text-[#A0AEC0]/40 focus:border-[#1d372d] rounded-none h-12 text-base transition-all duration-300 focus:shadow-[0_0_15px_rgba(29,55,45,0.15)]"
                   placeholder="your@email.com"
                 />
               </div>
@@ -177,8 +177,8 @@ export default function ContactSection() {
                       onClick={() => setSelectedBudget(range)}
                       className={`px-4 py-2 text-xs tracking-wider uppercase border transition-all duration-300 ${
                         selectedBudget === range
-                          ? 'border-[#25A2DC] bg-[#25A2DC]/10 text-[#25A2DC] shadow-[0_0_15px_rgba(37,162,220,0.2)]'
-                          : 'border-[#2D3A4D] text-[#A0AEC0] hover:border-[#25A2DC]/50 hover:text-[#25A2DC]'
+                          ? 'border-[#1d372d] bg-[#1d372d]/10 text-[#8fbfa8] shadow-[0_0_15px_rgba(29,55,45,0.2)]'
+                          : 'border-[#2a3a2e] text-[#A0AEC0] hover:border-[#8fbfa8]/50 hover:text-[#8fbfa8]'
                       }`}
                     >
                       {range}
@@ -196,7 +196,7 @@ export default function ContactSection() {
                   name="message"
                   required
                   rows={5}
-                  className="bg-transparent border-[#2D3A4D] text-white placeholder:text-[#A0AEC0]/40 focus:border-[#25A2DC] rounded-none text-base resize-none transition-all duration-300 focus:shadow-[0_0_15px_rgba(37,162,220,0.15)]"
+                  className="bg-transparent border-[#2a3a2e] text-white placeholder:text-[#A0AEC0]/40 focus:border-[#1d372d] rounded-none text-base resize-none transition-all duration-300 focus:shadow-[0_0_15px_rgba(29,55,45,0.15)]"
                   placeholder="Tell us about your project..."
                 />
               </div>
@@ -205,7 +205,7 @@ export default function ContactSection() {
                 <Button
                   type="submit"
                   disabled={formState === 'sending'}
-                  className="group w-full md:w-auto bg-[#25A2DC] hover:bg-[#1B8BBE] text-white tracking-widest uppercase text-sm h-12 px-10 rounded-none border border-[#25A2DC] hover:border-[#1B8BBE] transition-all duration-300 hover:shadow-[0_0_30px_rgba(37,162,220,0.3)] flex items-center gap-3"
+                  className="group w-full md:w-auto bg-[#1d372d] hover:bg-[#2a5a45] text-white tracking-widest uppercase text-sm h-12 px-10 rounded-none border border-[#1d372d] hover:border-[#2a5a45] transition-all duration-300 hover:shadow-[0_0_30px_rgba(29,55,45,0.3)] flex items-center gap-3"
                 >
                   {formState === 'sending' ? 'Sending...' : formState === 'sent' ? 'Message Sent!' : 'Send Message'}
                   <Send className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -213,7 +213,7 @@ export default function ContactSection() {
               </div>
 
               {formState === 'sent' && (
-                <p className="text-[#25A2DC] text-sm mt-2" style={{ animation: 'fade-in-up 0.5s ease forwards' }}>
+                <p className="text-[#8fbfa8] text-sm mt-2" style={{ animation: 'fade-in-up 0.5s ease forwards' }}>
                   Thank you! We&apos;ll get back to you within 24 hours.
                 </p>
               )}
@@ -236,17 +236,17 @@ export default function ContactSection() {
                 { value: '580+', label: 'Sq Meters Largest Project' },
               ].map((stat, i) => (
                 <div key={stat.label} data-sr="up" data-sr-delay={String(i * 2 + 4)} data-sr-duration="slow" data-sr-distance="near" className="group cursor-default">
-                  <p className="text-2xl md:text-4xl font-bold text-white tracking-tight transition-colors duration-300 group-hover:text-[#25A2DC]">
+                  <p className="text-2xl md:text-4xl font-bold text-white tracking-tight transition-colors duration-300 group-hover:text-[#8fbfa8]">
                     {stat.value}
                   </p>
                   <p className="text-[#A0AEC0] text-sm tracking-wider uppercase mt-1">{stat.label}</p>
-                  <div className="mt-2 h-[1px] w-0 group-hover:w-full bg-gradient-to-r from-[#25A2DC] to-[#D4AF37] transition-all duration-500" />
+                  <div className="mt-2 h-[1px] w-0 group-hover:w-full bg-gradient-to-r from-[#1d372d] to-[#D4AF37] transition-all duration-500" />
                 </div>
               ))}
             </div>
 
             {/* Divider with animation */}
-            <div data-sr="clip-left" data-sr-delay="8" data-sr-duration="slow" className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#2D3A4D] to-transparent" />
+            <div data-sr="clip-left" data-sr-delay="8" data-sr-duration="slow" className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#2a3a2e] to-transparent" />
 
             {/* Contact Links */}
             <div className="space-y-6">
@@ -258,16 +258,16 @@ export default function ContactSection() {
                 data-sr-delay="6"
                 data-sr-duration="slow"
                 data-sr-distance="near"
-                className="group flex items-center gap-4 text-white hover:text-[#25A2DC] transition-colors duration-300"
+                className="group flex items-center gap-4 text-white hover:text-[#8fbfa8] transition-colors duration-300"
               >
-                <div className="w-12 h-12 border border-[#2D3A4D] group-hover:border-[#25A2DC] group-hover:shadow-[0_0_15px_rgba(37,162,220,0.2)] flex items-center justify-center transition-all duration-300">
+                <div className="w-12 h-12 border border-[#2a3a2e] group-hover:border-[#1d372d] group-hover:shadow-[0_0_15px_rgba(29,55,45,0.2)] flex items-center justify-center transition-all duration-300">
                   <Instagram className="w-5 h-5" />
                 </div>
                 <div>
                   <p className="text-sm tracking-wider uppercase text-[#A0AEC0]">Instagram</p>
                   <p className="text-base font-medium">@harmens.design</p>
                 </div>
-                <ArrowUpRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0 text-[#25A2DC]" />
+                <ArrowUpRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0 text-[#8fbfa8]" />
               </a>
 
               <a
@@ -276,16 +276,16 @@ export default function ContactSection() {
                 data-sr-delay="7"
                 data-sr-duration="slow"
                 data-sr-distance="near"
-                className="group flex items-center gap-4 text-white hover:text-[#25A2DC] transition-colors duration-300"
+                className="group flex items-center gap-4 text-white hover:text-[#8fbfa8] transition-colors duration-300"
               >
-                <div className="w-12 h-12 border border-[#2D3A4D] group-hover:border-[#25A2DC] group-hover:shadow-[0_0_15px_rgba(37,162,220,0.2)] flex items-center justify-center transition-all duration-300">
+                <div className="w-12 h-12 border border-[#2a3a2e] group-hover:border-[#1d372d] group-hover:shadow-[0_0_15px_rgba(29,55,45,0.2)] flex items-center justify-center transition-all duration-300">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
                   <p className="text-sm tracking-wider uppercase text-[#A0AEC0]">Email</p>
                   <p className="text-base font-medium">info@harmensdesign.com</p>
                 </div>
-                <ArrowUpRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0 text-[#25A2DC]" />
+                <ArrowUpRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0 text-[#8fbfa8]" />
               </a>
             </div>
           </div>
@@ -293,7 +293,7 @@ export default function ContactSection() {
       </div>
 
       {/* Footer — 3D helix entrance */}
-      <div data-sr="helix" data-sr-delay="3" data-sr-duration="grand" className="mt-16 md:mt-32 pt-6 md:pt-8 border-t border-[#2D3A4D]" data-parallax-depth="0.5">
+      <div data-sr="helix" data-sr-delay="3" data-sr-duration="grand" className="mt-16 md:mt-32 pt-6 md:pt-8 border-t border-[#2a3a2e]" data-parallax-depth="0.5">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-[#A0AEC0] text-sm">
           <p className="tracking-wider">&copy; {new Date().getFullYear()} HARMENS. All rights reserved.</p>
           <div className="flex items-center gap-6">
@@ -301,13 +301,13 @@ export default function ContactSection() {
               href="https://www.instagram.com/harmens.design/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#25A2DC] transition-colors duration-300 tracking-wider uppercase text-xs"
+              className="hover:text-[#8fbfa8] transition-colors duration-300 tracking-wider uppercase text-xs"
             >
               Instagram
             </a>
             <a
               href="mailto:info@harmensdesign.com"
-              className="hover:text-[#25A2DC] transition-colors duration-300 tracking-wider uppercase text-xs"
+              className="hover:text-[#8fbfa8] transition-colors duration-300 tracking-wider uppercase text-xs"
             >
               Email
             </a>

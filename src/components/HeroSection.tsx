@@ -127,10 +127,10 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
       <div className="hero-gradient-bg" />
 
       {/* Top gradient for smooth blend into nav */}
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#0B0F18] to-transparent z-10 pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#13140f] to-transparent z-10 pointer-events-none" />
 
       {/* Bottom gradient for smooth transition */}
-      <div className="absolute bottom-0 left-0 right-0 h-40 md:h-56 bg-gradient-to-t from-[#161E2D] via-[#161E2D]/70 to-transparent z-10 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 md:h-56 bg-gradient-to-t from-[#13140f] via-[#13140f]/70 to-transparent z-10 pointer-events-none" />
 
       {/* Minimal floating particles */}
       <FloatingParticles />
@@ -156,7 +156,7 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
               height: 350,
               bottom: '10%',
               left: '-5%',
-              background: 'radial-gradient(circle, rgba(37,162,220,0.04) 0%, transparent 70%)',
+              background: 'radial-gradient(circle, rgba(29,55,45,0.04) 0%, transparent 70%)',
               filter: 'blur(60px)',
             }}
           />
@@ -299,7 +299,7 @@ export default function HeroSection({ introComplete }: HeroSectionProps) {
           Scroll
         </span>
         <div style={{ animation: 'bounce-slow 2s ease-in-out infinite' }}>
-          <svg className="w-3.5 h-3.5 text-[#25A2DC]/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-3.5 h-3.5 text-[#8fbfa8]/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </div>

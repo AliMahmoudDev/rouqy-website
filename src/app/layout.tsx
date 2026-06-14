@@ -19,8 +19,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0B0F18" },
-    { media: "(prefers-color-scheme: light)", color: "#0B0F18" },
+    { media: "(prefers-color-scheme: dark)", color: "#13140f" },
+    { media: "(prefers-color-scheme: light)", color: "#13140f" },
   ],
 };
 
@@ -142,7 +142,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://images.unsplash.com" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#161E2D] text-white overflow-x-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#13140f] text-white overflow-x-hidden`}
       >
         {children}
       </body>

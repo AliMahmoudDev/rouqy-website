@@ -55,8 +55,8 @@ export default function CursorGlow() {
           left: position.x - (isHovering ? 150 : 100),
           top: position.y - (isHovering ? 150 : 100),
           background: isHovering
-            ? 'radial-gradient(circle, rgba(37,162,220,0.08) 0%, rgba(212,175,55,0.04) 30%, transparent 70%)'
-            : 'radial-gradient(circle, rgba(37,162,220,0.04) 0%, transparent 70%)',
+            ? 'radial-gradient(circle, rgba(29,55,45,0.08) 0%, rgba(212,175,55,0.04) 30%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(29,55,45,0.04) 0%, transparent 70%)',
           transition: 'width 0.4s ease, height 0.4s ease, background 0.4s ease',
           filter: 'blur(1px)',
         }}
@@ -69,10 +69,10 @@ export default function CursorGlow() {
           height: isHovering ? 8 : 4,
           left: position.x - (isHovering ? 4 : 2),
           top: position.y - (isHovering ? 4 : 2),
-          background: isHovering ? '#D4AF37' : '#25A2DC',
+          background: isHovering ? '#D4AF37' : '#1d372d',
           boxShadow: isHovering
             ? '0 0 10px rgba(212,175,55,0.6), 0 0 20px rgba(212,175,55,0.3)'
-            : '0 0 6px rgba(37,162,220,0.5)',
+            : '0 0 6px rgba(29,55,45,0.5)',
           transition: 'all 0.15s ease-out',
         }}
       />

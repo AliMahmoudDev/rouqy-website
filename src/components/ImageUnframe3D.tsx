@@ -17,7 +17,7 @@ const features = [
     title: 'Material Mastery',
     description: 'We source the world\'s finest materials — from Italian marble to hand-stitched leather — ensuring every surface tells a story of luxury and craftsmanship.',
     icon: '◈',
-    accent: '#25A2DC',
+    accent: '#1d372d',
   },
   {
     title: 'Timeless Elegance',
@@ -99,7 +99,7 @@ export default function ImageUnframe3D() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen bg-[#0B0F18] flex items-center overflow-hidden"
+      className="relative min-h-screen bg-[#13140f] flex items-center overflow-hidden"
       style={{ perspective: '1200px' }}
     >
       {/* Ambient glow */}
@@ -124,8 +124,8 @@ export default function ImageUnframe3D() {
               {/* Corner accents */}
               <div className="absolute -top-1 -left-1 w-6 h-6 border-t-2 border-l-2 border-[#D4AF37]/50" />
               <div className="absolute -top-1 -right-1 w-6 h-6 border-t-2 border-r-2 border-[#D4AF37]/50" />
-              <div className="absolute -bottom-1 -left-1 w-6 h-6 border-b-2 border-l-2 border-[#25A2DC]/50" />
-              <div className="absolute -bottom-1 -right-1 w-6 h-6 border-b-2 border-r-2 border-[#25A2DC]/50" />
+              <div className="absolute -bottom-1 -left-1 w-6 h-6 border-b-2 border-l-2 border-[#8fbfa8]/50" />
+              <div className="absolute -bottom-1 -right-1 w-6 h-6 border-b-2 border-r-2 border-[#8fbfa8]/50" />
             </div>
 
             {/* Image */}

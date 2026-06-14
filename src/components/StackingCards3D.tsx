@@ -25,7 +25,7 @@ const projects = [
     year: '2023',
     image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=85',
     description: 'Where tranquility meets modern luxury — a sanctuary designed for the senses.',
-    accent: '#25A2DC',
+    accent: '#1d372d',
   },
   {
     title: 'Minimalist Suite',
@@ -45,7 +45,7 @@ const projects = [
     year: '2024',
     image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=85',
     description: 'A grand architectural statement where crystal meets gold in a symphony of light.',
-    accent: '#25A2DC',
+    accent: '#1d372d',
   },
   {
     title: 'Contemporary Space',
@@ -107,14 +107,14 @@ export default function StackingCards3D() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen bg-[#0B0F18] overflow-hidden"
+      className="relative min-h-screen bg-[#13140f] overflow-hidden"
       style={{ perspective: '1200px' }}
     >
       {/* Section header */}
       <div className="absolute top-0 left-0 right-0 z-30 pt-24 md:pt-32 pb-8 px-6 md:px-16 text-center">
         <span className="text-[10px] tracking-[0.6em] uppercase text-[#D4AF37]/60 block mb-3">3D Showcase</span>
         <h2 className="text-3xl md:text-5xl font-bold text-white" style={{
-          background: 'linear-gradient(135deg, #FFFFFF 0%, #D4AF37 50%, #25A2DC 100%)',
+          background: 'linear-gradient(135deg, #FFFFFF 0%, #D4AF37 50%, #1d372d 100%)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
         }}>
@@ -152,7 +152,7 @@ export default function StackingCards3D() {
               />
               {/* Gradient overlay */}
               <div className="absolute inset-0" style={{
-                background: `linear-gradient(to top, rgba(11,15,24,0.95) 0%, rgba(11,15,24,0.3) 50%, transparent 100%)`,
+                background: `linear-gradient(to top, rgba(19,20,15,0.95) 0%, rgba(19,20,15,0.3) 50%, transparent 100%)`,
               }} />
 
               {/* Project info */}
