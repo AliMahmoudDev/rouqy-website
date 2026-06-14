@@ -82,51 +82,52 @@ export default function ScrollExperience() {
         },
       });
 
-      // --- PHASE 1: Hero text + indicator fade out (0-6%) ---
+      // --- PHASE 1: Hero text + indicator fade out (0-4%) ---
       mainTl.to(heroTextRef.current, {
         opacity: 0,
         y: -80,
         scale: 0.85,
-        duration: 0.06,
+        duration: 0.04,
         ease: 'power2.in',
       });
 
       mainTl.to(scrollIndicatorRef.current, {
         opacity: 0,
         y: 30,
-        duration: 0.03,
+        duration: 0.02,
         ease: 'power2.in',
       }, '<');
 
-      // --- PHASE 2: Logo appears centered (6-8%) ---
+      // --- PHASE 2: Logo appears centered (4-5%) ---
       mainTl.fromTo(logoSvgRef.current, 
         { opacity: 0, scale: 0.9 },
-        { opacity: 1, scale: 1, duration: 0.02, ease: 'power2.out' }
+        { opacity: 1, scale: 1, duration: 0.01, ease: 'power2.out' }
       );
 
-      // --- PHASE 3: Grid fades in (8-10%) ---
+      // --- PHASE 3: Grid + pen tip appear (5-6%) ---
       mainTl.to(gridRef.current, {
         opacity: 1,
-        duration: 0.02,
+        duration: 0.01,
         ease: 'power2.out',
       });
 
-      // --- PHASE 4: Pen tip appears (10-11%) ---
       mainTl.to(penTipRef.current, {
         opacity: 1,
-        duration: 0.01,
+        duration: 0.005,
       });
 
-      // --- PHASE 5: STROKE DRAWS (11-52%) ---
-      // 41% of 900vh = ~369vh of scrolling for drawing
+      // --- PHASE 4: STROKE DRAWS starting at 6% ---
+      // Drawing from 6% to 50% = 44% of 900vh = ~396vh of scrolling
+      const DRAW_START = 0.06;
+      const DRAW_DURATION = 0.44;
       mainTl.to(strokePathRef.current, {
         strokeDashoffset: 0,
-        duration: 0.41,
+        duration: DRAW_DURATION,
         ease: 'none',
         onUpdate: function() {
           if (!strokePathRef.current || !penTipRef.current) return;
           const progress = this.progress();
-          const drawProgress = Math.max(0, Math.min(1, (progress - 0.11) / 0.41));
+          const drawProgress = Math.max(0, Math.min(1, (progress - DRAW_START) / DRAW_DURATION));
           
           if (drawProgress > 0.005 && drawProgress < 0.995) {
             try {
@@ -153,7 +154,7 @@ export default function ScrollExperience() {
       // Glow intensifies during drawing
       mainTl.to(glowRef.current, {
         opacity: 0.5,
-        duration: 0.41,
+        duration: DRAW_DURATION,
         ease: 'none',
       }, '<');
 
