@@ -38,7 +38,6 @@ export default function ScrollExperience() {
   const filledPathRef = useRef<SVGPathElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
   const penTipRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
   const aboutTextRef = useRef<HTMLDivElement>(null);
 
   const [isReady, setIsReady] = useState(false);
@@ -106,13 +105,7 @@ export default function ScrollExperience() {
         { opacity: 1, scale: 1, duration: 1, ease: 'power2.out' }
       );
 
-      // --- PHASE 3: Grid + pen tip appear (5-6%) ---
-      mainTl.to(gridRef.current, {
-        opacity: 1,
-        duration: 1,
-        ease: 'power2.out',
-      });
-
+      // --- PHASE 3: Pen tip appears ---
       mainTl.to(penTipRef.current, {
         opacity: 1,
         duration: 0.5,
@@ -190,13 +183,6 @@ export default function ScrollExperience() {
         ease: 'power2.out',
       });
 
-      // Grid fades out
-      mainTl.to(gridRef.current, {
-        opacity: 0,
-        duration: 3,
-        ease: 'power2.out',
-      }, '-=2');
-
       // Glow settles
       mainTl.to(glowRef.current, {
         opacity: 0.08,
@@ -262,7 +248,7 @@ export default function ScrollExperience() {
           className="absolute inset-0 flex items-center justify-center z-20 px-4"
         >
           <img
-            src="/rouqy-text-white.svg"
+            src="/rouqy-text-white.png"
             alt="ROUQY"
             className="w-[85vw] max-w-[600px] md:max-w-[900px] lg:max-w-[1100px] md:w-[65vw] lg:w-[55vw] object-contain"
             style={{
@@ -296,25 +282,6 @@ export default function ScrollExperience() {
             className="relative flex items-center justify-center"
             style={{ opacity: 0 }}
           >
-            {/* Grid overlay */}
-            <div
-              ref={gridRef}
-              className="absolute pointer-events-none"
-              style={{
-                opacity: 0,
-                backgroundImage: `
-                  linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-                  linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)
-                `,
-                backgroundSize: '40px 40px',
-                width: '700px',
-                height: '700px',
-                left: '50%',
-                top: '50%',
-                transform: 'translate(-50%, -50%)',
-              }}
-            />
-
             {/* Ambient glow */}
             <div
               ref={glowRef}

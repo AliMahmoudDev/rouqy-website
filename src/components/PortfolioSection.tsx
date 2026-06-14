@@ -55,13 +55,13 @@ const PROJECTS = [
 ];
 
 /**
- * Portfolio Section — natural scroll, one project visible at a time
+ * Portfolio Section — 3D flip/rotate transition between projects
  * 
- * Each card has enough vertical space (min-height: 100vh) so only one
- * is ever visible in the viewport. As user scrolls:
- *   - Current card fades out upward as it leaves viewport
- *   - Next card fades in from below as it enters viewport
- * No pinning — pure natural scroll with GSAP ScrollTrigger scrub animations.
+ * Natural scroll, one project visible at a time.
+ * As user scrolls past a card:
+ *   - The image rotates on Y-axis and scales down (3D flip out)
+ *   - The next card rotates in from the opposite side (3D flip in)
+ *   - Perspective creates depth and wow factor
  */
 export default function PortfolioSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -97,38 +97,68 @@ export default function PortfolioSection() {
           );
         }
 
-        // Each card: enter from below, exit upward
+        // Each card: 3D flip in on enter, 3D flip out on exit
         const cards = containerRef.current!.querySelectorAll('.project-card');
-        cards.forEach((card) => {
+        cards.forEach((card, index) => {
           const image = card.querySelector('.project-image');
           const label = card.querySelector('.project-label');
 
-          // Card enters from below — starts offset down and invisible
+          // === ENTER: 3D rotate in from below ===
+          // Alternate rotation direction for visual variety
+          const enterRotateY = index % 2 === 0 ? 25 : -25;
+
           gsap.fromTo(card,
-            { y: 100, opacity: 0 },
             {
-              y: 0,
+              opacity: 0,
+              rotateX: 15,
+              rotateY: enterRotateY,
+              scale: 0.85,
+              y: 80,
+            },
+            {
               opacity: 1,
+              rotateX: 0,
+              rotateY: 0,
+              scale: 1,
+              y: 0,
               ease: 'power2.out',
               scrollTrigger: {
                 trigger: card,
                 start: 'top 95%',
-                end: 'top 35%',
-                scrub: 1.5,
+                end: 'top 30%',
+                scrub: 1.8,
               },
             }
           );
 
-          // Image scale effect on enter
+          // Image subtle zoom on enter
           if (image) {
             gsap.fromTo(image,
-              { scale: 1.1 },
+              { scale: 1.15 },
               {
                 scale: 1,
                 ease: 'power2.out',
                 scrollTrigger: {
                   trigger: card,
                   start: 'top 90%',
+                  end: 'top 20%',
+                  scrub: 1.5,
+                },
+              }
+            );
+          }
+
+          // Label enters with delay
+          if (label) {
+            gsap.fromTo(label,
+              { y: 30, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                ease: 'power2.out',
+                scrollTrigger: {
+                  trigger: card,
+                  start: 'top 70%',
                   end: 'top 25%',
                   scrub: 1.5,
                 },
@@ -136,42 +166,34 @@ export default function PortfolioSection() {
             );
           }
 
-          // Label enters slightly after
-          if (label) {
-            gsap.fromTo(label,
-              { y: 40, opacity: 0 },
-              {
-                y: 0,
-                opacity: 1,
-                ease: 'power2.out',
-                scrollTrigger: {
-                  trigger: card,
-                  start: 'top 75%',
-                  end: 'top 30%',
-                  scrub: 1.5,
-                },
-              }
-            );
-          }
+          // === EXIT: 3D rotate out upward ===
+          const exitRotateY = index % 2 === 0 ? -20 : 20;
 
-          // Card exits upward as it leaves viewport
           gsap.fromTo(card,
-            { y: 0 },
             {
-              y: -80,
+              rotateX: 0,
+              rotateY: 0,
+              scale: 1,
+              y: 0,
+            },
+            {
               opacity: 0,
+              rotateX: -10,
+              rotateY: exitRotateY,
+              scale: 0.9,
+              y: -60,
               ease: 'power2.in',
               scrollTrigger: {
                 trigger: card,
                 start: 'center center',
-                end: 'top -20%',
-                scrub: 1.5,
+                end: 'top -10%',
+                scrub: 1.8,
               },
             }
           );
         });
 
-        // Progress indicator — active dot based on scroll
+        // Progress dots
         const dots = containerRef.current!.querySelectorAll('.progress-dot');
         cards.forEach((card, index) => {
           ScrollTrigger.create({
@@ -179,21 +201,15 @@ export default function PortfolioSection() {
             start: 'top 60%',
             end: 'bottom 40%',
             onEnter: () => {
-              dots.forEach((d, i) => {
-                d.classList.toggle('active', i === index);
-              });
+              dots.forEach((d, i) => d.classList.toggle('active', i === index));
             },
             onLeave: () => {
-              if (index < dots.length) {
-                dots.forEach((d, i) => {
-                  d.classList.toggle('active', i === index + 1);
-                });
+              if (index < dots.length - 1) {
+                dots.forEach((d, i) => d.classList.toggle('active', i === index + 1));
               }
             },
             onEnterBack: () => {
-              dots.forEach((d, i) => {
-                d.classList.toggle('active', i === index);
-              });
+              dots.forEach((d, i) => d.classList.toggle('active', i === index));
             },
           });
         });
@@ -220,7 +236,7 @@ export default function PortfolioSection() {
         <div className="w-12 md:w-16 h-[1px] bg-[#8fbfa8]/30 mt-4 md:mt-6" />
       </div>
 
-      {/* Fixed progress dots — shows which project is active */}
+      {/* Fixed progress dots */}
       <div className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center gap-3 portfolio-dots">
         {PROJECTS.map((_, i) => (
           <div
@@ -234,8 +250,8 @@ export default function PortfolioSection() {
         ))}
       </div>
 
-      {/* Project cards — each in its own full-height zone */}
-      <div className="px-4 md:px-16 lg:px-24">
+      {/* Project cards — each with 3D perspective, full-height zones */}
+      <div className="px-4 md:px-16 lg:px-24" style={{ perspective: '1200px' }}>
         {PROJECTS.map((project, index) => (
           <div
             key={project.id}
@@ -244,10 +260,11 @@ export default function PortfolioSection() {
               minHeight: '100vh',
               paddingTop: index === 0 ? '2vh' : '0',
               paddingBottom: '2vh',
+              transformStyle: 'preserve-3d',
             }}
           >
             {/* Project image — landscape, centered */}
-            <div className="relative overflow-hidden w-full max-w-5xl rounded-sm">
+            <div className="relative overflow-hidden w-full max-w-5xl rounded-sm" style={{ transformStyle: 'preserve-3d' }}>
               <img
                 src={project.image}
                 alt={project.title}

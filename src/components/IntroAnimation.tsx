@@ -122,25 +122,6 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
     >
       {/* Logo container */}
       <div className="intro-logo-container relative flex items-center justify-center">
-        {/* Subtle grid overlay for geometric feel */}
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            opacity: drawProgress > 0 && drawProgress < 1 ? 0.5 : 0,
-            transition: 'opacity 0.5s',
-            backgroundImage: `
-              linear-gradient(rgba(143,191,168,0.04) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(143,191,168,0.04) 1px, transparent 1px)
-            `,
-            backgroundSize: '30px 30px',
-            width: '500px',
-            height: '500px',
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%)',
-          }}
-        />
-
         {/* Ambient glow */}
         <div
           className="absolute pointer-events-none"
