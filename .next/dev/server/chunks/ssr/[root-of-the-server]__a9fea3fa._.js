@@ -73,7 +73,7 @@ var __TURBOPACK__imported__module__$5b$next$5d2f$internal$2f$font$2f$google$2f$g
 ;
 ;
 ;
-const siteUrl = "https://harmensdesign.com";
+const siteUrl = "https://rouqy.com";
 const viewport = {
     width: "device-width",
     initialScale: 1,
@@ -93,12 +93,12 @@ const metadata = {
     metadataBase: new URL(siteUrl),
     // === CORE SEO ===
     title: {
-        default: "HARMENS — Designed To Be Felt Before It's Seen",
-        template: "%s | HARMENS Interior Design"
+        default: "ROUQY — Where Elegance Meets Artistry",
+        template: "%s | ROUQY"
     },
-    description: "HARMENS is a premier interior design & architecture firm crafting timeless luxury interiors across Saudi Arabia and the Gulf. 200+ projects, 25+ years of experience in residential, commercial, and hospitality design.",
+    description: "ROUQY is a premier design studio crafting timeless luxury experiences across Saudi Arabia and the Gulf. Specializing in interior design, architecture, and bespoke living spaces.",
     keywords: [
-        "HARMENS",
+        "ROUQY",
         "interior design",
         "luxury interiors",
         "architecture",
@@ -117,12 +117,12 @@ const metadata = {
     ],
     authors: [
         {
-            name: "HARMENS",
+            name: "ROUQY",
             url: siteUrl
         }
     ],
-    creator: "HARMENS",
-    publisher: "HARMENS",
+    creator: "ROUQY",
+    publisher: "ROUQY",
     category: "Interior Design & Architecture",
     classification: "Interior Design Services",
     // === FAVICONS & ICONS ===
@@ -148,16 +148,16 @@ const metadata = {
             {
                 url: "/favicon.svg",
                 rel: "mask-icon",
-                color: "#D4AF37"
+                color: "#1d372d"
             }
         ]
     },
     // === OPEN GRAPH (Facebook, LinkedIn, etc.) ===
     openGraph: {
-        title: "HARMENS — Designed To Be Felt Before It's Seen",
-        description: "Premier interior design & architecture firm crafting timeless luxury interiors across Saudi Arabia and the Gulf. 200+ projects, 25+ years of excellence.",
+        title: "ROUQY — Where Elegance Meets Artistry",
+        description: "Premier design studio crafting timeless luxury experiences across Saudi Arabia and the Gulf.",
         url: siteUrl,
-        siteName: "HARMENS",
+        siteName: "ROUQY",
         type: "website",
         locale: "en_US",
         images: [
@@ -165,7 +165,7 @@ const metadata = {
                 url: "/og-image.png",
                 width: 1200,
                 height: 630,
-                alt: "HARMENS — Premier Interior Design & Architecture",
+                alt: "ROUQY — Where Elegance Meets Artistry",
                 type: "image/png"
             }
         ]
@@ -173,13 +173,13 @@ const metadata = {
     // === TWITTER CARD ===
     twitter: {
         card: "summary_large_image",
-        title: "HARMENS — Designed To Be Felt Before It's Seen",
-        description: "Premier interior design & architecture firm crafting timeless luxury interiors across Saudi Arabia and the Gulf.",
+        title: "ROUQY — Where Elegance Meets Artistry",
+        description: "Premier design studio crafting timeless luxury experiences across Saudi Arabia and the Gulf.",
         images: [
             "/og-image.png"
         ],
-        creator: "@harmens",
-        site: "@harmens"
+        creator: "@rouqy",
+        site: "@rouqy"
     },
     // === ROBOTS ===
     robots: {
@@ -201,7 +201,7 @@ const metadata = {
     other: {
         "apple-mobile-web-app-capable": "yes",
         "apple-mobile-web-app-status-bar-style": "black-translucent",
-        "apple-mobile-web-app-title": "HARMENS",
+        "apple-mobile-web-app-title": "ROUQY",
         "format-detection": "telephone=no"
     }
 };
@@ -211,25 +211,15 @@ function RootLayout({ children }) {
         suppressHydrationWarning: true,
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("head", {
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("link", {
-                        rel: "manifest",
-                        href: "/manifest.json"
-                    }, void 0, false, {
-                        fileName: "[project]/src/app/layout.tsx",
-                        lineNumber: 141,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("link", {
-                        rel: "preconnect",
-                        href: "https://images.unsplash.com"
-                    }, void 0, false, {
-                        fileName: "[project]/src/app/layout.tsx",
-                        lineNumber: 142,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("link", {
+                    rel: "manifest",
+                    href: "/manifest.json"
+                }, void 0, false, {
+                    fileName: "[project]/src/app/layout.tsx",
+                    lineNumber: 141,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
                 fileName: "[project]/src/app/layout.tsx",
                 lineNumber: 140,
                 columnNumber: 7
@@ -239,7 +229,7 @@ function RootLayout({ children }) {
                 children: children
             }, void 0, false, {
                 fileName: "[project]/src/app/layout.tsx",
-                lineNumber: 144,
+                lineNumber: 143,
                 columnNumber: 7
             }, this)
         ]
