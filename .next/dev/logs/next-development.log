@@ -369,3 +369,5 @@ It can also happen if the client has a browser extension installed which messes 
 [04:34:42.629] Server  LOG     ✓ Compiled in 279ms
 [04:35:05.456] Server  LOG     ✓ Compiled in 172ms
 [04:35:15.765] Server  LOG     ✓ Compiled in 186ms
+[04:46:54.474] Server  LOG     ✓ Compiled in 223ms
+[04:46:55.801] Browser ERROR   uncaughtError: NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node.
