@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = "https://harmensdesign.com";
+const siteUrl = "https://rouqy.com";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -29,13 +29,13 @@ export const metadata: Metadata = {
 
   // === CORE SEO ===
   title: {
-    default: "HARMENS — Designed To Be Felt Before It's Seen",
-    template: "%s | HARMENS Interior Design",
+    default: "ROUQY — Where Elegance Meets Artistry",
+    template: "%s | ROUQY",
   },
   description:
-    "HARMENS is a premier interior design & architecture firm crafting timeless luxury interiors across Saudi Arabia and the Gulf. 200+ projects, 25+ years of experience in residential, commercial, and hospitality design.",
+    "ROUQY is a premier design studio crafting timeless luxury experiences across Saudi Arabia and the Gulf. Specializing in interior design, architecture, and bespoke living spaces.",
   keywords: [
-    "HARMENS",
+    "ROUQY",
     "interior design",
     "luxury interiors",
     "architecture",
@@ -52,9 +52,9 @@ export const metadata: Metadata = {
     "concept design",
     "space planning",
   ],
-  authors: [{ name: "HARMENS", url: siteUrl }],
-  creator: "HARMENS",
-  publisher: "HARMENS",
+  authors: [{ name: "ROUQY", url: siteUrl }],
+  creator: "ROUQY",
+  publisher: "ROUQY",
   category: "Interior Design & Architecture",
   classification: "Interior Design Services",
 
@@ -68,17 +68,17 @@ export const metadata: Metadata = {
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
     other: [
-      { url: "/favicon.svg", rel: "mask-icon", color: "#D4AF37" },
+      { url: "/favicon.svg", rel: "mask-icon", color: "#1d372d" },
     ],
   },
 
   // === OPEN GRAPH (Facebook, LinkedIn, etc.) ===
   openGraph: {
-    title: "HARMENS — Designed To Be Felt Before It's Seen",
+    title: "ROUQY — Where Elegance Meets Artistry",
     description:
-      "Premier interior design & architecture firm crafting timeless luxury interiors across Saudi Arabia and the Gulf. 200+ projects, 25+ years of excellence.",
+      "Premier design studio crafting timeless luxury experiences across Saudi Arabia and the Gulf.",
     url: siteUrl,
-    siteName: "HARMENS",
+    siteName: "ROUQY",
     type: "website",
     locale: "en_US",
     images: [
@@ -86,7 +86,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "HARMENS — Premier Interior Design & Architecture",
+        alt: "ROUQY — Where Elegance Meets Artistry",
         type: "image/png",
       },
     ],
@@ -95,12 +95,12 @@ export const metadata: Metadata = {
   // === TWITTER CARD ===
   twitter: {
     card: "summary_large_image",
-    title: "HARMENS — Designed To Be Felt Before It's Seen",
+    title: "ROUQY — Where Elegance Meets Artistry",
     description:
-      "Premier interior design & architecture firm crafting timeless luxury interiors across Saudi Arabia and the Gulf.",
+      "Premier design studio crafting timeless luxury experiences across Saudi Arabia and the Gulf.",
     images: ["/og-image.png"],
-    creator: "@harmens",
-    site: "@harmens",
+    creator: "@rouqy",
+    site: "@rouqy",
   },
 
   // === ROBOTS ===
@@ -125,7 +125,7 @@ export const metadata: Metadata = {
   other: {
     "apple-mobile-web-app-capable": "yes",
     "apple-mobile-web-app-status-bar-style": "black-translucent",
-    "apple-mobile-web-app-title": "HARMENS",
+    "apple-mobile-web-app-title": "ROUQY",
     "format-detection": "telephone=no",
   },
 };
@@ -139,7 +139,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="manifest" href="/manifest.json" />
-        <link rel="preconnect" href="https://images.unsplash.com" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#13140f] text-white overflow-x-hidden`}

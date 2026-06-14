@@ -88,7 +88,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
         >
           {/* Full logo — clipped by the drawing progress */}
           <img
-            src="/rouqy-logo-green.png"
+            src="/rouqy-logo-green.svg"
             alt="ROUQY"
             className="absolute inset-0 w-full h-full object-contain"
             style={{

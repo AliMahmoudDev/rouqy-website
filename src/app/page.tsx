@@ -1,38 +1,23 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
-import Image from 'next/image';
+import { useState } from 'react';
 import IntroAnimation from '@/components/IntroAnimation';
 import HeroSection from '@/components/HeroSection';
-import PortfolioSection from '@/components/PortfolioSection';
-import ContactSection from '@/components/ContactSection';
 import CursorGlow from '@/components/CursorGlow';
-import HorizontalGallery3D from '@/components/HorizontalGallery3D';
-
-// Dynamic imports for client-only components
-const Scene3D = dynamic(() => import('@/components/Scene3D'), { ssr: false });
 
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
   const [showContent, setShowContent] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const handleIntroComplete = () => {
     setIntroComplete(true);
     setTimeout(() => setShowContent(true), 100);
   };
 
+  // Nav links for ROUQY
   const navLinks = [
-    { label: 'Portfolio', href: '#portfolio' },
+    { label: 'About', href: '#about' },
+    { label: 'Projects', href: '#projects' },
     { label: 'Contact', href: '#contact' },
   ];
 
@@ -41,103 +26,52 @@ export default function Home() {
       {/* Custom Cursor Glow Effect */}
       <CursorGlow />
 
-      {/* CSS Background Scene — no WebGL, no lag */}
-      <Scene3D />
-
-      {/* Navigation Bar */}
+      {/* Navigation Bar — minimal, matches reference */}
       {introComplete && (
         <nav
-          className="hidden md:block fixed top-0 left-0 right-0 z-50"
+          className="fixed top-0 left-0 right-0 z-50"
           style={{
             transform: showContent ? 'translateY(0)' : 'translateY(-100%)',
             transition: 'transform 0.7s cubic-bezier(0.65, 0.05, 0, 1)',
           }}
         >
-          {/* Nav background */}
-          <div
-            className="absolute inset-0 transition-all duration-500"
-            style={{
-              background: scrolled
-                ? 'rgba(19, 20, 15, 0.92)'
-                : 'rgba(19, 20, 15, 0.4)',
-              backdropFilter: scrolled
-                ? 'blur(20px) saturate(180%)'
-                : 'blur(8px)',
-              WebkitBackdropFilter: scrolled
-                ? 'blur(20px) saturate(180%)'
-                : 'blur(8px)',
-              borderBottom: '1px solid rgba(42, 58, 46, 0.2)',
-            }}
-          />
-
-          {/* Mobile: centered logo only | Desktop: logo left + nav right */}
-          <div className="relative max-w-7xl mx-auto px-5 md:px-12 h-16 md:h-20 flex items-center justify-center md:justify-between">
-            {/* Logo */}
-            <a
-              href="#hero"
-              className="flex items-center group"
-            >
-              <div className="relative w-14 h-14 md:w-14 md:h-14 group-hover:scale-105 transition-transform duration-300">
-                <Image
-                  src="/harmens-logo-tran.png"
-                  alt="HARMENS"
-                  width={56}
-                  height={56}
-                  className="w-full h-full object-contain"
-                  style={{
-                    filter: 'drop-shadow(0 0 12px rgba(212,175,55,0.3))',
-                  }}
-                  priority
-                />
-              </div>
+          <div className="max-w-7xl mx-auto px-6 md:px-12 py-8 md:py-10 flex items-center justify-between">
+            {/* Logo — ROUQY icon */}
+            <a href="#hero" className="flex items-center group">
+              <img
+                src="/rouqy-logo-white.svg"
+                alt="ROUQY"
+                className="h-7 md:h-8 object-contain group-hover:scale-105 transition-transform duration-300"
+              />
             </a>
 
-            {/* Desktop Nav Links */}
-            <div className="hidden md:flex items-center gap-8">
+            {/* Nav Links */}
+            <div className="flex items-center gap-8 md:gap-10">
               {navLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
-                  className="text-[#A0AEC0]/70 text-xs tracking-[0.3em] uppercase hover:text-white transition-all duration-300 relative group"
+                  className="text-white/70 text-xs md:text-sm tracking-[0.2em] uppercase hover:text-white transition-colors duration-300 font-light"
                 >
                   {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-gradient-to-r from-[#1d372d] to-[#D4AF37] group-hover:w-full transition-all duration-500" />
                 </a>
               ))}
-              <a
-                href="#contact"
-                className="text-[10px] tracking-[0.3em] uppercase px-5 py-2 border border-[#1d372d]/30 text-[#8fbfa8] hover:bg-[#1d372d]/10 hover:border-[#1d372d]/60 hover:shadow-[0_0_20px_rgba(29,55,45,0.15)] transition-all duration-300"
-              >
-                Get In Touch
-              </a>
             </div>
           </div>
         </nav>
       )}
 
-      {/* Cinematic Intro Animation */}
+      {/* Intro / Loading Animation */}
       {!introComplete && <IntroAnimation onComplete={handleIntroComplete} />}
 
-      {/* Main Content — appears with CSS entrance animations */}
+      {/* Hero Section only — other sections hidden while we focus on Hero */}
       <div
         style={{
           opacity: showContent ? 1 : 0,
           transition: 'opacity 0.8s cubic-bezier(0.65, 0.05, 0, 1)',
         }}
       >
-        {showContent && (
-          <>
-            <HeroSection introComplete={introComplete} />
-            <div className="section-divider relative z-10 -mt-8 md:-mt-12" />
-            <PortfolioSection />
-            <div className="section-divider relative z-10" />
-            
-            {/* ====== 3D EFFECT SECTIONS (Experimental) ====== */}
-            <HorizontalGallery3D />
-            <div className="section-divider relative z-10" />
-            <ContactSection />
-          </>
-        )}
+        {showContent && <HeroSection introComplete={introComplete} />}
       </div>
     </main>
   );
