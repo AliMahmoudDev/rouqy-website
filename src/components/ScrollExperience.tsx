@@ -97,7 +97,10 @@ export default function ScrollExperience() {
         ease: 'power2.in',
       }, '<');
 
-      // --- PHASE 2: Logo appears centered (4-5%) ---
+      // --- Brief pause after hero fades, before logo appears ---
+      mainTl.to({}, { duration: 4 });
+
+      // --- PHASE 2: Logo appears centered ---
       mainTl.fromTo(logoSvgRef.current, 
         { opacity: 0, scale: 0.9 },
         { opacity: 1, scale: 1, duration: 1, ease: 'power2.out' }
