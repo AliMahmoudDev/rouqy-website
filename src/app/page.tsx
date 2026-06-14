@@ -4,6 +4,7 @@ import { useState } from 'react';
 import IntroAnimation from '@/components/IntroAnimation';
 import ScrollExperience from '@/components/ScrollExperience';
 import CursorGlow from '@/components/CursorGlow';
+import Navbar from '@/components/Navbar';
 
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
@@ -18,6 +19,9 @@ export default function Home() {
     <main className="relative min-h-screen bg-[#13140f]">
       {/* Custom Cursor Glow Effect */}
       <CursorGlow />
+
+      {/* Navbar — logo only, appears after scroll */}
+      {showContent && <Navbar />}
 
       {/* Intro / Loading Animation */}
       {!introComplete && <IntroAnimation onComplete={handleIntroComplete} />}
