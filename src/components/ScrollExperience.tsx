@@ -200,8 +200,8 @@ export default function ScrollExperience() {
 
       // --- PHASE 8: SAME logo slides RIGHT (66-82%) ---
       mainTl.to(logoSvgRef.current, {
-        x: '20vw',
-        scale: 0.55,
+        x: '12vw',
+        scale: 0.6,
         duration: 0.16,
         ease: 'power2.inOut',
       });
@@ -371,7 +371,7 @@ export default function ScrollExperience() {
         {/* About Text — absolutely positioned LEFT, hidden initially */}
         <div
           ref={aboutTextRef}
-          className="absolute left-5 md:left-16 lg:left-24 top-1/2 -translate-y-1/2 max-w-[45vw] md:max-w-lg"
+          className="absolute left-[8vw] md:left-[12vw] lg:left-[15vw] top-1/2 -translate-y-1/2 max-w-[40vw] md:max-w-md lg:max-w-lg"
           style={{ opacity: 0 }}
         >
           <h2 className="about-line text-white text-2xl md:text-5xl lg:text-6xl font-bold tracking-[0.15em] md:tracking-[0.2em] uppercase mb-4 md:mb-8">
