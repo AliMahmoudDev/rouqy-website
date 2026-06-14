@@ -75,9 +75,9 @@ export default function ScrollExperience() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end: '+=900vh',
+          end: '+=1100vh',
           pin: true,
-          scrub: 2,
+          scrub: 3,
           anticipatePin: 1,
         },
       });
@@ -117,17 +117,19 @@ export default function ScrollExperience() {
       });
 
       // --- PHASE 4: STROKE DRAWS starting at 6% ---
-      // Drawing from 6% to 50% = 44% of 900vh = ~396vh of scrolling
+      // Drawing from 6% to 52% = 46% of 1100vh = ~506vh of scrolling (slower!)
       const DRAW_START = 0.06;
-      const DRAW_DURATION = 0.44;
+      const DRAW_DURATION = 0.46;
       mainTl.to(strokePathRef.current, {
         strokeDashoffset: 0,
         duration: DRAW_DURATION,
         ease: 'none',
         onUpdate: function() {
           if (!strokePathRef.current || !penTipRef.current) return;
-          const progress = this.progress();
-          const drawProgress = Math.max(0, Math.min(1, (progress - DRAW_START) / DRAW_DURATION));
+          // Read ACTUAL strokeDashoffset from DOM to sync pen tip with visible stroke
+          // This accounts for scrub smoothing delay
+          const currentOffset = parseFloat(strokePathRef.current.style.strokeDashoffset) || 0;
+          const drawProgress = pathLen > 0 ? Math.max(0, Math.min(1, 1 - (currentOffset / pathLen))) : 0;
           
           if (drawProgress > 0.005 && drawProgress < 0.995) {
             try {
@@ -200,8 +202,8 @@ export default function ScrollExperience() {
 
       // --- PHASE 8: SAME logo slides RIGHT (66-82%) ---
       mainTl.to(logoSvgRef.current, {
-        x: '12vw',
-        scale: 0.6,
+        x: '18vw',
+        scale: 0.55,
         duration: 0.16,
         ease: 'power2.inOut',
       });
@@ -371,7 +373,7 @@ export default function ScrollExperience() {
         {/* About Text — absolutely positioned LEFT, hidden initially */}
         <div
           ref={aboutTextRef}
-          className="absolute left-[8vw] md:left-[12vw] lg:left-[15vw] top-1/2 -translate-y-1/2 max-w-[40vw] md:max-w-md lg:max-w-lg"
+          className="absolute left-5 md:left-16 lg:left-24 top-1/2 -translate-y-1/2 max-w-[42vw] md:max-w-lg"
           style={{ opacity: 0 }}
         >
           <h2 className="about-line text-white text-2xl md:text-5xl lg:text-6xl font-bold tracking-[0.15em] md:tracking-[0.2em] uppercase mb-4 md:mb-8">

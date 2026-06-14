@@ -1771,6 +1771,10 @@
     max-width: 40vw;
   }
 
+  .max-w-\[42vw\] {
+    max-width: 42vw;
+  }
+
   .max-w-\[45vw\] {
     max-width: 45vw;
   }
