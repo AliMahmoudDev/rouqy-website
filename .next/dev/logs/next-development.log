@@ -1,5 +1,5 @@
-[00:00:00.891] Server  LOG     ✓ Ready in 693ms
-[00:00:11.389] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+[00:00:00.849] Server  LOG     ✓ Ready in 658ms
+[00:00:10.250] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -82,5 +82,5 @@ It can also happen if the client has a browser extension installed which messes 
                 ...
               ...
 
-[00:00:11.414] Server  WARN    ⚠ Cross origin request detected from preview-chat-fcf377a0-3509-48b8-908c-b8cae8452ac4.space-z.ai to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+[00:00:10.285] Server  WARN    ⚠ Cross origin request detected from preview-chat-fcf377a0-3509-48b8-908c-b8cae8452ac4.space-z.ai to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
 Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
