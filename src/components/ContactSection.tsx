@@ -1,12 +1,13 @@
 'use client';
 
-import { Instagram, Mail, Send, ArrowUpRight } from 'lucide-react';
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import useScrollReveal from '@/hooks/useScrollReveal';
-import useParallax3D from '@/hooks/useParallax3D';
+import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Instagram, Mail, ArrowUpRight, Phone, MapPin } from 'lucide-react';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const budgetRanges = [
   '$50K - $100K',
@@ -15,14 +16,222 @@ const budgetRanges = [
   '$500K+',
 ];
 
+const contactInfo = [
+  {
+    icon: Instagram,
+    label: 'Instagram',
+    value: '@rouqy.design',
+    href: 'https://www.instagram.com/rouqy.design/',
+  },
+  {
+    icon: Mail,
+    label: 'Email',
+    value: 'info@rouqy.com',
+    href: 'mailto:info@rouqy.com',
+  },
+  {
+    icon: Phone,
+    label: 'Phone',
+    value: '+966 XX XXX XXXX',
+    href: 'tel:+966XXXXXXXXX',
+  },
+  {
+    icon: MapPin,
+    label: 'Location',
+    value: 'Riyadh, Saudi Arabia',
+    href: null,
+  },
+];
+
+const stats = [
+  { value: '200+', label: 'Projects Completed' },
+  { value: '15+', label: 'Years Experience' },
+  { value: '24h', label: 'Response Time' },
+  { value: '98%', label: 'Client Satisfaction' },
+];
+
+/**
+ * Contact Section — Professional form + info, ROUQY branded
+ * 
+ * Dark green theme with scroll-driven GSAP animations.
+ * Left: Contact form with name, email, budget, message.
+ * Right: Stats, contact links, social.
+ * Bottom: Minimal footer.
+ */
 export default function ContactSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [selectedBudget, setSelectedBudget] = useState<string>('');
   const [formState, setFormState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
-  const sectionRef = useScrollReveal<HTMLElement>({
-    threshold: 0.08,
-    rootMargin: '0px 0px -40px 0px',
-  });
-  const parallaxRef = useParallax3D<HTMLElement>();
+  const [focusedField, setFocusedField] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    let ctx: gsap.Context | null = null;
+    const timer = setTimeout(() => {
+      if (!containerRef.current) return;
+
+      ScrollTrigger.refresh();
+
+      ctx = gsap.context(() => {
+        // Header animation
+        const header = containerRef.current!.querySelector('.contact-header');
+        if (header) {
+          gsap.fromTo(header,
+            { y: 60, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 1,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: header,
+                start: 'top 85%',
+                end: 'top 50%',
+                scrub: 1.2,
+              },
+            }
+          );
+        }
+
+        // Form container animation
+        const formContainer = containerRef.current!.querySelector('.contact-form-container');
+        if (formContainer) {
+          gsap.fromTo(formContainer,
+            { y: 80, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 1,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: formContainer,
+                start: 'top 85%',
+                end: 'top 45%',
+                scrub: 1.2,
+              },
+            }
+          );
+        }
+
+        // Info container animation
+        const infoContainer = containerRef.current!.querySelector('.contact-info-container');
+        if (infoContainer) {
+          gsap.fromTo(infoContainer,
+            { y: 80, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 1,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: infoContainer,
+                start: 'top 82%',
+                end: 'top 42%',
+                scrub: 1.2,
+              },
+            }
+          );
+        }
+
+        // Stats stagger
+        const statItems = containerRef.current!.querySelectorAll('.stat-item');
+        statItems.forEach((item, i) => {
+          gsap.fromTo(item,
+            { y: 40, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+              delay: i * 0.1,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: item,
+                start: 'top 90%',
+                end: 'top 55%',
+                scrub: 1,
+              },
+            }
+          );
+        });
+
+        // Contact links stagger
+        const contactLinks = containerRef.current!.querySelectorAll('.contact-link');
+        contactLinks.forEach((link, i) => {
+          gsap.fromTo(link,
+            { x: 30, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              duration: 0.8,
+              delay: i * 0.1,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: link,
+                start: 'top 90%',
+                end: 'top 55%',
+                scrub: 1,
+              },
+            }
+          );
+        });
+
+        // Footer animation
+        const footer = containerRef.current!.querySelector('.contact-footer');
+        if (footer) {
+          gsap.fromTo(footer,
+            { y: 30, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: footer,
+                start: 'top 95%',
+                end: 'top 80%',
+                scrub: 1,
+              },
+            }
+          );
+        }
+
+      }, containerRef);
+    }, 600);
+
+    return () => {
+      clearTimeout(timer);
+      if (ctx) ctx.revert();
+    };
+  }, []);
+
+  // IntersectionObserver fallback
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target as HTMLElement;
+            const computedOpacity = window.getComputedStyle(el).opacity;
+            if (parseFloat(computedOpacity) < 0.1) {
+              gsap.to(el, { opacity: 1, y: 0, x: 0, duration: 0.8, ease: 'power2.out' });
+            }
+            observer.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
+    );
+
+    const elements = containerRef.current.querySelectorAll(
+      '.contact-header, .contact-form-container, .contact-info-container, .stat-item, .contact-link, .contact-footer'
+    );
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,6 +241,7 @@ export default function ContactSection() {
     const data = {
       name: formData.get('name'),
       email: formData.get('email'),
+      phone: formData.get('phone'),
       message: formData.get('message'),
       budget: selectedBudget,
     };
@@ -47,138 +257,133 @@ export default function ContactSection() {
         setFormState('sent');
         (e.target as HTMLFormElement).reset();
         setSelectedBudget('');
+        setTimeout(() => setFormState('idle'), 4000);
       } else {
         setFormState('error');
+        setTimeout(() => setFormState('idle'), 3000);
       }
     } catch {
       setFormState('error');
+      setTimeout(() => setFormState('idle'), 3000);
     }
   };
 
+  const inputClasses = (fieldName: string) =>
+    `w-full bg-transparent border-b text-white placeholder:text-white/20 text-sm md:text-base py-3 md:py-4 transition-all duration-500 outline-none ${
+      focusedField === fieldName
+        ? 'border-[#8fbfa8]'
+        : 'border-[#2a3a2e] hover:border-white/20'
+    }`;
+
   return (
-    <section
-      ref={(node) => {
-        (sectionRef as React.MutableRefObject<HTMLElement | null>).current = node;
-        (parallaxRef as React.MutableRefObject<HTMLElement | null>).current = node;
-      }}
-      id="contact" className="relative z-10 py-16 md:py-32 px-4 md:px-8 overflow-hidden"
-    >
-      {/* Background gradient animation */}
-      <div className="absolute inset-0 pointer-events-none bg-mesh" />
-
-      {/* Animated grid lines — architectural blueprint style (hidden on mobile) */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.02] hidden md:block" style={{
-        backgroundImage: `
-          linear-gradient(rgba(29,55,45,0.3) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(29,55,45,0.3) 1px, transparent 1px)
-        `,
-        backgroundSize: '80px 80px',
-      }} />
-
-      {/* Decorative orbs (smaller on mobile) — parallax depth */}
+    <div ref={containerRef} className="relative bg-[#13140f]">
+      {/* Subtle background glow */}
       <div
-        className="absolute w-[200px] md:w-[400px] h-[200px] md:h-[400px] rounded-full pointer-events-none animate-breathe"
-        data-parallax-depth="0.2"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(circle, rgba(29,55,45,0.05) 0%, transparent 70%)',
-          top: '20%',
-          left: '-10%',
-          filter: 'blur(50px)',
-        }}
-      />
-      <div
-        className="absolute w-[150px] md:w-[300px] h-[150px] md:h-[300px] rounded-full pointer-events-none"
-        data-parallax-depth="0.35"
-        style={{
-          background: 'radial-gradient(circle, rgba(212,175,55,0.04) 0%, transparent 70%)',
-          bottom: '30%',
-          right: '-5%',
-          filter: 'blur(40px)',
-          animation: 'breathe 5s ease-in-out infinite 1.5s',
+          background: 'radial-gradient(ellipse 60% 40% at 70% 50%, rgba(29,55,45,0.04) 0%, transparent 70%)',
         }}
       />
 
-      {/* Floating geometric accents (hidden on mobile) */}
-      <div
-        className="absolute pointer-events-none hidden md:block"
-        style={{
-          width: 60,
-          height: 60,
-          top: '10%',
-          right: '8%',
-          border: '1px solid rgba(212,175,55,0.08)',
-          transform: 'rotate(45deg)',
-          animation: 'float-rotate 8s ease-in-out infinite, breathe 5s ease-in-out infinite',
-        }}
-      />
-      <div
-        className="absolute pointer-events-none hidden md:block"
-        style={{
-          width: 40,
-          height: 40,
-          bottom: '20%',
-          left: '5%',
-          border: '1px solid rgba(29,55,45,0.06)',
-          borderRadius: '50%',
-          animation: 'float 7s ease-in-out infinite 1s',
-        }}
-      />
-
-      <div className="max-w-7xl mx-auto relative">
-        {/* Section Header — 3D entrance */}
-        <div className="mb-10 md:mb-20" data-parallax-depth="0.4">
-          <p data-sr="fold-in" data-sr-delay="1" data-sr-duration="slow" className="text-[#8fbfa8] text-xs md:text-sm tracking-[0.3em] md:tracking-[0.4em] uppercase mb-3 md:mb-4">Contact</p>
-          <h2 data-sr="zoom-3d" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="far" className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
-            Let&apos;s Create <span className="animate-text-gradient">Together</span>
+      <section className="relative z-10 py-20 md:py-36 px-5 md:px-16 lg:px-24">
+        {/* Section Header */}
+        <div className="contact-header mb-12 md:mb-20" style={{ opacity: 0 }}>
+          <span className="block text-[#8fbfa8]/50 text-[10px] md:text-xs tracking-[0.4em] md:tracking-[0.5em] uppercase font-light mb-4 md:mb-6">
+            Get in Touch
+          </span>
+          <h2 className="text-white text-3xl md:text-5xl lg:text-7xl font-bold tracking-[0.1em] md:tracking-[0.15em] uppercase">
+            Contact
           </h2>
-          <div data-sr="clip-left" data-sr-delay="5" data-sr-duration="slow" className="mt-4 w-16 h-[2px] bg-[#8fbfa8]" />
+          <div className="w-12 md:w-16 h-[1px] bg-[#8fbfa8]/30 mt-4 md:mt-6" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 lg:gap-24">
-          {/* Contact Form — 3D fold from left */}
-          <div data-sr="fold-in" data-sr-delay="3" data-sr-duration="grand" data-sr-distance="far">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div data-sr="up" data-sr-delay="4" data-sr-duration="slow" data-sr-distance="near" className="space-y-2">
-                <label htmlFor="name" className="text-[#A0AEC0] text-sm tracking-wider uppercase">
-                  Name
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 lg:gap-24 max-w-7xl">
+          {/* Left — Contact Form */}
+          <div className="contact-form-container" style={{ opacity: 0 }}>
+            <form onSubmit={handleSubmit} className="space-y-8 md:space-y-10">
+              {/* Name */}
+              <div className="relative">
+                <label className="block text-[#8fbfa8]/40 text-[10px] md:text-xs tracking-[0.3em] uppercase mb-2 transition-colors duration-300">
+                  {focusedField === 'name' ? 'Your Name' : 'Name'}
                 </label>
-                <Input
+                <input
                   id="name"
                   name="name"
+                  type="text"
                   required
-                  className="bg-transparent border-[#2a3a2e] text-white placeholder:text-[#A0AEC0]/40 focus:border-[#1d372d] rounded-none h-12 text-base transition-all duration-300 focus:shadow-[0_0_15px_rgba(29,55,45,0.15)]"
-                  placeholder="Your full name"
+                  className={inputClasses('name')}
+                  placeholder="Full name"
+                  onFocus={() => setFocusedField('name')}
+                  onBlur={() => setFocusedField(null)}
+                />
+                <div
+                  className="absolute bottom-0 left-0 h-[1px] bg-[#8fbfa8] transition-all duration-500"
+                  style={{
+                    width: focusedField === 'name' ? '100%' : '0%',
+                  }}
                 />
               </div>
 
-              <div data-sr="up" data-sr-delay="5" data-sr-duration="slow" data-sr-distance="near" className="space-y-2">
-                <label htmlFor="email" className="text-[#A0AEC0] text-sm tracking-wider uppercase">
-                  Email
+              {/* Email */}
+              <div className="relative">
+                <label className="block text-[#8fbfa8]/40 text-[10px] md:text-xs tracking-[0.3em] uppercase mb-2 transition-colors duration-300">
+                  {focusedField === 'email' ? 'Your Email' : 'Email'}
                 </label>
-                <Input
+                <input
                   id="email"
                   name="email"
                   type="email"
                   required
-                  className="bg-transparent border-[#2a3a2e] text-white placeholder:text-[#A0AEC0]/40 focus:border-[#1d372d] rounded-none h-12 text-base transition-all duration-300 focus:shadow-[0_0_15px_rgba(29,55,45,0.15)]"
+                  className={inputClasses('email')}
                   placeholder="your@email.com"
+                  onFocus={() => setFocusedField('email')}
+                  onBlur={() => setFocusedField(null)}
+                />
+                <div
+                  className="absolute bottom-0 left-0 h-[1px] bg-[#8fbfa8] transition-all duration-500"
+                  style={{
+                    width: focusedField === 'email' ? '100%' : '0%',
+                  }}
                 />
               </div>
 
-              <div data-sr="up" data-sr-delay="6" data-sr-duration="slow" data-sr-distance="near" className="space-y-2">
-                <label className="text-[#A0AEC0] text-sm tracking-wider uppercase">
+              {/* Phone */}
+              <div className="relative">
+                <label className="block text-[#8fbfa8]/40 text-[10px] md:text-xs tracking-[0.3em] uppercase mb-2 transition-colors duration-300">
+                  {focusedField === 'phone' ? 'Your Phone' : 'Phone'}
+                </label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  className={inputClasses('phone')}
+                  placeholder="+966 XX XXX XXXX"
+                  onFocus={() => setFocusedField('phone')}
+                  onBlur={() => setFocusedField(null)}
+                />
+                <div
+                  className="absolute bottom-0 left-0 h-[1px] bg-[#8fbfa8] transition-all duration-500"
+                  style={{
+                    width: focusedField === 'phone' ? '100%' : '0%',
+                  }}
+                />
+              </div>
+
+              {/* Budget Range */}
+              <div>
+                <label className="block text-[#8fbfa8]/40 text-[10px] md:text-xs tracking-[0.3em] uppercase mb-3">
                   Budget Range
                 </label>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 md:gap-3">
                   {budgetRanges.map((range) => (
                     <button
                       key={range}
                       type="button"
-                      onClick={() => setSelectedBudget(range)}
-                      className={`px-4 py-2 text-xs tracking-wider uppercase border transition-all duration-300 ${
+                      onClick={() => setSelectedBudget(range === selectedBudget ? '' : range)}
+                      className={`px-3 md:px-4 py-2 text-[10px] md:text-xs tracking-[0.15em] uppercase border transition-all duration-400 ${
                         selectedBudget === range
-                          ? 'border-[#1d372d] bg-[#1d372d]/10 text-[#8fbfa8] shadow-[0_0_15px_rgba(29,55,45,0.2)]'
-                          : 'border-[#2a3a2e] text-[#A0AEC0] hover:border-[#8fbfa8]/50 hover:text-[#8fbfa8]'
+                          ? 'border-[#8fbfa8]/60 bg-[#1d372d]/20 text-[#8fbfa8]'
+                          : 'border-[#2a3a2e] text-white/30 hover:border-white/20 hover:text-white/50'
                       }`}
                     >
                       {range}
@@ -187,133 +392,166 @@ export default function ContactSection() {
                 </div>
               </div>
 
-              <div data-sr="up" data-sr-delay="7" data-sr-duration="slow" data-sr-distance="near" className="space-y-2">
-                <label htmlFor="message" className="text-[#A0AEC0] text-sm tracking-wider uppercase">
-                  Message
+              {/* Message */}
+              <div className="relative">
+                <label className="block text-[#8fbfa8]/40 text-[10px] md:text-xs tracking-[0.3em] uppercase mb-2 transition-colors duration-300">
+                  {focusedField === 'message' ? 'Tell Us About Your Project' : 'Message'}
                 </label>
-                <Textarea
+                <textarea
                   id="message"
                   name="message"
                   required
-                  rows={5}
-                  className="bg-transparent border-[#2a3a2e] text-white placeholder:text-[#A0AEC0]/40 focus:border-[#1d372d] rounded-none text-base resize-none transition-all duration-300 focus:shadow-[0_0_15px_rgba(29,55,45,0.15)]"
-                  placeholder="Tell us about your project..."
+                  rows={4}
+                  className={`${inputClasses('message')} resize-none`}
+                  placeholder="Describe your vision..."
+                  onFocus={() => setFocusedField('message')}
+                  onBlur={() => setFocusedField(null)}
+                />
+                <div
+                  className="absolute bottom-0 left-0 h-[1px] bg-[#8fbfa8] transition-all duration-500"
+                  style={{
+                    width: focusedField === 'message' ? '100%' : '0%',
+                  }}
                 />
               </div>
 
-              <div data-sr="up" data-sr-delay="8" data-sr-duration="slow" data-sr-distance="near">
-                <Button
-                  type="submit"
-                  disabled={formState === 'sending'}
-                  className="group w-full md:w-auto bg-[#1d372d] hover:bg-[#2a5a45] text-white tracking-widest uppercase text-sm h-12 px-10 rounded-none border border-[#1d372d] hover:border-[#2a5a45] transition-all duration-300 hover:shadow-[0_0_30px_rgba(29,55,45,0.3)] flex items-center gap-3"
-                >
-                  {formState === 'sending' ? 'Sending...' : formState === 'sent' ? 'Message Sent!' : 'Send Message'}
-                  <Send className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </Button>
-              </div>
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={formState === 'sending'}
+                className="group relative w-full md:w-auto overflow-hidden border border-[#8fbfa8]/30 text-[#8fbfa8] tracking-[0.25em] uppercase text-xs md:text-sm h-12 md:h-14 px-10 md:px-14 transition-all duration-500 hover:border-[#8fbfa8] hover:text-white"
+              >
+                {/* Hover fill effect */}
+                <span
+                  className="absolute inset-0 bg-[#8fbfa8] origin-left transition-transform duration-500 ease-out"
+                  style={{
+                    transform: formState === 'sending' || formState === 'sent'
+                      ? 'scaleX(1)'
+                      : 'scaleX(0)',
+                    transformOrigin: 'left',
+                  }}
+                />
+                <span className="relative z-10 flex items-center justify-center gap-3">
+                  {formState === 'sending' ? (
+                    'Sending...'
+                  ) : formState === 'sent' ? (
+                    'Sent Successfully'
+                  ) : formState === 'error' ? (
+                    'Try Again'
+                  ) : (
+                    <>
+                      Send Message
+                      <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </>
+                  )}
+                </span>
+              </button>
 
+              {/* Status Messages */}
               {formState === 'sent' && (
-                <p className="text-[#8fbfa8] text-sm mt-2" style={{ animation: 'fade-in-up 0.5s ease forwards' }}>
+                <p className="text-[#8fbfa8]/70 text-xs md:text-sm tracking-wider">
                   Thank you! We&apos;ll get back to you within 24 hours.
                 </p>
               )}
               {formState === 'error' && (
-                <p className="text-red-400 text-sm mt-2" style={{ animation: 'fade-in-up 0.5s ease forwards' }}>
+                <p className="text-red-400/70 text-xs md:text-sm tracking-wider">
                   Something went wrong. Please try again.
                 </p>
               )}
             </form>
           </div>
 
-          {/* Contact Info — 3D fold from right */}
-          <div data-sr="fold-in-right" data-sr-delay="4" data-sr-duration="grand" data-sr-distance="far" className="space-y-10">
-            {/* Stats */}
-            <div className="grid grid-cols-2 gap-4 md:gap-8">
-              {[
-                { value: '200+', label: 'Projects Completed' },
-                { value: '25+', label: 'Years Experience' },
-                { value: '24h', label: 'Response Time' },
-                { value: '580+', label: 'Sq Meters Largest Project' },
-              ].map((stat, i) => (
-                <div key={stat.label} data-sr="up" data-sr-delay={String(i * 2 + 4)} data-sr-duration="slow" data-sr-distance="near" className="group cursor-default">
-                  <p className="text-2xl md:text-4xl font-bold text-white tracking-tight transition-colors duration-300 group-hover:text-[#8fbfa8]">
+          {/* Right — Info & Stats */}
+          <div className="contact-info-container space-y-10 md:space-y-14" style={{ opacity: 0 }}>
+            {/* Stats Grid */}
+            <div className="grid grid-cols-2 gap-6 md:gap-8">
+              {stats.map((stat) => (
+                <div key={stat.label} className="stat-item group cursor-default" style={{ opacity: 0 }}>
+                  <p className="text-2xl md:text-4xl font-bold text-white tracking-tight transition-colors duration-500 group-hover:text-[#8fbfa8]">
                     {stat.value}
                   </p>
-                  <p className="text-[#A0AEC0] text-sm tracking-wider uppercase mt-1">{stat.label}</p>
-                  <div className="mt-2 h-[1px] w-0 group-hover:w-full bg-gradient-to-r from-[#1d372d] to-[#D4AF37] transition-all duration-500" />
+                  <p className="text-white/25 text-[10px] md:text-xs tracking-[0.2em] uppercase mt-1">
+                    {stat.label}
+                  </p>
+                  <div className="mt-2 h-[1px] w-0 group-hover:w-full bg-gradient-to-r from-[#8fbfa8]/40 to-transparent transition-all duration-700" />
                 </div>
               ))}
             </div>
 
-            {/* Divider with animation */}
-            <div data-sr="clip-left" data-sr-delay="8" data-sr-duration="slow" className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#2a3a2e] to-transparent" />
+            {/* Divider */}
+            <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#2a3a2e] to-transparent" />
 
             {/* Contact Links */}
-            <div className="space-y-6">
-              <a
-                href="https://www.instagram.com/harmens.design/"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-sr="right"
-                data-sr-delay="6"
-                data-sr-duration="slow"
-                data-sr-distance="near"
-                className="group flex items-center gap-4 text-white hover:text-[#8fbfa8] transition-colors duration-300"
-              >
-                <div className="w-12 h-12 border border-[#2a3a2e] group-hover:border-[#1d372d] group-hover:shadow-[0_0_15px_rgba(29,55,45,0.2)] flex items-center justify-center transition-all duration-300">
-                  <Instagram className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="text-sm tracking-wider uppercase text-[#A0AEC0]">Instagram</p>
-                  <p className="text-base font-medium">@harmens.design</p>
-                </div>
-                <ArrowUpRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0 text-[#8fbfa8]" />
-              </a>
+            <div className="space-y-4 md:space-y-5">
+              {contactInfo.map((item) => {
+                const Icon = item.icon;
+                const content = (
+                  <div
+                    key={item.label}
+                    className="contact-link group flex items-center gap-4 transition-colors duration-300"
+                    style={{ opacity: 0 }}
+                  >
+                    <div className="w-10 h-10 md:w-12 md:h-12 border border-[#2a3a2e] group-hover:border-[#8fbfa8]/30 flex items-center justify-center transition-all duration-400">
+                      <Icon className="w-4 h-4 md:w-5 md:h-5 text-white/40 group-hover:text-[#8fbfa8] transition-colors duration-300" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-[#8fbfa8]/30 text-[10px] md:text-xs tracking-[0.25em] uppercase">
+                        {item.label}
+                      </p>
+                      <p className="text-white/60 text-sm md:text-base group-hover:text-white transition-colors duration-300">
+                        {item.value}
+                      </p>
+                    </div>
+                    {item.href && (
+                      <ArrowUpRight className="w-4 h-4 text-[#8fbfa8] opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-1 group-hover:translate-x-0" />
+                    )}
+                  </div>
+                );
 
-              <a
-                href="mailto:info@harmensdesign.com"
-                data-sr="right"
-                data-sr-delay="7"
-                data-sr-duration="slow"
-                data-sr-distance="near"
-                className="group flex items-center gap-4 text-white hover:text-[#8fbfa8] transition-colors duration-300"
-              >
-                <div className="w-12 h-12 border border-[#2a3a2e] group-hover:border-[#1d372d] group-hover:shadow-[0_0_15px_rgba(29,55,45,0.2)] flex items-center justify-center transition-all duration-300">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <p className="text-sm tracking-wider uppercase text-[#A0AEC0]">Email</p>
-                  <p className="text-base font-medium">info@harmensdesign.com</p>
-                </div>
-                <ArrowUpRight className="w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0 text-[#8fbfa8]" />
-              </a>
+                if (item.href) {
+                  return (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      target={item.href.startsWith('http') ? '_blank' : undefined}
+                      rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="block"
+                    >
+                      {content}
+                    </a>
+                  );
+                }
+                return <div key={item.label}>{content}</div>;
+              })}
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Footer — 3D helix entrance */}
-      <div data-sr="helix" data-sr-delay="3" data-sr-duration="grand" className="mt-16 md:mt-32 pt-6 md:pt-8 border-t border-[#2a3a2e]" data-parallax-depth="0.5">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-[#A0AEC0] text-sm">
-          <p className="tracking-wider">&copy; {new Date().getFullYear()} HARMENS. All rights reserved.</p>
+      {/* Footer */}
+      <div className="contact-footer px-5 md:px-16 lg:px-24 py-6 md:py-8 border-t border-[#2a3a2e]/50" style={{ opacity: 0 }}>
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-white/20 text-[10px] md:text-xs tracking-[0.2em] uppercase">
+            &copy; {new Date().getFullYear()} ROUQY. All rights reserved.
+          </p>
           <div className="flex items-center gap-6">
             <a
-              href="https://www.instagram.com/harmens.design/"
+              href="https://www.instagram.com/rouqy.design/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-[#8fbfa8] transition-colors duration-300 tracking-wider uppercase text-xs"
+              className="text-white/20 hover:text-[#8fbfa8]/60 transition-colors duration-300 tracking-[0.2em] uppercase text-[10px] md:text-xs"
             >
               Instagram
             </a>
             <a
-              href="mailto:info@harmensdesign.com"
-              className="hover:text-[#8fbfa8] transition-colors duration-300 tracking-wider uppercase text-xs"
+              href="mailto:info@rouqy.com"
+              className="text-white/20 hover:text-[#8fbfa8]/60 transition-colors duration-300 tracking-[0.2em] uppercase text-[10px] md:text-xs"
             >
               Email
             </a>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

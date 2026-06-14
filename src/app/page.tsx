@@ -6,6 +6,7 @@ import ScrollExperience from '@/components/ScrollExperience';
 import CursorGlow from '@/components/CursorGlow';
 import Navbar from '@/components/Navbar';
 import PortfolioSection from '@/components/PortfolioSection';
+import ContactSection from '@/components/ContactSection';
 
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
@@ -39,6 +40,9 @@ export default function Home() {
 
       {/* Portfolio — project showcase after About */}
       {showContent && <PortfolioSection />}
+
+      {/* Contact Form */}
+      {showContent && <ContactSection />}
     </main>
   );
 }
