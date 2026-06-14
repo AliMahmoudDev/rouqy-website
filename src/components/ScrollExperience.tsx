@@ -15,22 +15,24 @@ const LOGO_PATH_D = "M 0,1 L 0,345 L 19,345 L 19,85 L 21,83 L 84,83 L 98,84 L 10
 /**
  * ROUQY Scroll-Driven Experience
  * 
- * ONE continuous pinned section:
- * 1. HERO (scrolls away): Large "ROUQY" text
- * 2. LOGO DRAW + ABOUT (pinned, 800vh):
- *    - Logo draws (stroke → fill)
- *    - SAME logo slides RIGHT
- *    - About text reveals LEFT
- *    - Grid, glow, pen tip effects
+ * ONE continuous pinned section (900vh):
+ * 1. Hero text "ROUQY" fades out (0-6%)
+ * 2. Logo appears centered and draws (6-55%)
+ * 3. Fill fades in, effects settle (55-65%)
+ * 4. SAME logo slides RIGHT (65-80%)
+ * 5. About text reveals LEFT (75-90%)
+ * 6. Hold final state (90-100%)
+ * 
+ * No gap between hero and logo — everything is one timeline!
  */
 
 export default function ScrollExperience() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const heroRef = useRef<HTMLDivElement>(null);
-  const heroTextRef = useRef<HTMLDivElement>(null);
   
-  // The main pinned section (draw + about combined)
-  const mainSectionRef = useRef<HTMLDivElement>(null);
+  // The single pinned section
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const heroTextRef = useRef<HTMLDivElement>(null);
+  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
   const logoSvgRef = useRef<HTMLDivElement>(null);
   const strokePathRef = useRef<SVGPathElement>(null);
   const filledPathRef = useRef<SVGPathElement>(null);
@@ -38,7 +40,6 @@ export default function ScrollExperience() {
   const penTipRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const aboutTextRef = useRef<HTMLDivElement>(null);
-  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
 
   const [isReady, setIsReady] = useState(false);
   const pathLengthRef = useRef(0);
@@ -66,77 +67,66 @@ export default function ScrollExperience() {
     const ctx = gsap.context(() => {
 
       // ========================================
-      // HERO — text fades on scroll
-      // ========================================
-      
-      gsap.to(heroTextRef.current, {
-        opacity: 0,
-        y: -120,
-        scale: 0.9,
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 0.8,
-        },
-      });
-
-      gsap.to(scrollIndicatorRef.current, {
-        opacity: 0,
-        y: 30,
-        scrollTrigger: {
-          trigger: heroRef.current,
-          start: 'top top',
-          end: '15% top',
-          scrub: true,
-        },
-      });
-
-      // ========================================
-      // MAIN SECTION — ONE pinned section for everything
-      // Logo draws → same logo slides right → about text reveals
+      // ONE PINNED SECTION — everything in one timeline
+      // Hero text fades → Logo draws → Logo slides right → About appears
       // ========================================
       
       const mainTl = gsap.timeline({
         scrollTrigger: {
-          trigger: mainSectionRef.current,
+          trigger: sectionRef.current,
           start: 'top top',
-          end: '+=800vh',
+          end: '+=900vh',
           pin: true,
           scrub: 2,
           anticipatePin: 1,
         },
       });
 
-      // --- PHASE 1: Logo appears (0-4%) ---
+      // --- PHASE 1: Hero text + indicator fade out (0-6%) ---
+      mainTl.to(heroTextRef.current, {
+        opacity: 0,
+        y: -80,
+        scale: 0.85,
+        duration: 0.06,
+        ease: 'power2.in',
+      });
+
+      mainTl.to(scrollIndicatorRef.current, {
+        opacity: 0,
+        y: 30,
+        duration: 0.03,
+        ease: 'power2.in',
+      }, '<');
+
+      // --- PHASE 2: Logo appears centered (6-8%) ---
       mainTl.fromTo(logoSvgRef.current, 
-        { opacity: 0, scale: 0.75 },
-        { opacity: 1, scale: 1, duration: 0.04, ease: 'power2.out' }
+        { opacity: 0, scale: 0.9 },
+        { opacity: 1, scale: 1, duration: 0.02, ease: 'power2.out' }
       );
 
-      // --- PHASE 1.5: Grid fades in (4-6%) ---
+      // --- PHASE 3: Grid fades in (8-10%) ---
       mainTl.to(gridRef.current, {
         opacity: 1,
         duration: 0.02,
         ease: 'power2.out',
       });
 
-      // --- PHASE 2: Pen tip appears (6-7%) ---
+      // --- PHASE 4: Pen tip appears (10-11%) ---
       mainTl.to(penTipRef.current, {
         opacity: 1,
         duration: 0.01,
       });
 
-      // --- PHASE 3: STROKE DRAWS (7-50%) ---
-      // This is 43% of 800vh = ~344vh of scrolling for drawing
+      // --- PHASE 5: STROKE DRAWS (11-52%) ---
+      // 41% of 900vh = ~369vh of scrolling for drawing
       mainTl.to(strokePathRef.current, {
         strokeDashoffset: 0,
-        duration: 0.43,
+        duration: 0.41,
         ease: 'none',
         onUpdate: function() {
           if (!strokePathRef.current || !penTipRef.current) return;
           const progress = this.progress();
-          const drawProgress = Math.max(0, Math.min(1, (progress - 0.07) / 0.43));
+          const drawProgress = Math.max(0, Math.min(1, (progress - 0.11) / 0.41));
           
           if (drawProgress > 0.005 && drawProgress < 0.995) {
             try {
@@ -163,14 +153,14 @@ export default function ScrollExperience() {
       // Glow intensifies during drawing
       mainTl.to(glowRef.current, {
         opacity: 0.5,
-        duration: 0.43,
+        duration: 0.41,
         ease: 'none',
       }, '<');
 
-      // --- PHASE 4: Fill fades in (50-58%) ---
+      // --- PHASE 6: Fill fades in (52-58%) ---
       mainTl.to(filledPathRef.current, {
         fillOpacity: 1,
-        duration: 0.08,
+        duration: 0.06,
         ease: 'power2.inOut',
       });
 
@@ -179,58 +169,58 @@ export default function ScrollExperience() {
         opacity: 0,
         duration: 0.03,
         ease: 'power2.out',
-      }, '-=0.05');
+      }, '-=0.04');
 
       // Stroke becomes subtle
       mainTl.to(strokePathRef.current, {
         stroke: 'rgba(255,255,255,0.12)',
         strokeWidth: 0.5,
         opacity: 0.15,
-        duration: 0.06,
+        duration: 0.05,
         ease: 'power2.out',
       });
 
       // Grid fades out
       mainTl.to(gridRef.current, {
         opacity: 0,
-        duration: 0.04,
+        duration: 0.03,
         ease: 'power2.out',
-      }, '-=0.03');
+      }, '-=0.02');
 
       // Glow settles
       mainTl.to(glowRef.current, {
         opacity: 0.08,
-        duration: 0.06,
+        duration: 0.05,
         ease: 'power2.out',
       });
 
-      // --- PHASE 5: Hold the completed logo (58-63%) ---
-      mainTl.to({}, { duration: 0.05 });
+      // --- PHASE 7: Hold the completed logo (63-66%) ---
+      mainTl.to({}, { duration: 0.03 });
 
-      // --- PHASE 6: SAME logo slides RIGHT (63-80%) ---
+      // --- PHASE 8: SAME logo slides RIGHT (66-82%) ---
       mainTl.to(logoSvgRef.current, {
-        x: '22vw',
+        x: '20vw',
         scale: 0.55,
-        duration: 0.17,
+        duration: 0.16,
         ease: 'power2.inOut',
       });
 
-      // --- PHASE 7: About text reveals LEFT (68-90%) ---
+      // --- PHASE 9: About text reveals LEFT (76-92%) ---
       mainTl.fromTo(aboutTextRef.current,
-        { opacity: 0, x: -80 },
-        { opacity: 1, x: 0, duration: 0.15, ease: 'power2.out' },
+        { opacity: 0, x: -60 },
+        { opacity: 1, x: 0, duration: 0.12, ease: 'power2.out' },
         '-=0.10'
       );
 
       // Stagger text lines
       mainTl.fromTo('.about-line',
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.12, stagger: 0.04, ease: 'power2.out' },
-        '-=0.08'
+        { opacity: 1, y: 0, duration: 0.10, stagger: 0.03, ease: 'power2.out' },
+        '-=0.06'
       );
 
-      // --- PHASE 8: Hold the final state (90-100%) ---
-      mainTl.to({}, { duration: 0.10 });
+      // --- PHASE 10: Hold the final state (92-100%) ---
+      mainTl.to({}, { duration: 0.08 });
 
     }, containerRef);
 
@@ -241,12 +231,15 @@ export default function ScrollExperience() {
     <div ref={containerRef} className="relative bg-[#13140f]">
       
       {/* ============================================ */}
-      {/* HERO                                         */}
+      {/* SINGLE PINNED SECTION                        */}
+      {/* Hero text → Logo draw → Logo slide → About   */}
+      {/* No gap — everything in one timeline!          */}
       {/* ============================================ */}
       <section 
-        ref={heroRef}
-        className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-[#13140f]"
+        ref={sectionRef}
+        className="relative h-screen overflow-hidden bg-[#13140f]"
       >
+        {/* Subtle radial gradient background */}
         <div 
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -254,9 +247,10 @@ export default function ScrollExperience() {
           }}
         />
 
+        {/* Hero text "ROUQY" — fades out first (phase 1) */}
         <div 
           ref={heroTextRef}
-          className="relative z-10 flex flex-col items-center justify-center px-4"
+          className="absolute inset-0 flex items-center justify-center z-20 px-4"
         >
           <img
             src="/rouqy-text-white.svg"
@@ -268,9 +262,10 @@ export default function ScrollExperience() {
           />
         </div>
 
+        {/* Scroll indicator — fades out with hero text */}
         <div
           ref={scrollIndicatorRef}
-          className="absolute bottom-8 md:bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 md:gap-4 z-10"
+          className="absolute bottom-8 md:bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 md:gap-4 z-20"
         >
           <span className="text-[#8fbfa8]/35 text-[9px] md:text-xs tracking-[0.3em] md:tracking-[0.4em] uppercase font-light">
             Scroll to explore
@@ -283,47 +278,13 @@ export default function ScrollExperience() {
           </div>
         </div>
 
-        <style jsx>{`
-          @keyframes scrollPulse {
-            0% { transform: translateY(-100%); opacity: 0; }
-            20% { opacity: 1; }
-            100% { transform: translateY(500%); opacity: 0; }
-          }
-        `}</style>
-      </section>
-
-      {/* ============================================ */}
-      {/* MAIN SECTION — Logo Draw + About (Pinned)    */}
-      {/* ONE logo that draws then slides right        */}
-      {/* ============================================ */}
-      <section 
-        ref={mainSectionRef}
-        className="relative h-screen flex items-center overflow-hidden bg-[#13140f] px-5 md:px-16 lg:px-24"
-      >
-        <div className="w-full max-w-7xl mx-auto flex items-center justify-center gap-4 md:gap-16 lg:gap-24">
+        {/* Centering anchor — CSS handles centering, GSAP never touches this */}
+        <div className="absolute left-1/2 top-1/2" style={{ transform: 'translate(-50%, -50%)' }}>
           
-          {/* About Text — LEFT side (hidden initially) */}
-          <div
-            ref={aboutTextRef}
-            className="flex-1 min-w-0 max-w-lg"
-            style={{ opacity: 0 }}
-          >
-            <h2 className="about-line text-white text-2xl md:text-5xl lg:text-6xl font-bold tracking-[0.15em] md:tracking-[0.2em] uppercase mb-4 md:mb-8">
-              About
-            </h2>
-            <div className="about-line w-10 md:w-12 h-[2px] bg-[#8fbfa8]/50 mb-4 md:mb-8" />
-            <p className="about-line text-white/65 text-xs md:text-lg leading-relaxed md:leading-relaxed mb-3 md:mb-6">
-              At ROUQY, we create timeless interiors where luxury meets purpose. Through thoughtful design, premium materials, and meticulous execution, we shape spaces that inspire, elevate, and endure.
-            </p>
-            <p className="about-line text-white/40 text-[11px] md:text-base leading-relaxed md:leading-relaxed">
-              Every project is a dialogue between vision and craft — where architectural precision meets artistic expression to create environments that transcend the ordinary.
-            </p>
-          </div>
-
-          {/* Logo — starts CENTER, draws, then slides RIGHT */}
+          {/* GSAP-animated logo container — opacity, scale, x controlled by GSAP */}
           <div 
             ref={logoSvgRef}
-            className="flex-shrink-0 flex items-center justify-center relative"
+            className="relative flex items-center justify-center"
             style={{ opacity: 0 }}
           >
             {/* Grid overlay */}
@@ -405,6 +366,32 @@ export default function ScrollExperience() {
             />
           </div>
         </div>
+
+        {/* About Text — absolutely positioned LEFT, hidden initially */}
+        <div
+          ref={aboutTextRef}
+          className="absolute left-5 md:left-16 lg:left-24 top-1/2 -translate-y-1/2 max-w-[45vw] md:max-w-lg"
+          style={{ opacity: 0 }}
+        >
+          <h2 className="about-line text-white text-2xl md:text-5xl lg:text-6xl font-bold tracking-[0.15em] md:tracking-[0.2em] uppercase mb-4 md:mb-8">
+            About
+          </h2>
+          <div className="about-line w-10 md:w-12 h-[2px] bg-[#8fbfa8]/50 mb-4 md:mb-8" />
+          <p className="about-line text-white/65 text-xs md:text-lg leading-relaxed md:leading-relaxed mb-3 md:mb-6">
+            At ROUQY, we create timeless interiors where luxury meets purpose. Through thoughtful design, premium materials, and meticulous execution, we shape spaces that inspire, elevate, and endure.
+          </p>
+          <p className="about-line text-white/40 text-[11px] md:text-base leading-relaxed md:leading-relaxed">
+            Every project is a dialogue between vision and craft — where architectural precision meets artistic expression to create environments that transcend the ordinary.
+          </p>
+        </div>
+
+        <style jsx>{`
+          @keyframes scrollPulse {
+            0% { transform: translateY(-100%); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(500%); opacity: 0; }
+          }
+        `}</style>
       </section>
 
     </div>
