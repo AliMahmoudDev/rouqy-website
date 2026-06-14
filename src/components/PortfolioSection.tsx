@@ -55,12 +55,11 @@ const PROJECTS = [
 ];
 
 /**
- * Portfolio Section — scroll-driven project reveal
+ * Portfolio Section — vertical scroll reveal
  * 
- * Each project appears one at a time as user scrolls.
- * Image slides in + label fades in → hold → image slides out + label fades out
- * 
- * Uses GSAP ScrollTrigger with pinning for each project.
+ * Each project card slides up from below as user scrolls.
+ * Image + label appear together from bottom, scroll naturally upward.
+ * Like the reference video: content enters from bottom, exits at top.
  */
 export default function PortfolioSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -77,77 +76,94 @@ export default function PortfolioSection() {
     const ctx = gsap.context(() => {
       const cards = containerRef.current!.querySelectorAll('.project-card');
 
-      cards.forEach((card, i) => {
+      cards.forEach((card) => {
         const image = card.querySelector('.project-image');
         const label = card.querySelector('.project-label');
-        const overlay = card.querySelector('.project-overlay');
 
-        // Set initial states
-        gsap.set(image, { scale: 1.15, opacity: 0 });
-        gsap.set(label, { opacity: 0, y: 40 });
-        gsap.set(overlay, { opacity: 1 });
+        // Animate each card: slides up from below as it enters viewport
+        gsap.fromTo(card, 
+          { y: 100, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 90%',
+              end: 'top 40%',
+              scrub: 1,
+            },
+          }
+        );
 
-        const cardTl = gsap.timeline({
+        // Image scales down slightly as it enters
+        gsap.fromTo(image,
+          { scale: 1.1 },
+          {
+            scale: 1,
+            duration: 1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 85%',
+              end: 'top 30%',
+              scrub: 1,
+            },
+          }
+        );
+
+        // Label fades in slightly after card
+        gsap.fromTo(label,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 70%',
+              end: 'top 35%',
+              scrub: 1,
+            },
+          }
+        );
+
+        // Fade out as card leaves viewport at top
+        gsap.to(card, {
+          y: -60,
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power2.in',
           scrollTrigger: {
             trigger: card,
-            start: 'top top',
-            end: '+=150vh',
-            pin: true,
-            pinSpacing: true,
-            scrub: 1.2,
-            anticipatePin: 1,
+            start: 'bottom 30%',
+            end: 'bottom top',
+            scrub: 1,
           },
         });
-
-        // --- Image scales down and fades in (0-25%) ---
-        cardTl.to(image, {
-          scale: 1,
-          opacity: 1,
-          duration: 0.25,
-          ease: 'power2.out',
-        });
-
-        // --- Overlay fades out (0-25%) ---
-        cardTl.to(overlay, {
-          opacity: 0,
-          duration: 0.2,
-          ease: 'power2.out',
-        }, '<');
-
-        // --- Label fades in (15-30%) ---
-        cardTl.to(label, {
-          opacity: 1,
-          y: 0,
-          duration: 0.15,
-          ease: 'power2.out',
-        }, '-=0.15');
-
-        // --- Hold the project (30-65%) ---
-        cardTl.to({}, { duration: 0.35 });
-
-        // --- Label fades out (65-75%) ---
-        cardTl.to(label, {
-          opacity: 0,
-          y: -20,
-          duration: 0.1,
-          ease: 'power2.in',
-        });
-
-        // --- Image scales up slightly and fades out (75-100%) ---
-        cardTl.to(image, {
-          scale: 1.05,
-          opacity: 0,
-          duration: 0.25,
-          ease: 'power2.in',
-        });
-
-        // --- Overlay fades back in ---
-        cardTl.to(overlay, {
-          opacity: 1,
-          duration: 0.15,
-          ease: 'power2.in',
-        }, '-=0.15');
       });
+
+      // Section header animation
+      const header = containerRef.current!.querySelector('.portfolio-header');
+      if (header) {
+        gsap.fromTo(header,
+          { y: 60, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: header,
+              start: 'top 85%',
+              end: 'top 50%',
+              scrub: 1,
+            },
+          }
+        );
+      }
 
     }, containerRef);
 
@@ -157,7 +173,7 @@ export default function PortfolioSection() {
   return (
     <div ref={containerRef} className="relative bg-[#13140f]">
       {/* Section header */}
-      <div className="relative h-[50vh] md:h-[60vh] flex flex-col items-center justify-center bg-[#13140f]">
+      <div className="portfolio-header relative py-24 md:py-36 flex flex-col items-center justify-center bg-[#13140f]">
         <span className="text-[#8fbfa8]/50 text-[10px] md:text-xs tracking-[0.4em] md:tracking-[0.5em] uppercase font-light mb-4 md:mb-6">
           Selected Works
         </span>
@@ -167,48 +183,48 @@ export default function PortfolioSection() {
         <div className="w-12 md:w-16 h-[1px] bg-[#8fbfa8]/30 mt-4 md:mt-6" />
       </div>
 
-      {/* Project cards — each pinned for scroll animation */}
-      {PROJECTS.map((project, i) => (
-        <div
-          key={project.id}
-          className="project-card relative h-screen w-full overflow-hidden bg-[#13140f]"
-        >
-          {/* Background overlay (fades out to reveal image) */}
+      {/* Project cards — each scrolls naturally from bottom to top */}
+      <div className="px-5 md:px-16 lg:px-24 pb-16 space-y-8 md:space-y-12">
+        {PROJECTS.map((project) => (
           <div
-            className="project-overlay absolute inset-0 z-10 bg-[#13140f]"
-            style={{ opacity: 1 }}
-          />
-
-          {/* Project image */}
-          <div className="absolute inset-0 flex items-center justify-center px-6 md:px-16 lg:px-24">
-            <img
-              src={project.image}
-              alt={project.title}
-              className="project-image w-full h-[75vh] md:h-[80vh] object-cover"
-              style={{ opacity: 0 }}
-            />
-          </div>
-
-          {/* Project label — appears below image */}
-          <div
-            className="project-label absolute bottom-6 md:bottom-12 lg:bottom-16 left-6 md:left-16 lg:left-24 z-20"
+            key={project.id}
+            className="project-card"
             style={{ opacity: 0 }}
           >
-            <span className="block text-[#8fbfa8]/60 text-[10px] md:text-xs tracking-[0.3em] md:tracking-[0.4em] uppercase font-light mb-1 md:mb-2">
-              {project.category}
-            </span>
-            <h3 className="text-white text-xl md:text-4xl lg:text-5xl font-bold tracking-[0.08em] md:tracking-[0.12em] uppercase mb-2 md:mb-3">
-              {project.title}
-            </h3>
-            <p className="text-white/45 text-[11px] md:text-base max-w-md leading-relaxed">
-              {project.description}
-            </p>
+            {/* Project image */}
+            <div className="relative overflow-hidden w-full">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="project-image w-full h-[50vh] md:h-[70vh] lg:h-[80vh] object-cover"
+              />
+              {/* Subtle gradient overlay at bottom of image */}
+              <div 
+                className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+                style={{
+                  background: 'linear-gradient(to top, #13140f 0%, transparent 100%)',
+                }}
+              />
+            </div>
+
+            {/* Project label — below image */}
+            <div className="project-label pt-4 md:pt-6 pb-8 md:pb-12">
+              <span className="block text-[#8fbfa8]/60 text-[10px] md:text-xs tracking-[0.3em] md:tracking-[0.4em] uppercase font-light mb-1.5 md:mb-2">
+                {project.category}
+              </span>
+              <h3 className="text-white text-xl md:text-4xl lg:text-5xl font-bold tracking-[0.08em] md:tracking-[0.12em] uppercase mb-2 md:mb-3">
+                {project.title}
+              </h3>
+              <p className="text-white/45 text-[11px] md:text-base max-w-lg leading-relaxed">
+                {project.description}
+              </p>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
 
       {/* Bottom spacer */}
-      <div className="h-[30vh] bg-[#13140f]" />
+      <div className="h-[20vh] bg-[#13140f]" />
     </div>
   );
 }
