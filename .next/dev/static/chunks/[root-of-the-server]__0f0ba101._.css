@@ -6169,6 +6169,12 @@
   }
 
   @media (min-width: 48rem) {
+    .md\:h-10 {
+      height: calc(var(--spacing) * 10);
+    }
+  }
+
+  @media (min-width: 48rem) {
     .md\:h-14 {
       height: calc(var(--spacing) * 14);
     }
