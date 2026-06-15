@@ -796,6 +796,72 @@ body {
   gap: 8px;
 }
 
+/* ============ WHATSAPP FLOATING BUTTON ============ */
+.whatsapp-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 72px;
+  height: 72px;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 50%;
+  background: #25D366;
+  box-shadow: 0 4px 24px rgba(37, 211, 102, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 32px rgba(37, 211, 102, 0.55);
+}
+
+/* Pulse ring animation */
+.whatsapp-float-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(37, 211, 102, 0.5);
+  animation: waPulse 2s ease-out infinite;
+}
+
+@keyframes waPulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Rotating "GET IN TOUCH" text */
+.whatsapp-float-rotating-text {
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  animation: waRotate 12s linear infinite;
+}
+
+@keyframes waRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* WhatsApp icon */
+.whatsapp-float-icon {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
 /* ============ TABLET ============ */
 @media (max-width: 1024px) {
   .header {
@@ -1003,5 +1069,22 @@ body {
   .gallery-img {
     width: 86vw;
     height: 42vh;
+  }
+
+  .whatsapp-float {
+    width: 60px;
+    height: 60px;
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .whatsapp-float-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .whatsapp-float-rotating-text {
+    width: 140px;
+    height: 140px;
   }
 }
