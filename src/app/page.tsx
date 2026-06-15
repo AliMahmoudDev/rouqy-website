@@ -149,9 +149,10 @@ export default function Home() {
           const mobileTl = gsap.timeline({
             scrollTrigger: {
               trigger: aboutSectionRef.current,
-              start: 'top 60%',
+              start: 'top top',
               end: '+=2500',
               scrub: true,
+              pin: true,
             },
           });
 

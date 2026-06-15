@@ -535,13 +535,12 @@ body {
   }
 
   .about-section {
-    height: auto;
-    min-height: 100vh;
-    padding: 120px 0;
+    height: 100vh;
+    padding: 0;
   }
 
   .about-stage {
-    height: auto;
+    height: 100vh;
     min-height: auto;
     flex-direction: column;
     gap: 60px;
