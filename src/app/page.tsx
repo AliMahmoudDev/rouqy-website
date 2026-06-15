@@ -13,13 +13,25 @@ if (typeof window !== 'undefined') {
 const LOGO_PATH_D = "M345.55,167.19c0,6.3-2.72,11.08-8.16,14.35-2.81,1.53-5.64,2.28-8.47,2.28-2.19,0-4.24-.42-6.21-1.3-4.78-2.17-7.94-5.86-9.46-11.1-.44-1.5-1.53-2.28-3.27-2.28-1.08,0-1.95.55-2.61,1.64-3.03,5.66-4.55,11.65-4.55,17.95,0,2.61.2,5.22.64,7.83,1.53,8.93,7.19,16.43,16.98,22.53,3.47,1.53,6.04,3.91,7.67,7.16,1.61,3.27,2.43,6.77,2.43,10.46,0,12.85-2.17,25.56-6.52,38.18-8.91,27.2-24.59,46.9-47.01,59.08-11.3,6.08-24.25,9.24-38.82,9.46h-64.41v-162.48c0-79.26-64.23-143.49-143.47-143.49H10.03v113.01H1.5V1.5h208.23v133.7c0,12.67-5.04,24.83-14,33.78l-12.51,12.54,26.51,26.51v94.25c0,3.2.47,6.3,1.33,9.22,2.12,7.15,6.22,11.73,8.15,13.66,1.79,1.79,6.71,6.58,14.55,8.39,7.69,1.78,14.33-.19,19.56-1.75.75-.22,2.97-.9,5.75-2.09,13.27-5.66,22.84-15.23,28.72-28.72,2.83-6.74,4.22-14.04,4.22-21.87v-76.06c0-11.3,2.94-21.38,8.82-30.18,5.88-8.82,12.51-15.39,19.9-19.74,2.83-1.53,5.66-2.3,8.49-2.3,6.1,0,10.77,2.74,14.04,8.18,1.53,2.61,2.28,5.33,2.28,8.16Z";
 
 const projects = [
-  { bg: 'url(/project1.jpg) center/cover' },
-  { bg: 'url(/project2.jpg) center/cover' },
-  { bg: 'url(/project3.jpg) center/cover' },
-  { bg: 'url(/project4.jpg) center/cover' },
-  { bg: 'url(/project5.jpg) center/cover' },
-  { bg: 'url(/project6.jpg) center/cover' },
+  { bg: 'url(/project1.jpg) center/cover', title: 'Modern Living' },
+  { bg: 'url(/project2.jpg) center/cover', title: 'Elegant Dining' },
+  { bg: 'url(/project3.jpg) center/cover', title: 'Luxury Suite' },
+  { bg: 'url(/project4.jpg) center/cover', title: 'Grand Lobby' },
+  { bg: 'url(/project5.jpg) center/cover', title: 'Private Villa' },
+  { bg: 'url(/project6.jpg) center/cover', title: 'Premium Office' },
+  { bg: 'url(/project7.jpg) center/cover', title: 'Royal Living' },
+  { bg: 'url(/project8.jpg) center/cover', title: 'Fine Dining' },
+  { bg: 'url(/project9.jpg) center/cover', title: 'Master Bedroom' },
+  { bg: 'url(/project10.jpg) center/cover', title: 'Spa Bathroom' },
+  { bg: 'url(/project11.jpg) center/cover', title: 'Designer Kitchen' },
+  { bg: 'url(/project12.jpg) center/cover', title: 'Executive Office' },
+  { bg: 'url(/project13.jpg) center/cover', title: 'Hotel Lobby' },
+  { bg: 'url(/project14.jpg) center/cover', title: 'Terrace View' },
+  { bg: 'url(/project15.jpg) center/cover', title: 'Walk-in Closet' },
+  { bg: 'url(/project16.jpg) center/cover', title: 'Social Lounge' },
 ];
+
+const SCROLL_COUNT = 6; // only these show in horizontal scroll
 
 export default function Home() {
   const [introFading, setIntroFading] = useState(false);
@@ -34,6 +46,18 @@ export default function Home() {
   const [formSending, setFormSending] = useState(false);
   const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [formErrorMsg, setFormErrorMsg] = useState('');
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
+
+  // Lock body scroll when gallery/lightbox is open
+  useEffect(() => {
+    if (galleryOpen || selectedImage !== null) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [galleryOpen, selectedImage]);
 
   const aboutSectionRef = useRef<HTMLElement>(null);
   const drawPathRef = useRef<SVGPathElement>(null);
@@ -416,16 +440,76 @@ export default function Home() {
                 <span className="light">Projects</span>
               </h2>
             </div>
-            {projects.map((project, i) => (
+            {projects.slice(0, SCROLL_COUNT).map((project, i) => (
               <div
                 key={i}
                 className="gallery-img"
                 style={{ background: project.bg }}
               />
             ))}
+            <div className="gallery-cta-card" onClick={() => setGalleryOpen(true)}>
+              <span className="gallery-cta-label">Portfolio</span>
+              <span className="gallery-cta-text">Browse Full Gallery</span>
+              <span className="gallery-cta-arrow">→</span>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* ====== FULL GALLERY OVERLAY ====== */}
+      {galleryOpen && (
+        <div className="gallery-overlay" onClick={() => setGalleryOpen(false)}>
+          <div className="gallery-overlay-inner" onClick={(e) => e.stopPropagation()}>
+            <div className="gallery-overlay-header">
+              <h2>
+                <span className="bold">Our</span> <span className="light">Projects</span>
+              </h2>
+              <button className="gallery-close-btn" onClick={() => setGalleryOpen(false)}>✕</button>
+            </div>
+            <div className="gallery-grid">
+              {projects.map((project, i) => (
+                <div
+                  key={i}
+                  className="gallery-grid-item"
+                  style={{ background: project.bg }}
+                  onClick={() => setSelectedImage(i)}
+                >
+                  <span className="gallery-grid-title">{project.title}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ====== IMAGE LIGHTBOX ====== */}
+      {selectedImage !== null && (
+        <div className="lightbox" onClick={() => setSelectedImage(null)}>
+          <div className="lightbox-inner" onClick={(e) => e.stopPropagation()}>
+            <button className="lightbox-close" onClick={() => setSelectedImage(null)}>✕</button>
+            <button
+              className="lightbox-prev"
+              onClick={() => setSelectedImage(selectedImage === 0 ? projects.length - 1 : selectedImage - 1)}
+            >
+              ‹
+            </button>
+            <div
+              className="lightbox-img"
+              style={{ background: projects[selectedImage].bg }}
+            />
+            <button
+              className="lightbox-next"
+              onClick={() => setSelectedImage(selectedImage === projects.length - 1 ? 0 : selectedImage + 1)}
+            >
+              ›
+            </button>
+            <div className="lightbox-info">
+              <span className="lightbox-title">{projects[selectedImage].title}</span>
+              <span className="lightbox-counter">{selectedImage + 1} / {projects.length}</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ====== CONTACT ====== */}
       <section className="contact-section" id="contact" ref={contactSectionRef}>
