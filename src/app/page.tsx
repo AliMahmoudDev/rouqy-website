@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
@@ -22,7 +22,8 @@ const projects = [
 ];
 
 export default function Home() {
-  const [introVisible, setIntroVisible] = useState(true);
+  const [introFading, setIntroFading] = useState(false);
+  const [introRemoved, setIntroRemoved] = useState(false);
   const [heroShow, setHeroShow] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -35,17 +36,29 @@ export default function Home() {
   const projectsSectionRef = useRef<HTMLElement>(null);
   const contactSectionRef = useRef<HTMLElement>(null);
   const contactInnerRef = useRef<HTMLDivElement>(null);
+  const gsapContextRef = useRef<gsap.Context | null>(null);
 
-  // Intro animation
+  // ====== INTRO ANIMATION ======
+  // Match client's JS exactly:
+  // 1. After 1200ms, set intro opacity to 0 (CSS transition handles fade)
+  // 2. Add .show class to hero-logo
+  // 3. After 800ms more, remove intro from DOM
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIntroVisible(false);
-      setHeroShow(true);
+    const fadeTimer = setTimeout(() => {
+      setIntroFading(true);    // triggers opacity: 0 via CSS transition
+      setHeroShow(true);       // triggers hero logo animation
+
+      const removeTimer = setTimeout(() => {
+        setIntroRemoved(true); // removes from DOM
+      }, 800);
+
+      return () => clearTimeout(removeTimer);
     }, 1200);
-    return () => clearTimeout(timer);
+
+    return () => clearTimeout(fadeTimer);
   }, []);
 
-  // Header scroll detection
+  // ====== HEADER SCROLL DETECTION ======
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 100);
@@ -54,140 +67,153 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // GSAP Animations
+  // ====== GSAP ANIMATIONS ======
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
     const isDesktop = window.innerWidth > 768;
 
-    // About section animation
-    if (drawPathRef.current && isDesktop) {
-      const length = drawPathRef.current.getTotalLength();
+    const ctx = gsap.context(() => {
 
-      gsap.set(fillPathRef.current, { opacity: 0 });
+      // ---- About section: logo draw + scale + content reveal ----
+      if (drawPathRef.current && isDesktop) {
+        const length = drawPathRef.current.getTotalLength();
 
-      gsap.set(drawPathRef.current, {
-        strokeDasharray: length,
-        strokeDashoffset: length,
-      });
+        gsap.set(fillPathRef.current, { opacity: 0 });
 
-      gsap.set(aboutContentRef.current, {
-        x: -120,
-        opacity: 0,
-      });
+        gsap.set(drawPathRef.current, {
+          strokeDasharray: length,
+          strokeDashoffset: length,
+        });
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: aboutSectionRef.current,
-          start: 'top top',
-          end: '+=4000',
-          scrub: true,
-          pin: true,
-        },
-      });
+        gsap.set(aboutContentRef.current, {
+          x: -120,
+          opacity: 0,
+        });
 
-      tl.to(drawPathRef.current, {
-        strokeDashoffset: 0,
-        duration: 2,
-        ease: 'none',
-      })
-        .to(fillPathRef.current, {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: aboutSectionRef.current,
+            start: 'top top',
+            end: '+=4000',
+            scrub: true,
+            pin: true,
+          },
+        });
+
+        tl.to(drawPathRef.current, {
+          strokeDashoffset: 0,
+          duration: 2,
+          ease: 'none',
+        })
+          .to(fillPathRef.current, {
+            opacity: 1,
+            duration: 1,
+          })
+          .to(drawPathRef.current, {
+            opacity: 0,
+            duration: 0.5,
+          })
+          .to(aboutLogoSvgRef.current, {
+            scale: 7,
+            x: () => window.innerWidth * 0.28,
+            duration: 3,
+            transformOrigin: 'center center',
+          })
+          .to(
+            aboutContentRef.current,
+            {
+              opacity: 1,
+              x: 0,
+              duration: 1.5,
+            },
+            '-=1.5'
+          );
+      }
+
+      // ---- Gallery horizontal scroll ----
+      if (galleryTrackRef.current) {
+        gsap.to(galleryTrackRef.current, {
+          x: () => -(galleryTrackRef.current!.scrollWidth - window.innerWidth),
+          ease: 'none',
+          scrollTrigger: {
+            trigger: projectsSectionRef.current,
+            start: 'top top',
+            end: () => '+=' + (galleryTrackRef.current!.scrollWidth - window.innerWidth),
+            scrub: 1,
+            pin: true,
+            invalidateOnRefresh: true,
+          },
+        });
+      }
+
+      // ---- Contact section reveal ----
+      if (contactInnerRef.current) {
+        const children = contactInnerRef.current.children;
+        gsap.set(children, { y: 40, opacity: 0 });
+
+        gsap.to(children, {
+          y: 0,
           opacity: 1,
           duration: 1,
-        })
-        .to(drawPathRef.current, {
-          opacity: 0,
-          duration: 0.5,
-        })
-        .to(aboutLogoSvgRef.current, {
-          scale: 7,
-          x: () => window.innerWidth * 0.28,
-          duration: 3,
-          transformOrigin: 'center center',
-        })
-        .to(
-          aboutContentRef.current,
-          {
-            opacity: 1,
-            x: 0,
-            duration: 1.5,
+          stagger: 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: contactSectionRef.current,
+            start: 'top 70%',
           },
-          '-=1.5'
-        );
-    }
-
-    // Gallery horizontal scroll
-    if (galleryTrackRef.current) {
-      gsap.to(galleryTrackRef.current, {
-        x: () => -(galleryTrackRef.current!.scrollWidth - window.innerWidth),
-        ease: 'none',
-        scrollTrigger: {
-          trigger: projectsSectionRef.current,
-          start: 'top top',
-          end: () => '+=' + (galleryTrackRef.current!.scrollWidth - window.innerWidth),
-          scrub: 1,
-          pin: true,
-          invalidateOnRefresh: true,
-        },
-      });
-    }
-
-    // Contact section animation
-    if (contactInnerRef.current) {
-      const children = contactInnerRef.current.children;
-      gsap.set(children, { y: 40, opacity: 0 });
-
-      gsap.to(children, {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        stagger: 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: contactSectionRef.current,
-          start: 'top 70%',
-        },
-      });
-    }
-
-    // Smooth scroll for nav links
-    const handleNavClick = (e: MouseEvent) => {
-      const target = e.target as HTMLAnchorElement;
-      if (target.tagName === 'A' && target.getAttribute('href')?.startsWith('#')) {
-        e.preventDefault();
-        const targetId = target.getAttribute('href')!;
-        const targetEl = document.querySelector(targetId);
-        if (targetEl) {
-          const targetY = targetEl.getBoundingClientRect().top + window.scrollY;
-          const distance = Math.abs(targetY - window.scrollY);
-          const duration = Math.min(1.6, 0.5 + distance / 6000);
-
-          gsap.to(window, {
-            duration: duration,
-            scrollTo: { y: targetId, offsetY: 80 },
-            ease: 'power2.inOut',
-          });
-        }
+        });
       }
-    };
 
-    document.querySelectorAll('.nav-links a').forEach((link) => {
-      link.addEventListener('click', handleNavClick);
-    });
+      // ---- Smooth scroll for nav links ----
+      document.querySelectorAll('.nav-links a').forEach((link) => {
+        link.addEventListener('click', handleNavClick);
+      });
+
+    }); // end gsap.context
+
+    gsapContextRef.current = ctx;
 
     return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      ctx.revert(); // kills ALL animations and ScrollTriggers in this context
       document.querySelectorAll('.nav-links a').forEach((link) => {
         link.removeEventListener('click', handleNavClick);
       });
     };
   }, []);
 
+  // Nav click handler (defined outside to avoid recreation)
+  const handleNavClick = useCallback((e: Event) => {
+    const target = e.target as HTMLAnchorElement;
+    if (target.tagName === 'A' && target.getAttribute('href')?.startsWith('#')) {
+      e.preventDefault();
+      const targetId = target.getAttribute('href')!;
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        const targetY = targetEl.getBoundingClientRect().top + window.scrollY;
+        const distance = Math.abs(targetY - window.scrollY);
+        const duration = Math.min(1.6, 0.5 + distance / 6000);
+
+        gsap.to(window, {
+          duration: duration,
+          scrollTo: { y: targetId, offsetY: 80 },
+          ease: 'power2.inOut',
+        });
+      }
+    }
+  }, []);
+
   return (
     <>
       {/* ====== INTRO ====== */}
-      {introVisible && (
-        <div id="intro">
+      {!introRemoved && (
+        <div
+          id="intro"
+          style={{
+            opacity: introFading ? 0 : 1,
+            transition: 'opacity 0.8s ease',
+          }}
+        >
           <img src="/logo.svg" className="intro-logo" alt="ROUQY" />
         </div>
       )}
