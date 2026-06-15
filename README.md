@@ -11,11 +11,16 @@ SVG logo draw effects, and a dark immersive aesthetic.
 
 <br/>
 
+🌐 **Live Site:** [www.rouqy.com](https://www.rouqy.com/)
+
+<br/>
+
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![GSAP](https://img.shields.io/badge/GSAP-3.15-88CE02?style=flat-square&logo=greensock&logoColor=black)](https://gsap.com/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000?style=flat-square&logo=vercel&logoColor=white)](https://vercel.com/)
+[![Live](https://img.shields.io/badge/Live-www.rouqy.com-1a857a?style=flat-square&logo=globe&logoColor=white)](https://www.rouqy.com/)
 
 <br/>
 
@@ -144,6 +149,7 @@ public/
 ```bash
 # Clone the repository
 git clone https://github.com/your-username/rouqy.git
+# Live site: https://www.rouqy.com/
 cd rouqy
 
 # Install dependencies

@@ -8,7 +8,7 @@ const outfit = Outfit({
   weight: ["200", "300", "400", "500", "700"],
 });
 
-const siteUrl = "https://rouqy.com";
+const siteUrl = "https://www.rouqy.com";
 
 export const viewport: Viewport = {
   width: "device-width",
