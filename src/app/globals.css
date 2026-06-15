@@ -38,7 +38,7 @@ body {
 
 .side-text-left {
   left: 16px;
-  transform: translateY(-50%);
+  transform: translateY(-45%);
 }
 
 .side-text-left > span {
@@ -49,7 +49,7 @@ body {
 
 .side-text-right {
   right: 16px;
-  transform: translateY(-50%);
+  transform: translateY(-45%);
 }
 
 .side-text-right > span:not(.side-text-line) {
