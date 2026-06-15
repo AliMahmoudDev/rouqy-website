@@ -443,9 +443,13 @@ export default function Home() {
             {projects.slice(0, SCROLL_COUNT).map((project, i) => (
               <div
                 key={i}
-                className="gallery-img"
+                className="gallery-img gallery-img-clickable"
                 style={{ background: project.bg }}
-              />
+                onClick={() => setGalleryOpen(true)}
+              >
+                <span className="gallery-img-title">{project.title}</span>
+                <span className="gallery-img-view">View Portfolio →</span>
+              </div>
             ))}
             <div className="gallery-cta-card" onClick={() => setGalleryOpen(true)}>
               <span className="gallery-cta-label">Portfolio</span>

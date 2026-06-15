@@ -297,6 +297,69 @@ body {
   width: 48vw;
   height: 65vh;
   border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-img-clickable {
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+
+.gallery-img-clickable::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.gallery-img-clickable:hover {
+  transform: scale(1.02);
+}
+
+.gallery-img-clickable:hover::after {
+  opacity: 1;
+}
+
+.gallery-img-title {
+  position: absolute;
+  bottom: 20px;
+  left: 24px;
+  z-index: 2;
+  font-size: 20px;
+  font-weight: 300;
+  color: white;
+  letter-spacing: 1px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+}
+
+.gallery-img-clickable:hover .gallery-img-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-img-view {
+  position: absolute;
+  bottom: 20px;
+  right: 24px;
+  z-index: 2;
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: all 0.4s ease 0.1s;
+}
+
+.gallery-img-clickable:hover .gallery-img-view {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* CTA card at end of horizontal scroll */
@@ -757,6 +820,18 @@ body {
     height: 55vh;
   }
 
+  .gallery-img-title {
+    font-size: 16px;
+    left: 16px;
+    bottom: 16px;
+  }
+
+  .gallery-img-view {
+    font-size: 11px;
+    right: 16px;
+    bottom: 16px;
+  }
+
   .gallery-cta-card {
     width: 50vw;
   }
@@ -850,6 +925,18 @@ body {
   .gallery-img {
     width: 82vw;
     height: 48vh;
+  }
+
+  .gallery-img-title {
+    font-size: 15px;
+    left: 14px;
+    bottom: 40px;
+  }
+
+  .gallery-img-view {
+    font-size: 11px;
+    right: 14px;
+    bottom: 16px;
   }
 
   .gallery-cta-card {
