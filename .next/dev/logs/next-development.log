@@ -3772,3 +3772,243 @@ It can also happen if the client has a browser extension installed which messes 
                       ...
           ...
 
+[01:06:17.076] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <RenderFromTemplateContext>
+      <ScrollAndFocusHandler segmentPath={[...]}>
+        <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
+          <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+            <LoadingBoundary name="/" loading={null}>
+              <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+                <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+                  <RedirectBoundary>
+                    <RedirectErrorBoundary router={{...}}>
+                      <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{rsc:<Fragment>, ...}} ...>
+                        <SegmentViewNode type="page" pagePath="page.tsx">
+                          <SegmentTrieNode>
+                          <ClientPageRoot Component={function Home} serverProvidedParams={{...}}>
+                            <Home params={Promise} searchParams={Promise}>
+                              <div
+                                id="intro"
+                                style={{
++                                 opacity: 1
++                                 transition: "opacity 0.8s ease"
+                                }}
+                              >
+                              <header>
+                              <section>
+                              <section>
+                              <section>
+                              ...
+                                <div className="contact-grid">
+                                  <form className="contact-form" onSubmit={function onSubmit}>
+                                    <div className="field">
+                                      <label>
+                                      <input
+                                        type="text"
+                                        id="name"
+                                        placeholder="Your name"
+                                        value=""
+                                        onChange={function onChange}
++                                       className=""
+-                                       className={null}
+                                      >
+                                    <div className="field">
+                                      <label>
+                                      <input
+                                        type="email"
+                                        id="email"
+                                        placeholder="your@email.com"
+                                        value=""
+                                        onChange={function onChange}
++                                       className=""
+-                                       className={null}
+                                      >
+                                    <div className="field">
+                                      <label>
+                                      <textarea
+                                        id="message"
+                                        rows={4}
+                                        placeholder="Tell us about your project"
+                                        value=""
+                                        onChange={function onChange}
++                                       className=""
+-                                       className={null}
+                                      >
+                                    ...
+                                  ...
+                        ...
+                      ...
+          ...
+
+[01:08:31.297] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <RenderFromTemplateContext>
+      <ScrollAndFocusHandler segmentPath={[...]}>
+        <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
+          <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+            <LoadingBoundary name="/" loading={null}>
+              <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+                <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+                  <RedirectBoundary>
+                    <RedirectErrorBoundary router={{...}}>
+                      <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{rsc:<Fragment>, ...}} ...>
+                        <SegmentViewNode type="page" pagePath="page.tsx">
+                          <SegmentTrieNode>
+                          <ClientPageRoot Component={function Home} serverProvidedParams={{...}}>
+                            <Home params={Promise} searchParams={Promise}>
+                              <div
+                                id="intro"
+                                style={{
++                                 opacity: 1
++                                 transition: "opacity 0.8s ease"
+                                }}
+                              >
+                              <header>
+                              <section>
+                              <section>
+                              <section>
+                              ...
+                                <div className="contact-grid">
+                                  <form className="contact-form" onSubmit={function onSubmit}>
+                                    <div className="field">
+                                      <label>
+                                      <input
+                                        type="text"
+                                        id="name"
+                                        placeholder="Your name"
+                                        value=""
+                                        onChange={function onChange}
++                                       className=""
+-                                       className={null}
+                                      >
+                                    <div className="field">
+                                      <label>
+                                      <input
+                                        type="email"
+                                        id="email"
+                                        placeholder="your@email.com"
+                                        value=""
+                                        onChange={function onChange}
++                                       className=""
+-                                       className={null}
+                                      >
+                                    <div className="field">
+                                      <label>
+                                      <textarea
+                                        id="message"
+                                        rows={4}
+                                        placeholder="Tell us about your project"
+                                        value=""
+                                        onChange={function onChange}
++                                       className=""
+-                                       className={null}
+                                      >
+                                    ...
+                                  ...
+                        ...
+                      ...
+          ...
+
+[01:09:30.771] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <RenderFromTemplateContext>
+      <ScrollAndFocusHandler segmentPath={[...]}>
+        <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
+          <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+            <LoadingBoundary name="/" loading={null}>
+              <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+                <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+                  <RedirectBoundary>
+                    <RedirectErrorBoundary router={{...}}>
+                      <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{rsc:<Fragment>, ...}} ...>
+                        <SegmentViewNode type="page" pagePath="page.tsx">
+                          <SegmentTrieNode>
+                          <ClientPageRoot Component={function Home} serverProvidedParams={{...}}>
+                            <Home params={Promise} searchParams={Promise}>
+                              <div
+                                id="intro"
+                                style={{
++                                 opacity: 1
++                                 transition: "opacity 0.8s ease"
+                                }}
+                              >
+                              <header>
+                              <section>
+                              <section>
+                              <section>
+                              ...
+                                <div className="contact-grid">
+                                  <form className="contact-form" onSubmit={function onSubmit}>
+                                    <div className="field">
+                                      <label>
+                                      <input
+                                        type="text"
+                                        id="name"
+                                        placeholder="Your name"
+                                        value=""
+                                        onChange={function onChange}
++                                       className=""
+-                                       className={null}
+                                      >
+                                    <div className="field">
+                                      <label>
+                                      <input
+                                        type="email"
+                                        id="email"
+                                        placeholder="your@email.com"
+                                        value=""
+                                        onChange={function onChange}
++                                       className=""
+-                                       className={null}
+                                      >
+                                    <div className="field">
+                                      <label>
+                                      <textarea
+                                        id="message"
+                                        rows={4}
+                                        placeholder="Tell us about your project"
+                                        value=""
+                                        onChange={function onChange}
++                                       className=""
+-                                       className={null}
+                                      >
+                                    ...
+                                  ...
+                        ...
+                      ...
+          ...
+
