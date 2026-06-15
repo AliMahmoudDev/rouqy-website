@@ -148,9 +148,9 @@ public/
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/rouqy.git
+git clone https://github.com/AliMahmoudDev/rouqy-website.git
 # Live site: https://www.rouqy.com/
-cd rouqy
+cd rouqy-website
 
 # Install dependencies
 npm install
