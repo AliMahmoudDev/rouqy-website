@@ -918,7 +918,20 @@ body {
 /* ============ TABLET ============ */
 @media (max-width: 1024px) {
   .side-text {
-    display: none;
+    font-size: 8px;
+    letter-spacing: 2px;
+  }
+
+  .side-text-left {
+    left: 6px;
+  }
+
+  .side-text-right {
+    right: 6px;
+  }
+
+  .side-text-line {
+    height: 8px;
   }
 
   .header {
