@@ -27,31 +27,34 @@ body {
   z-index: 50;
   display: flex;
   align-items: center;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
   font-size: 11px;
   letter-spacing: 4px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.55);
   font-weight: 300;
   pointer-events: none;
 }
 
 .side-text-left {
   left: 20px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: translateY(-50%) rotate(180deg);
 }
 
 .side-text-right {
   right: 20px;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
 }
 
 .side-text-line {
   display: block;
   width: 1px;
-  height: 20px;
-  background: rgba(255, 255, 255, 0.15);
+  height: 16px;
+  background: rgba(255, 255, 255, 0.3);
   writing-mode: horizontal-tb;
 }
 
