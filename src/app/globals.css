@@ -23,7 +23,6 @@ body {
 .side-text {
   position: fixed;
   top: 50%;
-  transform: translateY(-50%);
   z-index: 50;
   display: flex;
   align-items: center;
@@ -37,25 +36,33 @@ body {
 
 .side-text-left {
   left: 20px;
+  transform: translateY(-50%) rotate(180deg);
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  transform: translateY(-50%) rotate(180deg);
 }
 
 .side-text-right {
   right: 20px;
-  flex-direction: column;
-  gap: 16px;
+  transform: translateY(-50%);
   writing-mode: vertical-rl;
   text-orientation: mixed;
+  flex-direction: column;
+  gap: 0;
+  align-items: center;
+}
+
+.side-text-right span:not(.side-text-line) {
+  display: block;
+  text-align: center;
 }
 
 .side-text-line {
   display: block;
   width: 1px;
-  height: 16px;
+  height: 18px;
   background: rgba(255, 255, 255, 0.3);
   writing-mode: horizontal-tb;
+  flex-shrink: 0;
 }
 
 /* ============ INTRO ============ */
