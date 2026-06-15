@@ -543,13 +543,25 @@ body {
     height: 100vh;
     min-height: auto;
     flex-direction: column;
-    gap: 60px;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+  }
+
+  .about-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   .about-content {
-    position: static;
-    left: auto;
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    margin-left: -45%;
     max-width: 100%;
+    width: 90%;
     text-align: center;
     padding: 0 24px;
     /* opacity & transform controlled by GSAP animation on mobile */
