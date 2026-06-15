@@ -836,7 +836,7 @@ body {
 .whatsapp-float {
   position: fixed;
   bottom: 52px;
-  right: 52px;
+  left: 52px;
   width: 72px;
   height: 72px;
   z-index: 900;
@@ -1121,7 +1121,7 @@ body {
     width: 60px;
     height: 60px;
     bottom: 40px;
-    right: 40px;
+    left: 40px;
   }
 
   .whatsapp-float-icon svg {
