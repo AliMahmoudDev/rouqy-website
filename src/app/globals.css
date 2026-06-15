@@ -553,8 +553,7 @@ body {
     max-width: 100%;
     text-align: center;
     padding: 0 24px;
-    opacity: 1 !important;
-    transform: none !important;
+    /* opacity & transform controlled by GSAP animation on mobile */
   }
 
   .about-content p {

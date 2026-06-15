@@ -84,7 +84,7 @@ export default function Home() {
     const ctx = gsap.context(() => {
 
       // ---- About section: logo draw + scale + content reveal ----
-      if (drawPathRef.current && isDesktop) {
+      if (drawPathRef.current) {
         const length = drawPathRef.current.getTotalLength();
 
         gsap.set(fillPathRef.current, { opacity: 0 });
@@ -94,49 +94,95 @@ export default function Home() {
           strokeDashoffset: length,
         });
 
-        gsap.set(aboutContentRef.current, {
-          x: -120,
-          opacity: 0,
-        });
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: aboutSectionRef.current,
-            start: 'top top',
-            end: '+=4000',
-            scrub: true,
-            pin: true,
-          },
-        });
-
-        tl.to(drawPathRef.current, {
-          strokeDashoffset: 0,
-          duration: 2,
-          ease: 'none',
-        })
-          .to(fillPathRef.current, {
-            opacity: 1,
-            duration: 1,
-          })
-          .to(drawPathRef.current, {
+        if (isDesktop) {
+          // Desktop: full pinned animation with large scale
+          gsap.set(aboutContentRef.current, {
+            x: -120,
             opacity: 0,
-            duration: 0.5,
-          })
-          .to(aboutLogoSvgRef.current, {
-            scale: 7,
-            x: () => window.innerWidth * 0.28,
-            duration: 3,
-            transformOrigin: 'center center',
-          })
-          .to(
-            aboutContentRef.current,
-            {
-              opacity: 1,
-              x: 0,
-              duration: 1.5,
+          });
+
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: aboutSectionRef.current,
+              start: 'top top',
+              end: '+=4000',
+              scrub: true,
+              pin: true,
             },
-            '-=1.5'
-          );
+          });
+
+          tl.to(drawPathRef.current, {
+            strokeDashoffset: 0,
+            duration: 2,
+            ease: 'none',
+          })
+            .to(fillPathRef.current, {
+              opacity: 1,
+              duration: 1,
+            })
+            .to(drawPathRef.current, {
+              opacity: 0,
+              duration: 0.5,
+            })
+            .to(aboutLogoSvgRef.current, {
+              scale: 7,
+              x: () => window.innerWidth * 0.28,
+              duration: 3,
+              transformOrigin: 'center center',
+            })
+            .to(
+              aboutContentRef.current,
+              {
+                opacity: 1,
+                x: 0,
+                duration: 1.5,
+              },
+              '-=1.5'
+            );
+        } else {
+          // Mobile: draw logo + subtle scale + content reveal (no pin)
+          gsap.set(aboutContentRef.current, {
+            y: 60,
+            opacity: 0,
+          });
+
+          const mobileTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: aboutSectionRef.current,
+              start: 'top 60%',
+              end: '+=2500',
+              scrub: true,
+            },
+          });
+
+          mobileTl.to(drawPathRef.current, {
+            strokeDashoffset: 0,
+            duration: 2,
+            ease: 'none',
+          })
+            .to(fillPathRef.current, {
+              opacity: 1,
+              duration: 0.8,
+            })
+            .to(drawPathRef.current, {
+              opacity: 0,
+              duration: 0.4,
+            })
+            .to(aboutLogoSvgRef.current, {
+              scale: 1.8,
+              duration: 1.5,
+              transformOrigin: 'center center',
+            })
+            .to(
+              aboutContentRef.current,
+              {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+              },
+              '-=1'
+            );
+        }
       }
 
       // ---- Gallery horizontal scroll ----
