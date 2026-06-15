@@ -140,7 +140,7 @@ export default function Home() {
               '-=1.5'
             );
         } else {
-          // Mobile: draw logo → scale up slightly → logo shrinks down → content reveal
+          // Mobile: draw logo → scale up → logo moves to top → content appears below
           gsap.set(aboutContentRef.current, {
             y: 60,
             opacity: 0,
@@ -150,7 +150,7 @@ export default function Home() {
             scrollTrigger: {
               trigger: aboutSectionRef.current,
               start: 'top top',
-              end: '+=2500',
+              end: '+=3000',
               scrub: true,
               pin: true,
             },
@@ -175,10 +175,11 @@ export default function Home() {
               transformOrigin: 'center center',
             })
             .to(aboutLogoSvgRef.current, {
-              scale: 0.5,
-              opacity: 0.3,
-              duration: 1.2,
+              scale: 0.6,
+              y: () => -(window.innerHeight * 0.28),
+              duration: 2,
               transformOrigin: 'center center',
+              ease: 'power2.inOut',
             })
             .to(
               aboutContentRef.current,
@@ -187,7 +188,7 @@ export default function Home() {
                 y: 0,
                 duration: 1.2,
               },
-              '-=0.8'
+              '-=1'
             );
         }
       }
