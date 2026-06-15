@@ -25,7 +25,9 @@ body {
   top: 50%;
   z-index: 50;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 0;
   font-size: 11px;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -35,34 +37,32 @@ body {
 }
 
 .side-text-left {
-  left: 20px;
-  transform: translateY(-50%) rotate(180deg);
+  left: 8px;
+  transform: translateY(-50%);
+}
+
+.side-text-left > span {
+  display: block;
   writing-mode: vertical-rl;
-  text-orientation: mixed;
+  transform: rotate(180deg);
 }
 
 .side-text-right {
-  right: 20px;
+  right: 8px;
   transform: translateY(-50%);
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  flex-direction: column;
-  gap: 0;
-  align-items: center;
 }
 
-.side-text-right span:not(.side-text-line) {
+.side-text-right > span:not(.side-text-line) {
   display: block;
-  text-align: center;
-  padding: 8px 0;
+  writing-mode: vertical-rl;
+  padding: 6px 0;
 }
 
 .side-text-line {
   display: block;
-  width: 20px;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.4);
-  writing-mode: horizontal-tb;
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.35);
   flex-shrink: 0;
 }
 
