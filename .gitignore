@@ -1,5 +1,41 @@
-skills/
+# Dependencies
 node_modules/
+
+# Next.js build
 .next/
-tool-results/
+out/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build cache
 dev.log
+server.log
+
+# Tool internals
+tool-results/
+skills/
+.zscripts/
+Context/
+download/
+upload/
+
+# Database
+db/
+prisma/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+*.rar
+*.zip
+worklog.md
+bun.lock
