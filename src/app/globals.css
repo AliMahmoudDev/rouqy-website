@@ -37,7 +37,7 @@ body {
 }
 
 .side-text-left {
-  left: 8px;
+  left: 16px;
   transform: translateY(-50%);
 }
 
@@ -48,7 +48,7 @@ body {
 }
 
 .side-text-right {
-  right: 8px;
+  right: 16px;
   transform: translateY(-50%);
 }
 
