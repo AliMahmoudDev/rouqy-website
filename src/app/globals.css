@@ -809,14 +809,14 @@ body {
   justify-content: center;
   text-decoration: none;
   border-radius: 50%;
-  background: #2c2c2c;
-  box-shadow: 0 4px 20px rgba(44, 44, 44, 0.3);
+  background: #1a857a;
+  box-shadow: 0 4px 20px rgba(26, 133, 122, 0.35);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .whatsapp-float:hover {
   transform: scale(1.08);
-  box-shadow: 0 6px 28px rgba(44, 44, 44, 0.45);
+  box-shadow: 0 6px 28px rgba(26, 133, 122, 0.5);
 }
 
 /* Pulse ring animation */
