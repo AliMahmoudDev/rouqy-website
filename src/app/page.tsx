@@ -140,7 +140,7 @@ export default function Home() {
               '-=1.5'
             );
         } else {
-          // Mobile: draw logo + subtle scale + content reveal (no pin)
+          // Mobile: draw logo → scale up slightly → logo shrinks down → content reveal
           gsap.set(aboutContentRef.current, {
             y: 60,
             opacity: 0,
@@ -170,8 +170,14 @@ export default function Home() {
               duration: 0.4,
             })
             .to(aboutLogoSvgRef.current, {
-              scale: 1.8,
-              duration: 1.5,
+              scale: 1.5,
+              duration: 1,
+              transformOrigin: 'center center',
+            })
+            .to(aboutLogoSvgRef.current, {
+              scale: 0.5,
+              opacity: 0.3,
+              duration: 1.2,
               transformOrigin: 'center center',
             })
             .to(
@@ -181,7 +187,7 @@ export default function Home() {
                 y: 0,
                 duration: 1.2,
               },
-              '-=1'
+              '-=0.8'
             );
         }
       }
