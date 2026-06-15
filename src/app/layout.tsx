@@ -1,15 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["200", "300", "400", "500", "700"],
 });
 
 const siteUrl = "https://rouqy.com";
@@ -18,115 +14,83 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#13140f" },
-    { media: "(prefers-color-scheme: light)", color: "#13140f" },
-  ],
+  themeColor: "#0b2b2a",
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
 
-  // === CORE SEO ===
   title: {
-    default: "ROUQY — Where Elegance Meets Artistry",
-    template: "%s | ROUQY",
+    default: "ROUQY — Where Vision Meets Refinement",
+    template: "%s | ROUQY Interior Design",
   },
   description:
-    "ROUQY is a premier design studio crafting timeless luxury experiences across Saudi Arabia and the Gulf. Specializing in interior design, architecture, and bespoke living spaces.",
+    "ROUQY is a luxury interior design studio dedicated to transforming ideas into exceptional spaces. From concept development to final execution, we deliver tailored environments defined by precision, sophistication, and enduring quality.",
   keywords: [
     "ROUQY",
     "interior design",
     "luxury interiors",
-    "architecture",
-    "Saudi Arabia interior design",
     "Riyadh interior design",
-    "Gulf architecture",
-    "marble works",
-    "wood works",
-    "fit-out",
-    "furniture solutions",
-    "luxury residential design",
-    "commercial interior design",
-    "hospitality design",
-    "concept design",
-    "space planning",
+    "Saudi Arabia interior design",
+    "luxury design studio",
+    "concept development",
+    "refined spaces",
+    "sophisticated design",
   ],
   authors: [{ name: "ROUQY", url: siteUrl }],
   creator: "ROUQY",
   publisher: "ROUQY",
-  category: "Interior Design & Architecture",
-  classification: "Interior Design Services",
+  category: "Interior Design",
 
-  // === FAVICONS & ICONS ===
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "32x32" },
+      { url: "/logo.svg", type: "image/svg+xml" },
     ],
     apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-    ],
-    other: [
-      { url: "/favicon.svg", rel: "mask-icon", color: "#1d372d" },
+      { url: "/logo.png", sizes: "180x180", type: "image/png" },
     ],
   },
 
-  // === OPEN GRAPH (Facebook, LinkedIn, etc.) ===
   openGraph: {
-    title: "ROUQY — Where Elegance Meets Artistry",
+    title: "ROUQY — Where Vision Meets Refinement",
     description:
-      "Premier design studio crafting timeless luxury experiences across Saudi Arabia and the Gulf.",
+      "A luxury interior design studio dedicated to transforming ideas into exceptional spaces. Precision, sophistication, and enduring quality.",
     url: siteUrl,
     siteName: "ROUQY",
     type: "website",
     locale: "en_US",
     images: [
       {
-        url: "/og-image.png",
+        url: "/logo.png",
         width: 1200,
         height: 630,
-        alt: "ROUQY — Where Elegance Meets Artistry",
+        alt: "ROUQY — Luxury Interior Design Studio",
         type: "image/png",
       },
     ],
   },
 
-  // === TWITTER CARD ===
   twitter: {
     card: "summary_large_image",
-    title: "ROUQY — Where Elegance Meets Artistry",
+    title: "ROUQY — Where Vision Meets Refinement",
     description:
-      "Premier design studio crafting timeless luxury experiences across Saudi Arabia and the Gulf.",
-    images: ["/og-image.png"],
-    creator: "@rouqy",
-    site: "@rouqy",
+      "A luxury interior design studio dedicated to transforming ideas into exceptional spaces.",
+    images: ["/logo.png"],
   },
 
-  // === ROBOTS ===
   robots: {
     index: true,
     follow: true,
     googleBot: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
     },
   },
 
-  // === ALTERNATE ===
   alternates: {
     canonical: siteUrl,
-  },
-
-  // === APP LINKS ===
-  other: {
-    "apple-mobile-web-app-capable": "yes",
-    "apple-mobile-web-app-status-bar-style": "black-translucent",
-    "apple-mobile-web-app-title": "ROUQY",
-    "format-detection": "telephone=no",
   },
 };
 
@@ -137,11 +101,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="manifest" href="/manifest.json" />
-      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#13140f] text-white overflow-x-hidden`}
+        className={`${outfit.variable} antialiased bg-[#0b2b2a] text-white overflow-x-hidden`}
       >
         {children}
       </body>

@@ -387,3 +387,3136 @@ It can also happen if the client has a browser extension installed which messes 
 [07:09:34.585] Server  LOG     ✓ Compiled in 179ms
 [07:09:40.996] Server  LOG     ✓ Compiled in 281ms
 [07:10:18.972] Server  LOG     ✓ Compiled in 200ms
+[00:12:00.732] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.733] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.734] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.735] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.735] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.736] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.736] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.736] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.737] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.738] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.738] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.738] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.739] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.739] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.739] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.740] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.741] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.741] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.741] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.741] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.742] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.742] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.743] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.743] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.744] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.745] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.745] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.746] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.746] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.746] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.747] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.747] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.747] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.748] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.748] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.748] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.749] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.749] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.749] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.750] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.750] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.750] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.750] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.751] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.751] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.751] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.752] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.752] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.753] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.754] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.754] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.755] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.755] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.756] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.756] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.756] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.756] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.757] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.757] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.757] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.758] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.758] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.758] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.759] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.760] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.760] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.760] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.760] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.761] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.761] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.761] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.762] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.763] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.764] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.764] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.764] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.765] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.766] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.766] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.766] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.767] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.767] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.767] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.767] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.767] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.768] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.768] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.768] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.768] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.769] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.769] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.770] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.770] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.770] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.770] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.771] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.772] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.772] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.773] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.773] Server  ERROR   ⨯ ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.773] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.774] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.774] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.775] Server  ERROR   ⨯ ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.775] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.775] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.775] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.775] Server  ERROR   ⨯ ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.776] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.776] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.776] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.776] Server  ERROR   ⨯ ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.776] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.777] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.778] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.778] Server  ERROR   ⨯ ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.778] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.779] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.779] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:00.779] Server  ERROR   ⨯ ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:12:02.112] Browser ERROR   ./src/app/page.tsx:9:1
+Module not found: Can't resolve '@/components/ContactSection'
+   7 | import Navbar from '@/components/Navbar';
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+>  9 | import ContactSection from '@/components/ContactSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |
+  11 | export default function Home() {
+  12 |   const [introComplete, setIntroComplete] = useState(false);
+
+Import map: aliased to relative './src/components/ContactSection' inside of [project]/
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:12:02.112] Browser ERROR   ./src/app/page.tsx:6:1
+Module not found: Can't resolve '@/components/CursorGlow'
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+> 6 | import CursorGlow from '@/components/CursorGlow';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+  9 | import ContactSection from '@/components/ContactSection';
+
+Import map: aliased to relative './src/components/CursorGlow' inside of [project]/
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:12:02.112] Browser ERROR   ./src/app/page.tsx:4:1
+Module not found: Can't resolve '@/components/IntroAnimation'
+  2 |
+  3 | import { useState } from 'react';
+> 4 | import IntroAnimation from '@/components/IntroAnimation';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 | import ScrollExperience from '@/components/ScrollExperience';
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+
+Import map: aliased to relative './src/components/IntroAnimation' inside of [project]/
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:12:02.112] Browser ERROR   ./src/app/page.tsx:7:1
+Module not found: Can't resolve '@/components/Navbar'
+   5 | import ScrollExperience from '@/components/ScrollExperience';
+   6 | import CursorGlow from '@/components/CursorGlow';
+>  7 | import Navbar from '@/components/Navbar';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import PortfolioSection from '@/components/PortfolioSection';
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+
+Import map: aliased to relative './src/components/Navbar' inside of [project]/
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:12:02.112] Browser ERROR   ./src/app/page.tsx:8:1
+Module not found: Can't resolve '@/components/PortfolioSection'
+   6 | import CursorGlow from '@/components/CursorGlow';
+   7 | import Navbar from '@/components/Navbar';
+>  8 | import PortfolioSection from '@/components/PortfolioSection';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 | import ContactSection from '@/components/ContactSection';
+  10 |
+  11 | export default function Home() {
+
+Import map: aliased to relative './src/components/PortfolioSection' inside of [project]/
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:12:02.112] Browser ERROR   ./src/app/page.tsx:5:1
+Module not found: Can't resolve '@/components/ScrollExperience'
+  3 | import { useState } from 'react';
+  4 | import IntroAnimation from '@/components/IntroAnimation';
+> 5 | import ScrollExperience from '@/components/ScrollExperience';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 | import CursorGlow from '@/components/CursorGlow';
+  7 | import Navbar from '@/components/Navbar';
+  8 | import PortfolioSection from '@/components/PortfolioSection';
+
+Import map: aliased to relative './src/components/ScrollExperience' inside of [project]/
+
+Import traces:
+  Client Component Browser:
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:13:21.347] Server  LOG     ✓ Compiled in 150ms
