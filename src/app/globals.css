@@ -402,6 +402,49 @@ body {
   color: #0b2b2a;
 }
 
+.contact-btn.sending {
+  opacity: 0.7;
+  cursor: wait;
+  pointer-events: none;
+}
+
+.contact-btn.sent {
+  background: #2a9d6e;
+  border-color: #2a9d6e;
+  color: white;
+  pointer-events: none;
+}
+
+.field input.field-error,
+.field textarea.field-error {
+  border-bottom-color: #e74c3c;
+}
+
+.form-error-msg {
+  font-size: 13px;
+  color: #e74c3c;
+  letter-spacing: 0.5px;
+  animation: fadeSlideUp 0.4s ease forwards;
+}
+
+.form-success-msg {
+  font-size: 14px;
+  color: #2a9d6e;
+  letter-spacing: 0.5px;
+  animation: fadeSlideUp 0.4s ease forwards;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .contact-details {
   display: flex;
   flex-direction: column;

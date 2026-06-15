@@ -1766,6 +1766,49 @@ body {
   background: #fff;
 }
 
+.contact-btn.sending {
+  opacity: .7;
+  cursor: wait;
+  pointer-events: none;
+}
+
+.contact-btn.sent {
+  color: #fff;
+  pointer-events: none;
+  background: #2a9d6e;
+  border-color: #2a9d6e;
+}
+
+.field input.field-error, .field textarea.field-error {
+  border-bottom-color: #e74c3c;
+}
+
+.form-error-msg {
+  color: #e74c3c;
+  letter-spacing: .5px;
+  font-size: 13px;
+  animation: .4s forwards fadeSlideUp;
+}
+
+.form-success-msg {
+  color: #2a9d6e;
+  letter-spacing: .5px;
+  font-size: 14px;
+  animation: .4s forwards fadeSlideUp;
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .contact-details {
   flex-direction: column;
   gap: 40px;

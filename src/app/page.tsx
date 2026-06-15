@@ -27,6 +27,14 @@ export default function Home() {
   const [heroShow, setHeroShow] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  // Contact form state
+  const [formName, setFormName] = useState('');
+  const [formEmail, setFormEmail] = useState('');
+  const [formMessage, setFormMessage] = useState('');
+  const [formSending, setFormSending] = useState(false);
+  const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [formErrorMsg, setFormErrorMsg] = useState('');
+
   const aboutSectionRef = useRef<HTMLElement>(null);
   const drawPathRef = useRef<SVGPathElement>(null);
   const fillPathRef = useRef<SVGPathElement>(null);
@@ -182,6 +190,65 @@ export default function Home() {
     };
   }, []);
 
+  // ====== CONTACT FORM SUBMIT ======
+  const handleContactSubmit = useCallback(async () => {
+    // Reset status
+    setFormStatus('idle');
+    setFormErrorMsg('');
+
+    // Validate fields
+    if (!formName.trim() || !formEmail.trim() || !formMessage.trim()) {
+      setFormStatus('error');
+      setFormErrorMsg('Please fill in all fields.');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formEmail)) {
+      setFormStatus('error');
+      setFormErrorMsg('Please enter a valid email address.');
+      return;
+    }
+
+    setFormSending(true);
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formName.trim(),
+          email: formEmail.trim(),
+          message: formMessage.trim(),
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setFormStatus('error');
+        setFormErrorMsg(data.error || 'Something went wrong. Please try again.');
+        return;
+      }
+
+      // Success
+      setFormStatus('success');
+      setFormName('');
+      setFormEmail('');
+      setFormMessage('');
+
+      // Auto-hide success message after 5s
+      setTimeout(() => {
+        setFormStatus('idle');
+      }, 5000);
+    } catch {
+      setFormStatus('error');
+      setFormErrorMsg('Network error. Please check your connection and try again.');
+    } finally {
+      setFormSending(false);
+    }
+  }, [formName, formEmail, formMessage]);
+
   // Nav click handler (defined outside to avoid recreation)
   const handleNavClick = useCallback((e: Event) => {
     const target = e.target as HTMLAnchorElement;
@@ -319,11 +386,25 @@ export default function Home() {
             <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
               <div className="field">
                 <label htmlFor="name">Name</label>
-                <input type="text" id="name" placeholder="Your name" />
+                <input
+                  type="text"
+                  id="name"
+                  placeholder="Your name"
+                  value={formName}
+                  onChange={(e) => setFormName(e.target.value)}
+                  className={formStatus === 'error' && !formName.trim() ? 'field-error' : ''}
+                />
               </div>
               <div className="field">
                 <label htmlFor="email">Email</label>
-                <input type="email" id="email" placeholder="your@email.com" />
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="your@email.com"
+                  value={formEmail}
+                  onChange={(e) => setFormEmail(e.target.value)}
+                  className={formStatus === 'error' && !formEmail.trim() ? 'field-error' : ''}
+                />
               </div>
               <div className="field">
                 <label htmlFor="message">Message</label>
@@ -331,11 +412,25 @@ export default function Home() {
                   id="message"
                   rows={4}
                   placeholder="Tell us about your project"
+                  value={formMessage}
+                  onChange={(e) => setFormMessage(e.target.value)}
+                  className={formStatus === 'error' && !formMessage.trim() ? 'field-error' : ''}
                 />
               </div>
-              <button type="button" className="contact-btn">
-                Send Message
+              <button
+                type="button"
+                className={`contact-btn${formSending ? ' sending' : ''}${formStatus === 'success' ? ' sent' : ''}`}
+                onClick={handleContactSubmit}
+                disabled={formSending}
+              >
+                {formSending ? 'Sending...' : formStatus === 'success' ? 'Sent!' : 'Send Message'}
               </button>
+              {formStatus === 'error' && formErrorMsg && (
+                <span className="form-error-msg">{formErrorMsg}</span>
+              )}
+              {formStatus === 'success' && (
+                <span className="form-success-msg">Thank you! We&apos;ll get back to you within 24 hours.</span>
+              )}
             </form>
             <div className="contact-details">
               <div className="detail">
