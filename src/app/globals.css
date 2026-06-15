@@ -21,7 +21,7 @@ body {
 
 /* ============ SIDE TEXTS ============ */
 .side-text {
-  position: fixed;
+  position: absolute;
   top: 50%;
   z-index: 50;
   display: flex;
@@ -38,7 +38,7 @@ body {
 
 .side-text-left {
   left: 16px;
-  transform: translateY(-45%);
+  transform: translateY(-50%);
 }
 
 .side-text-left > span {

@@ -350,20 +350,6 @@ export default function Home() {
 
   return (
     <>
-      {/* ====== SIDE TEXTS ====== */}
-      <div className="side-text side-text-left">
-        <span>SINCE 2022</span>
-      </div>
-      <div className="side-text side-text-right">
-        <span>INTERIOR DESIGN</span>
-        <span className="side-text-line" />
-        <span>3D VISUALIZATION</span>
-        <span className="side-text-line" />
-        <span>PROJECT EXECUTION</span>
-        <span className="side-text-line" />
-        <span>SITE SUPERVISION</span>
-      </div>
-
       {/* ====== INTRO ====== */}
       {!introRemoved && (
         <div
@@ -395,6 +381,18 @@ export default function Home() {
           className={`hero-logo${heroShow ? ' show' : ''}`}
         />
         <div className="scroll-line" />
+        <div className="side-text side-text-left">
+          <span>SINCE 2022</span>
+        </div>
+        <div className="side-text side-text-right">
+          <span>INTERIOR DESIGN</span>
+          <span className="side-text-line" />
+          <span>3D VISUALIZATION</span>
+          <span className="side-text-line" />
+          <span>PROJECT EXECUTION</span>
+          <span className="side-text-line" />
+          <span>SITE SUPERVISION</span>
+        </div>
       </section>
 
       {/* ====== ABOUT ====== */}
