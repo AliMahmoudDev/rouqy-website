@@ -19,6 +19,42 @@ body {
   color: #fff;
 }
 
+/* ============ SIDE TEXTS ============ */
+.side-text {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.2);
+  font-weight: 300;
+  pointer-events: none;
+}
+
+.side-text-left {
+  left: 20px;
+}
+
+.side-text-right {
+  right: 20px;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.side-text-line {
+  display: block;
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  writing-mode: horizontal-tb;
+}
+
 /* ============ INTRO ============ */
 #intro {
   position: fixed;
@@ -870,6 +906,10 @@ body {
 
 /* ============ TABLET ============ */
 @media (max-width: 1024px) {
+  .side-text {
+    display: none;
+  }
+
   .header {
     padding: 28px 40px;
   }
