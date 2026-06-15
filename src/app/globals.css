@@ -862,6 +862,12 @@ body {
   line-height: 0;
 }
 
+.whatsapp-float-icon img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
 /* ============ TABLET ============ */
 @media (max-width: 1024px) {
   .header {
@@ -1081,6 +1087,11 @@ body {
   .whatsapp-float-icon svg {
     width: 22px;
     height: 22px;
+  }
+
+  .whatsapp-float-icon img {
+    width: 26px;
+    height: 26px;
   }
 
   .whatsapp-float-rotating-text {
