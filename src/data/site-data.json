@@ -1,0 +1,78 @@
+{
+  "brand": {
+    "name": "ROUQY",
+    "since": "SINCE 2022"
+  },
+
+  "sideText": {
+    "left": "SINCE 2022",
+    "right": [
+      "INTERIOR DESIGN",
+      "3D VISUALIZATION",
+      "PROJECT EXECUTION",
+      "SITE SUPERVISION"
+    ]
+  },
+
+  "about": {
+    "label": "ROUQY",
+    "headingBold": "Where Vision",
+    "headingLight": "Meets Refinement.",
+    "description": "ROUQY is a luxury interior design studio dedicated to transforming ideas into exceptional spaces. From concept development to final execution, we deliver tailored environments defined by precision, sophistication, and enduring quality."
+  },
+
+  "projects": {
+    "sectionLabel": "Selected Work",
+    "headingBold": "Our",
+    "headingLight": "Projects",
+    "ctaLabel": "Portfolio",
+    "ctaText": "Browse Full Gallery",
+    "scrollCount": 6,
+    "items": [
+      { "image": "/project1.jpg", "title": "Modern Living" },
+      { "image": "/project2.jpg", "title": "Elegant Dining" },
+      { "image": "/project3.jpg", "title": "Luxury Suite" },
+      { "image": "/project4.jpg", "title": "Grand Lobby" },
+      { "image": "/project5.jpg", "title": "Private Villa" },
+      { "image": "/project6.jpg", "title": "Premium Office" },
+      { "image": "/project7.jpg", "title": "Royal Living" },
+      { "image": "/project8.jpg", "title": "Fine Dining" },
+      { "image": "/project9.jpg", "title": "Master Bedroom" },
+      { "image": "/project10.jpg", "title": "Spa Bathroom" },
+      { "image": "/project11.jpg", "title": "Designer Kitchen" },
+      { "image": "/project12.jpg", "title": "Executive Office" },
+      { "image": "/project13.jpg", "title": "Hotel Lobby" },
+      { "image": "/project14.jpg", "title": "Terrace View" },
+      { "image": "/project15.jpg", "title": "Walk-in Closet" },
+      { "image": "/project16.jpg", "title": "Social Lounge" }
+    ]
+  },
+
+  "contact": {
+    "label": "Get in touch",
+    "headingLight": "Let's create",
+    "headingBold": "something refined.",
+    "email": "info@rouqy.com",
+    "phone": "+966570533358",
+    "phoneDisplay": "+966 57 053 3358",
+    "studio": "Riyadh, Saudi Arabia",
+    "socials": {
+      "Instagram": "#",
+      "Behance": "#",
+      "LinkedIn": "#"
+    }
+  },
+
+  "whatsapp": {
+    "phone": "966570533358",
+    "rotatingText": "GET IN TOUCH • GET IN TOUCH •"
+  },
+
+  "nav": {
+    "links": [
+      { "label": "About", "href": "#about" },
+      { "label": "Projects", "href": "#projects" },
+      { "label": "Contact", "href": "#contact" }
+    ]
+  }
+}

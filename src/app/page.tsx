@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import siteData from '@/data/site-data.json';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -12,26 +13,13 @@ if (typeof window !== 'undefined') {
 // Logo SVG path data (from client's inline SVG)
 const LOGO_PATH_D = "M345.55,167.19c0,6.3-2.72,11.08-8.16,14.35-2.81,1.53-5.64,2.28-8.47,2.28-2.19,0-4.24-.42-6.21-1.3-4.78-2.17-7.94-5.86-9.46-11.1-.44-1.5-1.53-2.28-3.27-2.28-1.08,0-1.95.55-2.61,1.64-3.03,5.66-4.55,11.65-4.55,17.95,0,2.61.2,5.22.64,7.83,1.53,8.93,7.19,16.43,16.98,22.53,3.47,1.53,6.04,3.91,7.67,7.16,1.61,3.27,2.43,6.77,2.43,10.46,0,12.85-2.17,25.56-6.52,38.18-8.91,27.2-24.59,46.9-47.01,59.08-11.3,6.08-24.25,9.24-38.82,9.46h-64.41v-162.48c0-79.26-64.23-143.49-143.47-143.49H10.03v113.01H1.5V1.5h208.23v133.7c0,12.67-5.04,24.83-14,33.78l-12.51,12.54,26.51,26.51v94.25c0,3.2.47,6.3,1.33,9.22,2.12,7.15,6.22,11.73,8.15,13.66,1.79,1.79,6.71,6.58,14.55,8.39,7.69,1.78,14.33-.19,19.56-1.75.75-.22,2.97-.9,5.75-2.09,13.27-5.66,22.84-15.23,28.72-28.72,2.83-6.74,4.22-14.04,4.22-21.87v-76.06c0-11.3,2.94-21.38,8.82-30.18,5.88-8.82,12.51-15.39,19.9-19.74,2.83-1.53,5.66-2.3,8.49-2.3,6.1,0,10.77,2.74,14.04,8.18,1.53,2.61,2.28,5.33,2.28,8.16Z";
 
-const projects = [
-  { bg: 'url(/project1.jpg) center/cover', title: 'Modern Living' },
-  { bg: 'url(/project2.jpg) center/cover', title: 'Elegant Dining' },
-  { bg: 'url(/project3.jpg) center/cover', title: 'Luxury Suite' },
-  { bg: 'url(/project4.jpg) center/cover', title: 'Grand Lobby' },
-  { bg: 'url(/project5.jpg) center/cover', title: 'Private Villa' },
-  { bg: 'url(/project6.jpg) center/cover', title: 'Premium Office' },
-  { bg: 'url(/project7.jpg) center/cover', title: 'Royal Living' },
-  { bg: 'url(/project8.jpg) center/cover', title: 'Fine Dining' },
-  { bg: 'url(/project9.jpg) center/cover', title: 'Master Bedroom' },
-  { bg: 'url(/project10.jpg) center/cover', title: 'Spa Bathroom' },
-  { bg: 'url(/project11.jpg) center/cover', title: 'Designer Kitchen' },
-  { bg: 'url(/project12.jpg) center/cover', title: 'Executive Office' },
-  { bg: 'url(/project13.jpg) center/cover', title: 'Hotel Lobby' },
-  { bg: 'url(/project14.jpg) center/cover', title: 'Terrace View' },
-  { bg: 'url(/project15.jpg) center/cover', title: 'Walk-in Closet' },
-  { bg: 'url(/project16.jpg) center/cover', title: 'Social Lounge' },
-];
+// Build projects array from JSON data
+const projects = siteData.projects.items.map(item => ({
+  bg: `url(${item.image}) center/cover`,
+  title: item.title,
+}));
 
-const SCROLL_COUNT = 6; // only these show in horizontal scroll
+const SCROLL_COUNT = siteData.projects.scrollCount;
 
 export default function Home() {
   const [introFading, setIntroFading] = useState(false);
@@ -71,17 +59,13 @@ export default function Home() {
   const gsapContextRef = useRef<gsap.Context | null>(null);
 
   // ====== INTRO ANIMATION ======
-  // Match client's JS exactly:
-  // 1. After 1200ms, set intro opacity to 0 (CSS transition handles fade)
-  // 2. Add .show class to hero-logo
-  // 3. After 800ms more, remove intro from DOM
   useEffect(() => {
     const fadeTimer = setTimeout(() => {
-      setIntroFading(true);    // triggers opacity: 0 via CSS transition
-      setHeroShow(true);       // triggers hero logo animation
+      setIntroFading(true);
+      setHeroShow(true);
 
       const removeTimer = setTimeout(() => {
-        setIntroRemoved(true); // removes from DOM
+        setIntroRemoved(true);
       }, 800);
 
       return () => clearTimeout(removeTimer);
@@ -119,7 +103,6 @@ export default function Home() {
         });
 
         if (isDesktop) {
-          // Desktop: full pinned animation with large scale
           gsap.set(aboutContentRef.current, {
             x: -120,
             opacity: 0,
@@ -164,7 +147,6 @@ export default function Home() {
               '-=1.5'
             );
         } else {
-          // Mobile: draw logo → scale up → logo moves to top → content appears below
           gsap.set(aboutContentRef.current, {
             y: 60,
             opacity: 0,
@@ -261,7 +243,7 @@ export default function Home() {
     gsapContextRef.current = ctx;
 
     return () => {
-      ctx.revert(); // kills ALL animations and ScrollTriggers in this context
+      ctx.revert();
       document.querySelectorAll('.nav-links a').forEach((link) => {
         link.removeEventListener('click', handleNavClick);
       });
@@ -270,11 +252,9 @@ export default function Home() {
 
   // ====== CONTACT FORM SUBMIT ======
   const handleContactSubmit = useCallback(async () => {
-    // Reset status
     setFormStatus('idle');
     setFormErrorMsg('');
 
-    // Validate fields
     if (!formName.trim() || !formEmail.trim() || !formMessage.trim()) {
       setFormStatus('error');
       setFormErrorMsg('Please fill in all fields.');
@@ -309,13 +289,11 @@ export default function Home() {
         return;
       }
 
-      // Success
       setFormStatus('success');
       setFormName('');
       setFormEmail('');
       setFormMessage('');
 
-      // Auto-hide success message after 5s
       setTimeout(() => {
         setFormStatus('idle');
       }, 5000);
@@ -327,7 +305,7 @@ export default function Home() {
     }
   }, [formName, formEmail, formMessage]);
 
-  // Nav click handler (defined outside to avoid recreation)
+  // Nav click handler
   const handleNavClick = useCallback((e: Event) => {
     const target = e.target as HTMLAnchorElement;
     if (target.tagName === 'A' && target.getAttribute('href')?.startsWith('#')) {
@@ -359,39 +337,38 @@ export default function Home() {
             transition: 'opacity 0.8s ease',
           }}
         >
-          <img src="/logo.svg" className="intro-logo" alt="ROUQY" />
+          <img src="/logo.svg" className="intro-logo" alt={siteData.brand.name} />
         </div>
       )}
 
       {/* ====== HEADER ====== */}
       <header className={`header${scrolled ? ' scrolled' : ''}`}>
         <div className="nav-links">
-          <a href="#about">About</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
+          {siteData.nav.links.map((link, i) => (
+            <a key={i} href={link.href}>{link.label}</a>
+          ))}
         </div>
-        <img src="/logo.svg" alt="ROUQY" className="header-logo" />
+        <img src="/logo.svg" alt={siteData.brand.name} className="header-logo" />
       </header>
 
       {/* ====== HERO ====== */}
       <section className="hero">
         <img
           src="/text.svg"
-          alt="ROUQY"
+          alt={siteData.brand.name}
           className={`hero-logo${heroShow ? ' show' : ''}`}
         />
         <div className="scroll-line" />
         <div className="side-text side-text-left">
-          <span>SINCE 2022</span>
+          <span>{siteData.sideText.left}</span>
         </div>
         <div className="side-text side-text-right">
-          <span>INTERIOR DESIGN</span>
-          <span className="side-text-line" />
-          <span>3D VISUALIZATION</span>
-          <span className="side-text-line" />
-          <span>PROJECT EXECUTION</span>
-          <span className="side-text-line" />
-          <span>SITE SUPERVISION</span>
+          {siteData.sideText.right.map((text, i) => (
+            <span key={i}>
+              {i > 0 && <span className="side-text-line" />}
+              <span>{text}</span>
+            </span>
+          ))}
         </div>
       </section>
 
@@ -399,19 +376,14 @@ export default function Home() {
       <section className="about-section" id="about" ref={aboutSectionRef}>
         <div className="about-stage">
           <div className="about-content" ref={aboutContentRef}>
-            <span className="about-label">ROUQY</span>
+            <span className="about-label">{siteData.about.label}</span>
             <div className="about-line" />
             <h2>
-              <span className="bold">Where Vision</span>
+              <span className="bold">{siteData.about.headingBold}</span>
               <br />
-              <span className="light">Meets Refinement.</span>
+              <span className="light">{siteData.about.headingLight}</span>
             </h2>
-            <p>
-              ROUQY is a luxury interior design studio dedicated to transforming
-              ideas into exceptional spaces. From concept development to final
-              execution, we deliver tailored environments defined by precision,
-              sophistication, and enduring quality.
-            </p>
+            <p>{siteData.about.description}</p>
           </div>
           <div className="about-logo">
             <svg
@@ -446,10 +418,10 @@ export default function Home() {
         <div className="gallery-wrap">
           <div className="gallery-track" ref={galleryTrackRef}>
             <div className="gallery-intro">
-              <span className="gallery-label">Selected Work</span>
+              <span className="gallery-label">{siteData.projects.sectionLabel}</span>
               <h2 className="gallery-heading">
-                <span className="bold">Our</span>{' '}
-                <span className="light">Projects</span>
+                <span className="bold">{siteData.projects.headingBold}</span>{' '}
+                <span className="light">{siteData.projects.headingLight}</span>
               </h2>
             </div>
             {projects.slice(0, SCROLL_COUNT).map((project, i) => (
@@ -464,8 +436,8 @@ export default function Home() {
               </div>
             ))}
             <div className="gallery-cta-card" onClick={() => setGalleryOpen(true)}>
-              <span className="gallery-cta-label">Portfolio</span>
-              <span className="gallery-cta-text">Browse Full Gallery</span>
+              <span className="gallery-cta-label">{siteData.projects.ctaLabel}</span>
+              <span className="gallery-cta-text">{siteData.projects.ctaText}</span>
               <span className="gallery-cta-arrow">→</span>
             </div>
           </div>
@@ -478,7 +450,7 @@ export default function Home() {
           <div className="gallery-overlay-inner" onClick={(e) => e.stopPropagation()}>
             <div className="gallery-overlay-header">
               <h2>
-                <span className="bold">Our</span> <span className="light">Projects</span>
+                <span className="bold">{siteData.projects.headingBold}</span> <span className="light">{siteData.projects.headingLight}</span>
               </h2>
               <button className="gallery-close-btn" onClick={() => setGalleryOpen(false)}>✕</button>
             </div>
@@ -530,11 +502,11 @@ export default function Home() {
       {/* ====== CONTACT ====== */}
       <section className="contact-section" id="contact" ref={contactSectionRef}>
         <div className="contact-inner" ref={contactInnerRef}>
-          <span className="contact-label">Get in touch</span>
+          <span className="contact-label">{siteData.contact.label}</span>
           <h2 className="contact-title">
-            <span className="light">Let&apos;s create</span>
+            <span className="light">{siteData.contact.headingLight}</span>
             <br />
-            <span className="bold">something refined.</span>
+            <span className="bold">{siteData.contact.headingBold}</span>
           </h2>
           <div className="contact-grid">
             <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
@@ -589,22 +561,22 @@ export default function Home() {
             <div className="contact-details">
               <div className="detail">
                 <span className="detail-label">Email</span>
-                <a href="mailto:info@rouqy.com">info@rouqy.com</a>
+                <a href={`mailto:${siteData.contact.email}`}>{siteData.contact.email}</a>
               </div>
               <div className="detail">
                 <span className="detail-label">Phone</span>
-                <a href="tel:+966570533358">+966 57 053 3358</a>
+                <a href={`tel:${siteData.contact.phone}`}>{siteData.contact.phoneDisplay}</a>
               </div>
               <div className="detail">
                 <span className="detail-label">Studio</span>
-                <p>Riyadh, Saudi Arabia</p>
+                <p>{siteData.contact.studio}</p>
               </div>
               <div className="detail">
                 <span className="detail-label">Follow</span>
                 <div className="socials">
-                  <a href="#">Instagram</a>
-                  <a href="#">Behance</a>
-                  <a href="#">LinkedIn</a>
+                  {Object.entries(siteData.contact.socials).map(([name, url]) => (
+                    <a key={name} href={url}>{name}</a>
+                  ))}
                 </div>
               </div>
             </div>
@@ -614,7 +586,7 @@ export default function Home() {
 
       {/* ====== WHATSAPP FLOATING BUTTON ====== */}
       <a
-        href="https://wa.me/966570533358"
+        href={`https://wa.me/${siteData.whatsapp.phone}`}
         target="_blank"
         rel="noopener noreferrer"
         className="whatsapp-float"
@@ -626,11 +598,11 @@ export default function Home() {
             <path id="textCircle" d="M 100, 100 m -72, 0 a 72,72 0 1,1 144,0 a 72,72 0 1,1 -144,0" />
           </defs>
           <text fill="rgba(255,255,255,0.7)" fontSize="11.5" letterSpacing="5" fontWeight="300">
-            <textPath href="#textCircle">GET IN TOUCH • GET IN TOUCH •</textPath>
+            <textPath href="#textCircle">{siteData.whatsapp.rotatingText}</textPath>
           </text>
         </svg>
         <span className="whatsapp-float-icon">
-          <img src="/logo.svg" alt="ROUQY" />
+          <img src="/logo.svg" alt={siteData.brand.name} />
         </span>
       </a>
     </>

@@ -52,7 +52,13 @@ body {
   transform: translateY(-45%);
 }
 
-.side-text-right > span:not(.side-text-line) {
+.side-text-right > span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.side-text-right > span > span:not(.side-text-line) {
   display: block;
   writing-mode: vertical-rl;
   padding: 4px 0;
