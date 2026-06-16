@@ -28,20 +28,60 @@ SVG logo draw effects, and a dark immersive aesthetic.
 
 ---
 
-## ✨ Overview
+## 🎬 See It In Action
 
-ROUQY is a single-page portfolio website for a luxury interior design studio based in Riyadh, Saudi Arabia. The site delivers a **cinematic, scroll-driven experience** where every section unfolds through carefully choreographed animations — from an SVG logo that draws itself stroke-by-stroke, to a horizontal gallery that glides as the user scrolls.
+<div align="center">
 
-The design philosophy is rooted in **restrained elegance**: a deep teal-dark palette (`#0b2b2a`), generous whitespace, ultra-light font weights, and subtle motion. Every interaction feels intentional, every transition feels natural.
+<img src="public/screenshots/demo.gif" alt="ROUQY Scroll Animation Demo" width="700" />
 
-> *"Where Vision Meets Refinement."*
+*Scroll through the entire experience — intro, logo draw, horizontal gallery, and contact reveal*
+
+</div>
 
 ---
 
-## 🎬 Key Features
+## 📸 Screenshots
+
+<div align="center">
+
+| Hero | About |
+|:---:|:---:|
+| <img src="public/screenshots/hero.png" alt="Hero" width="400" /> | <img src="public/screenshots/about.png" alt="About" width="400" /> |
+
+| Projects | Contact |
+|:---:|:---:|
+| <img src="public/screenshots/projects.png" alt="Projects" width="400" /> | <img src="public/screenshots/contact.png" alt="Contact" width="400" /> |
+
+</div>
+
+---
+
+## 🧭 Project Context
+
+This is a **client project** for **ROUQY Interior Design Studio**, a luxury design firm based in Riyadh, Saudi Arabia. The client needed a website that reflects the same level of sophistication and refinement they bring to their interior spaces — not a typical corporate landing page, but a **cinematic, scroll-driven storytelling experience**.
+
+### The Challenge
+
+The client wanted their website to feel like walking through one of their designed spaces — every reveal intentional, every transition smooth, every detail considered. This meant:
+
+- **Scroll-driven animations** that unfold the brand story step by step — not static sections
+- **An SVG logo that literally draws itself** on scroll, symbolizing the creative process
+- **A horizontal gallery** that glides as you scroll, showcasing their portfolio in a memorable way
+- **Full responsiveness** with different animation choreography on mobile vs desktop
+- **Easy content management** — the client needed to update images and text without developer help
+
+### The Result
+
+A single-page immersive experience where **every scroll tells a story**: the intro fades to reveal the hero, the logo draws itself stroke-by-stroke then explodes across the viewport to reveal the about section, the portfolio glides horizontally, and the contact form fades in with staggered elegance.
+
+> **Client satisfaction: 100%** — delivered a premium web experience that matches their luxury brand identity.
+
+---
+
+## ✨ Key Features
 
 ### 🖋️ SVG Logo Draw Animation
-The ROUQY logo is rendered as an inline SVG `<path>`. On scroll, GSAP's `strokeDashoffset` technique draws the outline stroke-by-stroke, then fades in the fill — creating an effect as if the logo is being sketched in real time.
+The ROUQY logo is rendered as an inline SVG `<path>`. On scroll, GSAP's `strokeDashoffset` technique draws the outline stroke-by-stroke, then fades in the fill — creating an effect as if the logo is being sketched in real time. On desktop, the logo then scales 7x and slides right to reveal the about content. On mobile, it scales up then repositions vertically with a completely different animation choreography.
 
 ### 🎞️ GSAP ScrollTrigger Animations
 Every section is powered by GSAP ScrollTrigger with scrub-linked timelines:
@@ -133,7 +173,13 @@ public/
 ├── text.svg                      # ROUQY full text logo (hero)
 ├── favicon.ico                   # Browser tab icon
 ├── apple-touch-icon.png          # iOS home screen icon
-└── project1.jpg … project16.jpg  # Portfolio images
+├── project1.jpg … project16.jpg  # Portfolio images
+└── screenshots/                  # README screenshots & demo GIF
+    ├── hero.png
+    ├── about.png
+    ├── projects.png
+    ├── contact.png
+    └── demo.gif
 ```
 
 ---
@@ -224,7 +270,7 @@ All user-facing content is managed through **`src/data/site-data.json`**:
 
 | Token | Value | Usage |
 |---|---|---|
-| Background | `#0b2b2a` | Primary background |
+| Background | `#0b2b2a` | Primary background — deep dark teal |
 | Accent | `#1a857a` | WhatsApp button, interactive highlights |
 | Success | `#2a9d6e` | Form success state |
 | Error | `#e74c3c` | Form error state |
@@ -255,6 +301,7 @@ Font: **Outfit** (variable, Google Fonts) with `clamp()` responsive sizing.
 | **Intro** | Logo scale-in → fade out | CSS animation + React state |
 | **Hero** | Logo reveal (translateY + opacity) | CSS keyframe on `.show` |
 | **Hero** | Scroll indicator line | CSS `::after` animation |
+| **Hero** | Vertical side text | `writing-mode: vertical-rl` with `rotate(180deg)` |
 | **About (Desktop)** | Stroke draw → fill → scale 7x → translate right → content slide-in | ScrollTrigger scrub timeline (5 steps) |
 | **About (Mobile)** | Stroke draw → fill → scale up → reposition up → content fade-up | ScrollTrigger scrub timeline (5 steps) |
 | **Projects** | Horizontal gallery scroll | ScrollTrigger `pin` + `scrub` |
@@ -281,22 +328,6 @@ Every push to `main` triggers an automatic deployment.
 
 ---
 
-## 📸 Screenshots
-
-> *Note: Replace with actual screenshots after deployment*
-
-| Section | Preview |
-|---|---|
-| Hero | Full-viewport dark background with centered ROUQY text logo, vertical side text, and scroll indicator |
-| About | Logo draws itself on scroll, scales across the viewport, content fades in |
-| Projects | Pinned horizontal scroll gallery with 6 featured images and CTA card |
-| Gallery | Full-screen overlay grid with 16 project thumbnails |
-| Lightbox | Full-screen image viewer with prev/next navigation |
-| Contact | Split layout — form on left, details on right |
-| WhatsApp | Floating teal button with rotating text and pulse animation |
-
----
-
 ## 📄 License
 
 This project is a custom-built website for **ROUQY Interior Design Studio**.  
@@ -306,6 +337,8 @@ All rights reserved. The code, design, and assets are proprietary.
 
 <div align="center">
 
-**Built with precision and care.**
+**Need a website like this for your business?**
+
+[💼 LinkedIn](https://www.linkedin.com/in/alimahmoud-dev) · [🐙 GitHub](https://github.com/AliMahmoudDev) · [✉️ Email](mailto:ali.mahmoud.developer@gmail.com)
 
 </div>
